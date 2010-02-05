@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Set a solid black background.
+fbsetroot -solid black
+
+# Turn off beeps.
+xset -b
+
+# Set the keyboard rate.
+xset r rate 250 30
+
+# Load X resources.
+# xrdb -all $HOME/.Xdefaults 2>/dev/null
+xrdb -all $HOME/.Xresources
+
+# Setup home font path.
+# xset +fp "$HOME/.fonts"
+# xset fp rehash
+#
+# Change the keymap.
+xmodmap $HOME/.Xmodmap
+
+# Setup eye candy. (for help: xcompmgr -h)
+# export XLIB_SKIP_ARGB_VISUALS=1
+# xcompmgr -c -f -F -D 3 &
+
+# Startup applications.
+xscreensaver -no-splash &
+thunar --daemon &
+yeahconsole &
+# conky &
+
+trayer --edge bottom --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x000000 --height 12 &
+
+export BROWSER=firefox
+
+exec /usr/local/bin/xmonad

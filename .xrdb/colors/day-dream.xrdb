@@ -1,0 +1,28 @@
+/* taken from 
+http://bbs.archlinux.org/viewtopic.php?id=51818
+user: Sen
+40m column
+*/
+
+#define COLOR_FG                  #dddddd
+/* #define COLOR_BG                  #121212 */
+#define COLOR_BG                  #353535
+
+#define COLOR_TERM_BLACK          #353535
+#define COLOR_TERM_DARK_RED       #ae4747
+/* #define COLOR_TERM_DARK_GREEN     #556b2f */
+#define COLOR_TERM_DARK_GREEN     #45a018
+#define COLOR_TERM_DARK_YELLOW    #daa520
+#define COLOR_TERM_DARK_BLUE      #6f99b4
+#define COLOR_TERM_DARK_MAGENTA   #8b7b8b
+#define COLOR_TERM_DARK_CYAN      #a7a15e
+#define COLOR_TERM_LIGHT_GRAY     #dddddd
+
+#define COLOR_TERM_DARK_GRAY      #666666
+#define COLOR_TERM_LIGHT_RED      #ee6363
+#define COLOR_TERM_LIGHT_GREEN    #9acd32
+#define COLOR_TERM_LIGHT_YELLOW   #ffc125
+#define COLOR_TERM_LIGHT_BLUE     #7c96b0
+#define COLOR_TERM_LIGHT_MAGENTA  #d8bfd8
+#define COLOR_TERM_LIGHT_CYAN     #foe68c
+#define COLOR_TERM_WHITE          #ffffff

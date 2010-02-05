@@ -1,0 +1,6 @@
+! Some keycodes: keycaps on the Microsoft ComfortCurve 2000:
+!     66 = Caps_Lock
+
+remove Lock = Caps_Lock
+keysym Caps_Lock = Control_L
+add Control = Control_L
