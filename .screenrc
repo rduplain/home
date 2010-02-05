@@ -1,0 +1,81 @@
+# Set an escape key which is handy but doesn't get in your way.
+# C-] is a really useful key, since it's hardly used elsewhere theses days.
+escape ^]]
+
+# I can live without bells. These settings seem to get rid of bells entirely.
+vbell off
+bell_msg ""
+vbell_msg ""
+
+# Why we use screen:
+autodetach on
+
+# Useful?
+startup_message off
+defflow off
+deflogin on
+defscrollback 20480
+defnonblock 5
+
+# Should we make TERM=xterm or TERM=screen ... ?
+term 'screen'
+
+# Select screens 10-19 with shift+0-9.
+bind  ) select 10
+bind  ! select 11
+bind  @ select 12
+bind \# select 13
+bind \$ select 14
+bind  % select 15
+bind \^ select 16
+bind  & select 17
+bind  * select 18
+bind  ( select 19
+
+# Do you want 1-indexed windows instead of 0-indexed?
+# bind ^c screen 1
+# bind  c screen 1
+# bind  0 select 10
+# bind  ) select 20
+# screen 1
+
+# Use display.  Yes, that's a kluge.
+# setenv DISPLAY ':0'
+
+# caption: date time  load  <windows up to> <current window> <windows after>
+# Explained:
+# %{=r gk} - set attributes to reverse (r) black (k) on green (g)
+# %Y-%m-%d - e.g. 2009-09-22 (Y = 2009, m = 09, d = 22)
+# %0c      - current time HH:MM in 24h format (c), zero-padded (0) when < 10h
+# %{=b kg} - set attributes to bold (b) green (g) on black (k)
+# %l       - system load (l)
+# %{=r gk} - set attributes to reverse (r) black (k) on green (g)
+# %-Lw     - all window numbers & names (w) up to current (-), with flags (L)
+# %{=r kg} - set attributes to reverse (r) green (g) on black (b)
+# %60L>    - truncate here when too many screens to fit, L means print '...'
+#            (60 means give up to 60 spaces from left margin)
+# %n       - current window number (n)
+# %t       - current window title (t)
+# %{-}     - restore attributes before last change was made ("pop" %{=r kg})
+# %+Lw     - all window numbers & names (w) after current (+), with flags (L)
+# %-0<     - truncate up to here, placing zero spaces (0) from right margin (-)
+# Spaces outside of escapes and other text are interpreted literally.
+caption always "%{=r gk}%Y-%m-%d %0c%{=b kg}  %l  %{=r gk}%-Lw%{=r kg}%60L>%n* %t%{-}%+Lw%-0<"
+
+# Use F8 to turn the status bar *off* at the bottom of the screen.
+bindkey -k k8 caption splitonly
+# Use F9 to turn the status bar *on* at the bottom of the screen.
+bindkey -k k9 caption always
+
+# Set some termcapinfo, from Ubuntu's screenrc.
+# The vt100 description does not mention "dl". *sigh*
+termcapinfo vt100 dl=5\E[M
+
+# set these terminals up to be 'optimal' instead of vt100
+termcapinfo xterm*|linux*|rxvt*|Eterm* OP
+
+# To get screen to add lines to xterm's scrollback buffer, the
+# following termcapinfo line which tells xterm to use the normal screen buffer
+# (which has scrollback), not the alternate screen buffer.
+#
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
