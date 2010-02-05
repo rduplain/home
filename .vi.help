@@ -1,0 +1,58 @@
+----------------                        -----------------
+Editing Commands                        Deleting Commands
+----------------                        -----------------
+
+ i	insert				x	delete character
+ o	open a new line (below)		X	delete character to left
+ O	open a new line (above)		d0	delete to beginning of line
+ a	append				d$	delete to end of line
+ A	append at end of line		dd	delete line
+ u	undo				5dd	delete 5 lines
+ .	repeat last command
+
+-------------------			-----------------
+Cutting and Pasting			Movement Commands
+-------------------			-----------------
+
+ yy	yank				H	move to top of screen (high)
+ 5yy	yank 5 lines			M	move to middle
+ p	paste				L	move to low
+ P	paste above current position	10G	go to line 10
+					w	go to next word
+					b	go back to previous word
+					0	beginning of line
+					$	end of line
+
+------------------
+Searching Commands
+------------------
+
+ /fred		search for "fred"
+ ?fred		search backwards for "fred"
+ n		repeat the last search
+
+----------------------------------
+Function Key Mappings (Customized)
+----------------------------------
+
+ F1:  get help (show this screen)
+ F2:  set number
+ F3:  set nonumber
+
+---------------------
+Run External Commands
+---------------------
+
+ :!ls -al		list current directory (long list)
+ :!pwd			print working directory
+
+----------------------
+Miscellaneous Commands
+----------------------
+
+ :r			read contents of a file into the current file
+ :s/FRED/BARNEY/g	swap FRED with BARNEY (current line only)
+ :10,20s/FRED/BARNEY/g	swap FRED with BARNEY on lines 10 through 20
+ :1,$s/FRED/BARNEY/g	swap every occurrence of FRED with BARNEY (entire file)
+ :10,20d		delete lines 10 through 20
+ :10,20y		yank (copy) lines 10 through 20 to the buffer
