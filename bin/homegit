@@ -1,0 +1,4 @@
+#!/bin/sh
+# Recipe from Kai Groner <kai@gronr.com>.
+
+exec git --git-dir=$HOME/.homegit --work-tree=$HOME "$@";
