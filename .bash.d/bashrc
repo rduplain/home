@@ -129,3 +129,4 @@ receive $BASH_DIR/bash_completion
 
 # Alias git completion to homegit script.
 complete -o default -o nospace -F _git homegit >/dev/null 2>&1
+complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
