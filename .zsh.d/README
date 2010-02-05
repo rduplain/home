@@ -1,0 +1,9 @@
+Personal init scripts for Z Shell (zsh).
+Ron DuPlain <ron.duplain@espresso-labs.com>
+
+Place all files at ~/.zsh.d.
+Provide rc/login functions for zsh.
+$ ln -s ~/.zsh.d/zshrc ~/.zshrc
+$ ln -s ~/.zshrc ~/.zlogin
+
+Use at your own risk.

@@ -1,0 +1,154 @@
+# prompt (zshrc) - Z shell (zsh) init script for shell prompt
+# Ron DuPlain <ron.duplain@espresso-labs.com>
+#
+# Establish a useful shell prompt.
+#
+# Examples:
+# [rduplain@espresso ~]$ 
+# [rduplain@espresso dir]$ 
+# [rduplain@espresso ! ~]$ 
+# [rduplain@espresso @! ~]$ 
+#                    ^^
+#    new mail flag --||
+#    non-zero exit ---|
+#    from previous command (i.e. some sort of failure)
+#
+# Currently, the prompt (PS1) is built every time from the builtin psvar array.
+# Whenever psvar is changed in zsh, the builtin PSVAR variable is set.
+# This script uses PSVAR to build PS1, by manipulating the psvar array.
+#
+# This file has high salience (99) to overwrite other periodic & precmd.
+
+# Should we check for mail in the functions below?
+# Check if a file exists at ~/.zsh_check_mail
+local mailprompt
+[[ -e $HOME/.zsh_check_mail ]] && mailprompt="true"
+
+# Cleanout builtin zsh mail checking.
+# Set mail settings for zsh to check.
+unset MAIL
+unset maildir
+unset mailpath
+# Use builtin zsh mail checking.
+# maildir=$HOME/webmail
+# mailpath=("$maildir/Inbox?You have new mail."
+#           "$maildir/List?You have new mailing list messages.")
+
+# Build a function to check for mail.
+if [ -n "$mailprompt" ]; then
+    # checkmail: return 0 if new mail exists, 1 otherwise.
+    function checkmail () {
+        local inbox_status
+        inbox_status=`mailutil check webmail/Inbox 2>/dev/null`
+        inbox_status=`echo $inbox_status | awk '{ print $1 }'`
+
+        # Return if there was no output.
+        [[ -z "$inbox_status" ]] && return 1
+
+        # inbox_status=No if no new mail, number of new messages otherwise
+        if [ "No" !=  "$inbox_status" ]; then
+            return 0
+        fi
+        return 1
+    }
+else
+    # checkmail: return 0 if new mail exists, 1 otherwise.
+    function checkmail () {
+        return 1
+    }
+fi
+
+# setmail: set the mail flag.
+function setmail () {
+    psvar[5]="@"
+    export NEWMAIL="check your email"
+}
+
+# unsetmail: unset/clear the mail flag.
+function unsetmail () {
+    psvar[5]=""
+    unset NEWMAIL
+}
+
+# freshmail: check again for mail, if the mail flag is set.
+function freshmail () {
+    if [ -n "$NEWMAIL" ]; then
+        if ( checkmail ); then
+            return 0
+        else
+            unsetmail
+            return 1
+        fi
+    fi
+    return 1
+}
+
+# Periodically check for mail.
+export PERIOD=60
+function periodic () {
+    if ( checkmail ); then
+        setmail
+    fi
+}
+
+psvar[1]=""           # for programmatic use -- what uses it?
+psvar[2]="["          # open prompt metadata tag
+psvar[3]="%n@%m"      # username@hostname
+psvar[4]=" "          # pad
+psvar[5]=""           # mail notification
+psvar[6]=""           # unused
+psvar[7]=""           # unused
+psvar[8]=""           # exit status (used in build_prompt)
+psvar[9]="%1~"        # print current working directory
+psvar[10]="]"         # close prompt metadata tag
+psvar[11]="%(!.#.$) " # sentinel character + space
+
+function build_prompt () {
+    # Keep freshmail; let's not let the mail status get stale.
+    freshmail
+
+    # Determine if an extra space for padding is needed.
+    local need_pad
+    if [ -n "$psvar[5]" ] || [ -n "$psvar[6]" ] || [ -n "$psvar[7]" ]; then
+        need_pad="true"
+    fi
+
+    # Set the exit status flag.
+    psvar[8]="%(?..! )"
+    [[ -n "$need_pad" ]] && psvar[8]="%(?. .! )"
+
+    # Build PS1 from PSVAR (colon-delimited psvar array).  Remove colons.
+    export PS1="${PSVAR//:/}"
+}
+
+# Declare precmd, similar to bash PROMPT_COMMAND variable.
+case "$TERM" in
+    xterm*|rxvt*)
+        function precmd () {
+            build_prompt
+            # Put useful bits in the terminal title string.
+            echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"
+        }
+        ;;
+    *)
+        function precmd () {
+            build_prompt
+        }
+        ;;
+esac
+
+# Print the time on the right hand side of the prompt.
+# (This isn't so great for copying command lines by mouse selection.)
+# export RPS1='%t'
+
+# Alternatively, scrap the above and just use a simple PS1 declaration.
+# export PS1='[%n@%m %1~]%(!.#.$) '
+# Put a warning for non-zero command output with (display ' !'): %(?..!)
+# export PS1='[%n@%m %(?..! )%1~]%(!.#.$) '
+
+# Declare a function to clear the prompt, should you want to manually set it.
+function prompt_clear () {
+        unset -f build_prompt
+        function build_prompt () { }
+        export PS1='[%n@%m %(?..! )%1~]%(!.#.$) '
+}

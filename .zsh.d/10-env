@@ -1,0 +1,60 @@
+# env (zshrc) - Z shell (zsh) init script for shell environment
+# Ron DuPlain <ron.duplain@espresso-labs.com>
+#
+# Set up shell environment.
+#
+# See util script for declaration of ship and prepend.
+
+# Set important paths.
+prepend PATH /bin /sbin
+prepend LD_LIBRARY_PATH /lib
+
+prepend PATH /usr/bin /usr/sbin
+prepend LD_LIBRARY_PATH /usr/lib
+
+prepend PATH /usr/local/bin /usr/local/sbin
+prepend LD_LIBRARY_PATH /usr/local/lib
+
+forhost perseus prepend PATH /usr/bin /usr/sbin
+forhost perseus prepend LD_LIBRARY_PATH /usr/lib
+
+receive /opt/64bit/guppi/guppi.bash > /dev/null
+
+prepend PATH $HOME/bin
+prepend LD_LIBRARY_PATH $HOME/lib
+
+prepend PATH /export/data_1/rduplain/bin
+prepend LD_LIBRARY_PATH /export/data_1/rduplain/lib
+
+export PATH
+export LD_LIBRARY_PATH
+
+# Set editor and essential program defaults.
+alias emacs='emacs -nw'
+
+export EDITOR='emacs -nw'
+export VISUAL=$EDITOR
+export TEXEDIT=$EDITOR
+export PAGER=less
+export GZIP="-9"
+
+# perseus has a weird emacs installation issue.
+if [ "`uname -n`" = "perseus" ]; then
+   alias emacs='/usr/local/bin/emacs -nw'
+   export editor='/usr/local/bin/emacs -nw'
+fi
+
+# READNULLCMD is used in zsh's '<' shortcut.
+export READNULLCMD=$PAGER
+
+# Set the external browser for Google Web Toolkit development.
+export GWT_EXTERNAL_BROWSER=firefox
+
+# Set Python defaults.
+ship PYTHONSTARTUP="$HOME/.pythonrc.py"
+prepend PYTHONPATH $HOME/lib/python/site-packages
+prepend PYTHONPATH $HOME/lib/python
+
+# Set up printers.
+export PRINTER=ps3e
+export CUPS_SERVER=printhost

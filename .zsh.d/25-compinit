@@ -1,0 +1,8 @@
+# compinit (zshrc) - Z shell (zsh) init script for compinit module
+# Ron DuPlain <ron.duplain@espresso-labs.com>
+#
+# Set up compinit.
+
+zstyle :compinstall filename $HOME/.zshrc 2>/dev/null 1>&2
+autoload -Uz compinit 2>/dev/null 1>&2
+compinit 2>/dev/null 1>&2

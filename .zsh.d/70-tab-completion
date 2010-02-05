@@ -1,0 +1,20 @@
+# tab-completion (zshrc) - Z shell (zsh) init script for tab completion
+# Ron DuPlain <ron.duplain@espresso-labs.com>
+#
+# Set up zstyle tab completion.
+
+# Provide tab completion for certain users.
+# Without this, zsh tab-completes on all NIS users.
+zstyle ':completion:*' users rduplain barista root git
+
+# Provide tab completion for hosts in known_hosts file.
+local knownhosts
+knownhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} ) 2>/dev/null
+zstyle ':completion:*:(ssh|scp|sftp):*' hosts $knownhosts 2>/dev/null
+
+# Set menu completion for non-trivial completion options.
+zstyle ':completion:*' menu select=6
+setopt automenu
+
+# Ignore functions starting with an underscore ('private' convention)
+zstyle ':completion:*:functions' ignored-patterns '_*'

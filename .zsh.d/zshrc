@@ -1,0 +1,22 @@
+# zshrc - Z shell (zsh) init script
+# Ron DuPlain <ron.duplain@espresso-labs.com>
+#
+# Place this somewhere like ~/.zshrc, possibly by symbolic link.
+# This is just a bootstrap script, which calls a collection of other scripts.
+# NOTE: functions periodic and precmd are reserved for prompt init script.
+
+function zshrc_source () {
+    local zshrcdir
+    zshrcdir=$HOME/.zsh.d
+
+    # Source every file in zshrcdir that starts with 2 digits.
+    # e.g. 10-env, 60-keys, 90-cleanup
+    # This is to prevent sourcing extra files like README.
+    # Also, this prevents loops where ~/.zshrc is symlinked to ~/.zsh.d/zshrc.
+    for source_file in $zshrcdir/[0-9][0-9]*[^~]; do
+        source $source_file
+    done
+    return 0
+}
+
+zshrc_source
