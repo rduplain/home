@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec x0vncserver -PasswordFile=$HOME/.vnc/passwd -AlwaysShared -AcceptKeyEvents=0 -AcceptCutText=0 -AcceptPointerEvents=0 $@

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+SCREEN=/usr/bin/screen
+SCREENRC=.screenrc
+
+if [ -e ${SCREENRC}-${USER} ]; then
+    exec $SCREEN -c $SCREENRC-${USER} $@
+elif [ -e $SCREENRC ]; then
+    exec $SCREEN -c $SCREENRC $@
+else
+    exec $SCREEN $@
+fi

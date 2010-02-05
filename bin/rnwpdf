@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export R_HOME=/usr
+
+sweave=/usr/lib/R/bin/Sweave
+latex=latex
+dvips=dvips
+ps2pdf="ps2pdf -dAutoRotatePages=/None"
+
+rfile=$1
+slug=${rfile%.*}
+
+$sweave $rfile &&
+$latex ${slug}.tex &&
+$dvips ${slug}.dvi
+$ps2pdf ${slug}.ps

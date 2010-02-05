@@ -1,0 +1,6 @@
+#!/bin/sh
+# User hack of /usr/lib/R/bin/Sweave
+# ${R_HOME}/bin/Sweave
+
+R_EXE=R
+echo "library(\"utils\"); Sweave(\"$1\")" | "${R_EXE}" --no-restore --slave
