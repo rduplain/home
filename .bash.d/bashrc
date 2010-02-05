@@ -1,0 +1,128 @@
+# bashrc - GNU bash source script for bash rc, login
+# Copyright 2007-2009 Ron DuPlain <ron.duplain@espresso-labs.com>
+#
+# To use:
+#     place this directory at ~/.bash.d
+#     link to ~/.bashrc, in $HOME directory:
+#     ln -s .bash.d/bashrc .bashrc
+
+# Use custom bash functions.
+export BASH_DIR=$HOME/.bash.d
+source $BASH_DIR/functions.bash
+
+# Set important paths.
+prepend PATH /bin /sbin
+prepend LD_LIBRARY_PATH /lib
+
+prepend PATH /usr/bin /usr/sbin
+prepend LD_LIBRARY_PATH /usr/lib
+prepend MANPATH /usr/man /usr/share/man
+
+prepend PATH /usr/local/bin /usr/local/sbin
+prepend LD_LIBRARY_PATH /usr/local/lib
+prepend MANPATH /usr/local/man /usr/local/share/man
+
+prepend PATH /opt/local/bin /opt/local/sbin
+prepend LD_LIBRARY_PATH /opt/local/lib
+prepend MANPATH /opt/local/man /opt/local/share/man
+
+prepend PATH $HOME/bin
+prepend LD_LIBRARY_PATH $HOME/lib
+prepend MANPATH $HOME/man $HOME/share/man
+
+prepend PATH /export/data/rduplain/bin
+prepend LD_LIBRARY_PATH /export/data/rduplain/lib
+prepend MANPATH /export/data/rduplain/man /export/data/rduplain/share/man
+
+prepend PATH /export/data_1/rduplain/bin
+prepend LD_LIBRARY_PATH /export/data_1/rduplain/lib
+prepend MANPATH /export/data_1/rduplain/man /export/data_1/rduplain/share/man
+
+prepend PATH /export/data_2/rduplain/bin
+prepend LD_LIBRARY_PATH /export/data_2/rduplain/lib
+prepend MANPATH /export/data_2/rduplain/man /export/data_2/rduplain/share/man
+
+prepend PATH $HOME/sandbox/local/`uname -n`/bin
+prepend LD_LIBRARY_PATH $HOME/sandbox/local/`uname -n`/lib
+prepend MANPATH $HOME/sandbox/local/`uname -n`/man $HOME/sandbox/local/`uname -n`/share/man
+
+export PATH
+export LD_LIBRARY_PATH
+export MANPATH
+
+# Set Python defaults.
+ship PYTHONSTARTUP="$HOME/.pythonrc.py"
+prepend PYTHONPATH $HOME/lib/python/site-packages
+prepend PYTHONPATH $HOME/lib/python
+export PYTHONPATH
+
+# If not running interactively, don't do anything further.
+[[ -z "$PS1" ]] && return
+
+# Set editor and essential program defaults.
+alias emacs='emacs -nw'
+
+export EDITOR='emacs -nw'
+export VISUAL=$EDITOR
+export TEXEDIT=$EDITOR
+export PAGER=less
+export GZIP="-9"
+
+# Set locale.
+export LC_ALL=en_US.UTF-8
+
+# Make less more friendly for non-text input files, see lesspipe(1).
+[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+forhost perseus LESSPIPE_SH=`which lesspipe.sh`
+forhost perseus [[ $LESSPIPE_SH = "/usr/bin/lesspipe.sh" ]] ||
+forhost perseus [[ $LESSPIPE_SH = "$HOME/bin/lesspipe.sh" ]] &&
+forhost perseus export LESSOPEN="|$LESSPIPE_SH %s " &&
+forhost perseus export LESS="$LESS -R "
+
+[[ -z "$PS1" ]] && return
+
+# Set prompt PS1 to "[user@host dir]$ "
+export PS1='[\u@\h \W]\$ '
+
+# If this is an xterm set the title to "user@host dir"
+case "$TERM" in
+xterm*|rxvt*)
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
+    export PROMPT_COMMAND
+    ;;
+*)
+    unset PROMPT_COMMAND
+    ;;
+esac
+
+# Enable color support of ls.
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+fi
+
+[[ -e env/bin/activate ]] && source env/bin/activate >/dev/null 2>&1 ||
+[[ -e ../env/bin/activate ]] && source ../env/bin/activate >/dev/null 2>&1
+
+# Set up printers.
+forhost perseus export PRINTER=ps3e
+forhost perseus export CUPS_SERVER=printhost
+
+# don't put duplicate lines in the history. See bash(1) for more options
+export HISTCONTROL=ignoreboth
+# export HISTCONTROL=erasedups:$HISTCONTROL
+export HISTFILESIZE=2048
+export HISTSIZE=4096
+export FCEDIT=$EDITOR
+export FIGNORE='~'
+unset MAILCHECK MAILPATH
+unset CDPATH
+
+export GDK_NATIVE_WINDOWS=1
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+receive /etc/bash_completion
+receive $BASH_DIR/bash_completion
