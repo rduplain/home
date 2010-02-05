@@ -1,0 +1,58 @@
+remote-repo: hackage.haskell.org:http://hackage.haskell.org/packages/archive
+remote-repo-cache: /home/rduplain/.cabal/packages
+-- local-repo:
+-- verbose: 1
+-- compiler: ghc
+-- with-compiler:
+-- with-hc-pkg:
+-- scratchdir:
+-- program-prefix: 
+-- program-suffix: 
+-- library-vanilla: True
+library-profiling: True
+-- shared: False
+-- executable-profiling: False
+-- optimization: True
+-- library-for-ghci: True
+-- split-objs: False
+-- executable-stripping: True
+user-install: False
+-- package-db:
+-- flags:
+-- extra-include-dirs:
+-- extra-lib-dirs:
+-- constraint:
+-- cabal-lib-version:
+-- preference:
+-- documentation: False
+root-cmd: sudo
+-- symlink-bindir:
+build-summary: /home/rduplain/.cabal/logs/build.log
+-- build-log:
+remote-build-reporting: anonymous
+-- username:
+-- password:
+
+install-dirs user
+  prefix: /home/rduplain
+  -- bindir: $prefix/bin
+  libdir: $prefix/lib
+  libsubdir: $compiler/$pkgid
+  -- libexecdir: $prefix/libexec
+  -- datadir: $prefix/share
+  -- datasubdir: $pkgid
+  -- docdir: $datadir/doc/$pkgid
+  -- htmldir: $docdir/html
+  -- haddockdir: $htmldir
+
+install-dirs global
+  prefix: /usr/local
+  -- bindir: $prefix/bin
+  libdir: $prefix/lib
+  libsubdir: $compiler/$pkgid
+  -- libexecdir: $prefix/libexec
+  -- datadir: $prefix/share
+  -- datasubdir: $pkgid
+  -- docdir: $datadir/doc/$pkgid
+  -- htmldir: $docdir/html
+  -- haddockdir: $htmldir
