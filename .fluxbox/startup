@@ -1,0 +1,83 @@
+# fluxbox startup file
+# By this point, X has called startfluxbox.
+# The goal of this file is to:
+#    * set a custom fluxbox environment
+#    * start apps before starting fluxbox
+#    * start fluxbox
+#    * start apps after fluxbox has started
+#    * wait until fluxbox exits
+#    * perform various tasks after fluxbox exits
+# Hence, this is a shell script which at some point execs and waits fluxbox.
+# All other persistent apps should be run in the background with &.
+
+# Set a solid black background.
+fbsetroot -solid black
+
+# Turn off beeps.
+xset -b
+
+# Set the keyboard rate.
+xset r rate 250 30
+
+# Setup home font path.
+# xset +fp "$HOME/.fonts"
+# xset fp rehash
+#
+# Change the keymap.
+# xmodmap "/home/rduplain/.Xmodmap"
+
+xrdb $HOME/.Xresources
+
+# Launch an ssh-agent, point to that agent, and add identity keys to it.
+# eval `ssh-agent`
+# ssh-add < /dev/null &
+
+# Setup eye candy. (for help: xcompmgr -h)
+# export XLIB_SKIP_ARGB_VISUALS=1
+# xcompmgr -c -f -F -D 3 &
+
+# Startup applications.
+# xscreensaver -no-splash &
+# gnome-settings-daemon &
+# dbus-launch nm-applet --sm-disable &
+# nm-applet --sm-disable &
+# gnome-screensaver &
+# gnome-power-manager &
+# gnome-volume-control-applet &
+# thunar --daemon &
+# update-notifier --startup-delay=60 &
+# python /usr/share/system-config-printer/applet.py &
+yeahconsole &
+# conky &
+
+screens &
+
+# For use with the workspace script.
+export WORKSPACES_RESERVED=5
+
+# Some GNOME processes to try out...
+# /usr/lib/bonobo-activation/bonobo-activation-server --ac-activate --ior-output-fd=20 &
+# /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
+# Start fluxbox.
+# exec ck-launch-session /usr/bin/fluxbox -log $HOME/.fluxbox/log
+exec /usr/bin/fluxbox -log "/home/rduplain/.fluxbox/log"
+# /usr/bin/dbus-launch --exit-with-session /usr/bin/pulse-session fluxbox
+
+# Grab the fluxbox process id.
+# FLUXBOX_PID=$!
+
+# Wait a moment.
+# sleep 5
+
+# Start post-fluxbox apps here.
+# Some apps just work better this way.
+
+# Wait for fluxbox.
+# wait $FLUXBOX_PID
+
+# Clean up.
+# kill $SSH_AGENT_PID
+# killall gam_server
+# killall dbus-daemon
+# killall pulseaudio

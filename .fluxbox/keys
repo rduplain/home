@@ -1,0 +1,279 @@
+OnTitlebar Mouse2        :StartTabbing
+OnTitlebar Double Mouse1 :Shade
+OnTitlebar Mouse3        :WindowMenu
+OnWindow Mod1 Mouse1     :MacroCmd {Raise} {Focus} {StartMoving}
+OnWindow Mod1 Mouse3     :MacroCmd {Raise} {Focus} {StartResizing BottomRight}
+OnWindow Mod1 Mouse2     :MacroCmd {Raise} {Focus} {WindowMenu}
+OnToolbar Mouse4         :NextWorkspace
+OnToolbar Mouse5         :PrevWorkspace
+
+# desktop mouse actions
+OnDesktop Mouse1 :HideMenus
+OnDesktop Mouse2 :WorkspaceMenu
+OnDesktop Mouse3 :RootMenu
+OnDesktop Mouse4 :ExecCommand workspace next
+OnDesktop Mouse5 :ExecCommand workspace prev
+
+# alt-tab
+Mod1 Tab       :NextWindow
+Mod1 Shift Tab :PrevWindow
+
+Mod1 Up        :FocusUp
+Mod1 Down      :FocusDown
+Mod1 Left      :FocusLeft
+Mod1 Right     :FocusRight
+
+# change workspace
+# Control Tab :NextWorkspace
+# Control Shift Tab :PrevWorkspace
+ 
+Mod4 Mod1 n :NextWorkspace
+Mod4 Mod1 p :PrevWorkspace
+Control Mod4 Mod1 n :TakeToNextWorkspace
+Control Mod4 Mod1 p :TakeToPrevWorkspace
+
+Mod4 n :ExecCommand workspace next
+Mod4 p :ExecCommand workspace prev
+Control Mod4 n :ExecCommand workspace take 1
+Control Mod4 p :ExecCommand workspace take -1
+
+Mod4 Mod1 Right :NextWorkspace
+Mod4 Mod1 Left :PrevWorkspace
+Control Mod4 Mod1 Right :TakeToNextWorkspace
+Control Mod4 Mod1 Left :TakeToPrevWorkspace
+
+Mod4 Right :ExecCommand workspace next
+Mod4 Left :ExecCommand workspace prev
+Control Mod4 Right :ExecCommand workspace take 1
+Control Mod4 Left :ExecCommand workspace take -1
+
+Mod4 equal :ExecCommand workspace add
+Mod4 minus :ExecCommand workspace remove
+Mod4 Return :ExecCommand workspace plow
+
+# direct workspace short-cuts
+# Control F1    :Workspace 1
+# Control F2    :Workspace 2
+# Control F3    :Workspace 3
+# Control F4    :Workspace 4
+# Control F5    :Workspace 5
+# Control F6    :Workspace 6
+# Control F7    :Workspace 7
+# Control F8    :Workspace 8
+
+# Mod4 KP_End   :Workspace 1
+# Mod4 KP_Down  :Workspace 2
+# Mod4 KP_Next  :Workspace 3
+# Mod4 KP_Left  :Workspace 4
+# Mod4 KP_Begin :Workspace 5
+# Mod4 KP_Right :Workspace 6
+# Mod4 KP_Home  :Workspace 7
+# Mod4 KP_Up    :Workspace 8
+# Mod4 KP_Prior :Workspace 9
+
+Mod4 1      :Workspace 6
+Mod4 2      :Workspace 7
+Mod4 3      :Workspace 8
+Mod4 4      :Workspace 9
+Mod4 5      :Workspace 10
+Mod4 6      :ExecCommand workspace goto # like firefox's alt-9
+Mod4 7      :Workspace 4
+Mod4 8      :Workspace 3
+Mod4 9      :Workspace 2
+Mod4 0      :Workspace 1
+Mod4 grave  :Workspace 5
+Mod4 Mod1 1 :Workspace 16
+Mod4 Mod1 2 :Workspace 17
+Mod4 Mod1 3 :Workspace 18
+Mod4 Mod1 4 :Workspace 19
+Mod4 Mod1 5 :Workspace 20
+Mod4 Mod1 6 :Workspace 11
+Mod4 Mod1 7 :Workspace 12
+Mod4 Mod1 8 :Workspace 13
+Mod4 Mod1 9 :Workspace 14
+Mod4 Mod1 0 :Workspace 15
+
+Control Mod4 1      :TakeToWorkspace 6
+Control Mod4 2      :TakeToWorkspace 7
+Control Mod4 3      :TakeToWorkspace 8
+Control Mod4 4      :TakeToWorkspace 9
+Control Mod4 5      :TakeToWorkspace 10
+Control Mod4 6      :ExecCommand workspace take 0
+Control Mod4 7      :TakeToWorkspace 4
+Control Mod4 8      :TakeToWorkspace 3
+Control Mod4 9      :TakeToWorkspace 2
+Control Mod4 0      :TakeToWorkspace 1
+Control Mod4 grave  :TakeToWorkspace 5
+Mod4 BackSpace      :SendToWorkspace 5
+
+Control Mod4 Mod1 1 :TakeToWorkspace 16
+Control Mod4 Mod1 2 :TakeToWorkspace 17
+Control Mod4 Mod1 3 :TakeToWorkspace 18
+Control Mod4 Mod1 4 :TakeToWorkspace 19
+Control Mod4 Mod1 5 :TakeToWorkspace 20
+Control Mod4 Mod1 6 :TakeToWorkspace 11
+Control Mod4 Mod1 7 :TakeToWorkspace 12
+Control Mod4 Mod1 8 :TakeToWorkspace 13
+Control Mod4 Mod1 9 :TakeToWorkspace 14
+Control Mod4 Mod1 0 :TakeToWorkspace 15
+
+# take the focused window to a workspace
+# Control Mod4 Right       :TakeToNextWorkspace
+# Control Mod4 Left        :TakeToPrevWorkspace
+# Control Shift Mod4 Right :TakeToNextWorkspace 3
+# Control Shift Mod4 Left  :TakeToPrevWorkspace 3
+
+# Control Mod4 F1          :TakeToWorkspace 1
+# Control Mod4 F2          :TakeToWorkspace 2
+# Control Mod4 F3          :TakeToWorkspace 3
+# Control Mod4 F4          :TakeToWorkspace 4
+# Control Mod4 F5          :TakeToWorkspace 5
+# Control Mod4 F6          :TakeToWorkspace 6
+# Control Mod4 F7          :TakeToWorkspace 7
+# Control Mod4 F8          :TakeToWorkspace 8
+
+# Control Mod4 KP_End      :TakeToWorkspace 1
+# Control Mod4 KP_Down     :TakeToWorkspace 2
+# Control Mod4 KP_Next     :TakeToWorkspace 3
+# Control Mod4 KP_Left     :TakeToWorkspace 4
+# Control Mod4 KP_Begin    :TakeToWorkspace 5
+# Control Mod4 KP_Right    :TakeToWorkspace 6
+# Control Mod4 KP_Home     :TakeToWorkspace 7
+# Control Mod4 KP_Up       :TakeToWorkspace 8
+# Control Mod4 KP_Prior    :TakeToWorkspace 9
+
+# window controls
+Control Shift f  :Fullscreen
+Control Shift v  :MaximizeVertical
+Control Shift h  :MaximizeHorizontal
+# Control Shift ,
+Control Shift 59 :MinimizeWindow
+Control Shift m  :MaximizeWindow
+# Control Shift .
+Control Shift 60 :StickWindow
+# Control Shift /
+Control Shift 61 :ShadeWindow
+Control Shift x  :Raise
+Control Shift z  :Lower
+Control Shift BackSpace :Close
+
+# Super key shortcuts
+Mod4 a :ArrangeWindows
+# Mod4 c :ExecCommand /usr/lib/ICAClient/wfcmgr.bin -icaroot /usr/lib/ICAClient
+Mod4 c :ExecCommand gnome-control-center
+Mod4 v :ExecCommand gnome-display-properties
+Mod4 d :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
+Mod4 e :ExecCommand thunar
+Mod4 f :ExecCommand gnome-search-tool
+Mod4 g :ExecCommand gimp
+Mod4 i :ExecCommand pidgin
+Mod4 b :ExecCommand VirtualBox
+Mod4 s :ExecCommand skype
+Mod4 k :ExecCommand xkill
+Mod4 l :ExecCommand gnome-screensaver-command --lock
+Mod4 m :ExecCommand thunderbird
+Mod4 r :ExecCommand ~/bin/fbrun
+Mod4 u :ExecCommand gnome-dictionary
+Mod4 w :ExecCommand firefox -P default
+Mod4 Mod1 w :ExecCommand firefox -P transient --no-remote
+Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote
+Mod4 x :ExecCommand xterm
+
+# nudge windows
+Control Shift Right      :MoveRight 8
+Control Shift Left       :MoveLeft 8
+Control Shift Up         :MoveUp 8
+Control Shift Down       :MoveDown 8
+
+Control Mod1 Shift Right :MoveRight 1
+Control Mod1 Shift Left  :MoveLeft 1
+Control Mod1 Shift Up    :MoveUp 1
+Control Mod1 Shift Down  :MoveDown 1
+
+# position presets
+Control Shift KP_End   :MoveTo 0 0 LowerLeft
+Control Shift KP_Down  :MoveTo * 0 LowerRight
+Control Shift KP_Next  :MoveTo 0 0 LowerRight
+Control Shift KP_Left  :MoveTo 0 * Left
+# Control Shift KP_Begin
+Control Shift KP_Right :MoveTo 0 * Right
+Control Shift KP_Home  :MoveTo 0 0 UpperLeft
+Control Shift KP_Up    :MoveTo * 0 Upper
+Control Shift KP_Prior :MoveTo 0 0 UpperRight
+
+Control Shift y :MoveLeft 1000
+Control Shift p :MoveRight 1000
+
+Control Shift Mod1 y :MoveDown 1000
+Control Shift Mod1 p :MoveUp 1000
+
+# position presets
+Control Shift j :MoveTo 0 0 LowerLeft
+Control Shift k :MoveTo * 0 LowerRight
+Control Shift l :MoveTo 0 0 LowerRight
+Control Shift u :MoveTo 0 * Left
+Control Shift i :MoveTo 200 200 UpperLeft
+Control Shift o :MoveTo 0 * Right
+Control Shift 7 :MoveTo 0 0 UpperLeft
+Control Shift 8 :MoveTo * 0 Upper
+Control Shift 9 :MoveTo 0 0 UpperRight
+
+# position presets
+# Control Shift KP_End   :MoveTo -1 -1 LowerLeft
+# I think this used to work:
+# Control Shift KP_Down  :MoveTo * -1 Lower
+# Control Shift KP_Down  :MoveTo * -1 LowerRight
+# Control Shift KP_Next  :MoveTo -2 -1 LowerRight
+# Control Shift KP_Left  :MoveTo -1 * Left
+# Control Shift KP_Begin
+# Control Shift KP_Right :MoveTo -2 * Right
+# Control Shift KP_Home  :MoveTo -1 0 UpperLeft
+# Control Shift KP_Up    :MoveTo * 0 Upper
+# Control Shift KP_Prior :MoveTo -2 0 UpperRight
+
+# position presets
+# Control Shift j :MoveTo -1 -1 LowerLeft
+# Control Shift k :MoveTo * -1 LowerRight
+# Control Shift l :MoveTo -2 -1 LowerRight
+# Control Shift u :MoveTo -1 * Left
+# Control Shift i :MoveTo 200 200 UpperLeft
+# Control Shift o :MoveTo -2 * Right
+# Control Shift 7 :MoveTo -1 0 UpperLeft
+# Control Shift 8 :MoveTo * 0 Upper
+# Control Shift 9 :MoveTo -2 0 UpperRight
+
+# size presets
+# resize options based on screen size and terminal font size
+# a: xterm (or preferred terminal) default
+# b: quarter screen, on including iconbar
+# c: 800x600
+# d: 1024x768
+# e: pidgin convo default, pidgin buddy list default
+Control Shift a      :ResizeTo 564 412
+Control Shift b      :ResizeTo 640 500
+Control Shift c      :ResizeTo 800 600
+Control Shift d      :ResizeTo 1024 768
+Control Shift e      :ResizeTo 381 500
+Control Mod1 Shift e :ResizeTo 256 500
+
+# menu shortcut
+Control Escape :RootMenu
+
+# multimedia keys
+# XF86Calculator :ExecCommand gnome-calculator
+# calculator key on Microsoft ComfortCurve 2000: 161
+161            :ExecCommand gnome-calculator
+
+Control Mod1 Up     :ExecCommand rhythmbox-client --pause
+Control Mod1 Down   :ExecCommand rhythmbox-client --play-pause
+Control Mod1 Left   :ExecCommand rhythmbox-client --previous
+Control Mod1 Right  :ExecCommand rhythmbox-client --next
+Control Mod1 Return :ExecCommand rhythmbox-client --notify
+
+# print screen
+Print :ExecCommand import /tmp/screenshot.jpg && display /tmp/screenshot.jpg
+Control Print :ExecCommand import /tmp/screenshot.eps && display /tmp/screenshot.eps
+
+# reconfigure/restart fluxbox
+Control Mod4 Delete       :Reconfigure
+Control Mod4 Shift Delete :Restart

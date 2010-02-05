@@ -1,0 +1,12 @@
+[begin] (   americano   )
+[encoding] {UTF-8}
+      [exec] (Terminal) {xterm}
+      [exec] (Firefox) {firefox -P default}
+      [nop]
+      [exec] (Lock) {gnome-screensaver-command --lock}
+      [reconfig] (Reload)
+      [restart] (Restart)
+      [exec] (Exit) {killall -u rduplain gnome-session; killall -u rduplain pulseaudio}
+[end]
+[endencoding]
+[end]

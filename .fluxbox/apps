@@ -1,0 +1,64 @@
+[app] (name=pin2desktop)
+  [Dimensions]	{1280 768}
+  [Position]	(UPPERLEFT)	{0 0}
+  [Hidden]	{yes}
+  [Sticky]	{yes}
+  [Layer]	{12}
+[end]
+[app] (name=pidgin) (class=Pidgin) (role=buddy_list)
+  [Workspace]	{0}
+  [Head]	{0}
+  [Dimensions]	{256 500}
+  [Position]	(UPPERRIGHT)	{0 0}
+  [Sticky]	{yes}
+[end]
+[app] (name=pidgin) (class=Pidgin) (role=conversation)
+  [Workspace]	{0}
+  [Head]	{0}
+  [Dimensions]	{380 500}
+  [Position]	(UPPERRIGHT)	{258 0}
+  [Sticky]	{yes}
+[end]
+[app] (name=pidgin) (class=Pidgin) (role=accounts)
+  [Head]	{0}
+  [Position]	(UPPERRIGHT)	{0 502}
+  [Sticky]	{yes}
+[end]
+[app] (name=fbrun)
+  [Head]	{0}
+  [Position]	(LOWERLEFT)	{0 -26}
+  [Deco]	{NONE}
+  [IconHidden]	{yes}
+  [Sticky]	{yes}
+  [Layer]	{0}
+[end]
+[app] (name=gimp) (class=Gimp) (role=gimp-dock)
+  [Dimensions]	{210 844}
+  [Position]	(UPPERLEFT)	{1148 -100}
+  [Maximized]	{vert}
+[end]
+[app] (name=gimp) (class=Gimp) (role=gimp-toolbox)
+  [Dimensions]	{170 844}
+  [Position]	(UPPERLEFT)	{-1 -100}
+  [Maximized]	{vert}
+[end]
+[app] (name=gimp) (class=Gimp) (role=gimp-image-window)
+  [Dimensions]	{975 743}
+  [Position]	(UPPERLEFT)	{171 0}
+[end]
+[app] (name=openarena) (class=openarena)
+  [Position]	(UPPERLEFT)	{-8 -22}
+[end]
+[app] (name=teeworlds) (class=teeworlds)
+  [Position]	(UPPERLEFT)	{-8 -23}
+[end]
+[app] (name=rhythmbox) (class=Rhythmbox)
+  [Workspace]	{3}
+  [Maximized]	{yes}
+[end]
+[app] (name=Navigator) (class=Firefox) (role=browser)
+  [Maximized]	{yes}
+[end]
+[app] (name=thunderbird-bin) (class=Thunderbird-bin)
+  [Workspace]	{1}
+[end]
