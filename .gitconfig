@@ -1,0 +1,7 @@
+[color]
+	ui = auto
+[user]
+	email = ron.duplain@espresso-labs.com
+	name = Ron DuPlain
+[push]
+	default = matching
