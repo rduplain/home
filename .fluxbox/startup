@@ -42,6 +42,7 @@ xrdb $HOME/.Xresources
 # dbus-launch nm-applet --sm-disable &
 # nm-applet --sm-disable &
 # gnome-screensaver &
+gnome-screensaver-watch &
 # gnome-power-manager &
 # gnome-volume-control-applet &
 # thunar --daemon &
