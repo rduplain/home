@@ -14,6 +14,18 @@ OnDesktop Mouse3 :RootMenu
 OnDesktop Mouse4 :ExecCommand workspace next
 OnDesktop Mouse5 :ExecCommand workspace prev
 
+OnDesktop Mod4 Mouse1 :ExecCommand workspace next
+OnDesktop Mod4 Mouse3 :ExecCommand workspace prev
+
+OnDesktop Mod4 Mod1 Mouse1 :NextWorkspace
+OnDesktop Mod4 Mod1 Mouse3 :PrevWorkspace
+
+OnDesktop Control Mouse1 :ExecCommand workspace next
+OnDesktop Control Mouse3 :ExecCommand workspace prev
+
+OnDesktop Control Mod1 Mouse1 :NextWorkspace
+OnDesktop Control Mod1 Mouse3 :PrevWorkspace
+
 # alt-tab
 Mod1 Tab       :NextWindow
 Mod1 Shift Tab :PrevWindow

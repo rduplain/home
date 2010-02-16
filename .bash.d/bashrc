@@ -87,13 +87,13 @@ export PS1='[\u@\h \W]\$ '
 # If this is an xterm set the title to "user@host dir"
 case "$TERM" in
 xterm*|rxvt*)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
-    export PROMPT_COMMAND
+    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
     ;;
 *)
-    unset PROMPT_COMMAND
+    PROMPT_COMMAND='history -a'
     ;;
 esac
+export PROMPT_COMMAND
 
 # Enable color support of ls.
 if [ "$TERM" != "dumb" ]; then
@@ -123,6 +123,10 @@ export GDK_NATIVE_WINDOWS=1
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+function commands () {
+    history | cut -c8- | sort | uniq -c | sort -rn | head
+}
 
 receive /etc/bash_completion
 receive $BASH_DIR/bash_completion
