@@ -6,11 +6,13 @@
 # archive accepts all mv command-line flags
 #
 # Dates are numeric by default.
+# Configure with environment variables (ALL_CAPS below).
 # The timezone is the default used by the date command.
 
-archive_dir=$HOME/doc/archive
-date_dir=`date +"%Y/%m/%d/"`
-dest_dir=$archive_dir/$date_dir
+ARCHIVE_HOME=${ARCHIVE_HOME-$HOME/doc/archive}
+ARCHIVE_DATE_FORMAT=${ARCHIVE_DATE_FORMAT-"%Y/%m/%d/%H%M%S"}
+date_dir=`date +"$ARCHIVE_DATE_FORMAT"`
+dest_dir=$ARCHIVE_HOME/$date_dir
 
 mkdir -p $dest_dir
 mv -v $@ $dest_dir
