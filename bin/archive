@@ -33,4 +33,4 @@ if [ $# -lt 1 ]; then
 fi
 
 mkdir -p $dest_dir
-mv -v $@ $dest_dir
+mv -v "$@" $dest_dir
