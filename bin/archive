@@ -25,6 +25,10 @@ if [ $# -lt 1 ]; then
     echo "$prog will mv files or directories to an archive location."
     echo "Had you supplied arguments, $prog would move them to"
     echo $dest_dir
+    echo
+    echo "environment variables you can set, and current values to use:"
+    echo "ARCHIVE_HOME: $ARCHIVE_HOME"
+    echo "ARCHIVE_DATE_FORMAT: $ARCHIVE_DATE_FORMAT (see date command)"
     exit 1
 fi
 
