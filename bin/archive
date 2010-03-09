@@ -1,28 +1,16 @@
 #!/bin/bash
-# An experimental script to archive files away, naming the file with the date.
-# usage: archive file1 file2.txt file3.pdf
-# moves file1 to $archive_dir/datestring
-# moves file2.txt to $archive_dir/datestring.txt
-# moves file3.pdf to $archive_dir/datestring.pdf
+# archive files away, placing them in a date-based directory.
+# usage: archive file1 [file2 [file3] ...]
+# 
+# result: mv file1 file2 file3 $archive_dir/year/month/day/
+# archive accepts all mv command-line flags
 #
-# datestring is in the format of: 20100309_113604.606652275
-# when the current time is 11:26:04.606652275 on 2010-03-09.
-# the timezone is the default used by the date command.
+# Dates are numeric by default.
+# The timezone is the default used by the date command.
 
 archive_dir=$HOME/doc/archive
+date_dir=`date +"%Y/%m/%d/"`
+dest_dir=$archive_dir/$date_dir
 
-for f in "$@"; do
-    newname=`date +"%Y%m%d_%H%M%S.%N"`
-    suffix=${f##*.}
-    if [ "$suffix" = "$f" ]; then
-        unset suffix
-    else
-        suffix=.$suffix
-    fi
-    # echo the command when running it, to inform the user where files go.
-    # HACK: display the command being executed, and only the command
-    # set -x; command; set +x # prints set +x which is annoying
-    # | bash -x # does the trick
-    export PS4=
-    echo "mv '$f' $archive_dir/$newname$suffix" | bash -x
-done
+mkdir -p $dest_dir
+mv -v $@ $dest_dir
