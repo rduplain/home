@@ -17,5 +17,16 @@ ARCHIVE_DATE_FORMAT=${ARCHIVE_DATE_FORMAT-"%Y/%m/%d/%H%M%S"}
 date_dir=`date +"$ARCHIVE_DATE_FORMAT"`
 dest_dir=$ARCHIVE_HOME/$date_dir
 
+if [ $# -lt 1 ]; then
+    exec 1>&2 # redirect stdout to stderr
+    prog=${0##*/} # same as basename
+    echo "usage: $prog [mv options] file1 [file2 [file3] ...]"
+    echo
+    echo "$prog will mv files or directories to an archive location."
+    echo "Had you supplied arguments, $prog would move them to"
+    echo $dest_dir
+    exit 1
+fi
+
 mkdir -p $dest_dir
 mv -v $@ $dest_dir
