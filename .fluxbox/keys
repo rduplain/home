@@ -285,6 +285,7 @@ Control Escape :RootMenu
 # print screen
 Print :ExecCommand import /tmp/screenshot.jpg && display /tmp/screenshot.jpg
 Control Print :ExecCommand import /tmp/screenshot.eps && display /tmp/screenshot.eps
+Control Mod1 Print :ExecCommand import /tmp/screenshot.tiff && display /tmp/screenshot.tiff
 
 # reconfigure/restart fluxbox
 Control Mod4 Delete       :Reconfigure
