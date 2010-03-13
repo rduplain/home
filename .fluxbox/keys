@@ -30,6 +30,8 @@ OnDesktop Control Mod1 Mouse3 :PrevWorkspace
 Mod1 Tab       :NextWindow
 Mod1 Shift Tab :PrevWindow
 
+Mod4 space :NextWindow
+
 Mod1 Up        :FocusUp
 Mod1 Down      :FocusDown
 Mod1 Left      :FocusLeft
@@ -257,12 +259,12 @@ Control Shift 9 :MoveTo 0 0 UpperRight
 # size presets
 # resize options based on screen size and terminal font size
 # a: xterm (or preferred terminal) default
-# b: quarter screen, on including iconbar
+# b: window to sit next to an xterm.
 # c: 800x600
 # d: 1024x768
 # e: pidgin convo default, pidgin buddy list default
 Control Shift a      :ResizeTo 564 412
-Control Shift b      :ResizeTo 640 500
+Control Shift b      :ResizeTo 799 720
 Control Shift c      :ResizeTo 800 600
 Control Shift d      :ResizeTo 1024 768
 Control Shift e      :ResizeTo 381 500
