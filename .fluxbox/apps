@@ -62,3 +62,7 @@
 [app] (name=thunderbird-bin) (class=Thunderbird-bin)
   [Workspace]	{1}
 [end]
+[app] (name=Songbird) (class=Songbird) (role=Main)
+  [Workspace]	{3}
+  [Maximized]	{yes}
+[end]

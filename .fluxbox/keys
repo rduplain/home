@@ -276,11 +276,11 @@ Control Escape :RootMenu
 # calculator key on Microsoft ComfortCurve 2000: 161
 161            :ExecCommand gnome-calculator
 
-Control Mod1 Up     :ExecCommand rhythmbox-client --pause
-Control Mod1 Down   :ExecCommand rhythmbox-client --play-pause
-Control Mod1 Left   :ExecCommand rhythmbox-client --previous
-Control Mod1 Right  :ExecCommand rhythmbox-client --next
-Control Mod1 Return :ExecCommand rhythmbox-client --notify
+# Control Mod1 Up     :ExecCommand rhythmbox-client --pause
+# Control Mod1 Down   :ExecCommand rhythmbox-client --play-pause
+# Control Mod1 Left   :ExecCommand rhythmbox-client --previous
+# Control Mod1 Right  :ExecCommand rhythmbox-client --next
+# Control Mod1 Return :ExecCommand rhythmbox-client --notify
 
 # print screen
 Print :ExecCommand import /tmp/screenshot.jpg && display /tmp/screenshot.jpg
