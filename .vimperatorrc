@@ -1,0 +1,7 @@
+" 2.2
+
+autocmd LocationChange .* js modes.passAllKeys = /mail\.google\.com/.test(buffer.URL)
+noremap <C-c> <C-v><C-c>
+set "editor=xterm -e emacs"
+set runtimepath=/home/rduplain/.vimperator
+set "titlestring=Firefox (vi)"
