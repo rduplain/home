@@ -37,10 +37,8 @@
 (setq standard-indent 4)
 (setq-default indent-tabs-mode nil)
 
-;; Fill columns at 80 characters.  Auto-fill in Text mode.
+;; Fill columns at 80 characters.
 (setq-default fill-column 80)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-
 
 ;;; Suspend vs. Shell
 
@@ -225,6 +223,38 @@
 
 ;; Text
 (add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook
+          '(lambda ()
+             ; Declare defaults here.
+             (auto-fill-mode 1)
+             ; Handle vimperator editor calls.
+             (if (string< "vimperator-" (buffer-name))
+                 (progn
+                   (auto-fill-mode nil)
+                   (setq-default require-final-newline nil)
+                   )
+               )
+             ; Handle vimperator on twitter.
+             (if (string= "vimperator-twitter.com.tmp" (buffer-name))
+                 (progn
+                   (require 'smallurl)
+                   (local-set-key [?\C-^] 'smallurl-replace-at-point)
+                   (ruler-mode 1)
+                   (setq fill-column 70)
+                   (setq goal-column 127)
+                   (setq comment-column 140)
+                   )
+               )
+             ; Handle git commit message editing.
+             (if (string= "COMMIT_EDITMSG" (buffer-name))
+                 (progn
+                   (ruler-mode 1)
+                   (setq fill-column 80)
+                   (setq goal-column nil)
+                   (setq comment-column 50)
+                   )
+               )
+             ))
 
 ;; XML
 (add-hook 'xml-mode-hook 'flyspell-prog-mode)
