@@ -101,11 +101,15 @@ if [ "$TERM" != "dumb" ]; then
     alias ls='ls --color=auto'
 fi
 
-# virtualenvwrapper
+# virtualenvwrapper for Python
 ship WORKON_HOME=$HOME/.virtualenvs
 receive $HOME/bin/virtualenvwrapper_bashrc
 
 workon ${PWD##*/} >/dev/null 2>&1 # basename of current working directory
+
+# pip for Python
+export PIP_RESPECT_VIRTUALENV=true
+ship PIP_VIRTUALENV_BASE=$WORKON_HOME
 
 # Set up printers.
 forhost perseus export PRINTER=ps3e
