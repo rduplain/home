@@ -38,7 +38,7 @@
 (setq-default indent-tabs-mode nil)
 
 ;; Fill columns at 80 characters.
-(setq-default fill-column 80)
+(setq-default fill-column 79)
 
 ;;; Suspend vs. Shell
 
@@ -236,6 +236,16 @@
                )
              ; Handle vimperator on twitter.
              (if (string= "vimperator-twitter.com.tmp" (buffer-name))
+                 (progn
+                   (require 'smallurl)
+                   (local-set-key [?\C-^] 'smallurl-replace-at-point)
+                   (ruler-mode 1)
+                   (setq fill-column 70)
+                   (setq goal-column 127)
+                   (setq comment-column 140)
+                   )
+               )
+             (if (string= "twitter" (buffer-name))
                  (progn
                    (require 'smallurl)
                    (local-set-key [?\C-^] 'smallurl-replace-at-point)
