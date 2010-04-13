@@ -217,6 +217,7 @@
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
+(add-hook 'ruby-mode-hook '(lambda () (setq standard-indent 2)))
 
 ;; Shell
 (add-hook 'sh-mode-hook 'flyspell-mode)
