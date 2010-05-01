@@ -81,8 +81,8 @@ forhost perseus export LESS="$LESS -R "
 
 [[ -z "$PS1" ]] && return
 
-# Set prompt PS1 to "[user@host dir]$ "
-export PS1='[\u@\h \W]\$ '
+# Set prompt PS1 to "user@host dir$ "
+export PS1='\u@\h \W\$ '
 
 # If this is an xterm set the title to "user@host dir"
 case "$TERM" in
