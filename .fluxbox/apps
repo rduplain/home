@@ -66,3 +66,8 @@
   [Workspace]	{3}
   [Maximized]	{yes}
 [end]
+[app] (name=pino) (class=Pino)
+  [Workspace]	{2}
+  [Dimensions]	{562 743}
+  [Position]	(UPPERLEFT)	{801 0}
+[end]
