@@ -27,6 +27,11 @@
 ;; Always use syntax highlighting.
 (global-font-lock-mode 1)
 
+;; If you are using a dark background, set to dark.  Comment out otherwise.
+;; This is essential for rst-mode, where sections & blocks are highlighted.
+;; See rst.el for more details.
+(setq frame-background-mode 'dark)
+
 ;; Show the column number in addition to the line number.
 (setq-default column-number-mode 1)
 
