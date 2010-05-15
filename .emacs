@@ -122,6 +122,23 @@
   (yic-next (buffer-list)))
 (global-set-key (kbd "<M-RET>") 'yic-next-buffer)
 
+;; get-closest-pathname - to find the project make file.
+;; http://www.emacswiki.org/emacs/CompileCommand
+(require 'cl)
+
+(defun* get-closest-pathname (&optional (file "Makefile"))
+  "Determine the pathname of the first instance of FILE starting from the current directory towards root.
+This may not do the correct thing in presence of links. If it does not find FILE, then it shall return the name
+of FILE in the current directory, suitable for creation"
+  (let ((root (expand-file-name "/"))) ; the win32 builds should translate this correctly
+    (expand-file-name file
+                      (loop 
+                       for d = default-directory then (expand-file-name ".." d)
+                       if (file-exists-p (expand-file-name file d))
+                       return d
+                       if (equal d root)
+                       return nil))))
+
 ;; dos2unix/unix2dos - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
 (defun dos2unix ()
   (interactive)
@@ -274,6 +291,20 @@
 
 ;; XML
 (add-hook 'xml-mode-hook 'flyspell-prog-mode)
+
+
+;;; Programming Tools
+
+;; Compilation: compile/recompile - great for make files.
+(global-set-key (kbd "C-x C-a") 'recompile)
+(setq compilation-scroll-output 1)
+
+(add-hook 'compilation-mode-hook
+          (lambda ()
+            ; Compile using the nearest Makefile
+            ; NOTE this only looks for Makefile, not makefile.
+            (set (make-local-variable 'compile-command)
+                 (format "make -f %s" (get-closest-pathname)))))
 
 
 ;;; Modes to Consider
