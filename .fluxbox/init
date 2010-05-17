@@ -44,7 +44,7 @@ session.screen0.slit.maxOver:	false
 session.screen0.slit.alpha:	255
 session.screen0.autoRaise:	true
 session.screen0.rootCommand:	fbsetbg -l
-session.screen0.workspaces:	19
+session.screen0.workspaces:	9
 session.screen0.demandsAttentionTimeout:	500
 session.screen0.fullMaximization:	false
 session.screen0.windowMenu:	/home/rduplain/.fluxbox/windowmenu

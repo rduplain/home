@@ -44,8 +44,8 @@ xrdb $HOME/.Xresources
 # gnome-screensaver &
 gnome-screensaver-watch &
 # gnome-power-manager &
-# gnome-volume-control-applet &
-# thunar --daemon &
+gnome-volume-control-applet &
+thunar --daemon &
 # update-notifier --startup-delay=60 &
 # python /usr/share/system-config-printer/applet.py &
 yeahconsole &
