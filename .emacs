@@ -127,10 +127,11 @@
 (require 'cl)
 
 (defun* get-closest-pathname (&optional (file "Makefile"))
-  "Determine the pathname of the first instance of FILE starting from the current directory towards root.
-This may not do the correct thing in presence of links. If it does not find FILE, then it shall return the name
-of FILE in the current directory, suitable for creation"
-  (let ((root (expand-file-name "/"))) ; the win32 builds should translate this correctly
+  "Determine the pathname of the first instance of FILE starting from the
+  current directory towards root. This may not do the correct thing in presence
+  of links. If it does not find FILE, then it shall return the name of FILE in
+  the current directory, suitable for creation"
+  (let ((root (expand-file-name "/"))) ; win32 builds should translate
     (expand-file-name file
                       (loop 
                        for d = default-directory then (expand-file-name ".." d)
@@ -228,6 +229,7 @@ of FILE in the current directory, suitable for creation"
 
 ;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
+(add-hook 'python-mode-hook 'compilation-minor-mode)
 (add-hook 'python-mode-hook '(lambda () (require 'virtualenv)))
 
 ;; R
@@ -299,13 +301,16 @@ of FILE in the current directory, suitable for creation"
 (global-set-key (kbd "C-x C-a") 'recompile)
 (setq compilation-scroll-output 1)
 
-(add-hook 'compilation-mode-hook
-          (lambda ()
+(defun use-nearest-makefile () 
             ; Compile using the nearest Makefile
             ; NOTE this only looks for Makefile, not makefile.
             (set (make-local-variable 'compile-command)
-                 (format "make -f %s" (get-closest-pathname)))))
+                 ; Making "make -f %s" work across working directories is hard.
+                 ; Using "make -C %s" changes directories on make, works well.
+                 (format "make -C %s" (file-name-directory (get-closest-pathname)))))
 
+(add-hook 'compilation-mode-hook 'use-nearest-makefile)
+(add-hook 'compilation-minor-mode-hook 'use-nearest-makefile)
 
 ;;; Modes to Consider
 
