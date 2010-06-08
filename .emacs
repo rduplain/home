@@ -45,6 +45,10 @@
 ;; Fill columns at 80 characters.
 (setq-default fill-column 79)
 
+;; Remove trailing whitespace before saving files.
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
 ;;; Suspend vs. Shell
 
 ;; Disable suspend.
@@ -56,6 +60,8 @@
 
 ;;; Convenient Functions
 
+(require 'cl)
+
 ;; Insert the date with F5, formatted just like the UNIX date command.
 (defun insert-date (&optional insert-date-format)
   "Insert the current date formatted to the given argument."
@@ -63,16 +69,6 @@
   (unless insert-date-format (setq insert-date-format "%a %b %d %T %Z %Y\n"))
   (insert (format-time-string insert-date-format)))
 (global-set-key [f5] 'insert-date)
-
-; Experimenting with a personal C-t keyboard map.
-(global-unset-key (kbd "C-t"))
-
-;; Insert the date with a modified tag (experimental structured txt).
-(defun insert-modified-tag ()
-  "Insert the current time in modified tag format."
-  (interactive)
-  (insert-date "+modified:::%Y%m%d %T\n"))
-(global-set-key (kbd "C-t m") 'insert-modified-tag)
 
 ;; yic buffer cycle - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
 (defun yic-ignore (str)
@@ -122,24 +118,6 @@
   (yic-next (buffer-list)))
 (global-set-key (kbd "<M-RET>") 'yic-next-buffer)
 
-;; get-closest-pathname - to find the project make file.
-;; http://www.emacswiki.org/emacs/CompileCommand
-(require 'cl)
-
-(defun* get-closest-pathname (&optional (file "Makefile"))
-  "Determine the pathname of the first instance of FILE starting from the
-  current directory towards root. This may not do the correct thing in presence
-  of links. If it does not find FILE, then it shall return the name of FILE in
-  the current directory, suitable for creation"
-  (let ((root (expand-file-name "/"))) ; win32 builds should translate
-    (expand-file-name file
-                      (loop 
-                       for d = default-directory then (expand-file-name ".." d)
-                       if (file-exists-p (expand-file-name file d))
-                       return d
-                       if (equal d root)
-                       return nil))))
-
 ;; dos2unix/unix2dos - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
 (defun dos2unix ()
   (interactive)
@@ -167,6 +145,11 @@
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
 
+;; Winner, undo and redo window configuration changes.
+(winner-mode t)
+(global-set-key (kbd "C-x /") 'winner-undo)
+(global-set-key (kbd "C-x \\") 'winner-redo)
+
 ;; Flyspell, on-the-fly spellcheck.
 ; Keep quiet.
 (setq flyspell-issue-welcome-flag nil)
@@ -182,6 +165,52 @@
 (setq flyspell-use-meta-tab nil)
 (global-unset-key [?\M-s])
 (setq flyspell-auto-correct-binding [?\M-s])
+
+
+;;; Programming Tools
+
+;; Compilation: compile/recompile - great for make files.
+
+; Provide a keybinding to run the nearest Makefile.
+(global-set-key (kbd "C-x C-a") 'compile)
+
+; Keep the compilation output window short.
+(setq compilation-window-height 10)
+
+; Scroll the compilation buffer with new output.
+(setq compilation-scroll-output t)
+
+; Do not ask for the make command to run. This is set with the hook below.
+(setq compilation-read-command nil)
+
+; get-closest-pathname - to find the project make file.
+; http://www.emacswiki.org/emacs/CompileCommand
+(defun* get-closest-pathname (filename)
+  "Determine the pathname of the first instance of FILE starting from the
+  current directory towards root. This may not do the correct thing in presence
+  of links. If it does not find FILE, then it shall return the name of FILE in
+  the current directory, suitable for creation"
+  (let ((root (expand-file-name "/"))) ; win32 builds should translate
+    (expand-file-name filename
+                      (loop
+                       for d = default-directory then (expand-file-name ".." d)
+                       if (file-exists-p (expand-file-name filename d))
+                       return d
+                       if (equal d root)
+                       return nil))))
+
+; Set compile-command to run on the nearest Makefile.
+(defun use-nearest-makefile ()
+  ; Compile using the nearest Makefile
+  ; NOTE this only looks for Makefile, not makefile.
+  (set (make-local-variable 'compile-command)
+       ; Making "make -f %s" work across working directories is hard.
+       ; Using "make -C %s" changes directories on make, works well.
+       (format "make -C %s" (file-name-directory
+                             (get-closest-pathname "Makefile")))))
+
+; Set the nearest Makefile for each buffer, in lieu of using compilation modes.
+(add-hook 'after-change-major-mode-hook 'use-nearest-makefile)
 
 
 ;;; Modes - Programming Languages, Formats, & Frameworks
@@ -229,7 +258,6 @@
 
 ;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
-(add-hook 'python-mode-hook 'compilation-minor-mode)
 (add-hook 'python-mode-hook '(lambda () (require 'virtualenv)))
 
 ;; R
@@ -260,17 +288,8 @@
                    )
                )
              ; Handle vimperator on twitter.
-             (if (string= "vimperator-twitter.com.tmp" (buffer-name))
-                 (progn
-                   (require 'smallurl)
-                   (local-set-key [?\C-^] 'smallurl-replace-at-point)
-                   (ruler-mode 1)
-                   (setq fill-column 70)
-                   (setq goal-column 127)
-                   (setq comment-column 140)
-                   )
-               )
-             (if (string= "twitter" (buffer-name))
+             (if (or (string= "vimperator-twitter.com.tmp" (buffer-name))
+                     (string= "twitter" (buffer-name)))
                  (progn
                    (require 'smallurl)
                    (local-set-key [?\C-^] 'smallurl-replace-at-point)
@@ -295,27 +314,9 @@
 (add-hook 'xml-mode-hook 'flyspell-prog-mode)
 
 
-;;; Programming Tools
-
-;; Compilation: compile/recompile - great for make files.
-(global-set-key (kbd "C-x C-a") 'recompile)
-(setq compilation-scroll-output 1)
-
-(defun use-nearest-makefile () 
-            ; Compile using the nearest Makefile
-            ; NOTE this only looks for Makefile, not makefile.
-            (set (make-local-variable 'compile-command)
-                 ; Making "make -f %s" work across working directories is hard.
-                 ; Using "make -C %s" changes directories on make, works well.
-                 (format "make -C %s" (file-name-directory (get-closest-pathname)))))
-
-(add-hook 'compilation-mode-hook 'use-nearest-makefile)
-(add-hook 'compilation-minor-mode-hook 'use-nearest-makefile)
-
 ;;; Modes to Consider
 
 ;; Abbrev
-;; Compile
 ;; Desktop (!)
 ;; Org
 ;; Paredit (lisp)
