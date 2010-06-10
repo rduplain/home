@@ -174,9 +174,6 @@
 ; Provide a keybinding to run the nearest Makefile.
 (global-set-key (kbd "C-x C-a") 'compile)
 
-; Keep the compilation output window short.
-(setq compilation-window-height 10)
-
 ; Scroll the compilation buffer with new output.
 (setq compilation-scroll-output t)
 
@@ -293,6 +290,7 @@
                  (progn
                    (require 'smallurl)
                    (local-set-key [?\C-^] 'smallurl-replace-at-point)
+                   (auto-fill-mode nil)
                    (ruler-mode 1)
                    (setq fill-column 70)
                    (setq goal-column 127)
