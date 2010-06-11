@@ -1,0 +1,57 @@
+#!/bin/bash
+# backup target files, placing them in a date-based directory.
+# usage: archive file1 [file2 [file3] ...]
+#
+# result: rsync $RSYNC_FLAGS file1 file2 file3 $BAK_HOME/year/month/day/
+# bak accepts all rsync command-line flags beyond given $RSYNC_FLAGS
+#
+# Dates are numeric by default.
+# Configure with environment variables (ALL_CAPS below).
+# The timezone is the default used by the date command.
+#
+# Author: Ron DuPlain <ron.duplain@gmail.com>
+
+RSYNC_FLAGS="-av"
+BAK_HOME=${BAK_HOME-$HOME/.bak}
+BAK_DATE_FORMAT=${BAK_DATE_FORMAT-"%Y/%m/%d"}
+
+date_dir=`date +"$BAK_DATE_FORMAT"`
+dest_dir=$BAK_HOME/$date_dir
+
+if [ $# -lt 1 ]; then
+    exec 1>&2 # redirect stdout to stderr
+    prog=${0##*/} # same as basename
+    echo "usage: $prog [additional rsync options] file1 [file2 [file3] ...]"
+    echo
+    echo "$prog will mv files or directories to an bak location."
+    echo "Had you supplied arguments, $prog would move them to"
+    echo $dest_dir
+    echo
+    echo "environment variables you can set, and current values to use:"
+    echo "BAK_HOME: $BAK_HOME"
+    echo "BAK_DATE_FORMAT: $BAK_DATE_FORMAT (see date command)"
+    exit 1
+fi
+
+# Strip trailing slashes from args, to rsync entire directory, not its files.
+# From rsync manpage:
+#     each of the following commands copies the files in the same way
+#          rsync -av /src/foo /dest
+#          rsync -av /src/foo/ /dest/foo
+OLDIFS="$IFS"
+export IFS=''
+
+index=0
+args=( )
+for arg in $@; do
+    args[$index]=${arg%/}
+    ((index++))
+done
+
+# Replace $@ with modified args.
+set -- "${args[@]}"
+export IFS="$OLDIFS"
+unset OLDIFS index arg args
+
+mkdir -p $dest_dir
+rsync $RSYNC_FLAGS "$@" $dest_dir
