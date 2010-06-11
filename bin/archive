@@ -1,8 +1,8 @@
 #!/bin/bash
 # archive files away, placing them in a date-based directory.
 # usage: archive file1 [file2 [file3] ...]
-# 
-# result: mv file1 file2 file3 $archive_dir/year/month/day/
+#
+# result: mv file1 file2 file3 $ARCHIVE_HOME/year/month/day/hhmmss/
 # archive accepts all mv command-line flags
 #
 # Dates are numeric by default.
@@ -14,6 +14,7 @@
 
 ARCHIVE_HOME=${ARCHIVE_HOME-$HOME/doc/archive}
 ARCHIVE_DATE_FORMAT=${ARCHIVE_DATE_FORMAT-"%Y/%m/%d/%H%M%S"}
+
 date_dir=`date +"$ARCHIVE_DATE_FORMAT"`
 dest_dir=$ARCHIVE_HOME/$date_dir
 
