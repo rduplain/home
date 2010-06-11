@@ -54,4 +54,5 @@ export IFS="$OLDIFS"
 unset OLDIFS index arg args
 
 mkdir -p $dest_dir
+echo backing up files to $dest_dir
 rsync $RSYNC_FLAGS "$@" $dest_dir
