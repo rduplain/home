@@ -1,3 +1,4 @@
+sketchbook.path=/home/rduplain/sandbox/arduino
 last.sketch.count=0
 update.check=true
 platform.auto_file_type_associations=true
