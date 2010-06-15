@@ -206,14 +206,37 @@
        (format "make -C %s" (file-name-directory
                              (get-closest-pathname "Makefile")))))
 
-; Set the nearest Makefile for each buffer, in lieu of using compilation modes.
-(add-hook 'after-change-major-mode-hook 'use-nearest-makefile)
+; Set the compile-command for each buffer, in lieu of using compilation modes.
+; Why? compilation modes have keymaps which override common key bindings.
+(add-hook 'after-change-major-mode-hook
+          '(lambda ()
+             (let ((target (file-name-sans-extension (buffer-name)))
+                   (extension (file-name-extension (buffer-name))))
+               (cond
+                ; Arduino
+                ((string= "pde" extension)
+                 (set (make-local-variable 'compile-command)
+                      (format "make -f %s"
+                              (get-closest-pathname "Makefile"))))
+                ; otherwise
+                (t
+                 (use-nearest-makefile)))
+               )
+             )
+          )
 
 
 ;;; Modes - Programming Languages, Formats, & Frameworks
 
+;; Arduino
+; See more Arduino customizations in compile-command settings.
+(add-to-list 'auto-mode-alist '("\\.pde$" . c++-mode))
+
 ;; C
 (add-hook 'c-mode-hook 'flyspell-prog-mode)
+
+;; C++
+(add-hook 'c++-mode-hook 'flyspell-prog-mode)
 
 ;; Cappuccino
 (add-to-list 'auto-mode-alist '("\\.j$" . objc-mode))
