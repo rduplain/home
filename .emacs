@@ -206,6 +206,16 @@
        (format "make -C %s" (file-name-directory
                              (get-closest-pathname "Makefile")))))
 
+(defun arduino-compile ()
+  (interactive)
+  (compile (format "make -f %s" (get-closest-pathname "Makefile")))
+  )
+
+(defun arduino-upload ()
+  (interactive)
+  (compile (format "make -f %s upload" (get-closest-pathname "Makefile")))
+  )
+
 ; Set the compile-command for each buffer, in lieu of using compilation modes.
 ; Why? compilation modes have keymaps which override common key bindings.
 (add-hook 'after-change-major-mode-hook
@@ -217,7 +227,10 @@
                 ((string= "pde" extension)
                  (set (make-local-variable 'compile-command)
                       (format "make -f %s"
-                              (get-closest-pathname "Makefile"))))
+                              (get-closest-pathname "Makefile")))
+                 (global-set-key (kbd "C-x C-a") 'arduino-compile)
+                 (global-set-key (kbd "C-x C-u") 'arduino-upload)
+                 )
                 ; otherwise
                 (t
                  (use-nearest-makefile)))
