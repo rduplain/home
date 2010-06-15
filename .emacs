@@ -70,6 +70,10 @@
   (insert (format-time-string insert-date-format)))
 (global-set-key [f5] 'insert-date)
 
+;; Enlarge/shrink windows with ease with Control-6 and Meta-6.
+(global-set-key [?\C-^] 'enlarge-window)
+(global-set-key [?\M-6] 'shrink-window)
+
 ;; yic buffer cycle - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
 (defun yic-ignore (str)
   (or
@@ -360,4 +364,3 @@
 ;;; Available Keys
 
 ;; [f7]
-;; [?\C-^]
