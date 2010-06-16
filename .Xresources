@@ -12,7 +12,20 @@ XTerm*termName: xterm
 XTerm*saveLines: 9999
 
 *faceName: Inconsolata
-*faceSize: 11
+*faceSize: 12
+
+*fontMenu*font1*Label: Tiny
+*faceSize1:  10
+*fontMenu*font2*Label: Small
+*faceSize2:  11
+*fontMenu*font3*Label: Medium
+*faceSize3:  13
+*fontMenu*font4*Label: Large
+*faceSize4:  16
+*fontMenu*font5*Label: Huge
+*faceSize5:  22
+*fontMenu*font6*Label: F*ing Huge
+*faceSize6:  36
 
 *metaSendsEscape: true
 
