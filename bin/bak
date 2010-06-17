@@ -3,7 +3,7 @@
 # usage: archive file1 [file2 [file3] ...]
 #
 # result: rsync $RSYNC_FLAGS file1 file2 file3 $BAK_HOME/year/month/day/
-# bak accepts all rsync command-line flags beyond given $RSYNC_FLAGS
+# bak accepts all rsync command-line flags beyond given $BAK_RSYNC_FLAGS
 #
 # Dates are numeric by default.
 # Configure with environment variables (ALL_CAPS below).
@@ -11,7 +11,7 @@
 #
 # Author: Ron DuPlain <ron.duplain@gmail.com>
 
-RSYNC_FLAGS="-av"
+BAK_RSYNC_FLAGS=${BAK_RSYNC_FLAGS-"-av"}
 BAK_HOME=${BAK_HOME-$HOME/.bak}
 BAK_DATE_FORMAT=${BAK_DATE_FORMAT-"%Y/%m/%d"}
 
@@ -53,6 +53,8 @@ set -- "${args[@]}"
 export IFS="$OLDIFS"
 unset OLDIFS index arg args
 
+# Run rsync, echoing the rsync command.
 mkdir -p $dest_dir
-echo backing up files to $dest_dir
-rsync $RSYNC_FLAGS "$@" $dest_dir
+unset PS4
+set -x
+rsync $BAK_RSYNC_FLAGS "$@" $dest_dir
