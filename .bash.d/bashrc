@@ -103,7 +103,7 @@ fi
 
 # virtualenvwrapper for Python
 ship WORKON_HOME=$HOME/.virtualenvs
-receive $HOME/bin/virtualenvwrapper_bashrc
+receive $HOME/bin/virtualenvwrapper.sh
 
 workon ${PWD##*/} >/dev/null 2>&1 # basename of current working directory
 
