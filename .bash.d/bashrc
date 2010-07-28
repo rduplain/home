@@ -110,7 +110,23 @@ ship WORKON_HOME=$HOME/.virtualenvs
 ship WORKON_HOME=$HOME/.virtualenvs-`uname -n`
 receive $HOME/bin/virtualenvwrapper.sh
 
-workon ${PWD##*/} >/dev/null 2>&1 # basename of current working directory
+function workon_walk () {
+    # Walk the directory tree upward until:
+    #  * a virtualenv is found which matches the name of a directory
+    #  * the root directory is reached (no virtualenv found)
+    #
+    # Activate the identified virtualenv with virtualenvwrapper's workon.
+    dir=${PWD}
+    while [ -n "$dir" ]; do
+        workon ${dir##*/} >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            break
+        fi
+        dir=${dir%/*}
+    done
+}
+
+workon_walk
 
 # pip for Python
 export PIP_RESPECT_VIRTUALENV=true
