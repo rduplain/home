@@ -30,6 +30,10 @@ prepend PATH $HOME/bin
 prepend LD_LIBRARY_PATH $HOME/lib
 prepend MANPATH $HOME/man $HOME/share/man
 
+prepend PATH $HOME/local/bin
+prepend LD_LIBRARY_PATH $HOME/local/lib
+prepend MANPATH $HOME/local/man $HOME/local/share/man
+
 prepend PATH /export/data/rduplain/bin
 prepend LD_LIBRARY_PATH /export/data/rduplain/lib
 prepend MANPATH /export/data/rduplain/man /export/data/rduplain/share/man
@@ -42,9 +46,9 @@ prepend PATH /export/data_2/rduplain/bin
 prepend LD_LIBRARY_PATH /export/data_2/rduplain/lib
 prepend MANPATH /export/data_2/rduplain/man /export/data_2/rduplain/share/man
 
-prepend PATH $HOME/sandbox/local/`uname -n`/bin
-prepend LD_LIBRARY_PATH $HOME/sandbox/local/`uname -n`/lib
-prepend MANPATH $HOME/sandbox/local/`uname -n`/man $HOME/sandbox/local/`uname -n`/share/man
+prepend PATH $HOME/local/`uname -n`/bin
+prepend LD_LIBRARY_PATH $HOME/local/`uname -n`/lib
+prepend MANPATH $HOME/local/`uname -n`/man $HOME/local/`uname -n`/share/man
 
 export PATH
 export LD_LIBRARY_PATH
@@ -103,6 +107,7 @@ fi
 
 # virtualenvwrapper for Python
 ship WORKON_HOME=$HOME/.virtualenvs
+ship WORKON_HOME=$HOME/.virtualenvs-`uname -n`
 receive $HOME/bin/virtualenvwrapper.sh
 
 workon ${PWD##*/} >/dev/null 2>&1 # basename of current working directory
