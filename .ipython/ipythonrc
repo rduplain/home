@@ -5,8 +5,8 @@
 # Configuration file for IPython -- ipythonrc format
 #
 # ===========================================================
-# Deprecation note: you should look into modifying ipy_user_conf.py (located 
-# in ~/.ipython or ~/_ipython, depending on your platform) instead, it's a 
+# Deprecation note: you should look into modifying ipy_user_conf.py (located
+# in ~/.ipython or ~/_ipython, depending on your platform) instead, it's a
 # more flexible and robust (and better supported!) configuration
 # method.
 # ===========================================================
@@ -31,7 +31,7 @@
 # lower-level services. If this is your main ~/.ipython/ipythonrc file, you
 # should only keep here basic things you always want available. Then you can
 # include it in every other special-purpose config file you create.
-include 
+include
 
 #---------------------------------------------------------------------------
 # Section: startup setup
@@ -96,7 +96,7 @@ autocall 1
 autoedit_syntax 0
 
 # Auto-indent. IPython can recognize lines ending in ':' and indent the next
-# line, while also un-indenting automatically after 'raise' or 'return'.  
+# line, while also un-indenting automatically after 'raise' or 'return'.
 
 # This feature uses the readline library, so it will honor your ~/.inputrc
 # configuration (or whatever file your INPUTRC variable points to).  Adding
@@ -180,7 +180,7 @@ colors Linux
 # color_info: IPython can display information about objects via a set of
 # functions, and optionally can use colors for this, syntax highlighting
 # source code and various other elements. This information is passed through a
-# pager (it defaults to 'less' if $PAGER is not set). 
+# pager (it defaults to 'less' if $PAGER is not set).
 
 # If your pager has problems, try to setting it to properly handle escapes
 # (see the less manpage for detail), or disable this option.  The magic
@@ -214,7 +214,7 @@ editor 0
 # log 1 -> same as ipython -log. This automatically logs to ./ipython.log
 log 0
 
-# Same as ipython -Logfile YourLogfileName. 
+# Same as ipython -Logfile YourLogfileName.
 # Don't use with log 1 (use one or the other)
 logfile ''
 
@@ -298,7 +298,7 @@ screen_length 0
 # (SeparateOut2),   # that is, no newline is printed after Out2
 # By choosing these you can organize your output any way you want.
 
-separate_in \n
+separate_in 0
 separate_out 0
 separate_out2 0
 
@@ -324,7 +324,7 @@ wildcards_case_sensitive 1
 
 object_info_string_level 0
 
-# xmode - Exception reporting mode. 
+# xmode - Exception reporting mode.
 
 # Valid modes: Plain, Context and Verbose.
 
@@ -392,12 +392,12 @@ wxversion 0
 # possible completions. Leave the one you prefer uncommented.
 
 readline_parse_and_bind tab: complete
-#readline_parse_and_bind tab: menu-complete
+# readline_parse_and_bind tab: menu-complete
 
 # This binds Control-l to printing the list of all possible completions when
 # there is more than one (what 'complete' does when hitting TAB twice, or at
 # the first TAB if show-all-if-ambiguous is on)
-readline_parse_and_bind "\C-l": possible-completions
+# readline_parse_and_bind "\C-l": possible-completions
 
 # This forces readline to automatically print the above list when tab
 # completion is set to 'complete'. You can still get this list manually by
@@ -493,7 +493,7 @@ readline_omit__names 0
 # Each import is executed in its own try/except block, so if one module
 # fails to load the others will still be ok.
 
-import_mod 
+import_mod
 
 #---------------------------------------------------------------------------
 # Section: modules to import some functions from: 'from ... import ...'
@@ -515,7 +515,7 @@ import_mod
 # If you have more than one modules_some line, each gets its own try/except
 # block (like modules, see above).
 
-import_some 
+import_some
 
 #---------------------------------------------------------------------------
 # Section: modules to import all from : 'from ... import *'
@@ -533,7 +533,7 @@ import_some
 
 # As before, each will be called in a separate try/except block.
 
-import_all 
+import_all
 
 #---------------------------------------------------------------------------
 # Section: Python code to execute.
@@ -552,7 +552,7 @@ import_all
 # and each *line* (not each statement, we don't do python syntax parsing) is
 # executed in its own try/except block.
 
-execute 
+execute
 
 # Note for the adventurous: you can use this to define your own names for the
 # magic functions, by playing some namespace tricks:
@@ -587,7 +587,7 @@ execfile
 # If you are feeling adventurous, you can even add functionality to IPython
 # through here. IPython works through a global variable called __ip which
 # exists at the time when these files are read. If you know what you are doing
-# (read the source) you can add functions to __ip in files loaded here. 
+# (read the source) you can add functions to __ip in files loaded here.
 
 # The file example-magic.py contains a simple but correct example. Try it:
 
@@ -626,6 +626,6 @@ execfile
 
 # Use one 'alias' statement per alias you wish to define.
 
-# alias 
+# alias
 
 #************************* end of file <ipythonrc> ************************
