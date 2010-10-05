@@ -49,6 +49,11 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
+;;; Fixes
+
+;; Some terminals (incl. PuTTY) send [select] on home keypress.
+(define-key global-map [select] 'end-of-line)
+
 ;;; Suspend vs. Shell
 
 ;; Disable suspend.
@@ -302,6 +307,9 @@
 (add-to-list 'auto-mode-alist '("\\.r$" . R-mode))
 (add-hook 'ess-mode-hook 'flyspell-prog-mode)
 
+;; ReStructuredText (rst)
+(add-hook 'rst-mode-hook '(lambda () (auto-fill-mode nil)))
+
 ;; Ruby
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
@@ -337,11 +345,22 @@
                    (setq comment-column 140)
                    )
                )
+             ; Handle vimperator on gmail.
+             (if (string= "http://flask.pocoo.org/docs/api/#sessions"
+                          (buffer-name))
+                 (progn
+                   (require 'smallurl)
+                   (local-set-key [?\C-^] 'smallurl-replace-at-point)
+                   (auto-fill-mode nil)
+                   (ruler-mode 1)
+                   (setq fill-column 70)
+                   )
+               )
              ; Handle git commit message editing.
              (if (string= "COMMIT_EDITMSG" (buffer-name))
                  (progn
                    (ruler-mode 1)
-                   (setq fill-column 80)
+                   (setq fill-column 72)
                    (setq goal-column nil)
                    (setq comment-column 50)
                    )
