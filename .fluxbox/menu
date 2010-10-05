@@ -3,6 +3,7 @@
       [exec] (Terminal) {xterm}
       [exec] (Firefox) {firefox -P default}
       [exec] (Chrome) {google-chrome}
+      [exec] (Eclipse) {eclipse}
       [nop]
       [exec] (Lock) {gnome-screensaver-command --lock}
       [reconfig] (Reload)

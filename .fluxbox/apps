@@ -53,7 +53,6 @@
   [Position]	(UPPERLEFT)	{-8 -23}
 [end]
 [app] (name=rhythmbox) (class=Rhythmbox)
-  [Workspace]	{3}
   [Maximized]	{yes}
 [end]
 [app] (name=Navigator) (class=Firefox) (role=browser)
