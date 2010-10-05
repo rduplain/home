@@ -5,3 +5,5 @@
 	name = Ron DuPlain
 [push]
 	default = matching
+[core]
+	excludesfile = /home/rduplain/.gitignore
