@@ -40,7 +40,7 @@
 [helpers]
 ### Set editor-cmd to the command used to invoke your text editor.
 ###   This will override the environment variables that Subversion
-###   examines by default to find this information ($EDITOR, 
+###   examines by default to find this information ($EDITOR,
 ###   et al).
 # editor-cmd = editor (vi, emacs, notepad, etc.)
 ### Set diff-cmd to the absolute path of your 'diff' program.
@@ -91,8 +91,7 @@
 ### which Subversion will ignore in its 'status' output, and
 ### while importing or adding files and directories.
 ### '*' matches leading dots, e.g. '*.rej' matches '.foo.rej'.
-# global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo
-#   *.rej *~ #*# .#* .*.swp .DS_Store
+global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo *.rej *~ #*# .#* .*.swp .DS_Store bin gen .settings
 ### Set log-encoding to the default encoding for log messages
 # log-encoding = latin1
 ### Set use-commit-times to make checkout/update/switch/revert
