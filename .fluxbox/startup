@@ -48,7 +48,7 @@ gnome-volume-control-applet &
 thunar --daemon &
 # update-notifier --startup-delay=60 &
 # python /usr/share/system-config-printer/applet.py &
-yeahconsole &
+# yeahconsole &
 # conky &
 
 screens &
@@ -62,23 +62,35 @@ export WORKSPACES_RESERVED=5
 
 # Start fluxbox.
 # exec ck-launch-session /usr/bin/fluxbox -log $HOME/.fluxbox/log
-exec /usr/bin/fluxbox -log "/home/rduplain/.fluxbox/log"
+exec /usr/bin/fluxbox -log "/home/rduplain/.fluxbox/log" &
 # /usr/bin/dbus-launch --exit-with-session /usr/bin/pulse-session fluxbox
 
 # Grab the fluxbox process id.
-# FLUXBOX_PID=$!
+FLUXBOX_PID=$!
 
 # Wait a moment.
-# sleep 5
+sleep 10
+
+killall -u $USER gnome-power-manager
+/usr/bin/gnome-power-manager --debug &
 
 # Start post-fluxbox apps here.
 # Some apps just work better this way.
+
+sleep 60
+
+# Start more stuff here.
+
+sleep 60
+
+# Start stuff which has to wait even longer.
+killall -u $USER update-notifier
 
 # Wait for fluxbox.
 # wait $FLUXBOX_PID
 
 # Clean up.
 # kill $SSH_AGENT_PID
-# killall gam_server
-# killall dbus-daemon
-# killall pulseaudio
+# killall -u $USER gam_server
+# killall -u $USER dbus-daemon
+# killall -u $USER pulseaudio

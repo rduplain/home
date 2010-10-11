@@ -1,4 +1,4 @@
-[begin] (   americano   )
+[begin] (   moka   )
 [encoding] {UTF-8}
       [exec] (Terminal) {xterm}
       [exec] (Firefox) {firefox -P default}

@@ -34,7 +34,7 @@
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-dock)
   [Dimensions]	{210 844}
-  [Position]	(UPPERLEFT)	{1148 -100}
+  [Position]	(UPPERLEFT)	{1228 -100}
   [Maximized]	{vert}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-toolbox)
@@ -43,8 +43,9 @@
   [Maximized]	{vert}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-image-window)
-  [Dimensions]	{975 743}
+  [Dimensions]	{1055 875}
   [Position]	(UPPERLEFT)	{171 0}
+  [Maximized]	{no}
 [end]
 [app] (name=openarena) (class=openarena)
   [Position]	(UPPERLEFT)	{-8 -22}
