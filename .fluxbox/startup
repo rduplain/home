@@ -28,6 +28,10 @@ xset r rate 250 30
 
 xrdb $HOME/.Xresources
 
+# Middle click with 2 finger tap.
+synclient TapButton2=2
+synclient TapButton3=3
+
 # Launch an ssh-agent, point to that agent, and add identity keys to it.
 # eval `ssh-agent`
 # ssh-add < /dev/null &
@@ -72,7 +76,7 @@ FLUXBOX_PID=$!
 sleep 10
 
 killall -u $USER gnome-power-manager
-/usr/bin/gnome-power-manager --debug &
+screen -fn -dmS gnome-power-manager /usr/bin/gnome-power-manager --debug
 
 # Start post-fluxbox apps here.
 # Some apps just work better this way.
