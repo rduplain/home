@@ -64,16 +64,10 @@ XTerm*color14:                 COLOR_TERM_LIGHT_CYAN
 XTerm*color15:                 COLOR_TERM_WHITE
 #endif
 
-! Xft.hinting: true
-! Xft.hintstyle: hintsnone
-! Xft.antialias: true
-! Xft.rgba: none
-Xft.dpi: 96
-
 URxvt*termName: rxvt
 URxvt*saveLines: 9999
 
-URxvt*font: xft:Inconsolata:size=11
+URxvt*font: xft:Inconsolata:size=13
 
 URxvt*cursorBlink:              false
 URxvt*visualBell:               false
