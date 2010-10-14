@@ -76,7 +76,7 @@ FLUXBOX_PID=$!
 sleep 10
 
 killall -u $USER gnome-power-manager
-screen -fn -dmS gnome-power-manager /usr/bin/gnome-power-manager --debug
+gnome-power-manager-background
 
 # Start post-fluxbox apps here.
 # Some apps just work better this way.

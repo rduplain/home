@@ -155,26 +155,29 @@ Control Mod4 BackSpace    :Close
 
 # Super key shortcuts
 Mod4 a :ArrangeWindows
-# Mod4 c :ExecCommand /usr/lib/ICAClient/wfcmgr.bin -icaroot /usr/lib/ICAClient
+Mod4 b :ExecCommand VirtualBox
 Mod4 c :ExecCommand gnome-control-center
-Mod4 v :ExecCommand nvidia-settings
 Mod4 d :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
 Mod4 e :ExecCommand thunar
 Mod4 f :ExecCommand gnome-search-tool
 Mod4 g :ExecCommand gimp
 Mod4 i :ExecCommand pidgin
-Mod4 b :ExecCommand VirtualBox
-Mod4 s :ExecCommand skype
 Mod4 j :ExecCommand rhythmbox
 Mod4 k :ExecCommand xkill
 Mod4 l :ExecCommand gnome-screensaver-command --lock
 # Mod4 m :ExecCommand thunderbird
+# Mod4 n is next workspace
+# Mod4 p is prev workspace
 Mod4 r :ExecCommand ~/bin/fbrun
+Mod4 s :ExecCommand skype
+# Mod4 t for tilde console, set in .Xresources
 Mod4 u :ExecCommand gnome-dictionary
+Mod4 v :ExecCommand nvidia-settings
 Mod4 w :ExecCommand firefox -P default
 Mod4 Mod1 w :ExecCommand firefox -P transient --no-remote
 Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote
 Mod4 x :ExecCommand xterm
+Mod4 slash :ExecCommand gnome-power-manager-background
 
 # nudge windows
 Control Mod4 Right      :MoveRight 8

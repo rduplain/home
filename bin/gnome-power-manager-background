@@ -1,0 +1,1 @@
+screen -fn -dmS gnome-power-manager /usr/bin/gnome-power-manager --debug
