@@ -1,0 +1,14 @@
+#!/bin/bash
+# snag stdin, put it into a common file area, optionally using file extension
+# usage: snag [file-extension]
+# example: svn diff | snag .patch
+#
+# Author: Ron DuPlain <ron.duplain@gmail.com>
+
+SNAG_HOME=${SNAG_HOME-$HOME/.snag}
+SNAG_DATE_FORMAT=${SNAG_DATE_FORMAT-"%Y-%m-%d_%H%M%S"}
+
+mkdir -p $SNAG_HOME
+destination=$SNAG_HOME/`date +"$SNAG_DATE_FORMAT"`$1
+echo snagging stdin to $destination
+cat - > $destination
