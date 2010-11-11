@@ -172,7 +172,8 @@ Mod4 r :ExecCommand ~/bin/fbrun
 Mod4 s :ExecCommand skype
 # Mod4 t for tilde console, set in .Xresources
 Mod4 u :ExecCommand gnome-dictionary
-Mod4 v :ExecCommand nvidia-settings
+Mod4 v :ExecCommand auto-disper --change
+Mod4 Mod1 v :ExecCommand nvidia-settings
 Mod4 w :ExecCommand firefox -P default
 Mod4 Mod1 w :ExecCommand firefox -P transient --no-remote
 Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote

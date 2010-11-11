@@ -56,7 +56,7 @@ session.screen0.tooltipDelay:	500
 session.screen0.rootCommand:	fbsetbg -l
 session.screen0.resizeMode:	Bottom
 session.screen0.maxDisableMove:	false
-session.screen0.workspaceNames:	main,email,chat,vm,freecell,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
+session.screen0.workspaceNames:	main,email,chat,music,freecell,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
 session.screen0.focusNewWindows:	true
 session.screen0.clickRaises:	true
 session.screen0.decorateTransient:	True

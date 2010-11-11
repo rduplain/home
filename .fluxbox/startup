@@ -60,6 +60,9 @@ screens &
 # For use with the workspace script.
 export WORKSPACES_RESERVED=5
 
+# Configure monitors.
+auto-disper --change
+
 # Some GNOME processes to try out...
 # /usr/lib/bonobo-activation/bonobo-activation-server --ac-activate --ior-output-fd=20 &
 # /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
