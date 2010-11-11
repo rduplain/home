@@ -105,6 +105,9 @@ if [ "$TERM" != "dumb" ]; then
     alias ls='ls --color=auto'
 fi
 
+# RVM for Ruby
+receive $HOME/.rvm/scripts/rvm
+
 # virtualenvwrapper for Python
 ship WORKON_HOME=$HOME/.virtualenvs
 ship WORKON_HOME=$HOME/.virtualenvs-`uname -n`
