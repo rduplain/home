@@ -96,7 +96,7 @@ global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo *.rej
 # log-encoding = latin1
 ### Set use-commit-times to make checkout/update/switch/revert
 ### put last-committed timestamps on every file touched.
-# use-commit-times = yes
+use-commit-times = no
 ### Set no-unlock to prevent 'svn commit' from automatically
 ### releasing locks on files.
 # no-unlock = yes
@@ -112,7 +112,7 @@ global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo *.rej
 ### Set enable-auto-props to 'yes' to enable automatic properties
 ### for 'svn add' and 'svn import', it defaults to 'no'.
 ### Automatic properties are defined in the section 'auto-props'.
-# enable-auto-props = yes
+enable-auto-props = yes
 ### Set interactive-conflicts to 'no' to disable interactive
 ### conflict resolution prompting.  It defaults to 'yes'.
 # interactive-conflicts = no
@@ -126,14 +126,42 @@ global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo *.rej
 ### applied to the file.  Note that auto-props functionality
 ### must be enabled, which is typically done by setting the
 ### 'enable-auto-props' option.
-# *.c = svn:eol-style=native
-# *.cpp = svn:eol-style=native
-# *.h = svn:eol-style=native
-# *.dsp = svn:eol-style=CRLF
-# *.dsw = svn:eol-style=CRLF
-# *.sh = svn:eol-style=native;svn:executable
-# *.txt = svn:eol-style=native
-# *.png = svn:mime-type=image/png
-# *.jpg = svn:mime-type=image/jpeg
-# Makefile = svn:eol-style=native
-
+Makefile = svn:mime-type=text/plain;svn:eol-style=native
+*.acl = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.apt = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.c = svn:mime-type=text/plain;svn:eol-style=native
+*.conf = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.cpp = svn:mime-type=text/plain;svn:eol-style=native
+*.css = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.csv = svn:mime-type=text/plain;svn:eol-style=native
+*.dtd = svn:mime-type=text/xml;svn:eol-style=native
+*.gif = svn:mime-type=image/jpeg
+*.groovy = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.gsp = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.h = svn:mime-type=text/plain;svn:eol-style=native
+*.htaccess = svn:mime-type=text/plain;svn:eol-style=native
+*.htm = svn:mime-type=text/plain;svn:eol-style=native
+*.html = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.jar = svn:mime-type=application/java-archive
+*.java = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.jpg = svn:mime-type=image/jpeg
+*.js = svn:mime-type=text/plain;svn:eol-style=native
+*.json = svn:mime-type=text/plain;svn:eol-style=native
+*.jsp = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.mer = svn:mime-type=text/xml;svn:eol-style=native
+*.php = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.pl = svn:mime-type=text/plain;svn:eol-style=native
+*.png = svn:mime-type=image/png
+*.properties = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.py = svn:mime-type=text/plain;svn:eol-style=native;svn:keywords=Id HeadURL URL Author Date Id Revision
+*.sh = svn:mime-type=text/plain;svn:eol-style=native;svn:executable
+*.sql = svn:mime-type=text/plain;svn:eol-style=native
+*.tag = svn:mime-type=text/plain;svn:eol-style=native
+*.tld = svn:mime-type=text/plain;svn:eol-style=native
+*.txt = svn:mime-type=text/plain;svn:eol-style=native
+*.umr = svn:mime-type=application/eclipseUML
+*.vm = svn:mime-type=text/plain;svn:eol-style=native
+*.xml = svn:mime-type=text/xml;svn:eol-style=native
+*.xsl = svn:mime-type=text/xml;svn:eol-style=native
+*.xsd = svn:mime-type=text/xml;svn:eol-style=native
+*.zip = svn:mime-type=application/zip
