@@ -1,22 +1,26 @@
 #!/bin/bash
 # I was looking for a way to have screen run program at start then run a shell.
 
+# Ideally, we would use $SHELL instead of bash-isms.
+# HACK: want to set environment before running command:
+source $HOME/.bashrc
+
 if [ "$1" = "-C" ]; then
    cd $2
    shift 2
 fi
 
-# hack, but it works:
+# HACK: (but it works)
 # run echo from PROMPT_COMMAND to put info in title bar
 echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"
 
 # run the requested command
 $@
 
-# hack, but it works:
+# HACK: (but it works)
 # put command in history before executing shell
 # need unambiguous redirect, so hard-coded .bash_history
 [[ -n "$@" ]] && echo "$@" >> $HOME/.bash_history
 
 # now launch shell
-exec $SHELL
+exec /bin/bash
