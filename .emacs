@@ -3,6 +3,10 @@
 ;;; GNU Emacs 23
 
 
+;;; This was installed by package-install.el.
+(when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
 ;;; Basics
 
 ;; Define the load path.
@@ -174,6 +178,10 @@
 (setq flyspell-use-meta-tab nil)
 (global-unset-key [?\M-s])
 (setq flyspell-auto-correct-binding [?\M-s])
+
+;; Drag stuff.
+(require 'drag-stuff)
+(drag-stuff-global-mode t)
 
 
 ;;; Programming Tools
