@@ -33,16 +33,19 @@
   [Layer]	{0}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-dock)
+  [Head]	{2}
   [Dimensions]	{210 844}
   [Position]	(UPPERLEFT)	{1228 -100}
   [Maximized]	{vert}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-toolbox)
+  [Head]	{2}
   [Dimensions]	{170 844}
   [Position]	(UPPERLEFT)	{-1 -100}
   [Maximized]	{vert}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-image-window)
+  [Head]	{2}
   [Dimensions]	{1055 875}
   [Position]	(UPPERLEFT)	{171 0}
   [Maximized]	{no}
@@ -69,4 +72,10 @@
   [Workspace]	{2}
   [Dimensions]	{562 743}
   [Position]	(UPPERLEFT)	{801 0}
+[end]
+[transient] (name=gimp) (class=Gimp) (role=gimp-file-open)
+  [Head]	{2}
+[end]
+[app] (name=gimp) (class=Gimp) (role=gimp-message-dialog)
+  [Head]	{2}
 [end]
