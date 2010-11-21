@@ -41,11 +41,6 @@ Mod4 Shift Tab :PrevWindow
 
 Mod4 space :NextWindow
 
-Mod1 Up        :FocusUp
-Mod1 Down      :FocusDown
-Mod1 Left      :FocusLeft
-Mod1 Right     :FocusRight
-
 # change workspace
 # Control Tab :NextWorkspace
 # Control Mod4 Tab :PrevWorkspace
