@@ -1,5 +1,5 @@
 # bashrc - GNU bash source script for bash rc, login
-# Copyright 2007-2009 Ron DuPlain <ron.duplain@espresso-labs.com>
+# Copyright 2007-2010 Ron DuPlain <ron.duplain@espresso-labs.com>
 #
 # To use:
 #     place this directory at ~/.bash.d
@@ -60,51 +60,6 @@ prepend PYTHONPATH $HOME/lib/python/site-packages
 prepend PYTHONPATH $HOME/lib/python
 export PYTHONPATH
 
-# If not running interactively, don't do anything further.
-[[ -z "$PS1" ]] && return
-
-# Set editor and essential program defaults.
-alias emacs='emacs -nw'
-
-export EDITOR='emacs -nw'
-export VISUAL=$EDITOR
-export TEXEDIT=$EDITOR
-export PAGER=less
-export GZIP="-9"
-
-# Set locale.
-export LC_ALL=en_US.UTF-8
-
-# Make less more friendly for non-text input files, see lesspipe(1).
-[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
-forhost perseus LESSPIPE_SH=`which lesspipe.sh`
-forhost perseus [[ $LESSPIPE_SH = "/usr/bin/lesspipe.sh" ]] ||
-forhost perseus [[ $LESSPIPE_SH = "$HOME/bin/lesspipe.sh" ]] &&
-forhost perseus export LESSOPEN="|$LESSPIPE_SH %s " &&
-forhost perseus export LESS="$LESS -R "
-
-[[ -z "$PS1" ]] && return
-
-# Set prompt PS1 to "user@host dir$ "
-export PS1='\u@\h \W\$ '
-
-# If this is an xterm set the title to "user@host dir"
-case "$TERM" in
-xterm*|rxvt*)
-    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
-    ;;
-*)
-    PROMPT_COMMAND='history -a'
-    ;;
-esac
-export PROMPT_COMMAND
-
-# Enable color support of ls.
-if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-fi
-
 # RVM for Ruby
 receive $HOME/.rvm/scripts/rvm
 
@@ -129,15 +84,62 @@ function workon_walk () {
     done
 }
 
-workon_walk
+# pydoc within a virtualenv
+alias pydoc='python `which pydoc`'
 
 # pip for Python
 export PIP_RESPECT_VIRTUALENV=true
 ship PIP_VIRTUALENV_BASE=$WORKON_HOME
 
-# Set up printers.
-forhost perseus export PRINTER=ps3e
-forhost perseus export CUPS_SERVER=printhost
+# If not running interactively, don't do anything further.
+if [ -z "$PS1" ]; then
+    # We want scripts to hit virtual environment, but stop after that.
+    workon_walk
+    return
+fi
+
+# Set editor and essential program defaults.
+alias emacs='emacs -nw'
+
+export EDITOR='emacs -nw'
+export VISUAL=$EDITOR
+export TEXEDIT=$EDITOR
+export PAGER=less
+export GZIP="-9"
+
+# Set locale.
+export LC_ALL=en_US.UTF-8
+
+# Make less more friendly for non-text input files, see lesspipe(1).
+[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+forhost perseus LESSPIPE_SH=`which lesspipe.sh`
+forhost perseus [[ $LESSPIPE_SH = "/usr/bin/lesspipe.sh" ]] ||
+forhost perseus [[ $LESSPIPE_SH = "$HOME/bin/lesspipe.sh" ]] &&
+forhost perseus export LESSOPEN="|$LESSPIPE_SH %s " &&
+forhost perseus export LESS="$LESS -R "
+
+# Set prompt PS1 to "user@host dir$ "
+export PS1='\u@\h \W\$ '
+
+# Set the virtual environment.
+workon_walk
+
+# If this is an xterm set the title to "user@host dir"
+case "$TERM" in
+xterm*|rxvt*)
+    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
+    ;;
+*)
+    PROMPT_COMMAND='history -a'
+    ;;
+esac
+export PROMPT_COMMAND
+
+# Enable color support of ls.
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoreboth
