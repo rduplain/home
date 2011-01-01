@@ -7,3 +7,6 @@
 	default = matching
 [core]
 	excludesfile = /home/rduplain/.gitignore
+[github]
+	user = rduplain
+	token = !cat ~/.gitconfig.github.token
