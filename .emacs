@@ -3,14 +3,14 @@
 ;;; GNU Emacs 23
 
 
-;;; This was installed by package-install.el.
-(when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
-
 ;;; Basics
 
 ;; Define the load path.
 (setq load-path (cons "~/.emacs.d" load-path))
+
+;; Use Emacs Lisp Package Archive package manager.
+(when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
 
 ;; Disable useless decorations.
 (setq inhibit-startup-message t)
@@ -271,6 +271,11 @@
 ;; Cappuccino
 (add-to-list 'auto-mode-alist '("\\.j$" . objc-mode))
 (add-hook 'objc-mode-hook 'flyspell-prog-mode)
+
+;; Common Lisp
+(require 'slime)
+(setq inferior-lisp-program "sbcl") ; default, override with hooks
+(slime-setup)
 
 ;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
