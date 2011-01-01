@@ -79,3 +79,6 @@
 [app] (name=gimp) (class=Gimp) (role=gimp-message-dialog)
   [Head]	{2}
 [end]
+[app] (name=gimp) (class=Gimp) (role=gimp-toolbox-color-dialog)
+  [Head]	{2}
+[end]
