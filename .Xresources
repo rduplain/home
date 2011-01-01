@@ -14,10 +14,10 @@ XTerm*saveLines: 9999
 *faceName: Inconsolata
 *faceSize: 13
 
-*fontMenu*font1*Label: Tiny
-*faceSize1:  10
-*fontMenu*font2*Label: Small
-*faceSize2:  11
+*fontMenu*font1*Label: Small
+*faceSize1:  11
+*fontMenu*font2*Label: Not-too-small
+*faceSize2:  12
 *fontMenu*font3*Label: Medium
 *faceSize3:  13
 *fontMenu*font4*Label: Large
