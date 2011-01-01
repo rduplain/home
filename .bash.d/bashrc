@@ -50,6 +50,8 @@ prepend PATH $HOME/local/`uname -n`/bin
 prepend LD_LIBRARY_PATH $HOME/local/`uname -n`/lib
 prepend MANPATH $HOME/local/`uname -n`/man $HOME/local/`uname -n`/share/man
 
+append PATH $HOME/sandbox/android/sdk/tools
+
 export PATH
 export LD_LIBRARY_PATH
 export MANPATH
@@ -62,6 +64,7 @@ export PYTHONPATH
 
 # RVM for Ruby
 receive $HOME/.rvm/scripts/rvm
+rvm use ruby-1.8.7 > /dev/null 2>&1
 
 # virtualenvwrapper for Python
 ship WORKON_HOME=$HOME/.virtualenvs
@@ -97,6 +100,8 @@ if [ -z "$PS1" ]; then
     workon_walk
     return
 fi
+
+ship R_LIBS_USER=$HOME/.r
 
 # Set editor and essential program defaults.
 alias emacs='emacs -nw'
