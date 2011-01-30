@@ -7,6 +7,7 @@
 
 ;; Define the load path.
 (setq load-path (cons "~/.emacs.d" load-path))
+(setq load-path (cons "~/.emacs.d/bookmark+" load-path))
 
 ;; Use Emacs Lisp Package Archive package manager.
 (when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
@@ -51,6 +52,12 @@
 
 ;; Remove trailing whitespace before saving files.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;;; Extensions
+
+;; Use bookmark+.
+(require 'bookmark+)
 
 
 ;;; Fixes
