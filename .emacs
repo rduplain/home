@@ -98,6 +98,10 @@
 (setq dired-omit-files
       (concat dired-omit-files "\\|\\.egg$\\|\\.egg-info$"))
 
+; Python test coverage files are uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.coverage$"))
+
 ; Mac OS X clutter is uninteresting.
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\.DS_Store$\\|^__MACOSX$"))
