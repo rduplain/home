@@ -68,6 +68,30 @@
           (lambda ()
             (dired-omit-mode 1)))
 
+; Add more uninteresting files.
+; Swap files from vi/vim are uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.sw[op]$"))
+
+; Build output directories are uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^build$\\|^dist$"))
+
+; Data and database files are uninteresting in emacs.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.dat$\\|\\.sqlite3?$"))
+
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.db$\\|\\.db-journal$"))
+
+; Python "egg" files are uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.egg$\\|\\.egg-info$"))
+
+; Mac OS X clutter is uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\.DS_Store$\\|^__MACOSX$"))
+
 
 ;;; Fixes
 
