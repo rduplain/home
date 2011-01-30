@@ -69,6 +69,16 @@
             (dired-omit-mode 1)))
 
 ; Add more uninteresting files.
+; Archive files are uninteresting in emacs.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.zip$"))
+
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.tar\\.gz$\\|\\.tgz$"))
+
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.tar\\.bz$\\|\\.tbz$\\|\\.tbz2$"))
+
 ; Swap files from vi/vim are uninteresting.
 (setq dired-omit-files
       (concat dired-omit-files "\\|\\.sw[op]$"))
