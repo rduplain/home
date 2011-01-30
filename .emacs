@@ -190,6 +190,10 @@
 
 ; Provide a keybinding to run the nearest Makefile.
 (global-set-key (kbd "C-x C-a") 'compile)
+; TODO: Consider special make keybindings.
+;(global-set-key (kbd "C-x C-n") 'compile) ; make clean
+;(global-set-key (kbd "C-x C-j") 'compile) ; make flakes
+; or... C-x C-a compiles without asking, and C-x C-n sets a new compile-command.
 
 ; Scroll the compilation buffer with new output.
 (setq compilation-scroll-output t)
