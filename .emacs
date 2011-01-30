@@ -59,6 +59,15 @@
 ;; Use bookmark+.
 (require 'bookmark+)
 
+;; Extend dired.
+(eval-after-load "dired"
+  '(require 'dired-x))
+
+; Ignore uninteresting files.
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (dired-omit-mode 1)))
+
 
 ;;; Fixes
 
