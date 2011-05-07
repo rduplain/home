@@ -1,4 +1,10 @@
 #!/bin/sh
-# Recipe from Kai Groner <kai@gronr.com>.
+# Original recipe from Kai Groner <kai@gronr.com>.
 
-exec git --git-dir=$HOME/.homegit --work-tree=$HOME "$@";
+homegit="git --git-dir=$HOME/.homegit --work-tree=$HOME"
+
+if [ "$1" = "sync" ]; then
+    $homegit fetch && $homegit rebase origin/master
+else
+    exec $homegit "$@";
+fi
