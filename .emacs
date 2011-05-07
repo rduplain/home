@@ -45,7 +45,8 @@
 (global-set-key "\C-x\C-b" 'electric-buffer-list)
 
 ;; Indent only with spaces (default 4), never tabs.
-(setq standard-indent 4)
+(setq-default standard-indent 4)
+(setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 
 ;; Fill columns at 80 characters.
@@ -372,8 +373,14 @@
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
 
 ;; HTML
+(add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
 (add-hook 'html-mode-hook 'flyspell-prog-mode)
-(add-hook 'html-mode-hook '(lambda () (auto-fill-mode nil)))
+(add-hook 'html-mode-hook '(lambda ()
+                             (auto-fill-mode nil)
+                             (setq indent-tabs-mode t)
+                             (setq standard-indent 4)
+                             (setq tab-width 4)
+                             (setq sgml-basic-offset 4)))
 
 ;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
