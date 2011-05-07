@@ -86,7 +86,7 @@
 
 ; Build output directories are uninteresting.
 (setq dired-omit-files
-      (concat dired-omit-files "\\|^build$\\|^dist$"))
+      (concat dired-omit-files "\\|^dist$"))
 
 ; Data and database files are uninteresting in emacs.
 (setq dired-omit-files
@@ -99,9 +99,9 @@
 (setq dired-omit-files
       (concat dired-omit-files "\\|\\.egg$\\|\\.egg-info$"))
 
-; Python test coverage files are uninteresting.
+; Python test tool files are uninteresting.
 (setq dired-omit-files
-      (concat dired-omit-files "\\|\\.coverage$"))
+      (concat dired-omit-files "\\|\\.coverage$\\|\\.tox$"))
 
 ; Mac OS X clutter is uninteresting.
 (setq dired-omit-files
