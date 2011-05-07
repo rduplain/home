@@ -50,6 +50,7 @@ prepend PATH $HOME/local/`uname -n`/bin
 prepend LD_LIBRARY_PATH $HOME/local/`uname -n`/lib
 prepend MANPATH $HOME/local/`uname -n`/man $HOME/local/`uname -n`/share/man
 
+append PATH $HOME/sandbox/android/sdk/platform-tools
 append PATH $HOME/sandbox/android/sdk/tools
 
 export PATH
@@ -128,6 +129,10 @@ export PS1='\u@\h \W\$ '
 
 # Set the virtual environment.
 workon_walk
+
+# todo.txt
+alias todo=todo.sh
+alias t=todo.sh
 
 # If this is an xterm set the title to "user@host dir"
 case "$TERM" in
