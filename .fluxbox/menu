@@ -5,6 +5,7 @@
       [exec] (Chrome) {google-chrome}
       [exec] (Eclipse) {eclipse}
       [exec] (Jukebox) {banshee}
+      [exec] (Boxee) {/opt/boxee/Boxee}
       [nop]
       [exec] (Lock) {gnome-screensaver-command --lock}
       [reconfig] (Reload)

@@ -82,3 +82,11 @@
 [app] (name=gimp) (class=Gimp) (role=gimp-toolbox-color-dialog)
   [Head]	{2}
 [end]
+[app] (name=Banshee) (class=banshee-1)
+  [Workspace]	{3}
+  [Head]	{2}
+[end]
+[app] (name=Pidgin) (class=Pidgin) (role=conversation)
+  [Workspace]	{2}
+  [Head]	{2}
+[end]
