@@ -247,7 +247,7 @@ Control Mod1 Right  :ExecCommand rhythmbox-client --next
 Control Mod1 Return :ExecCommand rhythmbox-client --notify
 
 # print screen
-Print :ExecCommand import /tmp/screenshot.jpg && display /tmp/screenshot.jpg
+Print :ExecCommand import /tmp/screenshot.png && display /tmp/screenshot.png
 Control Print :ExecCommand import /tmp/screenshot.eps && display /tmp/screenshot.eps
 Control Mod1 Print :ExecCommand import /tmp/screenshot.tiff && display /tmp/screenshot.tiff
 
