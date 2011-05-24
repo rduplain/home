@@ -2,6 +2,12 @@
 # C-] is a really useful key, since it's hardly used elsewhere theses days.
 escape ^]]
 
+# Having just overridden the paste keybinding, bind a new one.
+# Enter copy mode with C-] C-[
+# Use vi-like keybindings to move about, C-s or C-r to search.
+# <spacebar> to mark the region, C-] . to paste.
+bind . paste .
+
 # I can live without bells. These settings seem to get rid of bells entirely.
 vbell off
 bell_msg ""
