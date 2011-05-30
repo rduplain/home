@@ -347,6 +347,10 @@
 ;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 
+;; Cucumber/Lettuce
+(require 'feature-mode)
+(add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode))
+
 ;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 
