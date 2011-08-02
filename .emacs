@@ -52,6 +52,9 @@
 ;; Fill columns at 80 characters.
 (setq-default fill-column 79)
 
+;; Truncate long lines on partial windows.
+(setq-default truncate-partial-width-windows t)
+
 ;; Remove trailing whitespace before saving files.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
