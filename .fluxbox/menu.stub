@@ -1,0 +1,7 @@
+# Build with `generate_menu` in same directory.
+[begin] (   pol   )
+	[exec] (Terminal) {xterm}
+	[exec] (Firefox) {firefox -P default}
+	[exec] (Chrome) {chromium}
+	[exec] (Jukebox) {rhythmbox}
+	[separator]

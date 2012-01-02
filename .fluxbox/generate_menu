@@ -1,0 +1,9 @@
+#!/bin/sh
+# Use MenuMaker to generate a Fluxbox menu, with a personal header stub.
+# Goal: Start your fluxbox menu by hand, finish it with an auto-generated menu.
+
+STUB=$HOME/.fluxbox/menu.stub
+MENU=$HOME/.fluxbox/menu
+
+# Add other modifiers to the pipeline as desired.
+mmaker -f FluxBox -c -t Xterm | grep -v '\[begin\]' | cat $STUB - > $MENU
