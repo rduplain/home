@@ -1,0 +1,15 @@
+#!/bin/sh
+# A script for X defaults, to be run at start and on each USB reconnect.
+# This is particularly useful for a USB KVM switch.
+# For udev rules, note udev executes a limited shell. See xset-restore-udev.
+
+echo Applying keyboard layout and initial xset.
+
+# Use setxkbmap over xmodmap, as setxkbmap reapplies gracefully.
+setxkbmap -option ctrl:nocaps
+
+# Turn off beeps.
+xset -b
+
+# Set the keyboard rate.
+xset r rate 250 30

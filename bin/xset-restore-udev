@@ -1,0 +1,37 @@
+#!/bin/bash
+# Run xset-restore via a udev rule.
+# From http://www.reactivated.net/writing_udev_rules.html#external-run
+#
+#     udev does not run these programs on any active terminal, and it does not
+#     execute them under the context of a shell. Be sure to ensure your program
+#     is marked executable, if it is a shell script ensure it starts with an
+#     appropriate shebang (e.g. #!/bin/sh), and do not expect any standard
+#     output to appear on your terminal.
+#
+# Note: udev is not running as the user with the X session or has the same env.
+
+# Apply default environment if variables are unset.
+HOME=${HOME:-/home/rduplain}
+PATH=${PATH:-/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin}
+DISPLAY=${DISPLAY:-:0.0}
+XAUTHORITY=${XAUTHORITY:-/home/rduplain/.Xauthority}
+
+export HOME PATH DISPLAY XAUTHORITY
+
+identifier=keyboard:"Microsoft Natural® Ergonomic Keyboard 4000"
+
+# Wait until keyboard is loaded.
+# Note for debugging: `udevd --debug` behaves differently from `udevd`.
+# Use `udevd --debug` for debugging rule parsing, and `udevd` for correctness.
+attempts=0
+while [ $attempts -lt 12 ]; do
+    listing=`xinput list "$identifier" 2>/dev/null`
+    if [ -n "$listing" ]; then
+        $HOME/bin/xset-restore
+        exit 0
+    fi
+    let attempts=attempts+1
+    sleep 0.25
+done
+
+exit 1
