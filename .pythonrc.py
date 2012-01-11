@@ -28,13 +28,15 @@ try:
 except ImportError:
     _print_debug("Module readline not available.")
 else:
-    history_file = os.path.join(os.environ["HOME"], ".pyhist")
+    history_file = os.path.join(os.environ["HOME"], ".python_history")
     try:
         readline.read_history_file(history_file)
     except IOError:
         _print_debug('History file not available.')
 
     import atexit
+    # Set number of lines to save. Negative values mean infinite.
+    readline.set_history_length(100000)
     atexit.register(readline.write_history_file, history_file)
 
     del history_file
@@ -47,5 +49,8 @@ del sys
 del os
 
 # Reset __vars__ to default, for transparency of rc file.
-del __file__
-__doc__ = None
+try:
+    del __file__
+    __doc__ = None
+except NameError:
+    pass
