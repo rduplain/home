@@ -4,6 +4,7 @@
 
 STUB=$HOME/.fluxbox/menu.stub
 MENU=$HOME/.fluxbox/menu
+MMAKER=/opt/menumaker/bin/mmaker
 
 # Add other modifiers to the pipeline as desired.
-mmaker -f FluxBox -c -t Xterm | grep -v '\[begin\]' | cat $STUB - > $MENU
+$MMAKER -f FluxBox -c -t Xterm | grep -v '\[begin\]' | cat $STUB - > $MENU

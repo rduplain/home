@@ -69,7 +69,7 @@ session.screen0.allowRemoteActions:	true
 session.screen0.noFocusWhileTypingDelay:	0l
 session.screen0.windowMenu:	/home/rduplain/.fluxbox/windowmenu
 session.screen0.fullMaximization:	false
-session.screen0.workspaces:	7
+session.screen0.workspaces:	20
 session.screen0.reversewheeling:	True
 session.screen0.workspacewarping:	true
 session.screen0.strftimeFormat:	%a - %Y-%m-%d - %k:%M

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/usr/bin/fbrun -font Inconsolata-12 -bg black -fg white -w 158 $@
+/opt/fluxbox/bin/fbrun -font Inconsolata-12 -bg black -fg white -w 158 $@

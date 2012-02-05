@@ -1,8 +1,8 @@
 ! fluxbox-update_configs added '(workspace=[current])' to (Next|Prev)(Window|Group)
 ! check lines marked by 'FBCV13' if they are correctly updated
-!mouse actions added by fluxbox-update_configs
+! mouse actions added by fluxbox-update_configs
 OnTitlebar Mouse1 :MacroCmd {Focus} {Raise} {ActivateTab}
-!mouse actions added by fluxbox-update_configs
+! mouse actions added by fluxbox-update_configs
 OnTitlebar Move1 :StartMoving
 OnLeftGrip Move1 :StartResizing bottomleft
 OnRightGrip Move1 :StartResizing bottomright
@@ -155,35 +155,37 @@ Control Mod4 BackSpace    :Close
 # Super key shortcuts
 Mod4 a :ArrangeWindows
 Mod4 b :ExecCommand VirtualBox
-Mod4 c :ExecCommand gnome-control-center
+# Mod4 c :ExecCommand gnome-control-center
 Mod4 d :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
 Mod4 e :ExecCommand thunar
-Mod4 f :ExecCommand gnome-search-tool
+# Mod4 f :ExecCommand gnome-search-tool
 Mod4 g :ExecCommand gimp
 Mod4 i :ExecCommand pidgin
 Mod4 j :ExecCommand rhythmbox
 Mod4 k :ExecCommand xkill
-Mod4 l :ExecCommand gnome-screensaver-command --lock
+Mod4 l :ExecCommand xscreensaver-command -lock
 # Mod4 m :ExecCommand thunderbird
 # Mod4 n is next workspace
 # Mod4 p is prev workspace
-# Mod4 r :ExecCommand ~/bin/fbrun
+Mod4 r :ExecCommand ~/bin/fbrun
 Mod4 s :ExecCommand skype
 # Mod4 t for tilde console, set in .Xresources
 Mod4 u :ExecCommand gnome-dictionary
-Mod4 v :ExecCommand auto-disper --change
-Mod4 Mod1 v :ExecCommand nvidia-settings
-Mod4 w :ExecCommand firefox -P default
-Mod4 Mod1 w :ExecCommand firefox -P transient --no-remote
-Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote
+# Mod4 v :ExecCommand auto-disper --change
+# Mod4 Mod1 v :ExecCommand nvidia-settings
+Mod4 w :ExecCommand google-chrome --purge-memory-button --memory-model=medium
+# Mod4 w :ExecCommand firefox -P default
+Mod4 Mod1 w :ExecCommand google-chrome --incognito
+Control Mod4 Mod1 w :ExecCommand firefox -P transient
+# Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote
 Mod4 x :ExecCommand xterm
-Mod4 slash :ExecCommand gnome-power-manager-background
+# Mod4 slash :ExecCommand gnome-power-manager-background
 
 # nudge windows
-Control Mod4 Right      :MoveRight 8
-Control Mod4 Left       :MoveLeft 8
-Control Mod4 Up         :MoveUp 8
-Control Mod4 Down       :MoveDown 8
+# Control Mod4 Right      :MoveRight 8
+# Control Mod4 Left       :MoveLeft 8
+# Control Mod4 Up         :MoveUp 8
+# Control Mod4 Down       :MoveDown 8
 
 Control Mod1 Mod4 Right :MoveRight 1
 Control Mod1 Mod4 Left  :MoveLeft 1
@@ -201,8 +203,8 @@ Control Mod4 KP_Home  :MoveTo 0 0 UpperLeft
 Control Mod4 KP_Up    :MoveTo * 0 Upper
 Control Mod4 KP_Prior :MoveTo 0 0 UpperRight
 
-Control Mod4 y :MoveLeft 1000
-Control Mod4 p :MoveRight 1000
+# Control Mod4 y :MoveLeft 1000
+# Control Mod4 p :MoveRight 1000
 
 Control Mod4 Mod1 y :MoveDown 1000
 Control Mod4 Mod1 p :MoveUp 1000
@@ -238,7 +240,7 @@ Control Escape :RootMenu
 # multimedia keys
 # XF86Calculator :ExecCommand gnome-calculator
 # calculator key on Microsoft ComfortCurve 2000: 161
-161            :ExecCommand gnome-calculator
+148            :ExecCommand gnome-calculator
 
 Control Mod1 Up     :ExecCommand rhythmbox-client --pause
 Control Mod1 Down   :ExecCommand rhythmbox-client --play-pause

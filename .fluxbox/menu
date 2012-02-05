@@ -1,16 +1,213 @@
-[begin] (   moka   )
-[encoding] {UTF-8}
-      [exec] (Terminal) {xterm}
-      [exec] (Firefox) {firefox -P default}
-      [exec] (Chrome) {google-chrome}
-      [exec] (Eclipse) {eclipse}
-      [exec] (Jukebox) {banshee}
-      [exec] (Boxee) {/opt/boxee/Boxee}
-      [nop]
-      [exec] (Lock) {gnome-screensaver-command --lock}
-      [reconfig] (Reload)
-      [restart] (Restart)
-      [exec] (Exit) {killall -u rduplain gnome-session; killall -u rduplain pulseaudio}
-[end]
-[endencoding]
+# Build with `generate_menu` in same directory.
+[begin] (   sol   )
+	[exec] (Terminal) {xterm}
+	[exec] (Firefox) {firefox -P default}
+	[exec] (Chrome) {google-chrome --purge-memory-button --memory-model=medium}
+	[exec] (WakeOnLan) {gwakeonlan}
+	[exec] (Jukebox) {rhythmbox}
+	[separator]
+	[submenu] (Development)
+		[exec] (Eclipse) {eclipse}
+		[exec] (Erlang Shell) {xterm -e erl}
+		[exec] (GDB) {xterm -e gdb}
+		[exec] (Python [v2.7]) {xterm -e python2.7}
+		[exec] (Python [v3.2]) {xterm -e python3.2}
+		[exec] (Reportbug) {xterm -e reportbug --exit-prompt}
+		[exec] (Reportbug [GTK+]) {reportbug --exit-prompt --ui gtk2}
+		[exec] (Ruby [irb1.8]) {xterm -e irb1.8}
+		[exec] (Tclsh8.5) {xterm -e tclsh8.5}
+		[exec] (TkWish8.5) {x-terminal-emulator -e /usr/bin/wish8.5}
+	[end]
+	[submenu] (Editors)
+		[exec] (Emacs) {xterm -e emacs}
+		[exec] (Emacs 23 [text]) {xterm -e emacs23 -nw}
+		[exec] (Emacs 23 [X11]) {emacs23}
+		[exec] (gedit) {gedit}
+		[exec] (Nano) {xterm -e nano}
+		[exec] (Pico) {xterm -e pico}
+		[exec] (Vi) {xterm -e vi}
+		[exec] (Vim) {xterm -e vim}
+	[end]
+	[submenu] (Games)
+		[submenu] (Arcade)
+			[exec] (Nibbles) {gnibbles}
+			[exec] (Robots) {gnobots2}
+		[end]
+		[submenu] (Board)
+			[exec] (Chess) {glchess}
+			[exec] (GnuChess) {xterm -e gnuchess}
+			[exec] (Iagno) {iagno}
+			[exec] (Mahjongg) {mahjongg}
+		[end]
+		[submenu] (Card)
+			[exec] (AisleRiot Solitaire) {sol}
+			[exec] (FreeCell Solitaire) {sol --freecell}
+			[exec] (Gnome FreeCell) {sol --variation freecell}
+			[exec] (Tali) {gtali}
+		[end]
+		[submenu] (Puzzle)
+			[exec] (Five or More) {glines}
+			[exec] (Four-in-a-Row) {gnect}
+			[exec] (Klotski) {gnotski}
+			[exec] (Mines) {gnomine}
+			[exec] (Quadrapassel) {quadrapassel}
+			[exec] (Sudoku) {gnome-sudoku}
+			[exec] (Tetravex) {gnotravex}
+		[end]
+	[end]
+	[submenu] (Graphics)
+		[exec] (Document Viewer) {evince}
+		[exec] (Image Viewer) {eog}
+		[exec] (ImageMagick) {display logo:}
+		[exec] (LibreOffice Draw) {libreoffice --draw}
+		[exec] (LRF Viewer) {lrfviewer}
+	[end]
+	[submenu] (Multimedia)
+		[exec] (AirVideo Server) {/opt/airvideo-server/tray}
+		[exec] (ALSA mixer) {xterm -e alsamixer}
+		[exec] (Audacity) {audacity}
+		[exec] (Brasero) {brasero}
+		[exec] (GNOME ALSA Mixer) {gnome-alsamixer}
+		[exec] (Rhythmbox) {rhythmbox}
+		[exec] (Sound Recorder) {gnome-sound-recorder}
+		[exec] (VLC media player) {vlc}
+		[exec] (VLC media player) {qvlc}
+	[end]
+	[submenu] (Network)
+		[exec] (FireFox) {firefox}
+		[exec] (FTP) {xterm -e ftp}
+		[exec] (Google Chrome) {google-chrome}
+		[exec] (gWakeOnLan) {gwakeonlan}
+		[exec] (Mail Reader) {exo-open --launch MailReader}
+		[exec] (Skype) {skype}
+		[exec] (Telnet) {xterm -e telnet}
+		[exec] (W3m) {xterm -e w3m}
+		[exec] (w3m) {xterm -e w3m /usr/share/doc/w3m/MANUAL.html}
+		[exec] (Web Browser) {exo-open --launch WebBrowser}
+		[exec] (Wireshark) {wireshark}
+	[end]
+	[submenu] (Office)
+		[exec] (calibre) {calibre}
+		[exec] (Dictionary) {gnome-dictionary}
+		[exec] (LibreOffice Impress) {libreoffice --impress}
+		[exec] (LibreOffice Math) {libreoffice --math}
+		[exec] (LibreOffice Writer) {libreoffice --writer}
+		[exec] (Okular) {okular}
+		[exec] (XDvi) {xdvi}
+	[end]
+	[submenu] (Other)
+		[exec] (Fiberlamp) {/usr/lib/xscreensaver/fiberlamp -root}
+		[exec] (FuzzyFlakes) {/usr/lib/xscreensaver/fuzzyflakes -root}
+		[exec] (GDebi Package Installer) {gdebi-gtk}
+		[exec] (Home Folder) {nautilus}
+		[exec] (LibreOffice Impress) {libreoffice}
+		[exec] (OpenJDK Java 6 Policy Tool) {policytool}
+	[end]
+	[submenu] (Shells)
+		[exec] (Bash) {xterm -e bash --login}
+		[exec] (Dash) {xterm -e dash -i}
+		[exec] (GIT) {xterm -e git}
+		[exec] (Sh) {xterm -e sh --login}
+		[exec] (Thunar File Manager) {Thunar}
+		[exec] (UXTerm) {uxterm}
+		[exec] (Xterm) {xterm}
+	[end]
+	[submenu] (System)
+		[submenu] (Settings)
+			[submenu] (GNOME)
+				[exec] (Advanced Settings) {gnome-tweak-tool}
+				[exec] (Appearance) {gnome-control-center background}
+				[exec] (Bluetooth) {gnome-control-center bluetooth}
+				[exec] (Color) {gnome-control-center color}
+				[exec] (Date and Time) {gnome-control-center datetime}
+				[exec] (Displays) {gnome-control-center display}
+				[exec] (Keyboard) {gnome-control-center keyboard}
+				[exec] (Keyboard Layout) {gnome-control-center region}
+				[exec] (Main Menu) {alacarte}
+				[exec] (Mouse and Touchpad) {gnome-control-center mouse}
+				[exec] (Network) {gnome-control-center network}
+				[exec] (Network Connections) {nm-connection-editor}
+				[exec] (Online Accounts) {gnome-control-center online-accounts}
+				[exec] (Personal File Sharing) {gnome-file-share-properties}
+				[exec] (Power) {gnome-control-center power}
+				[exec] (Printers) {gnome-control-center printers}
+				[exec] (Removable Media) {gnome-control-center media}
+				[exec] (Screen) {gnome-control-center screen}
+				[exec] (Software Sources) {software-properties-gtk}
+				[exec] (Sound) {gnome-control-center sound}
+				[exec] (Startup Applications) {gnome-session-properties}
+				[exec] (System Info) {gnome-control-center info}
+				[exec] (Universal Access) {gnome-control-center universal-access}
+				[exec] (Wacom Graphics Tablet) {gnome-control-center wacom}
+			[end]
+			[submenu] (Xfce)
+				[exec] (File Manager) {thunar-settings}
+				[exec] (Panel) {xfce4-panel -p}
+				[exec] (Preferred Applications) {exo-preferred-applications}
+				[exec] (Removable Drives and Media) {thunar-volman-settings}
+				[exec] (Screensaver) {xscreensaver-demo}
+			[end]
+			[exec] (Gtk-ChTheme) {gtk-chtheme}
+			[exec] (Startup Disk Creator) {usb-creator-gtk}
+			[exec] (Ubuntu Software Center) {software-center}
+			[exec] (Update Manager) {update-manager}
+			[exec] (User Accounts) {gnome-control-center user-accounts}
+			[exec] (Xfontsel) {xfontsel}
+			[exec] (Xvidtune) {xvidtune}
+		[end]
+		[exec] (Aptitude [terminal]) {xterm -e aptitude-curses}
+		[exec] (Bulk Rename) {/usr/lib/Thunar/ThunarBulkRename}
+		[exec] (Debian Task selector) {xterm -e su-to-root -c tasksel}
+		[exec] (DSL/PPPoE configuration tool) {xterm -e pppoeconf}
+		[exec] (Editres) {editres}
+		[exec] (Gnome Control Center) {gnome-control-center}
+		[exec] (GTK+ 2.0 Theme Switch) {gtk-theme-switch2}
+		[exec] (Nepomuk Backup) {nepomukbackup}
+		[exec] (Nepomuk File Indexing Controller) {nepomukcontroller}
+		[exec] (OpenJDK Java 6 Console) {jconsole}
+		[exec] (Power Statistics) {gnome-power-statistics}
+		[exec] (pppconfig) {xterm -e su-to-root -p root -c /usr/sbin/pppconfig}
+		[exec] (Pstree) {xterm -e pstree.x11}
+		[exec] (System Monitor) {gnome-system-monitor}
+		[exec] (System Settings) {gnome-control-center --overview}
+		[exec] (TeXconfig) {xterm -e texconfig}
+		[exec] (Top) {xterm -e top}
+		[exec] (Xev) {x-terminal-emulator -e xev}
+		[exec] (Xkill) {xkill}
+		[exec] (Xrefresh) {xrefresh}
+	[end]
+	[submenu] (Utilities)
+		[exec] (Activate ScreenSaver [Next]) {xscreensaver-command -next}
+		[exec] (Activate ScreenSaver [Previous]) {xscreensaver-command -prev}
+		[exec] (Activate ScreenSaver [Random]) {xscreensaver-command -activate}
+		[exec] (Bc) {xterm -e bc}
+		[exec] (Byobu Terminal) {xterm -e byobu-launcher}
+		[exec] (Calculator) {gcalctool}
+		[exec] (Demo Screen Hacks) {xscreensaver-command -demo}
+		[exec] (Disable XScreenSaver) {xscreensaver-command -exit}
+		[exec] (Enable XScreenSaver) {xscreensaver}
+		[exec] (File Manager) {exo-open --launch FileManager}
+		[exec] (Help) {yelp}
+		[exec] (Info) {xterm -e info}
+		[exec] (Lock Screen [XScreenSaver]) {xscreensaver-command -lock}
+		[exec] (Parcellite) {parcellite}
+		[exec] (QuickSynergy) {quicksynergy}
+		[exec] (Reinitialize XScreenSaver) {xscreensaver-command -restart}
+		[exec] (ScreenSaver Preferences) {xscreensaver-command -prefs}
+		[exec] (Terminal Emulator) {exo-open --launch TerminalEmulator}
+		[exec] (TeXdoctk) {texdoctk}
+	[end]
+	[separator]
+	[submenu] (FluxBox)
+		[workspaces] (Workspaces)
+		[submenu] (Styles)
+			[stylesdir] (/usr/share/fluxbox/styles)
+			[stylesdir] (~/.fluxbox/styles)
+		[end]
+		[config] (Configure)
+		[reconfig] (Reconfig)
+		[restart] (Restart)
+		[separator]
+		[exit] (Exit)
+	[end]
 [end]
