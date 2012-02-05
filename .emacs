@@ -141,7 +141,7 @@
 
 ;; Enlarge/shrink windows with ease with Control-6 and Meta-6.
 (global-set-key [?\C-^] 'enlarge-window)
-(global-set-key [?\M-6] 'shrink-window)
+(global-set-key [?\M-6] 'shrink-window) ; TODO: This breaks repeat-by-number prefixing. Fix it.
 
 ;; yic buffer cycle - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
 (defun yic-ignore (str)
