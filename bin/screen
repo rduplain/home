@@ -18,12 +18,9 @@ fi
 
 # Select a screenrc, in order of priority (see comment at top of file).
 if [ -e ${SCREENRC}-${USER} ]; then
-    echo $SCREEN -c $SCREENRC-${USER} $local_args $@
     exec $SCREEN -c $SCREENRC-${USER} $local_args $@
 elif [ -e $SCREENRC ]; then
-    echo $SCREEN -c $SCREENRC $local_args $@
     exec $SCREEN -c $SCREENRC $local_args $@
 else
-    echo $SCREEN $local_args $@
     exec $SCREEN $local_args $@
 fi
