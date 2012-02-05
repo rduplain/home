@@ -12,43 +12,27 @@ source $BASH_DIR/functions.bash
 
 # Set important paths.
 prepend PATH /bin /sbin
-prepend LD_LIBRARY_PATH /lib
+prepend LD_LIBRARY_PATH /lib /lib32 /lib/i386-linux-gnu /lib64 /lib/x86_64-linux-gnu
 
 prepend PATH /usr/bin /usr/sbin
-prepend LD_LIBRARY_PATH /usr/lib
+prepend LD_LIBRARY_PATH /usr/lib /usr/lib32 /usr/lib/i386-linux-gnu /usr/lib64 /usr/lib/x86_64-linux-gnu
 prepend MANPATH /usr/man /usr/share/man
 
 prepend PATH /usr/local/bin /usr/local/sbin
-prepend LD_LIBRARY_PATH /usr/local/lib
+prepend LD_LIBRARY_PATH /usr/local/lib /usr/local/lib32 /usr/local/lib/i386-linux-gnu /usr/local/lib64 /usr/local/lib/x86_64-linux-gnu
 prepend MANPATH /usr/local/man /usr/local/share/man
 
 prepend PATH /opt/local/bin /opt/local/sbin
-prepend LD_LIBRARY_PATH /opt/local/lib
+prepend LD_LIBRARY_PATH /opt/local/lib /opt/local/lib32 /opt/local/lib64
 prepend MANPATH /opt/local/man /opt/local/share/man
 
 prepend PATH $HOME/bin
-prepend LD_LIBRARY_PATH $HOME/lib
+prepend LD_LIBRARY_PATH $HOME/lib $HOME/lib32 $HOME/lib64
 prepend MANPATH $HOME/man $HOME/share/man
 
-prepend PATH $HOME/local/bin
-prepend LD_LIBRARY_PATH $HOME/local/lib
-prepend MANPATH $HOME/local/man $HOME/local/share/man
-
-prepend PATH /export/data/rduplain/bin
-prepend LD_LIBRARY_PATH /export/data/rduplain/lib
-prepend MANPATH /export/data/rduplain/man /export/data/rduplain/share/man
-
-prepend PATH /export/data_1/rduplain/bin
-prepend LD_LIBRARY_PATH /export/data_1/rduplain/lib
-prepend MANPATH /export/data_1/rduplain/man /export/data_1/rduplain/share/man
-
-prepend PATH /export/data_2/rduplain/bin
-prepend LD_LIBRARY_PATH /export/data_2/rduplain/lib
-prepend MANPATH /export/data_2/rduplain/man /export/data_2/rduplain/share/man
-
-prepend PATH $HOME/local/`uname -n`/bin
-prepend LD_LIBRARY_PATH $HOME/local/`uname -n`/lib
-prepend MANPATH $HOME/local/`uname -n`/man $HOME/local/`uname -n`/share/man
+append PATH /opt/*/bin
+append LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
+append MANPATH /opt/*/man /opt/*/share/man
 
 append PATH $HOME/sandbox/android/sdk/platform-tools
 append PATH $HOME/sandbox/android/sdk/tools
@@ -161,7 +145,7 @@ export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
 
-export GDK_NATIVE_WINDOWS=1
+export WORKSPACES_RESERVED=5
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
