@@ -17,17 +17,11 @@ at_exit {puts}
 
 ## Convenient Functions
 
-# Provides a convenient way to see an object's methods:
-# >> x.local_methods
-# => [... list of x's methods ..]
-class Object
-  def local_methods
-    (methods - Object.instance_methods).sort
-  end
-end
-
 # Function to toggle irb's verbosity
 # http://tagaholic.me/2009/05/29/exploring-how-to-configure-irb.html
 def irb_verbosity_toggle
   irb_context.echo ? irb_context.echo = false : irb_context.echo = true
 end
+
+
+require 'rubygems'
