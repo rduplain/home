@@ -3,9 +3,9 @@
 # * prefer .screenrc-$USER or .screenrc in $PWD before $HOME/.screenrc.
 # * default the sessionname to the basename of $PWD.
 
-# Override these with equivalent environment variables.
-SCREEN=${SCREEN:-/usr/bin/screen}
-SCREENRC=${SCREENRC:-.screenrc}
+# Override these with eponymous environment variables.
+SCREEN=${SCREEN:-/usr/bin/screen} # absolute path to screen executable
+SCREENRC=${SCREENRC:-.screenrc} # conventional name of screenrc
 
 # Build a string of options & arguments to inject into screen command call.
 local_args=""
