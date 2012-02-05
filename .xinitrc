@@ -21,12 +21,4 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# source $HOME/.ssh-agent.bash
-# ssh-add -l # exit code 1 on no identities, exit code 2 on could not connect
-# if [ $? -eq 2 ]; then
-#    ssh-agent > $HOME/.ssh-agent.bash
-#    source $HOME/.ssh-agent.bash
-# fi
-# export SSH_AUTH_SOCK SSH_AGENT_PID
-
-exec ssh-agent startfluxbox
+exec ssh-agent /opt/fluxbox/bin/startfluxbox
