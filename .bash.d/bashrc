@@ -41,6 +41,9 @@ export PATH
 export LD_LIBRARY_PATH
 export MANPATH
 
+# Have bin/screen choose opt screen if installed.
+ship SCREEN=/opt/screen/bin/screen
+
 # Set Python defaults.
 ship PYTHONSTARTUP="$HOME/.pythonrc.py"
 prepend PYTHONPATH $HOME/lib/python/site-packages

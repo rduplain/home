@@ -54,6 +54,7 @@ bind  ( select 19
 # %Y-%m-%d - e.g. 2009-09-22 (Y = 2009, m = 09, d = 22)
 # %0c      - current time HH:MM in 24h format (c), zero-padded (0) when < 10h
 # %{=b kg} - set attributes to bold (b) green (g) on black (k)
+# %S       - sessionname (S), in git sources of GNU screen
 # %H       - hostname (H)
 # %l       - system load (l)
 # %{=r gk} - set attributes to reverse (r) black (k) on green (g)
@@ -67,7 +68,7 @@ bind  ( select 19
 # %+Lw     - all window numbers & names (w) after current (+), with flags (L)
 # %-0<     - truncate up to here, placing zero spaces (0) from right margin (-)
 # Spaces outside of escapes and other text are interpreted literally.
-caption always "%{=r gk}%Y-%m-%d %0c %{=b kg} %H  %l  %{=r gk}%-Lw%{=r kg}%60L>%n* %t%{-}%+Lw%-0<"
+caption always "%{=r gk}%Y-%m-%d %0c %{=b kg} %S  %H  %l  %{=r gk}%-Lw%{=r kg}%60L>%n* %t%{-}%+Lw%-0<"
 
 # Use F8 to turn the status bar *off* at the bottom of the screen.
 bindkey -k k8 caption splitonly
@@ -86,3 +87,7 @@ termcapinfo xterm*|linux*|rxvt*|Eterm* OP
 # (which has scrollback), not the alternate screen buffer.
 #
 termcapinfo xterm|xterms|xs|rxvt ti@:te@
+
+screen -t emacs 0
+screen -t git   1
+screen -t make  2
