@@ -82,7 +82,7 @@
       (concat dired-omit-files "\\|\\.tar\\.gz$\\|\\.tgz$"))
 
 (setq dired-omit-files
-      (concat dired-omit-files "\\|\\.tar\\.bz$\\|\\.tbz$\\|\\.tbz2$"))
+      (concat dired-omit-files "\\|\\.tar\\.bz$\\|\\.tar\\.bz2$\\|\\.tbz$\\|\\.tbz2$"))
 
 ; Swap files from vi/vim are uninteresting.
 (setq dired-omit-files
