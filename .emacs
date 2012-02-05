@@ -112,6 +112,10 @@
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\.DS_Store$\\|^__MACOSX$"))
 
+; Log files are interesting, but not all the time.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|\\.log$"))
+
 
 ;;; Fixes
 
