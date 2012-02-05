@@ -8,6 +8,7 @@
 ;; Define the load path.
 (setq load-path (cons "~/.emacs.d" load-path))
 (setq load-path (cons "~/.emacs.d/bookmark+" load-path))
+(setq load-path (cons "~/.emacs.d/scala-mode" load-path))
 (setq load-path (cons "~/.emacs.d/slime" load-path))
 
 ;; Use Emacs Lisp Package Archive package manager.
@@ -416,6 +417,9 @@
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
 (add-hook 'ruby-mode-hook '(lambda () (setq standard-indent 2)))
+
+;; Scala
+(require 'scala-mode-auto)
 
 ;; Shell
 (add-hook 'sh-mode-hook 'flyspell-mode)
