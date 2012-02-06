@@ -87,7 +87,3 @@ termcapinfo xterm*|linux*|rxvt*|Eterm* OP
 # (which has scrollback), not the alternate screen buffer.
 #
 termcapinfo xterm|xterms|xs|rxvt ti@:te@
-
-screen -t emacs 0
-screen -t git   1
-screen -t make  2

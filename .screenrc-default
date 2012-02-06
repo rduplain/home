@@ -1,0 +1,8 @@
+screen -t editor     0 wrap $EDITOR
+screen -t git        1
+screen -t make       2
+select 1
+select 0
+
+source $HOME/.screenrc
+caption always
