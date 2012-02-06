@@ -45,6 +45,7 @@ export MANPATH
 
 # Have bin/screen choose opt screen if installed.
 ship SCREEN=/opt/screen/bin/screen
+ship SCREENRC_DEFAULT=$HOME/.screenrc-default
 
 # Set Android / Java defaults.
 ship M2_HOME=/usr/share/maven2
