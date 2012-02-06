@@ -23,7 +23,7 @@ SCREENRC_DEFAULT=${SCREENRC_DEFAULT:-$HOME/$SCREENRC} # project default
 local_args=""
 
 # If no arguments are given, set a default sessionname.
-if [ -z "$@" ]; then
+if [ $# -eq 0 ]; then
     # Set sessionname to basename of $PWD, e.g. ~/someproject is someproject.
     local_args="$local_args -S ${PWD##*/}"
 fi
