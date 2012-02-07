@@ -34,6 +34,10 @@ append PATH /opt/*/bin
 append LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
 append MANPATH /opt/*/man /opt/*/share/man
 
+prepend PATH /opt/scala/bin
+prepend LD_LIBRARY_PATH /opt/scala/lib /opt/scala/lib32 /opt/scala/lib64
+prepend MANPATH /opt/scala/man /opt/scala/share/man
+
 append PATH $HOME/sandbox/android/sdk/platform-tools
 append PATH $HOME/sandbox/android/sdk/tools
 
