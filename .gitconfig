@@ -9,4 +9,4 @@
 	excludesfile = /home/rduplain/.gitignore
 [github]
 	user = rduplain
-	token = !cat ~/.gitconfig.github.token
+	token = GITHUB_TOKEN in .gitconfig.github.sh

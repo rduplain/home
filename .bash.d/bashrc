@@ -167,6 +167,9 @@ function commands () {
     history | cut -c8- | sort | uniq -c | sort -rn | head
 }
 
+# Load a simple script with executes `export GITHUB_TOKEN=...`.
+receive .gitconfig.github.sh
+
 receive /etc/bash_completion
 receive $BASH_DIR/bash_completion
 
