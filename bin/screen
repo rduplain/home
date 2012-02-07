@@ -28,6 +28,12 @@ if [ $# -eq 0 ]; then
     local_args="$local_args -S ${PWD##*/}"
 fi
 
+# Experiment: if no Python files are found, disable auto-virtualenv.
+if ( ! ls *.py >/dev/null 2>&1 ); then
+    # USE_VIRTUALENV is read by .bashrc.
+    export USE_VIRTUALENV=false
+fi
+
 # Select a screenrc, in order of priority (see comment at top of file).
 if [ -e ${SCREENRC}-${USER} ]; then
     exec $SCREEN -c $SCREENRC-${USER} $local_args $@
