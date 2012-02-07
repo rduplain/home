@@ -128,7 +128,9 @@ forhost perseus export LESS="$LESS -R "
 export PS1='\u@\h \W\$ '
 
 # Set the virtual environment.
-workon_walk
+if [ "$USE_VIRTUALENV" != "false" ]; then
+    workon_walk
+fi
 
 # todo.txt
 alias todo=todo.sh
