@@ -67,7 +67,7 @@ XTerm*color15:                 COLOR_TERM_WHITE
 URxvt*termName: rxvt
 URxvt*saveLines: 9999
 
-URxvt*font: xft:Inconsolata:size=13
+URxvt*font: xft:Inconsolata:size=16
 
 URxvt*cursorBlink:              false
 URxvt*visualBell:               false
