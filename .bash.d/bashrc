@@ -132,6 +132,10 @@ if [ "$USE_VIRTUALENV" != "false" ]; then
     workon_walk
 fi
 
+if [ -d $PWD/.env ]; then
+    . $PWD/.env/bin/activate
+fi
+
 # todo.txt
 alias todo=todo.sh
 alias t=todo.sh
