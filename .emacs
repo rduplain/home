@@ -389,17 +389,17 @@
 (add-hook 'html-mode-hook 'flyspell-prog-mode)
 (add-hook 'html-mode-hook '(lambda ()
                              (auto-fill-mode nil)
-                             (setq indent-tabs-mode t)
-                             (setq standard-indent 4)
-                             (setq tab-width 4)
-                             (setq sgml-basic-offset 4)))
+                             (setq indent-tabs-mode nil)
+                             (setq standard-indent 2)
+                             (setq tab-width 2)
+                             (setq sgml-basic-offset 2)))
 
 ;; JavaScript
 (add-hook 'js-mode-hook '(lambda ()
                            (setq auto-fill-mode nil)
-                           (setq indent-tabs-mode t)
-                           (setq standard-indent 4)
-                           (setq tab-width 4)))
+                           (setq indent-tabs-mode nil)
+                           (setq standard-indent 2)
+                           (setq tab-width 2)))
 
 ;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
