@@ -94,6 +94,7 @@ alias pydoc='python `which pydoc`'
 
 # pip for Python
 ship PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
