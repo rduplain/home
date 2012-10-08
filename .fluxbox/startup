@@ -16,6 +16,7 @@ xset-restore
 
 parcellite &
 xscreensaver -no-splash &
+xscreensaver-watch &
 thunar --daemon &
 $HOME/.dropbox-dist/dropboxd &
 

@@ -1,0 +1,24 @@
+#!/bin/sh
+# Watch xscreensaver and react to status changes.
+#
+# Replaced my previous perl-based recipe with this:
+# http://semicomplete.googlecode.com/svn/tools/xscreensaver-watch.sh
+#
+# Include somewhere in X session startup with:
+#
+#     xscreensaver-watch &
+
+lock() {
+    notice `uname -n` screen is now blank
+    # Do other things here, like stop music playback & mute speakers.
+}
+
+unlock() {
+    notice `uname -n` screen is now unblank
+    # Do other things here, like resume music playback & unmute speakers.
+}
+
+xscreensaver-command -watch | while read a; do
+    echo "$a" | grep -q '^LOCK' && lock
+    echo "$a" | grep -q '^UNBLANK' && unlock
+done
