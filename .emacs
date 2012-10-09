@@ -9,7 +9,6 @@
 (setq load-path (cons "~/.emacs.d" load-path))
 (setq load-path (cons "~/.emacs.d/bookmark+" load-path))
 (setq load-path (cons "~/.emacs.d/scala-mode" load-path))
-(setq load-path (cons "~/.emacs.d/slime" load-path))
 
 ;; Use Emacs Lisp Package Archive package manager.
 (when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
@@ -347,10 +346,8 @@
 (add-hook 'objc-mode-hook 'flyspell-prog-mode)
 
 ;; Common Lisp
-(require 'slime)
 (setq inferior-lisp-program "sbcl") ; default, override with hooks
 (load (expand-file-name "~/.quicklisp/slime-helper.el"))
-(slime-setup)
 
 ;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
