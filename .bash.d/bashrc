@@ -65,8 +65,8 @@ prepend PYTHONPATH $HOME/lib/python
 export PYTHONPATH
 
 # RVM for Ruby
-receive $HOME/.rvm/scripts/rvm
-rvm use ruby-1.8.7 > /dev/null 2>&1
+# receive $HOME/.rvm/scripts/rvm
+# rvm use ruby-1.8.7 > /dev/null 2>&1
 
 # virtualenvwrapper for Python
 ship WORKON_HOME=$HOME/.virtualenvs
