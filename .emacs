@@ -11,6 +11,7 @@
 (setq load-path (cons "~/.emacs.d" load-path))
 (setq load-path (cons "~/.emacs.d/bookmark+" load-path))
 (setq load-path (cons "~/.emacs.d/scala-mode" load-path))
+(setq load-path (cons "~/.emacs.d/magit" load-path))
 
 ;; Use Emacs Lisp Package Archive package manager.
 (when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
@@ -62,6 +63,10 @@
 
 
 ;;; Extensions
+
+;; Use magit for git interactions.
+(require 'magit)
+(global-set-key "\C-xg" 'magit-status)
 
 ;; Use bookmark+.
 (require 'bookmark+)
