@@ -375,22 +375,6 @@
 ;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 
-;; Erlang
-(add-to-list 'auto-mode-alist '("\\.et$" . html-mode))
-(require 'erlang-start)
-
-(defun get-erl-man ()
-  (interactive)
-  (let* ((man-path "/usr/lib/erlang/man")
-         (man-args (format "-M %s %s" man-path (current-word))))
-    (man man-args)))
-
-(add-hook 'erlang-mode-hook
-          (lambda ()
-            (local-set-key [(f6)] (lambda () (interactive) (get-erl-man)))
-            ))
-(add-hook 'erlang-mode-hook 'flyspell-prog-mode)
-
 ;; Haskell
 (load "~/.emacs.d/haskell-mode/haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
