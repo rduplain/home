@@ -12,6 +12,7 @@
 (setq load-path (cons "~/.emacs.d/bookmark+" load-path))
 (setq load-path (cons "~/.emacs.d/scala-mode" load-path))
 (setq load-path (cons "~/.emacs.d/magit" load-path))
+(setq load-path (cons "~/.emacs.d/yasnippet" load-path))
 
 ;; Use Emacs Lisp Package Archive package manager.
 (when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
@@ -247,6 +248,12 @@
 (setq flyspell-use-meta-tab nil)
 (global-unset-key [?\M-s])
 (setq flyspell-auto-correct-binding [?\M-s])
+
+;; Yet Another Snippet system, for code/text snippets.
+(require 'yasnippet)
+(setq yas-global-mode 1)
+(setq yas-snippet-dirs '("~/.emacs.d/snippets" ; highest priority
+                         "~/.emacs.d/yasnippet/snippets"))
 
 ;; Drag stuff.
 (require 'drag-stuff)
