@@ -160,11 +160,13 @@
 (defun yic-ignore (str)
   (or
    ;;buffers I don't want to switch to
+   (string-match "^\\*scratch\\*$" str)
    (string-match "\\*Buffer List\\*" str)
    (string-match "^TAGS" str)
    (string-match "^\\*Messages\\*$" str)
    (string-match "^\\*Completions\\*$" str)
    (string-match "^\\*ESS\\*$" str)
+   (string-match "^\\*Pymacs\\*$" str)
    (string-match "^ " str)
 
    ;;Test to see if the window is visible on an existing visible frame.
@@ -402,8 +404,44 @@
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
 
 ;; Python
+; Drop this python.el in .emacs.d:
+; https://github.com/fgallina/python.el/tree/emacs23
+(require 'python)
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 (add-hook 'python-mode-hook '(lambda () (require 'virtualenv)))
+
+(if (not (boundp 'python-python-command))
+    (setq python-python-command "python"))
+(if (not (boundp 'python-python-command-args))
+    (setq python-python-command-args ""))
+
+; TODO: Lazily load on first python-mode.
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(setq ropemacs-global-prefix "C-x 7") ; unused
+(pymacs-load "ropemacs" "rope-")
+(setq ropemacs-enable-autoimport t)
+(setq ropemacs-guess-project t)
+(setq ropemacs-codeassist-maxfixes 3)
+
+; In yasnippet 0.8.0, the default key is <tab>, and the default fallback
+; behavior is to call the command bound to tab if yasnippet is unable to expand
+; anything.
+(define-key python-mode-map "\t" 'indent-or-code-assist)
+
+(defun point-at-line-beginning ()
+  (eql 0 (string-match "\\W*$" (buffer-substring (line-beginning-position) (point)))))
+
+(defun indent-or-code-assist ()
+  "Indent if point at beginning of line, else offer code assistance via rope."
+  (interactive)
+  (if (point-at-line-beginning)
+      (indent-for-tab-command)
+    (if (rope-completions)
+        (call-interactively 'rope-code-assist))))
 
 ;; R
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
