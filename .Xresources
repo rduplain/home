@@ -11,6 +11,9 @@ Xft*rbga: rgb
 XTerm*termName: xterm
 XTerm*saveLines: 9999
 
+! Disable XTerm fullscreen option, to allow Alt-Return use in terminal.
+XTerm*fullscreen: never
+
 *faceName: Inconsolata
 *faceSize: 13
 
