@@ -34,6 +34,9 @@
 ;; Disable beeps.
 (setq ring-bell-function 'ignore)
 
+;; Disable tramp.
+(setq tramp-mode nil)
+
 ;; Always use syntax highlighting.
 (global-font-lock-mode 1)
 
