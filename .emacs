@@ -5,6 +5,8 @@
 
 ;;; Basics
 
+(require 'cl)
+
 ;; Define the load path.
 (setq load-path (cons "~/.emacs.d" load-path))
 (setq load-path (cons "~/.emacs.d/bookmark+" load-path))
@@ -132,8 +134,6 @@
 
 ;;; Convenient Functions
 
-(require 'cl)
-
 ;; Insert the date with F5, formatted just like the UNIX date command.
 (defun insert-date (&optional insert-date-format)
   "Insert the current date formatted to the given argument."
@@ -144,7 +144,8 @@
 
 ;; Enlarge/shrink windows with ease with Control-6 and Meta-6.
 (global-set-key [?\C-^] 'enlarge-window)
-(global-set-key [?\M-6] 'shrink-window) ; TODO: This breaks repeat-by-number prefixing. Fix it.
+;TODO: This breaks repeat-by-number prefixing. Fix it.
+;(global-set-key [?\M-6] 'shrink-window)
 
 ;; yic buffer cycle - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
 (defun yic-ignore (str)
@@ -423,7 +424,7 @@
 (require 'scala-mode-auto)
 
 ;; Shell
-(add-hook 'sh-mode-hook 'flyspell-mode)
+(add-hook 'sh-mode-hook 'flyspell-prog-mode)
 
 ;; Text
 (add-hook 'text-mode-hook 'flyspell-mode)
@@ -431,37 +432,6 @@
           '(lambda ()
              ; Declare defaults here.
              (auto-fill-mode 1)
-             ; Handle vimperator editor calls.
-             (if (string< "vimperator-" (buffer-name))
-                 (progn
-                   (auto-fill-mode nil)
-                   (setq-default require-final-newline nil)
-                   )
-               )
-             ; Handle vimperator on twitter.
-             (if (or (string= "vimperator-twitter.com.tmp" (buffer-name))
-                     (string= "twitter" (buffer-name)))
-                 (progn
-                   (require 'smallurl)
-                   (local-set-key [?\C-^] 'smallurl-replace-at-point)
-                   (auto-fill-mode nil)
-                   (ruler-mode 1)
-                   (setq fill-column 70)
-                   (setq goal-column 127)
-                   (setq comment-column 140)
-                   )
-               )
-             ; Handle vimperator on gmail.
-             (if (string= "http://flask.pocoo.org/docs/api/#sessions"
-                          (buffer-name))
-                 (progn
-                   (require 'smallurl)
-                   (local-set-key [?\C-^] 'smallurl-replace-at-point)
-                   (auto-fill-mode nil)
-                   (ruler-mode 1)
-                   (setq fill-column 70)
-                   )
-               )
              ; Handle git commit message editing.
              (if (string= "COMMIT_EDITMSG" (buffer-name))
                  (progn
@@ -483,23 +453,8 @@
 ;; Desktop (!)
 ;; Org
 ;; Paredit (lisp)
-;; YASnippet (or another snippet system)
 
-
-;;; Available Keys
-
-;; [f7]
 
 ;;; Auto-generated customizations.
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.bmk"))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
