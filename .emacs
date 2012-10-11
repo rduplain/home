@@ -440,6 +440,12 @@
 ; instances without python-mode.
 (add-hook 'python-mode-hook 'ropemacs-init-if-needed)
 
+; Python tab behavior:
+;
+; 1. expand a snippet via yasnippet if a match is found, or
+; 2. indent if point is at beginning of line, or
+; 3. offer code completions in mini-buffer (with ido mode) with ropemacs
+
 ; In yasnippet 0.8.0, the default key is <tab>, and the default fallback
 ; behavior is to call the command bound to tab if yasnippet is unable to expand
 ; anything.
