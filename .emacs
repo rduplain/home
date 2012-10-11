@@ -261,14 +261,12 @@
 
 ;; Drag stuff.
 (require 'drag-stuff)
+(setq drag-stuff-modifier nil)
 (drag-stuff-global-mode t)
 (defvar drag-stuff-mode-map (make-sparse-keymap)
   "Keymap for `drag-stuff-mode'.")
-(define-key drag-stuff-mode-map [(control return)] 'drag-stuff-down)
-;(define-key drag-stuff-mode-map [(control shift 'P)] 'drag-stuff-up)
-;(define-key drag-stuff-mode-map (kbd "C-N") 'drag-stuff-down)
-;(define-key drag-stuff-mode-map (kbd "S-C-f") 'drag-stuff-right)
-;(define-key drag-stuff-mode-map (kbd "S-C-b") 'drag-stuff-left)
+(define-key drag-stuff-mode-map (kbd "M-p") 'drag-stuff-up)
+(define-key drag-stuff-mode-map (kbd "M-n") 'drag-stuff-down)
 
 ;;; Programming Tools
 
