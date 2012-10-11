@@ -149,6 +149,7 @@
   (interactive)
   (unless insert-date-format (setq insert-date-format "%a %b %d %T %Z %Y\n"))
   (insert (format-time-string insert-date-format)))
+
 (global-set-key [f5] 'insert-date)
 
 ;; Enlarge/shrink windows with ease with Control-6 and Meta-6.
@@ -179,8 +180,7 @@
             (buffer-name
              (window-buffer
               (frame-selected-window x))))
-          (visible-frame-list)))
-   ))
+          (visible-frame-list)))))
 
 (defun yic-next (ls)
   "Switch to next buffer in ls skipping unwanted ones."
@@ -189,9 +189,7 @@
       (setq bf (car ptr)  bn (buffer-name bf))
       (if (null (yic-ignore bn)) ;skip over
           (setq go bf)
-        (setq ptr (cdr ptr))
-        )
-      )
+        (setq ptr (cdr ptr))))
     (if go (switch-to-buffer go))))
 
 (defun yic-prev-buffer ()
@@ -204,6 +202,7 @@
   (interactive)
   (bury-buffer (current-buffer))
   (yic-next (buffer-list)))
+
 (global-set-key (kbd "<M-RET>") 'yic-next-buffer)
 
 ;; dos2unix/unix2dos - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
@@ -316,13 +315,11 @@
 
 (defun arduino-compile ()
   (interactive)
-  (compile (format "make -f %s" (get-closest-pathname "Makefile")))
-  )
+  (compile (format "make -f %s" (get-closest-pathname "Makefile"))))
 
 (defun arduino-upload ()
   (interactive)
-  (compile (format "make -f %s upload" (get-closest-pathname "Makefile")))
-  )
+  (compile (format "make -f %s upload" (get-closest-pathname "Makefile"))))
 
 ; Set the compile-command for each buffer, in lieu of using compilation modes.
 ; Why? compilation modes have keymaps which override common key bindings.
@@ -337,14 +334,10 @@
                       (format "make -f %s"
                               (get-closest-pathname "Makefile")))
                  (global-set-key (kbd "C-x C-a") 'arduino-compile)
-                 (global-set-key (kbd "C-x C-u") 'arduino-upload)
-                 )
+                 (global-set-key (kbd "C-x C-u") 'arduino-upload))
                 ; otherwise
                 (t
-                 (use-nearest-makefile)))
-               )
-             )
-          )
+                 (use-nearest-makefile))))))
 
 
 ;;; Modes - Programming Languages, Formats, & Frameworks
@@ -494,10 +487,7 @@
                    (ruler-mode 1)
                    (setq fill-column 72)
                    (setq goal-column nil)
-                   (setq comment-column 50)
-                   )
-               )
-             ))
+                   (setq comment-column 50)))))
 
 ;; XML
 (add-hook 'xml-mode-hook 'flyspell-prog-mode)
@@ -506,9 +496,9 @@
 ;;; Modes to Consider
 
 ;; Abbrev
-;; Desktop (!)
+;; Desktop
 ;; Org
-;; Paredit (lisp)
+;; Paredit
 
 
 ;;; Auto-generated customizations.
