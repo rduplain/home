@@ -415,17 +415,30 @@
 (if (not (boundp 'python-python-command-args))
     (setq python-python-command-args ""))
 
-; TODO: Lazily load on first python-mode.
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-(setq ropemacs-global-prefix "C-x 7") ; unused
-(pymacs-load "ropemacs" "rope-")
-(setq ropemacs-enable-autoimport t)
-(setq ropemacs-guess-project t)
-(setq ropemacs-codeassist-maxfixes 3)
+(defun ropemacs-init ()
+  "Setup ropemacs, on Pymacs."
+  (autoload 'pymacs-apply "pymacs")
+  (autoload 'pymacs-call "pymacs")
+  (autoload 'pymacs-eval "pymacs" nil t)
+  (autoload 'pymacs-exec "pymacs" nil t)
+  (autoload 'pymacs-load "pymacs" nil t)
+  (setq ropemacs-global-prefix "C-x 7") ; unused
+  (pymacs-load "ropemacs" "rope-")
+  (setq ropemacs-enable-autoimport t)
+  (setq ropemacs-guess-project t)
+  (setq ropemacs-codeassist-maxfixes 3))
+
+(defun ropemacs-init-if-needed ()
+  "Setup ropemacs if it has not already been initialized."
+  (if (not (fboundp 'rope-code-assist))
+      (progn (ropemacs-init)
+             ; Since ropemacs was not loaded, we must set the mode now.
+             (ropemacs-mode))))
+
+; Lazily load Pymacs & ropemacs, loading only on first instance of a buffer
+; with python-mode. This prevents unnecessary Python subprocesses on emacs
+; instances without python-mode.
+(add-hook 'python-mode-hook 'ropemacs-init-if-needed)
 
 ; In yasnippet 0.8.0, the default key is <tab>, and the default fallback
 ; behavior is to call the command bound to tab if yasnippet is unable to expand
