@@ -19,5 +19,6 @@ xscreensaver -no-splash &
 xscreensaver-watch &
 thunar --daemon &
 $HOME/.dropbox-dist/dropboxd &
+gnome-do &
 
 exec fluxbox

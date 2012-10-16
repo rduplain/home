@@ -167,7 +167,8 @@ Mod4 l :ExecCommand xscreensaver-command -lock
 # Mod4 m :ExecCommand thunderbird
 # Mod4 n is next workspace
 # Mod4 p is prev workspace
-Mod4 r :ExecCommand ~/bin/fbrun
+# gnome-do is set to <super>r
+# Mod4 r :ExecCommand ~/bin/fbrun
 Mod4 s :ExecCommand skype
 # Mod4 t for tilde console, set in .Xresources
 Mod4 u :ExecCommand gnome-dictionary
@@ -256,7 +257,3 @@ Control Mod1 Print :ExecCommand import /tmp/screenshot.tiff && display /tmp/scre
 # reconfigure/restart fluxbox
 Control Mod4 Delete       :Reconfigure
 Control Mod4 Shift Delete :Restart
-
-
-
-
