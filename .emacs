@@ -261,7 +261,6 @@
 
 ;; Drag stuff.
 (require 'drag-stuff)
-(setq drag-stuff-modifier nil)
 (drag-stuff-global-mode t)
 (defvar drag-stuff-mode-map (make-sparse-keymap)
   "Keymap for `drag-stuff-mode'.")
