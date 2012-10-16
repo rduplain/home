@@ -71,6 +71,7 @@
 ;; Use magit for git interactions.
 (require 'magit)
 (global-set-key "\C-xg" 'magit-status)
+(add-hook 'magit-log-edit-mode-hook 'configure-commit-buffer)
 
 ;; Use bookmark+.
 (require 'bookmark+)
@@ -473,6 +474,13 @@
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
 
 ;; Text
+(defun configure-commit-buffer ()
+  (auto-fill-mode 1)
+  (ruler-mode 1)
+  (setq fill-column 72)
+  (setq goal-column nil)
+  (setq comment-column 50))
+
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook
           '(lambda ()
@@ -480,11 +488,7 @@
              (auto-fill-mode 1)
              ; Handle git commit message editing.
              (if (string= "COMMIT_EDITMSG" (buffer-name))
-                 (progn
-                   (ruler-mode 1)
-                   (setq fill-column 72)
-                   (setq goal-column nil)
-                   (setq comment-column 50)))))
+                 (configure-commit-buffer))))
 
 ;; Web
 (require 'multi-web-mode)
