@@ -21,4 +21,4 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-exec ssh-agent /opt/fluxbox/bin/startfluxbox
+exec dbus-launch ssh-agent /opt/fluxbox/bin/startfluxbox
