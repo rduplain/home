@@ -119,6 +119,10 @@
 (setq dired-omit-files
       (concat dired-omit-files "\\|\\.coverage$\\|\\.tox$"))
 
+; Rope project directories are uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\.ropeproject$"))
+
 ; Mac OS X clutter is uninteresting.
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\.DS_Store$\\|^__MACOSX$"))
