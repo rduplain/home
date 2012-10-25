@@ -117,7 +117,7 @@
 
 ; Python test tool files are uninteresting.
 (setq dired-omit-files
-      (concat dired-omit-files "\\|\\.coverage$\\|\\.tox$"))
+      (concat dired-omit-files "\\|^\\.coverage$\\|^\\.tox$"))
 
 ; Rope project directories are uninteresting.
 (setq dired-omit-files
@@ -126,6 +126,14 @@
 ; Mac OS X clutter is uninteresting.
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\.DS_Store$\\|^__MACOSX$"))
+
+; Emacs project files (e.g. desktop) are unintersting in dired.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\.emacs.*$"))
+
+; Empty target files from make (to record events) are uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^develop$\\|^database$"))
 
 ; Log files are interesting, but not all the time.
 (setq dired-omit-files
@@ -510,7 +518,6 @@
 ;;; Modes to Consider
 
 ;; Abbrev
-;; Desktop
 ;; Org
 ;; Paredit
 
