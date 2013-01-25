@@ -406,6 +406,9 @@
 ;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
 
+;; Markdown
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+
 ;; Python
 ; Drop this python.el in .emacs.d:
 ; https://github.com/fgallina/python.el/tree/emacs23
