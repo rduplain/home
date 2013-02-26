@@ -397,6 +397,7 @@
                              (setq sgml-basic-offset 2)))
 
 ;; JavaScript
+(require 'coffee-mode)
 (add-hook 'js-mode-hook '(lambda ()
                            (setq auto-fill-mode nil)
                            (setq indent-tabs-mode nil)
