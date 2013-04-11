@@ -58,6 +58,9 @@ ship ANDROID_HOME=/home/rduplain/sandbox/android/sdk
 ship JAVA_HOME=/usr/lib/jvm/java-6-sun
 ship IDEA_JDK=/usr/lib/jvm/jdk1.6.0_26
 
+# Go language.
+export GOPATH=$HOME/.go
+
 # Set Python defaults.
 ship PYTHONSTARTUP="$HOME/.pythonrc.py"
 prepend PYTHONPATH $HOME/lib/python/site-packages
