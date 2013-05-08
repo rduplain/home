@@ -153,6 +153,7 @@ Control Mod4 z            :Lower
 Control Mod4 BackSpace    :Close
 
 # Super key shortcuts
+# Some shortcuts are better left to gnome-do style invocation.
 Mod4 a :ArrangeWindows
 Mod4 b :ExecCommand VirtualBox
 # Mod4 c :ExecCommand gnome-control-center
@@ -160,8 +161,8 @@ Mod4 d :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
 Mod4 e :ExecCommand thunar
 # Mod4 f :ExecCommand gnome-search-tool
 Mod4 g :ExecCommand gimp
-Mod4 i :ExecCommand pidgin
-Mod4 j :ExecCommand rhythmbox
+# Mod4 i :ExecCommand pidgin
+# Mod4 j :ExecCommand rhythmbox
 Mod4 k :ExecCommand xkill
 Mod4 l :ExecCommand xscreensaver-command -lock
 # Mod4 m :ExecCommand thunderbird
@@ -169,7 +170,7 @@ Mod4 l :ExecCommand xscreensaver-command -lock
 # Mod4 p is prev workspace
 # gnome-do is set to <super>r
 # Mod4 r :ExecCommand ~/bin/fbrun
-Mod4 s :ExecCommand skype
+# Mod4 s :ExecCommand skype
 # Mod4 t for tilde console, set in .Xresources
 Mod4 u :ExecCommand gnome-dictionary
 # Mod4 v :ExecCommand auto-disper --change
