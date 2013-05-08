@@ -112,7 +112,7 @@ ship R_LIBS_USER=$HOME/.r
 alias emacs='emacs -nw'
 
 export EDITOR='emacs -nw'
-export VISUAL=$EDITOR
+export VISUAL=vi
 export TEXEDIT=$EDITOR
 export PAGER=less
 export GZIP="-9"
