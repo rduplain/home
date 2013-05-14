@@ -161,11 +161,6 @@ export LC_ALL=en_US.UTF-8
 
 # Make less more friendly for non-text input files, see lesspipe(1).
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
-forhost perseus LESSPIPE_SH=`which lesspipe.sh`
-forhost perseus [[ $LESSPIPE_SH = "/usr/bin/lesspipe.sh" ]] ||
-forhost perseus [[ $LESSPIPE_SH = "$HOME/bin/lesspipe.sh" ]] &&
-forhost perseus export LESSOPEN="|$LESSPIPE_SH %s " &&
-forhost perseus export LESS="$LESS -R "
 
 # todo.txt
 alias todo=todo.sh
