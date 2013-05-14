@@ -179,8 +179,10 @@ export PROMPT_COMMAND
 
 # Enable color support of ls.
 if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
+    if ( which dircolors >/dev/null 2>&1 ); then
+        eval "`dircolors -b`"
+        alias ls='ls --color=auto'
+    fi
 fi
 
 # Don't put duplicate lines in the history. See bash(1) for more options.
