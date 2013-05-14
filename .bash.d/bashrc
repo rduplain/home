@@ -29,6 +29,14 @@ function on_new_shell() {
         fi
     fi
 
+    # Enable color support of ls.
+    if [ "$TERM" != "dumb" ]; then
+        if ( which dircolors >/dev/null 2>&1 ); then
+            eval "`dircolors -b`"
+            alias ls='ls --color=auto'
+        fi
+    fi
+
     # check the window size after each command and, if necessary,
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
@@ -180,14 +188,6 @@ xterm*|rxvt*)
     ;;
 esac
 export PROMPT_COMMAND
-
-# Enable color support of ls.
-if [ "$TERM" != "dumb" ]; then
-    if ( which dircolors >/dev/null 2>&1 ); then
-        eval "`dircolors -b`"
-        alias ls='ls --color=auto'
-    fi
-fi
 
 # Don't put duplicate lines in the history. See bash(1) for more options.
 export HISTCONTROL=ignoreboth
