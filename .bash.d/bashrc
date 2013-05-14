@@ -69,6 +69,10 @@ prepend PATH $HOME/bin
 prepend LD_LIBRARY_PATH $HOME/lib $HOME/lib32 $HOME/lib64
 prepend MANPATH $HOME/man $HOME/share/man
 
+prepend PATH $HOME/usr/bin
+prepend LD_LIBRARY_PATH $HOME/usr/lib $HOME/usr/lib32 $HOME/usr/lib64
+prepend MANPATH $HOME/usr/man $HOME/usr/share/man
+
 append PATH /opt/*/bin
 append LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
 append MANPATH /opt/*/man /opt/*/share/man
