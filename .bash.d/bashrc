@@ -28,6 +28,17 @@ function on_new_shell() {
             . $PWD/.env/bin/activate
         fi
     fi
+
+    # check the window size after each command and, if necessary,
+    # update the values of LINES and COLUMNS.
+    shopt -s checkwinsize
+
+    receive /etc/bash_completion
+    receive $BASH_DIR/bash_completion
+
+    # Alias git completion to homegit script.
+    complete -o default -o nospace -F _git homegit >/dev/null 2>&1
+    complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 }
 
 # Avoid mangling the various PATHS on new bash invocations.
@@ -188,23 +199,12 @@ unset CDPATH
 
 export WORKSPACES_RESERVED=5
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
 function commands () {
     history | cut -c8- | sort | uniq -c | sort -rn | head
 }
 
 # Load a simple script with executes `export GITHUB_TOKEN=...`.
 receive .gitconfig.github.sh
-
-receive /etc/bash_completion
-receive $BASH_DIR/bash_completion
-
-# Alias git completion to homegit script.
-complete -o default -o nospace -F _git homegit >/dev/null 2>&1
-complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 
 # Set a sentinel variable to the current time in seconds since epoch.
 export BASHRC_INITIALIZED=`date +%s`
