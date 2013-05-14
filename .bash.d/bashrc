@@ -1,14 +1,42 @@
 # bashrc - GNU bash source script for bash rc, login
-# Copyright 2007-2010 Ron DuPlain <ron.duplain@espresso-labs.com>
 #
 # To use:
 #     place this directory at ~/.bash.d
 #     link to ~/.bashrc, in $HOME directory:
 #     ln -s .bash.d/bashrc .bashrc
 
+## Essential shell environment bootstrapping.
+
 # Use custom bash functions.
 export BASH_DIR=$HOME/.bash.d
 source $BASH_DIR/functions.bash
+
+# virtualenvwrapper for Python
+ship WORKON_HOME=$HOME/.virtualenvs
+ship WORKON_HOME=$HOME/.virtualenvs-`uname -n`
+receive $HOME/bin/virtualenvwrapper.sh >/dev/null 2>&1
+
+function on_new_shell() {
+    # Set prompt PS1 to "user@host dir$ "
+    export PS1='\u@\h \W\$ '
+
+    # Set the virtual environment.
+    if [ "$USE_VIRTUALENV" != "false" ]; then
+        workon_walk
+
+        if [ -d $PWD/.env ]; then
+            . $PWD/.env/bin/activate
+        fi
+    fi
+}
+
+# Avoid mangling the various PATHS on new bash invocations.
+if [ -n "$BASHRC_INITIALIZED" ]; then
+    on_new_shell
+    return
+fi
+
+## PATH management.
 
 # Set important paths.
 prepend PATH /bin /sbin
@@ -47,6 +75,8 @@ export PATH
 export LD_LIBRARY_PATH
 export MANPATH
 
+## ... and so on.
+
 # Have bin/screen choose opt screen if installed.
 ship SCREEN=/opt/screen/bin/screen
 ship SCREENRC_DEFAULT=$HOME/.screenrc-default
@@ -71,11 +101,6 @@ export PYTHONPATH
 # receive $HOME/.rvm/scripts/rvm
 # rvm use ruby-1.8.7 > /dev/null 2>&1
 
-# virtualenvwrapper for Python
-ship WORKON_HOME=$HOME/.virtualenvs
-ship WORKON_HOME=$HOME/.virtualenvs-`uname -n`
-receive $HOME/bin/virtualenvwrapper.sh
-
 function workon_walk () {
     # Walk the directory tree upward until:
     #  * a virtualenv is found which matches the name of a directory
@@ -92,6 +117,9 @@ function workon_walk () {
     done
 }
 
+# Provide workon_walk to new shell invocations.
+export -f workon_walk
+
 # pydoc within a virtualenv
 alias pydoc='python `which pydoc`'
 
@@ -99,10 +127,10 @@ alias pydoc='python `which pydoc`'
 ship PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 
+on_new_shell
+
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
-    # We want scripts to hit virtual environment, but stop after that.
-    workon_walk
     return
 fi
 
@@ -128,18 +156,6 @@ forhost perseus [[ $LESSPIPE_SH = "$HOME/bin/lesspipe.sh" ]] &&
 forhost perseus export LESSOPEN="|$LESSPIPE_SH %s " &&
 forhost perseus export LESS="$LESS -R "
 
-# Set prompt PS1 to "user@host dir$ "
-export PS1='\u@\h \W\$ '
-
-# Set the virtual environment.
-if [ "$USE_VIRTUALENV" != "false" ]; then
-    workon_walk
-fi
-
-if [ -d $PWD/.env ]; then
-    . $PWD/.env/bin/activate
-fi
-
 # todo.txt
 alias todo=todo.sh
 alias t=todo.sh
@@ -161,9 +177,8 @@ if [ "$TERM" != "dumb" ]; then
     alias ls='ls --color=auto'
 fi
 
-# don't put duplicate lines in the history. See bash(1) for more options
+# Don't put duplicate lines in the history. See bash(1) for more options.
 export HISTCONTROL=ignoreboth
-# export HISTCONTROL=erasedups:$HISTCONTROL
 export HISTFILESIZE=9999
 export HISTSIZE=20000
 export FCEDIT=$EDITOR
@@ -190,3 +205,6 @@ receive $BASH_DIR/bash_completion
 # Alias git completion to homegit script.
 complete -o default -o nospace -F _git homegit >/dev/null 2>&1
 complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
+
+# Set a sentinel variable to the current time in seconds since epoch.
+export BASHRC_INITIALIZED=`date +%s`
