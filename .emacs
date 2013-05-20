@@ -7,6 +7,10 @@
 
 (require 'cl)
 
+
+;; Reader note: I have code in ~/.emacs.d and ~/.quicklisp which are rsync'd to
+;; new machines on clone of $HOME. Note this if you try something and it fails.
+
 ;; Define the load path.
 (setq load-path (cons "~/.emacs.d" load-path))
 (setq load-path (cons "~/.emacs.d/bookmark+" load-path))
