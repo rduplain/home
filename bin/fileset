@@ -1,0 +1,70 @@
+#!/bin/bash
+# Rename files into serial file set: PREFIX00010.ext PREFIX00020.ext ...
+
+PROGRAM=`basename $0`
+
+usage() {
+    # Print program usage to stderr & return 2.
+
+    exec >&2 # Redirect all further stdout to stderr.
+    echo "usage: $PROGRAM PREFIX FILE..."
+    return 2
+}
+
+extension() {
+    # Given filename, echo its conventional file extension lower-case.
+
+    if [ $# -ne 1 ]; then
+        echo "usage: $FUNCNAME FILE"
+        return 2
+    fi
+
+    local ext=${1##*.}
+    if [ "$ext" != "$1" ]; then
+        echo $ext | tr '[:upper:]' '[:lower:]'
+    fi
+}
+
+main() {
+    # User-facing entry point for program.
+
+    if [ $# -lt 2 ]; then
+        usage
+        return $?
+    fi
+
+    local prefix=$1
+    shift
+
+    if [ -e $prefix ]; then
+        echo "file '$prefix' exists; did you provide a valid prefix?" >&2
+        usage
+        return $?
+    fi
+
+    for file in "$@"; do
+        if [ ! -e "$file" ]; then
+            echo "$PROGRAM: file '$file' does not exist. abort." >&2
+            return 1
+        fi
+    done
+
+    local pad=0000
+    let pointer=1
+
+    for file in "$@"; do
+        local ext=`extension "$file"`
+        local pad_length=${#pad}
+        local pointer_length=${#pointer}
+        let filler_length=pad_length-pointer_length
+        local name=$prefix${pad:0:$filler_length}${pointer}0
+        if [ -z "$ext" ]; then
+            mv -v "$file" $name
+        else
+            mv -v "$file" $name.$ext
+        fi
+        let pointer=pointer+1
+    done
+}
+
+main "$@"
