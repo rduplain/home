@@ -482,6 +482,7 @@
 (add-hook 'ess-mode-hook 'flyspell-prog-mode)
 
 ;; ReStructuredText (rst)
+(add-to-list 'auto-mode-alist '("\\.rst.in$" . rst-mode))
 (add-hook 'rst-mode-hook '(lambda () (auto-fill-mode nil)))
 
 ;; Ruby
