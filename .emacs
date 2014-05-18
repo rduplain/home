@@ -17,6 +17,7 @@
 (setq load-path (cons "~/.emacs.d/scala-mode" load-path))
 (setq load-path (cons "~/.emacs.d/magit" load-path))
 (setq load-path (cons "~/.emacs.d/yasnippet" load-path))
+(setq load-path (cons "~/.go/src/github.com/dougm/goflymake/" load-path))
 
 ;; Use Emacs Lisp Package Archive package manager.
 (when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
@@ -254,6 +255,10 @@
 (global-set-key (kbd "C-x /") 'winner-undo)
 (global-set-key (kbd "C-x \\") 'winner-redo)
 
+;; Flymake, on-the-fly compilation & static analysis.
+(setq flymake-no-changes-timeout nil)
+(setq flymake-start-syntax-check-on-find-file -1)
+
 ;; Flyspell, on-the-fly spellcheck.
 ; Keep quiet.
 (setq flyspell-issue-welcome-flag nil)
@@ -386,6 +391,13 @@
 
 ;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
+
+;; Go
+(require 'go-mode-load)
+(require 'go-flymake)
+; (require 'go-flycheck)
+(add-hook 'go-mode-hook 'flyspell-prog-mode)
+(add-hook 'go-mode-hook 'yas/minor-mode)
 
 ;; Haskell
 (load "~/.emacs.d/haskell-mode/haskell-site-file")
