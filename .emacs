@@ -514,6 +514,10 @@
              (if (string= "COMMIT_EDITMSG" (buffer-name))
                  (configure-commit-buffer))))
 
+;; Apache Thrift
+(require 'thrift-mode)
+(add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
+
 ;; Web
 ; (require 'multi-web-mode)
 ; (setq mweb-default-major-mode 'html-mode)
