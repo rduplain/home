@@ -46,6 +46,8 @@ function on_new_shell() {
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
 
+    receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
+
     # Alias git completion to homegit script.
     complete -o default -o nospace -F _git homegit >/dev/null 2>&1
     complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
