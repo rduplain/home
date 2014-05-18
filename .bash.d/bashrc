@@ -120,6 +120,7 @@ ship IDEA_JDK=/usr/lib/jvm/jdk1.6.0_26
 
 # Go language.
 export GOPATH=$HOME/.go
+append PATH $GOPATH/bin
 
 # Set Python defaults.
 ship PYTHONSTARTUP="$HOME/.pythonrc.py"
