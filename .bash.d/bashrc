@@ -41,6 +41,8 @@ function on_new_shell() {
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
 
+    receive $HOME/.nix-profile/etc/profile.d/nix.sh
+
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
 
