@@ -42,6 +42,7 @@ function on_new_shell() {
     shopt -s checkwinsize
 
     receive $HOME/.nix-profile/etc/profile.d/nix.sh
+    prepend LD_LIBRARY_PATH $HOME/.nix-profile/lib
 
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
