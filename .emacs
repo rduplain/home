@@ -27,7 +27,7 @@
 (setq initial-scratch-message nil)
 
 ;; Disable the menu bar.
-(menu-bar-mode nil)
+(menu-bar-mode -1)
 
 ;; Require a final newline (and prompt if not exists).
 (setq-default require-final-newline t)
