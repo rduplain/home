@@ -34,16 +34,12 @@ sleep 1
 gsettings set org.gnome.libgnomekbd.keyboard options "['ctrl\tctrl:nocaps', 'altwin\taltwin:hyper_win']"
 EOF
 
-# parcellite &
-# $HOME/.dropbox-dist/dropboxd &
-# gnome-do &
-
 thunar --daemon &
 xfce4-power-manager --no-daemon &
 gnome-sound-applet &
 gnome-screensaver-watch &
 bash -c 'sleep 10; exec gnome-do' &
-killall update-notifier
+bash -c 'sleep 300; killall update-notifier' &
 screens &
 
 notice `uname -n` fluxbox is starting
