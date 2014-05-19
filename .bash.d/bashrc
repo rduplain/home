@@ -43,6 +43,7 @@ function on_new_shell() {
 
     receive $HOME/.nix-profile/etc/profile.d/nix.sh
     prepend LD_LIBRARY_PATH $HOME/.nix-profile/lib
+    unset LD_LIBRARY_PATH # Until nix env is sorted out.
 
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
