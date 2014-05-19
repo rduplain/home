@@ -82,6 +82,10 @@ prepend PATH /opt/local/bin /opt/local/sbin
 prepend LD_LIBRARY_PATH /opt/local/lib /opt/local/lib32 /opt/local/lib64
 prepend MANPATH /opt/local/man /opt/local/share/man
 
+prepend PATH /opt/*/bin
+prepend LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
+prepend MANPATH /opt/*/man /opt/*/share/man
+
 prepend PATH $HOME/bin
 prepend LD_LIBRARY_PATH $HOME/lib $HOME/lib32 $HOME/lib64
 prepend MANPATH $HOME/man $HOME/share/man
@@ -89,14 +93,6 @@ prepend MANPATH $HOME/man $HOME/share/man
 prepend PATH $HOME/usr/bin
 prepend LD_LIBRARY_PATH $HOME/usr/lib $HOME/usr/lib32 $HOME/usr/lib64
 prepend MANPATH $HOME/usr/man $HOME/usr/share/man
-
-append PATH /opt/*/bin
-append LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
-append MANPATH /opt/*/man /opt/*/share/man
-
-prepend PATH /opt/scala/bin
-prepend LD_LIBRARY_PATH /opt/scala/lib /opt/scala/lib32 /opt/scala/lib64
-prepend MANPATH /opt/scala/man /opt/scala/share/man
 
 append PATH $HOME/sandbox/android/sdk/platform-tools
 append PATH $HOME/sandbox/android/sdk/tools
