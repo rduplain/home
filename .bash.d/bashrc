@@ -37,6 +37,9 @@ function on_new_shell() {
         fi
     fi
 
+    # Set bak command to hit SD card if mounted.
+    ship BAK_HOME=/media/f9e562d6-248e-4bc2-b60a-265dda529df4
+
     # check the window size after each command and, if necessary,
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
