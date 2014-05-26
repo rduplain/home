@@ -44,6 +44,8 @@ function on_new_shell() {
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
 
+    export VIRTUALENVWRAPPER_PYTHON=`which python2.7`
+
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
 
