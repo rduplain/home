@@ -3,5 +3,3 @@
 	[exec] (Terminal) {xterm}
 	[exec] (Chrome) {google-chrome --purge-memory-button --memory-model=medium --disable-renderer-accessibility}
 	[separator]
-	[exit] (Exit)
-	[separator]

@@ -26,7 +26,9 @@ gsettings set org.gnome.desktop.background picture-uri ''
 gsettings set org.gnome.desktop.background primary-color '#000000000000'
 EOF
 
-gnome-settings-daemon &
+# Start gnome-settings-daemon later to let fluxbox have super keybindings.
+bash -c 'sleep 5; gnome-settings-daemon' &
+
 parcellite &
 xscreensaver -no-splash &
 nm-applet &
