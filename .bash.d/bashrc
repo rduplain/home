@@ -44,10 +44,6 @@ function on_new_shell() {
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
 
-    receive $HOME/.nix-profile/etc/profile.d/nix.sh
-    prepend LD_LIBRARY_PATH $HOME/.nix-profile/lib
-    unset LD_LIBRARY_PATH # Until nix env is sorted out.
-
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
 
@@ -98,6 +94,10 @@ append PATH $HOME/sandbox/android/sdk/platform-tools
 append PATH $HOME/sandbox/android/sdk/tools
 
 append PATH $HOME/.*-dist/bin
+
+receive $HOME/.nix-profile/etc/profile.d/nix.sh
+prepend LD_LIBRARY_PATH $HOME/.nix-profile/lib
+unset LD_LIBRARY_PATH # Until nix env is sorted out.
 
 export PATH
 export LD_LIBRARY_PATH
