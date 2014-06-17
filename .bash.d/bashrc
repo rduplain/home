@@ -45,15 +45,6 @@ function on_new_shell() {
     shopt -s checkwinsize
 
     export VIRTUALENVWRAPPER_PYTHON=`which python2.7`
-
-    receive /etc/bash_completion
-    receive $BASH_DIR/bash_completion
-
-    receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
-
-    # Alias git completion to homegit script.
-    complete -o default -o nospace -F _git homegit >/dev/null 2>&1
-    complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 }
 
 # Avoid mangling the various PATHS on new bash invocations.
@@ -217,6 +208,15 @@ function commands () {
 
 # Load a simple script with executes `export GITHUB_TOKEN=...`.
 receive .gitconfig.github.sh
+
+receive /etc/bash_completion
+receive $BASH_DIR/bash_completion
+
+receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
+
+# Alias git completion to homegit script.
+complete -o default -o nospace -F _git homegit >/dev/null 2>&1
+complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 
 # Set a sentinel variable to the current time in seconds since epoch.
 export BASHRC_INITIALIZED=`date +%s`
