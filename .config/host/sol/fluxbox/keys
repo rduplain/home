@@ -233,7 +233,7 @@ Control Mod4 o :MoveTo 0 0 UpperRight
 Control Mod4 a      :ResizeTo 724 484
 Control Mod4 b      :ResizeTo 724 570
 Control Mod4 c      :ResizeTo 800 600
-Control Mod4 d      :ResizeTo 1195 1055
+Control Mod4 d      :ResizeTo 1193 1055
 
 # menu shortcut
 Control Escape :RootMenu
