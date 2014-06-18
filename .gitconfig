@@ -10,3 +10,5 @@
 [github]
 	user = rduplain
 	token = GITHUB_TOKEN in .gitconfig.github.sh
+[fetch]
+	prune = true
