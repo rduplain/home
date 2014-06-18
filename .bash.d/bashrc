@@ -17,6 +17,18 @@ ship WORKON_HOME=$HOME/.virtualenvs-`uname -n`
 receive $HOME/bin/virtualenvwrapper.sh >/dev/null 2>&1
 
 function on_new_shell() {
+    # Set bak command to hit SD card if mounted.
+    ship BAK_HOME=/media/f9e562d6-248e-4bc2-b60a-265dda529df4
+
+    receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
+
+    export VIRTUALENVWRAPPER_PYTHON=`which python2.7`
+
+    # If not running interactively, don't do anything further.
+    if [ -z "$PS1" ]; then
+        return
+    fi
+
     # Set prompt PS1 to "user@host dir$ "
     export PS1='\u@\h \W\$ '
 
@@ -37,14 +49,16 @@ function on_new_shell() {
         fi
     fi
 
-    # Set bak command to hit SD card if mounted.
-    ship BAK_HOME=/media/f9e562d6-248e-4bc2-b60a-265dda529df4
-
     # check the window size after each command and, if necessary,
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
 
-    export VIRTUALENVWRAPPER_PYTHON=`which python2.7`
+    receive /etc/bash_completion
+    receive $BASH_DIR/bash_completion
+
+    # Alias git completion to homegit script.
+    complete -o default -o nospace -F _git homegit >/dev/null 2>&1
+    complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 }
 
 # Avoid mangling the various PATHS on new bash invocations.
@@ -141,19 +155,19 @@ function workon_walk () {
 # Provide workon_walk to new shell invocations.
 export -f workon_walk
 
-# pydoc within a virtualenv
-alias pydoc='python `which pydoc`'
-
-# pip for Python
-ship PIP_VIRTUALENV_BASE=$WORKON_HOME
-export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
-
 on_new_shell
 
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
     return
 fi
+
+# pydoc within a virtualenv
+alias pydoc='python `which pydoc`'
+
+# pip for Python
+ship PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 
 ship R_LIBS_USER=$HOME/.r
 
@@ -204,15 +218,6 @@ function commands () {
 
 # Load a simple script with executes `export GITHUB_TOKEN=...`.
 receive .gitconfig.github.sh
-
-receive /etc/bash_completion
-receive $BASH_DIR/bash_completion
-
-receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
-
-# Alias git completion to homegit script.
-complete -o default -o nospace -F _git homegit >/dev/null 2>&1
-complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 
 # Set a sentinel variable to the current time in seconds since epoch.
 export BASHRC_INITIALIZED=`date +%s`
