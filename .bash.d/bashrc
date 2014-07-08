@@ -35,10 +35,8 @@ function on_new_shell() {
     # Set the virtual environment.
     if [ "$USE_VIRTUALENV" != "false" ]; then
         workon_walk
-
-        if [ -d $PWD/.env ]; then
-            . $PWD/.env/bin/activate
-        fi
+        receive $PWD/.env/bin/activate
+        receive $PWD/env/bin/activate
     fi
 
     # Enable color support of ls.
