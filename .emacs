@@ -128,6 +128,10 @@
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\.ropeproject$"))
 
+; IPython Notebook checkpoints are uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\.ipynb_checkpoints$"))
+
 ; Mac OS X clutter is uninteresting.
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\.DS_Store$\\|^__MACOSX$"))
