@@ -146,7 +146,7 @@
 
 ; Empty target files from make (to record events) are uninteresting.
 (setq dired-omit-files
-      (concat dired-omit-files "\\|^develop$\\|^database$"))
+      (concat dired-omit-files "\\|^\\.ts-.*$"))
 
 ; Log files are interesting, but not all the time.
 (setq dired-omit-files
