@@ -124,6 +124,10 @@
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\.coverage$\\|^\\.tox$"))
 
+; Python cache directories are uninteresting.
+(setq dired-omit-files
+      (concat dired-omit-files "\\|__pycache__$"))
+
 ; Rope project directories are uninteresting.
 (setq dired-omit-files
       (concat dired-omit-files "\\|^\\.ropeproject$"))
