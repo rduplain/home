@@ -468,6 +468,7 @@
 (require 'scala-mode-auto)
 
 ;; Shell
+(add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
 
 ;; Text
