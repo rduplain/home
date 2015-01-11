@@ -57,6 +57,8 @@ function on_new_shell() {
     # Alias git completion to homegit script.
     complete -o default -o nospace -F _git homegit >/dev/null 2>&1
     complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
+
+    which rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 }
 
 # Avoid mangling the various PATHS on new bash invocations.
@@ -99,6 +101,8 @@ append PATH $HOME/sandbox/android/sdk/platform-tools
 append PATH $HOME/sandbox/android/sdk/tools
 
 append PATH $HOME/.*-dist/bin
+
+prepend PATH $HOME/.rbenv/bin
 
 export PATH
 export LD_LIBRARY_PATH
