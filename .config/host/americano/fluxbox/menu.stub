@@ -1,7 +1,7 @@
 # Build with `generate_menu` in same directory.
 [begin] (   americano   )
 	[exec] (Terminal) {xterm}
-	[exec] (Chrome) {google-chrome --purge-memory-button --memory-model=medium --disable-renderer-accessibility}
+	[exec] (Chrome) {google-chrome --purge-memory-button --memory-model=medium --disable-hang-monitor --disable-renderer-accessibility}
 	[separator]
 	[exec] (Logout) {killall -u rduplain gnome-session}
 	[separator]
