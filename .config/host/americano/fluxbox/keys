@@ -181,7 +181,7 @@ Mod4 w :ExecCommand google-chrome --purge-memory-button --memory-model=medium --
 Mod4 Mod1 w :ExecCommand google-chrome --incognito --purge-memory-button --memory-model=medium --disable-hang-monitor --disable-renderer-accessibility
 Control Mod4 Mod1 w :ExecCommand firefox -P transient
 # Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote
-Mod4 x :ExecCommand rxvt-unicode
+Mod4 x :ExecCommand xterm
 # Mod4 slash :ExecCommand gnome-power-manager-background
 
 # nudge windows
