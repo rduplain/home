@@ -51,6 +51,10 @@ function on_new_shell() {
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
 
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        receive $HOME/.ssh/agent.bash
+    fi
+
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
 

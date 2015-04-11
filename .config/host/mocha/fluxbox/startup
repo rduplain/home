@@ -34,6 +34,12 @@ xset -b
 # Set the keyboard rate.
 xset r rate 250 30
 
+if [ -z "$SSH_AUTH_SOCK" ] && [ -e $HOME/.ssh/agent.bash ]; then
+    . $HOME/.ssh/agent.bash
+else
+    echo-ssh-agent > $HOME/.ssh/agent.bash
+fi
+
 notice `uname -n` fluxbox is starting
 trap 'notice `uname -n` fluxbox is stopping' 0 INT TERM QUIT EXIT
 

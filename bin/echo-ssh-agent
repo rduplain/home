@@ -1,0 +1,12 @@
+#!/bin/bash
+# echo ssh-agent environment details to stdout.
+#
+# Useful for redirecting to a predictable location, e.g. ~/.ssh/agent.bash.
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    echo \$SSH_AUTH_SOCK unset. >&2
+    exit 1
+fi
+
+echo export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+echo export SSH_AGENT_PID=$SSH_AGENT_PID
