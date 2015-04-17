@@ -12,3 +12,5 @@
 	token = GITHUB_TOKEN in .gitconfig.github.sh
 [fetch]
 	prune = true
+[rebase]
+	autosquash = true
