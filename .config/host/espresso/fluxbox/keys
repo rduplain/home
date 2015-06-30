@@ -1,0 +1,260 @@
+! fluxbox-update_configs added '(workspace=[current])' to (Next|Prev)(Window|Group)
+! check lines marked by 'FBCV13' if they are correctly updated
+! mouse actions added by fluxbox-update_configs
+OnTitlebar Mouse1 :MacroCmd {Focus} {Raise} {ActivateTab}
+! mouse actions added by fluxbox-update_configs
+OnTitlebar Move1 :StartMoving
+OnLeftGrip Move1 :StartResizing bottomleft
+OnRightGrip Move1 :StartResizing bottomright
+OnWindowBorder Move1 :StartMoving
+
+OnTitlebar Mouse2        :StartTabbing
+OnTitlebar Double Mouse1 :Shade
+OnTitlebar Mouse3        :WindowMenu
+OnWindow Mod1 Mouse1     :MacroCmd {Raise} {Focus} {StartMoving}
+OnWindow Mod1 Mouse3     :MacroCmd {Raise} {Focus} {StartResizing BottomRight}
+OnWindow Mod1 Mouse2     :MacroCmd {Raise} {Focus} {WindowMenu}
+OnToolbar Mouse9         :NextWorkspace
+OnToolbar Mouse8         :PrevWorkspace
+
+# desktop mouse actions
+OnDesktop Mouse1 :HideMenus
+OnDesktop Mouse2 :WorkspaceMenu
+OnDesktop Mouse3 :RootMenu
+OnDesktop Mouse4 :ExecCommand workspace next
+OnDesktop Mouse5 :ExecCommand workspace prev
+
+OnDesktop Mod4 Mouse1 :ExecCommand workspace next
+OnDesktop Mod4 Mouse3 :ExecCommand workspace prev
+
+OnDesktop Mod4 Mod1 Mouse1 :NextWorkspace
+OnDesktop Mod4 Mod1 Mouse3 :PrevWorkspace
+
+OnDesktop Control Mouse1 :ExecCommand workspace next
+OnDesktop Control Mouse3 :ExecCommand workspace prev
+
+OnDesktop Control Mod1 Mouse1 :NextWorkspace
+OnDesktop Control Mod1 Mouse3 :PrevWorkspace
+
+# alt-tab
+Mod1 Tab       :NextWindow (workspace=[current]) !! FBCV13 !!
+Mod1 Shift Tab :PrevWindow (workspace=[current]) !! FBCV13 !!
+
+Mod4 Tab       :NextWindow (workspace=[current]) !! FBCV13 !!
+Mod4 Shift Tab :PrevWindow (workspace=[current]) !! FBCV13 !!
+
+Mod4 space :NextWindow (workspace=[current]) !! FBCV13 !!
+
+# change workspace
+# Control Tab :NextWorkspace
+# Control Mod4 Tab :PrevWorkspace
+
+Mod4 Mod1 n :NextWorkspace
+Mod4 Mod1 p :PrevWorkspace
+Control Mod4 Mod1 n :TakeToNextWorkspace
+Control Mod4 Mod1 p :TakeToPrevWorkspace
+
+Mod4 n :ExecCommand workspace next
+Mod4 p :ExecCommand workspace prev
+Control Mod4 n :ExecCommand workspace take 1
+Control Mod4 p :ExecCommand workspace take -1
+
+Mod4 Mod1 Right :NextWorkspace
+Mod4 Mod1 Left :PrevWorkspace
+Control Mod4 Mod1 Right :TakeToNextWorkspace
+Control Mod4 Mod1 Left :TakeToPrevWorkspace
+
+Mod4 Right :ExecCommand workspace next
+Mod4 Left :ExecCommand workspace prev
+Control Mod4 Right :ExecCommand workspace take 1
+Control Mod4 Left :ExecCommand workspace take -1
+
+Mod4 equal :ExecCommand workspace add
+Mod4 minus :ExecCommand workspace remove
+Mod4 Return :ExecCommand workspace plow
+
+# direct workspace short-cuts
+# Control F1    :Workspace 1
+# Control F2    :Workspace 2
+# Control F3    :Workspace 3
+# Control F4    :Workspace 4
+# Control F5    :Workspace 5
+# Control F6    :Workspace 6
+# Control F7    :Workspace 7
+# Control F8    :Workspace 8
+
+# Mod4 KP_End   :Workspace 1
+# Mod4 KP_Down  :Workspace 2
+# Mod4 KP_Next  :Workspace 3
+# Mod4 KP_Left  :Workspace 4
+# Mod4 KP_Begin :Workspace 5
+# Mod4 KP_Right :Workspace 6
+# Mod4 KP_Home  :Workspace 7
+# Mod4 KP_Up    :Workspace 8
+# Mod4 KP_Prior :Workspace 9
+
+Mod4 1      :Workspace 6
+Mod4 2      :Workspace 7
+Mod4 3      :Workspace 8
+Mod4 4      :Workspace 9
+Mod4 5      :Workspace 10
+Mod4 6      :ExecCommand workspace goto # like firefox's alt-9
+Mod4 7      :Workspace 4
+Mod4 8      :Workspace 3
+Mod4 9      :Workspace 2
+Mod4 0      :Workspace 1
+Mod4 grave  :Workspace 5
+Mod4 Mod1 1 :Workspace 16
+Mod4 Mod1 2 :Workspace 17
+Mod4 Mod1 3 :Workspace 18
+Mod4 Mod1 4 :Workspace 19
+Mod4 Mod1 5 :Workspace 20
+Mod4 Mod1 6 :Workspace 11
+Mod4 Mod1 7 :Workspace 12
+Mod4 Mod1 8 :Workspace 13
+Mod4 Mod1 9 :Workspace 14
+Mod4 Mod1 0 :Workspace 15
+
+Control Mod4 1      :TakeToWorkspace 6
+Control Mod4 2      :TakeToWorkspace 7
+Control Mod4 3      :TakeToWorkspace 8
+Control Mod4 4      :TakeToWorkspace 9
+Control Mod4 5      :TakeToWorkspace 10
+Control Mod4 6      :ExecCommand workspace take 0
+Control Mod4 7      :TakeToWorkspace 4
+Control Mod4 8      :TakeToWorkspace 3
+Control Mod4 9      :TakeToWorkspace 2
+Control Mod4 0      :TakeToWorkspace 1
+Control Mod4 grave  :TakeToWorkspace 5
+Mod4 BackSpace      :SendToWorkspace 5
+
+Control Mod4 Mod1 1 :TakeToWorkspace 16
+Control Mod4 Mod1 2 :TakeToWorkspace 17
+Control Mod4 Mod1 3 :TakeToWorkspace 18
+Control Mod4 Mod1 4 :TakeToWorkspace 19
+Control Mod4 Mod1 5 :TakeToWorkspace 20
+Control Mod4 Mod1 6 :TakeToWorkspace 11
+Control Mod4 Mod1 7 :TakeToWorkspace 12
+Control Mod4 Mod1 8 :TakeToWorkspace 13
+Control Mod4 Mod1 9 :TakeToWorkspace 14
+Control Mod4 Mod1 0 :TakeToWorkspace 15
+
+# window controls
+Control Mod4 f            :Fullscreen
+Control Mod4 v            :MaximizeVertical
+Control Mod4 h            :MaximizeHorizontal
+Control Mod4 bracketleft  :MinimizeWindow
+Control Mod4 bracketright :MaximizeWindow
+Control Mod4 backslash    :Fullscreen
+Control Mod4 apostrophe   :StickWindow
+Control Mod4 slash        :ShadeWindow
+Control Mod4 x            :Raise
+Control Mod4 z            :Lower
+Control Mod4 BackSpace    :Close
+
+# ASUS Zenbook backlight keys do not register key events. Workaround.
+Mod4 F4 :ExecCommand xbacklight -set 5
+Mod4 F5 :ExecCommand xbacklight -dec 10
+Mod4 F6 :ExecCommand xbacklight -inc 10
+Mod4 F7 :ExecCommand xbacklight -set 0
+Mod4 F1 :ExecCommand dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend
+
+
+# Super key shortcuts
+# Some shortcuts are better left to gnome-do style invocation.
+Mod4 a :ArrangeWindows
+Mod4 b :ExecCommand VirtualBox
+Mod4 c :ExecCommand gnome-control-center
+Mod4 d :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
+Mod4 e :ExecCommand thunar
+# Mod4 f :ExecCommand gnome-search-tool
+Mod4 g :ExecCommand gimp
+# Mod4 i :ExecCommand pidgin
+# Mod4 j :ExecCommand rhythmbox
+Mod4 k :ExecCommand xkill
+# Mod4 l :ExecCommand xscreensaver-command -lock
+Mod4 l :ExecCommand gnome-screensaver-command --lock
+# Mod4 m :ExecCommand thunderbird
+# Mod4 n is next workspace
+# Mod4 p is prev workspace
+# gnome-do is set to <super>r
+# Mod4 r :ExecCommand ~/bin/fbrun
+# Mod4 s :ExecCommand skype
+# Mod4 t for tilde console, set in .Xresources
+Mod4 u :ExecCommand gnome-dictionary
+# Mod4 v :ExecCommand auto-disper --change
+# Mod4 Mod1 v :ExecCommand nvidia-settings
+Mod4 w :ExecCommand google-chrome --purge-memory-button --memory-model=medium --disable-hang-monitor --disable-renderer-accessibility
+# Mod4 w :ExecCommand firefox -P default
+Mod4 Mod1 w :ExecCommand google-chrome --incognito --purge-memory-button --memory-model=medium --disable-hang-monitor --disable-renderer-accessibility
+Control Mod4 Mod1 w :ExecCommand firefox -P transient
+# Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote
+Mod4 x :ExecCommand xterm
+# Mod4 slash :ExecCommand gnome-power-manager-background
+
+# nudge windows
+# Control Mod4 Right      :MoveRight 8
+# Control Mod4 Left       :MoveLeft 8
+# Control Mod4 Up         :MoveUp 8
+# Control Mod4 Down       :MoveDown 8
+
+# position presets
+Control Mod4 KP_End   :MoveTo 0 0 LowerLeft
+Control Mod4 KP_Down  :MoveTo * 0 LowerRight
+Control Mod4 KP_Next  :MoveTo 0 0 LowerRight
+Control Mod4 KP_Left  :MoveTo 0 * Left
+# Control Mod4 KP_Begin
+Control Mod4 KP_Right :MoveTo 0 * Right
+Control Mod4 KP_Home  :MoveTo 0 0 UpperLeft
+Control Mod4 KP_Up    :MoveTo * 0 Upper
+Control Mod4 KP_Prior :MoveTo 0 0 UpperRight
+
+# Control Mod4 y :MoveLeft 1000
+# Control Mod4 p :MoveRight 1000
+
+# position presets
+Control Mod4 m :MoveTo 0 0 LowerLeft
+Control Mod4 comma :MoveTo * 0 LowerRight
+Control Mod4 period :MoveTo 0 0 LowerRight
+Control Mod4 j :MoveTo 0 * Left
+Control Mod4 k :MoveTo 200 200 UpperLeft
+Control Mod4 l :MoveTo 0 * Right
+Control Mod4 u :MoveTo 0 0 UpperLeft
+Control Mod4 i :MoveTo * 0 Upper
+Control Mod4 o :MoveTo 0 0 UpperRight
+
+# size presets
+# resize options based on screen size and terminal font size
+# a: xterm (or preferred terminal) default
+# b: window to sit above/below an xterm.
+# c: 800x600
+# d: main content window to use remaining 1920x1080 space.
+#
+# Note: resize hint does not include title bar, which itself is 24 px.
+Control Mod4 a      :ResizeTo 724 484
+Control Mod4 b      :ResizeTo 724 570
+Control Mod4 c      :ResizeTo 800 600
+Control Mod4 d      :ResizeTo 1193 1055
+
+# menu shortcut
+Control Escape :RootMenu
+
+# multimedia keys
+# XF86Calculator :ExecCommand gnome-calculator
+# calculator key on Microsoft ComfortCurve 2000: 161
+148            :ExecCommand gnome-calculator
+
+Control Mod1 Up     :ExecCommand rhythmbox-client --pause
+Control Mod1 Down   :ExecCommand rhythmbox-client --play-pause
+Control Mod1 Left   :ExecCommand rhythmbox-client --previous
+Control Mod1 Right  :ExecCommand rhythmbox-client --next
+Control Mod1 Return :ExecCommand rhythmbox-client --notify
+
+# print screen
+Print :ExecCommand import /tmp/screenshot.png && display /tmp/screenshot.png
+Control Print :ExecCommand import /tmp/screenshot.eps && display /tmp/screenshot.eps
+Control Mod1 Print :ExecCommand import /tmp/screenshot.tiff && display /tmp/screenshot.tiff
+
+# reconfigure/restart fluxbox
+Control Mod4 Delete       :Reconfigure
+Control Mod4 Shift Delete :Restart
