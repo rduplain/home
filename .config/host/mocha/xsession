@@ -23,15 +23,7 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-
-# exec xterm
-# exec gnome-session --session=rduplain-wm
-
-# In this option ...
-# Remove use-session-dbus and use-ssh-agent from /etc/X11/Xsession.options:
-# exec ck-launch-session dbus-launch --exit-with-session ssh-agent /opt/fluxbox/bin/startfluxbox
- 
-# In this option, use same dbus session and ssh-agent from Xsession.options:
-# exec ck-launch-session dbus-launch --autolaunch=444e9b7694df1a1f58655309536f0f3b --exit-with-session /opt/fluxbox/bin/startfluxbox
-
-exec /opt/fluxbox/bin/startfluxbox
+gnome-settings-daemon &
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+exec ck-launch-session dbus-launch --autolaunch=444e9b7694df1a1f58655309536f0f3b --exit-with-session /opt/fluxbox/bin/startfluxbox

@@ -25,7 +25,6 @@ dropbox start &
 bash -c 'sleep 10; exec gnome-do' &
 bash -c 'sleep 10; killall update-notifier' &
 bash -c 'sleep 300; killall update-notifier' &
-xterm -e start-mocha &
 xscreensaver-watch &
 
 # Turn off beeps.
@@ -43,7 +42,11 @@ fi
 notice `uname -n` fluxbox is starting
 trap 'notice `uname -n` fluxbox is stopping' 0 INT TERM QUIT EXIT
 
+screens &
+
 # Print traps to stdio for X log.
 trap
+
+xrandr --auto --output HDMI-0 --mode 1920x1080 --left-of DVI-I-1
 
 fluxbox
