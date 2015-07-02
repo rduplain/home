@@ -1,2 +1,0 @@
-# http://blog.ufsoft.org/2009/1/29/ipython-and-virtualenv
-python -c 'import IPython; IPython.Shell.IPShell().mainloop()'
