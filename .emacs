@@ -1,27 +1,25 @@
 ;;; Emacs configuration for Ron DuPlain.
-;;; Based on those of Jeff Uphoff, Eric Sessoms, and Internet posters.
-;;; GNU Emacs 23
+;;; Based on those of Jeff Uphoff, Eric Sessoms, and various web communities.
+;;; GNU Emacs 24
 
 
 ;;; Basics
 
 (require 'cl)
 
-
 ;; Reader note: I have code in ~/.emacs.d and ~/.quicklisp which are rsync'd to
 ;; new machines on clone of $HOME. Note this if you try something and it fails.
 
 ;; Define the load path.
-(setq load-path (cons "~/.emacs.d" load-path))
-(setq load-path (cons "~/.emacs.d/bookmark+" load-path))
-(setq load-path (cons "~/.emacs.d/scala-mode" load-path))
-(setq load-path (cons "~/.emacs.d/magit" load-path))
-(setq load-path (cons "~/.emacs.d/yasnippet" load-path))
-(setq load-path (cons "~/.go/src/github.com/dougm/goflymake/" load-path))
+; Nothing special. Use package manager.
 
-;; Use Emacs Lisp Package Archive package manager.
-(when (load (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
+;; Use package manager.
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
 
 ;; Disable useless decorations.
 (setq inhibit-startup-message t)
@@ -254,7 +252,7 @@
 (setq ido-enable-flex-matching t)
 
 ;; Redo
-(require 'redo)
+(require 'redo+)
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
 
@@ -285,9 +283,8 @@
 
 ;; Yet Another Snippet system, for code/text snippets.
 (require 'yasnippet)
-(setq yas-global-mode 1)
-(setq yas-snippet-dirs '("~/.emacs.d/snippets" ; highest priority
-                         "~/.emacs.d/yasnippet/snippets"))
+(setq yas-snippet-dirs (cons "~/.emacs.d/snippets" yas-snippet-dirs))
+(yas-global-mode 1)
 
 ;; Drag stuff.
 (require 'drag-stuff)
@@ -388,7 +385,6 @@
 
 ;; Common Lisp
 (setq inferior-lisp-program "sbcl") ; default, override with hooks
-(load (expand-file-name "~/.quicklisp/slime-helper.el"))
 
 ;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
@@ -401,14 +397,10 @@
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 
 ;; Go
-(require 'go-mode-load)
-(require 'go-flymake)
-; (require 'go-flycheck)
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
 (add-hook 'go-mode-hook 'yas/minor-mode)
 
 ;; Haskell
-(load "~/.emacs.d/haskell-mode/haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
@@ -438,8 +430,6 @@
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 ;; Python
-; Drop this python.el in .emacs.d:
-; https://github.com/fgallina/python.el/tree/emacs23
 (require 'python)
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 (add-hook 'python-mode-hook '(lambda () (require 'virtualenv)))
@@ -489,7 +479,7 @@
                  (configure-commit-buffer))))
 
 ;; Apache Thrift
-(require 'thrift-mode)
+(require 'thrift)
 (add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
 
 ;; Web
