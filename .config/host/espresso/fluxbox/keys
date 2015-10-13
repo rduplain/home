@@ -157,7 +157,7 @@ Mod4 F4 :ExecCommand xbacklight -set 5
 Mod4 F5 :ExecCommand xbacklight -dec 10
 Mod4 F6 :ExecCommand xbacklight -inc 10
 Mod4 F7 :ExecCommand xbacklight -set 0
-Mod4 F1 :ExecCommand dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend
+Mod4 F1 :ExecCommand ~/bin/suspend
 
 
 # Super key shortcuts
@@ -233,6 +233,7 @@ Control Mod4 o :MoveTo 0 0 UpperRight
 # Note: resize hint does not include title bar, which itself is 24 px.
 Control Mod4 a      :ResizeTo 724 484
 Control Mod4 b      :ResizeTo 724 570
+Control Mod1 Mod4 b :ResizeTo 724 592
 Control Mod4 c      :ResizeTo 800 600
 Control Mod4 d      :ResizeTo 1193 1055
 

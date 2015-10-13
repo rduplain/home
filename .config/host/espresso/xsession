@@ -23,8 +23,4 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# In this option, use same dbus session and ssh-agent from Xsession.options:
-gnome-settings-daemon &
-eval $(gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
 exec ck-launch-session dbus-launch --autolaunch=444e9b7694df1a1f58655309536f0f3b --exit-with-session /opt/fluxbox/bin/startfluxbox
