@@ -68,6 +68,22 @@ function on_new_shell() {
     done
 }
 
+function docker-cleanup() {
+    if ! which docker > /dev/null; then
+        echo 'docker: command not found' >&2
+        return 2
+    fi
+    exited=$(docker ps -a -q -f status=exited)
+    if [ -n "$exited" ]; then
+        docker rm -v $exited
+    fi
+    dangling=$(docker images -f dangling=true -q)
+    if [ -n "$dangling" ]; then
+        docker rmi $dangling
+    fi
+}
+
+
 # Avoid mangling the various PATHS on new bash invocations.
 if [ -n "$BASHRC_INITIALIZED" ]; then
     on_new_shell
