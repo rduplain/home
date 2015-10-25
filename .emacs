@@ -426,6 +426,9 @@
 ;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
 
+;; LaTeX
+(add-to-list 'auto-mode-alist '("\\.latex$" . latex-mode))
+
 ;; Markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
