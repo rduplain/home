@@ -55,6 +55,8 @@ function on_new_shell() {
         receive $HOME/.ssh/agent.bash
     fi
 
+    receive ~/.lein/*.env
+
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
 
