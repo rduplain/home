@@ -1,5 +1,8 @@
 ;;; Emacs configuration for Ron DuPlain.
-;;; Based on those of Jeff Uphoff, Eric Sessoms, and various web communities.
+;;;
+;;; Based circa 2008 on .emacs of Jeff Uphoff, Eric Sessoms, and various web
+;;; communities.
+;;;
 ;;; GNU Emacs 24
 
 
