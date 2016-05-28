@@ -365,6 +365,8 @@
 
 
 ;;; Modes - Programming Languages, Formats, & Frameworks
+;;;
+;;; Many language modes just work and are omitted here.
 
 ;; Arduino
 ; See more Arduino customizations in compile-command settings.
@@ -456,9 +458,6 @@
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
 (add-hook 'ruby-mode-hook '(lambda () (setq standard-indent 2)))
-
-;; Scala
-(require 'scala-mode-auto)
 
 ;; Shell
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
