@@ -24,6 +24,10 @@ function on_new_shell() {
 
     export VIRTUALENVWRAPPER_PYTHON=`which python2.7`
 
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        receive $HOME/.ssh/agent.bash
+    fi
+
     # If not running interactively, don't do anything further.
     if [ -z "$PS1" ]; then
         return
@@ -50,10 +54,6 @@ function on_new_shell() {
     # check the window size after each command and, if necessary,
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
-
-    if [ -z "$SSH_AUTH_SOCK" ]; then
-        receive $HOME/.ssh/agent.bash
-    fi
 
     receive ~/.lein/*.env
 
