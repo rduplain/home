@@ -20,7 +20,7 @@ parcellite &
 xscreensaver -no-splash &
 nm-applet &
 thunar --daemon &
-gnome-sound-applet &
+pnmixer &
 dropbox start &
 bash -c 'sleep 10; exec gnome-do' &
 bash -c 'sleep 10; killall update-notifier' &
@@ -46,7 +46,5 @@ screens &
 
 # Print traps to stdio for X log.
 trap
-
-xrandr --auto --output HDMI-0 --mode 1920x1080 --left-of DVI-I-1
 
 fluxbox

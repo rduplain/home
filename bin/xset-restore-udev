@@ -13,8 +13,10 @@
 # Apply default environment if variables are unset.
 HOME=${HOME:-/home/rduplain}
 PATH=${PATH:-/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin}
-DISPLAY=${DISPLAY:-:0.0}
+DISPLAY=${DISPLAY:-:1.0}
 XAUTHORITY=${XAUTHORITY:-/home/rduplain/.Xauthority}
+
+. $HOME/.x-env # Elsewhere, be sure to write this file, from X startup scripts.
 
 export HOME PATH DISPLAY XAUTHORITY
 
@@ -33,5 +35,8 @@ while [ $attempts -lt 12 ]; do
     let attempts=attempts+1
     sleep 0.25
 done
+
+# The keyboard was never found, but try to restore settings anyway.
+$HOME/bin/xset-restore
 
 exit 1
