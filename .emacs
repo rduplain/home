@@ -394,6 +394,9 @@
 ;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 
+;; Clojure
+(add-hook 'clojure-mode-hook 'flyspell-prog-mode)
+
 ;; Cucumber/Lettuce
 (require 'feature-mode)
 (add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode))
