@@ -57,6 +57,9 @@ function on_new_shell() {
 
     receive ~/.lein/*.env
 
+    # Source all .env found in directory ancestry, in order.
+    walk_root_to_curdir source_this_in_that .env #dir
+
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
 
@@ -178,8 +181,37 @@ function workon_walk () {
     done
 }
 
-# Provide workon_walk to new shell invocations.
-export -f workon_walk
+function source_this_in_that () {
+    local filename="$1"
+    local dir="$2"
+    local path="$dir/$filename"
+    if [ -e "$path" ]; then
+        . "$path"
+    fi
+}
+
+function walk_root_to_curdir () {
+    local line_command="$@"
+    local curdir=$PWD
+    local dir_count=$(grep -o '/' <<< "$curdir" | wc -l)
+
+    local paths
+
+    local index=$dir_count
+    local dir="$curdir"
+    while [ -n "$dir" ]; do
+        paths[$index]="$dir"
+        let index=index-1
+        dir=${dir%/*}
+    done
+
+    for path in "${paths[@]}"; do
+        $line_command "$path"
+    done
+}
+
+# Provide walk functions to new shell invocations.
+export -f workon_walk walk_root_to_curdir source_this_in_that
 
 on_new_shell
 
