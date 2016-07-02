@@ -57,8 +57,8 @@ function on_new_shell() {
 
     receive ~/.lein/*.env
 
-    # Source all .env found in directory ancestry, in order.
-    walk_root_to_curdir source_this_in_that .env #dir
+    # Source all .bashrc found in directory ancestry, in order.
+    walk_root_to_curdir omit_home source_this_in_that .bashrc #dir
 
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
@@ -181,7 +181,9 @@ function workon_walk () {
     done
 }
 
-function source_this_in_that () {
+source_this_in_that() {
+    # Source $2/$1, i.e. $1 is the filename to look for in the given dir, $2.
+
     local filename="$1"
     local dir="$2"
     local path="$dir/$filename"
@@ -190,7 +192,11 @@ function source_this_in_that () {
     fi
 }
 
-function walk_root_to_curdir () {
+walk_root_to_curdir() {
+    # Walk directory ancestry of current directory, calling given function.
+    #
+    # Call in order for $dir from / to current directory: command $dir
+
     local line_command="$@"
     local curdir=$PWD
     local dir_count=$(grep -o '/' <<< "$curdir" | wc -l)
@@ -210,8 +216,19 @@ function walk_root_to_curdir () {
     done
 }
 
+omit_home() {
+    # Call command unless last argument is $HOME.
+    #
+    # Useful with walk_root_to_curdir.
+
+    for last in "$@"; do true; done
+    if [ ! "$last" = "$HOME" ]; then
+        "$@"
+    fi
+}
+
 # Provide walk functions to new shell invocations.
-export -f workon_walk walk_root_to_curdir source_this_in_that
+export -f workon_walk source_this_in_that walk_root_to_curdir omit_home
 
 on_new_shell
 
