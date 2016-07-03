@@ -21,6 +21,8 @@ start_screen() {
             echo "starting screen in $path" &&
             $screen -fn -dmS $name
         popd > /dev/null
+    else
+        echo "screen is already running for '$name'"
     fi
 }
 
