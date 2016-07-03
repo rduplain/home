@@ -58,7 +58,7 @@ function on_new_shell() {
     receive ~/.lein/*.env
 
     # Source all .bashrc found in directory ancestry, in order.
-    walk_root_to_curdir omit_home source_this_in_that .bashrc #dir
+    walk_root_to_curdir omit_home source_these .bashrc .env #dir
 
     receive /etc/bash_completion
     receive $BASH_DIR/bash_completion
@@ -181,15 +181,31 @@ function workon_walk () {
     done
 }
 
-source_this_in_that() {
-    # Source $2/$1, i.e. $1 is the filename to look for in the given dir, $2.
+source_these() {
+    # Source all files found by name, in directory provided as last argument.
+    #
+    # Example:
+    #
+    #     source_these .bashrc .env path/to/project
 
-    local filename="$1"
-    local dir="$2"
-    local path="$dir/$filename"
-    if [ -e "$path" ]; then
-        . "$path"
+    local dir last length path
+
+    if [ $# -eq 0 ]; then
+        exit 2
+    elif [ $# -eq 1 ]; then
+        dir=$PWD
+    else
+        for last in "$@"; do true; done
+        dir=$last
     fi
+
+    let length=$#-1
+    for filename in "${@:1:$length}"; do
+        path="$dir/$filename"
+        if [ -e "$path" ]; then
+            . "$path"
+        fi
+    done
 }
 
 walk_root_to_curdir() {
@@ -205,10 +221,18 @@ walk_root_to_curdir() {
 
     local index=$dir_count
     local dir="$curdir"
+    local next
     while [ -n "$dir" ]; do
         paths[$index]="$dir"
         let index=index-1
-        dir=${dir%/*}
+        next="${dir%/*}"
+
+        # Include '/'.
+        if [ -z "$next" ] && [ "$dir" != "/" ]; then
+            dir=/
+        else
+            dir="$next"
+        fi
     done
 
     for path in "${paths[@]}"; do
@@ -228,7 +252,7 @@ omit_home() {
 }
 
 # Provide walk functions to new shell invocations.
-export -f workon_walk source_this_in_that walk_root_to_curdir omit_home
+export -f workon_walk source_these walk_root_to_curdir omit_home
 
 on_new_shell
 
