@@ -4,7 +4,7 @@ conf=$HOME/.screens
 screen="$HOME/bin/screen -s -/bin/bash"
 
 screen_running() {
-    screen -ls | grep -q "\.$1[^a-zA-Z0-9]";
+    screen -ls | grep -q "\.$1\s";
 }
 
 start_screen() {
@@ -14,7 +14,7 @@ start_screen() {
     path=$(cd $path; pwd)
 
     name=${path##*/}
-    [[ -z "$name" ]] && name=${path##*/}
+    [[ -z "$name" ]] && name=${path##*/} # Handle trailing slash.
 
     if ! screen_running "$name"; then
         pushd $path > /dev/null &&
@@ -24,18 +24,12 @@ start_screen() {
     fi
 }
 
-start_screens() {
-    local screens=`cat $conf`
-
-    for path in $screens; do
-        start_screen $path
-    done
-}
-
 if [ $# -gt 0 ]; then
     for path in "$@"; do
         start_screen "$path"
     done
 else
-    start_screens
+    for path in "`cat $conf`"; do
+        start_screen "$path"
+    done
 fi
