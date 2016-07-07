@@ -6,7 +6,9 @@
    [lein-maven-s3-wagon "0.2.5"]
    [lein-midje "3.2"]
    [lein-ring "0.9.7"]
-   [lein-try "0.4.3"]]}
+   [lein-try "0.4.3"]]
+  :dependencies [[slamhound "1.5.5"]]
+  :aliases {"slamhound" ["run" "-m" "slam.hound"]}}
  :repl {:plugins [[cider/cider-nrepl "0.12.0"]]}
  :auth
  {:repository-auth
