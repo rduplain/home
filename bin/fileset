@@ -33,10 +33,10 @@ main() {
         return $?
     fi
 
-    local prefix=$1
+    local prefix="$1"
     shift
 
-    if [ -e $prefix ]; then
+    if [ -e "$prefix" ]; then
         echo "file '$prefix' exists; did you provide a valid prefix?" >&2
         usage
         return $?
@@ -57,11 +57,11 @@ main() {
         local pad_length=${#pad}
         local pointer_length=${#pointer}
         let filler_length=pad_length-pointer_length
-        local name=$prefix${pad:0:$filler_length}${pointer}0
+        local name="$prefix${pad:0:$filler_length}${pointer}0"
         if [ -z "$ext" ]; then
-            mv -v "$file" $name
+            mv -v "$file" "$name"
         else
-            mv -v "$file" $name.$ext
+            mv -v "$file" "$name.$ext"
         fi
         let pointer=pointer+1
     done
