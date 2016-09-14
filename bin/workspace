@@ -1,0 +1,173 @@
+#!/bin/bash
+# Manipulate window manager workspaces and cycle between non-reserved spaces.
+# This script tests "reserving" workspaces and add, remove, and cycle
+# non-reserved workspaces.  The motiviation is to access reserved
+# workspaces by specific shortcut (e.g. Super-7, Super-8, Super-9, Super-0)
+# and access non-reserved workspaces by cycling (e.g. Super-n, Super-p),
+# with the first n being accessible by specific shortcuts (e.g. Super-1 - 6).
+# Reserved workspaces are not accessed by cycling.
+#
+# NOTE: This script depends heavily on wmctrl and its behavior.
+
+prog=${0##*/} # same as `basename $0`
+reserved=${WORKSPACES_RESERVED:-5}
+active_char='*' # char in `wmctrl -d` marking active workspace
+
+# Since active_char is *, need to avoid shell globbing.
+set -o noglob
+
+function usage() {
+    # usage: usage [command [args]]
+    if [ $# -gt 0 ]; then
+        echo usage: $prog $@ >&2
+    else
+        echo usage: $prog command args >&2
+    fi
+    echo "type \"$prog help\" for more information"
+    exit 2
+}
+
+function workspace-help() {
+    echo 'workspace command [number|name]'
+    echo
+    echo 'goto [number]   - goto workspace with number given, default last'
+    echo 'set number      - set the number of workspaces to the given number'
+    echo 'add [number]    - add # of workspaces given by number, default 1'
+    echo 'remove [number] - remove # of workspaces given by number, default 1'
+    echo 'next [number]   - jump to current workspace+number (next), default 1'
+    echo 'prev [number]   - jump to current workspace-number (prev), default 1'
+    echo 'take [number]   - take window to workspace+number (+/-), default 1'
+    echo 'plow [number]   - add # workspaces (1), and take window to latest'
+    echo
+    echo 'Note: take 0 takes to last workspace'
+}
+
+# Example command and output:
+# wmctrl -d | awk '{ print $1 " " $2 " " $NF }'
+# 0 - main
+# 1 * email
+# 2 - vm
+# 3 - music
+# 4 - one
+# 5 - two
+# 6 - three
+
+# Create lookup tables via bash arrays.
+# number=( `wmctrl -d | awk '{ print $1 }'` )
+active=( `wmctrl -d | awk '{ print $2 }'` )
+# name=( `wmctrl -d | awk '{ print $NF }'` )
+
+count=${#active[*]}
+
+min_cycle=$reserved
+max_cycle=$((count-1))
+
+function workspace-current() {
+    for num in ${!active[*]}; do
+        if [ ${active[num]} = $active_char ]; then
+            echo $num
+        fi
+    done
+}
+
+function workspace-goto() {
+    if [ -z "$1" ]; then
+        wmctrl -s $((count-1))
+    else
+        wmctrl -s $1
+    fi
+}
+
+function workspace-set() {
+    local newcount=${1:-$count}
+    if [ $newcount -gt $reserved ]; then
+        wmctrl -n $newcount
+        workspace-goto $((newcount-1))
+    else
+        workspace-goto $reserved
+    fi
+}
+
+function workspace-add() {
+    local newcount=$((count+${1:-1}))
+    workspace-set $newcount
+}
+
+function workspace-remove() {
+    workspace-add -${1:-1}
+}
+
+function workspace-subtract() {
+    workspace-remove $@
+}
+
+function workspace-up() {
+    local gap=${1:-1}
+    local next=$((`workspace-current`+1))
+    [[ $next -lt $min_cycle ]] && next=$min_cycle
+    until [ $gap -le 0 ]; do
+        for (( target=${next:-min_cycle}; target <= max_cycle; target++ )); do
+            let gap=gap-1
+            if [ $gap -le 0 ]; then
+                echo $target
+                return
+            fi
+        done
+        unset next
+    done
+    echo $target
+}
+
+function workspace-down() {
+    local gap=${1:-1}
+    local prev=$((`workspace-current`-1))
+    [[ $prev -gt $max_cycle ]] && prev=$max_cycle
+    until [ $gap -le 0 ]; do
+        for (( target=${prev:-max_cycle}; target >= $min_cycle; target-- )); do
+            let gap=gap-1
+            if [ $gap -le 0 ]; then
+                echo $target
+                return
+            fi
+        done
+        unset prev
+    done
+    echo $target
+}
+
+function workspace-next() {
+    workspace-goto `workspace-up $@`
+}
+
+function workspace-prev() {
+    workspace-goto `workspace-down $@`
+}
+
+function workspace-take() {
+    local gap=${1:-1}
+    if [ $gap -gt 0 ]; then
+        local target=`workspace-up $gap`
+    elif [ $gap -eq 0 ]; then
+        local target=$((count-1))
+    else
+        local target=`workspace-down $((gap*-1))`
+    fi
+    wmctrl -r :ACTIVE: -t $target
+    workspace-goto $target
+}
+
+function workspace-plow() {
+    local target=$count
+    wmctrl -n $((count+1))
+    wmctrl -r :ACTIVE: -t $target
+    workspace-goto $target
+}
+
+subcommand=$1
+shift
+
+if [ -n "$subcommand" ]; then
+    workspace-${subcommand} $@
+else
+    usage
+fi
