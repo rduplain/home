@@ -1,5 +1,0 @@
-# cleanup (zshrc) - Z shell (zsh) init script for init cleanup
-# Ron DuPlain <ron.duplain@espresso-labs.com>
-#
-# This is just a bootstrap script, which calls a collection of other scripts.
-
