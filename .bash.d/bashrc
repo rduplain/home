@@ -13,16 +13,11 @@ source $BASH_DIR/functions.bash
 
 # virtualenvwrapper for Python
 ship WORKON_HOME=$HOME/.virtualenvs
-ship WORKON_HOME=$HOME/.virtualenvs-`uname -n`
+ship WORKON_HOME=$HOME/.virtualenvs-$HOSTNAME
 receive $HOME/bin/virtualenvwrapper.sh >/dev/null 2>&1
 
 function on_new_shell() {
-    # Set bak command to hit SD card if mounted.
-    ship BAK_HOME=/media/f9e562d6-248e-4bc2-b60a-265dda529df4
-
     receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
-
-    export VIRTUALENVWRAPPER_PYTHON=`which python2.7`
 
     if [ -z "$SSH_AUTH_SOCK" ]; then
         receive $HOME/.ssh/agent.bash
@@ -51,17 +46,14 @@ function on_new_shell() {
         fi
     fi
 
-    # check the window size after each command and, if necessary,
+    # Check the window size after each command and, if necessary,
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
-
-    receive ~/.lein/*.env
 
     # Source all .bashrc found in directory ancestry, in order.
     walk_root_to_curdir omit_home source_these .bashrc .env #dir
 
     receive /etc/bash_completion
-    receive $BASH_DIR/bash_completion
 
     # Alias git completion to homegit script.
     receive /usr/share/bash-completion/completions/git
@@ -74,16 +66,19 @@ function docker-cleanup() {
         echo 'docker: command not found' >&2
         return 2
     fi
+
     exited=$(docker ps -a -q -f status=exited)
     if [ -n "$exited" ]; then
         docker rm -v $exited
     fi
+
     dangling=$(docker images -f dangling=true -q)
     if [ -n "$dangling" ]; then
         docker rmi $dangling
     fi
 }
 
+export -f docker-cleanup
 
 # Avoid mangling the various PATHS on new bash invocations.
 if [ -n "$BASHRC_INITIALIZED" ]; then
@@ -144,26 +139,19 @@ export SNAG_HOME=$HOME
 ship SCREEN=/opt/screen/bin/screen
 ship SCREENRC_DEFAULT=$HOME/.screenrc-default
 
-# Set Android / Java defaults.
-ship M2_HOME=/usr/share/maven2
-ship M3_HOME=/opt/maven
-ship ANDROID_HOME=/home/rduplain/sandbox/android/sdk
-ship JAVA_HOME=/usr/lib/jvm/java-6-sun
-ship IDEA_JDK=/usr/lib/jvm/jdk1.6.0_26
+# Android.
+ship ANDROID_HOME=$HOME/sandbox/android/sdk
 
 # Go language.
 export GOPATH=$HOME/.go
 append PATH $GOPATH/bin
 
-# Set Python defaults.
+# Python language.
 ship PYTHONSTARTUP="$HOME/.pythonrc.py"
-prepend PYTHONPATH $HOME/lib/python/site-packages
-prepend PYTHONPATH $HOME/lib/python
-export PYTHONPATH
+alias pydoc='python `which pydoc`' # Support virtualenv.
 
-# RVM for Ruby
-# receive $HOME/.rvm/scripts/rvm
-# rvm use ruby-1.8.7 > /dev/null 2>&1
+# R language.
+ship R_LIBS_USER=$HOME/.r
 
 function workon_walk () {
     # Walk the directory tree upward until:
@@ -181,7 +169,7 @@ function workon_walk () {
     done
 }
 
-source_these() {
+function source_these() {
     # Source all files found by name, in directory provided as last argument.
     #
     # Example:
@@ -208,7 +196,7 @@ source_these() {
     done
 }
 
-walk_root_to_curdir() {
+function walk_root_to_curdir() {
     # Walk directory ancestry of current directory, calling given function.
     #
     # Call in order for $dir from / to current directory: command $dir
@@ -240,13 +228,13 @@ walk_root_to_curdir() {
     done
 }
 
-omit_home() {
+function omit_home() {
     # Call command unless last argument is $HOME.
     #
     # Useful with walk_root_to_curdir.
 
     for last in "$@"; do true; done
-    if [ ! "$last" = "$HOME" ]; then
+    if [ "$last" != "$HOME" ]; then
         "$@"
     fi
 }
@@ -260,14 +248,6 @@ on_new_shell
 if [ -z "$PS1" ]; then
     return
 fi
-
-# pydoc within a virtualenv
-alias pydoc='python `which pydoc`'
-
-# pip for Python
-ship PIP_VIRTUALENV_BASE=$WORKON_HOME
-
-ship R_LIBS_USER=$HOME/.r
 
 # Set editor and essential program defaults.
 alias emacs='emacs -nw'
@@ -284,11 +264,7 @@ export LC_ALL=en_US.UTF-8
 # Make less more friendly for non-text input files, see lesspipe(1).
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
-# todo.txt
-alias todo=todo.sh
-alias t=todo.sh
-
-# If this is an xterm set the title to "user@host dir"
+# Set window title to "user@host dir" on xterm.
 case "$TERM" in
 xterm*|rxvt*)
     PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
@@ -314,8 +290,7 @@ function commands () {
     history | cut -c8- | sort | uniq -c | sort -rn | head
 }
 
-# Load a simple script with executes `export GITHUB_TOKEN=...`.
-receive .gitconfig.github.sh
+export -f commands
 
 # Set a sentinel variable to the current time in seconds since epoch.
 export BASHRC_INITIALIZED=`date +%s`
