@@ -53,6 +53,10 @@ function on_new_shell() {
     # Source all .bashrc found in directory ancestry, in order.
     walk_root_to_curdir omit_home source_these .bashrc .env #dir
 
+    # Set aliases.
+    alias pydoc='python `which pydoc`' # Support virtualenv.
+    alias emacs='emacs -nw'
+
     receive /etc/bash_completion
 
     # Alias git completion to homegit script.
@@ -139,18 +143,17 @@ export SNAG_HOME=$HOME
 ship SCREEN=/opt/screen/bin/screen
 ship SCREENRC_DEFAULT=$HOME/.screenrc-default
 
-# Android.
+# Android
 ship ANDROID_HOME=$HOME/sandbox/android/sdk
 
-# Go language.
+# Go
 export GOPATH=$HOME/.go
 append PATH $GOPATH/bin
 
-# Python language.
+# Python
 ship PYTHONSTARTUP="$HOME/.pythonrc.py"
-alias pydoc='python `which pydoc`' # Support virtualenv.
 
-# R language.
+# R
 ship R_LIBS_USER=$HOME/.r
 
 function workon_walk () {
@@ -250,8 +253,6 @@ if [ -z "$PS1" ]; then
 fi
 
 # Set editor and essential program defaults.
-alias emacs='emacs -nw'
-
 export EDITOR='emacs -nw'
 export VISUAL=vi
 export TEXEDIT=$EDITOR
