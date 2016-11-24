@@ -15,7 +15,7 @@ XTerm*saveLines: 9999
 XTerm*fullscreen: never
 
 *faceName: Inconsolata
-*faceSize: 13
+*faceSize: 16
 
 *fontMenu*font1*Label: Small
 *faceSize1:  11
