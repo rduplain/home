@@ -1,30 +1,42 @@
-# functions.bash - GNU bash source script for shell utility functions
-# Copyright 2007-2009 Ron DuPlain <ron.duplain@espresso-labs.com>
+# functions.bash - utilities for a common bashrc across hosts
 #
-# A note on style: quotes are required throughout, to allow values with spaces.
+# Copyright (c) 2007-2016, Ron DuPlain <ron.duplain@gmail.com>
+#
+# Released under the BSD License.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+#     * Redistributions of source code must retain the above copyright notice,
+#       this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-function ship () {
+function ship() {
     # Run `export` with same syntax, but only if target value is existing file.
+    #
     # usage: ship VARIABLE=value
     #
     # similar to: export VARIABLE=value
     #
     # Note: this does not affect VARIABLE if target value does not exist.
     # Note: export options -fn -p are not supported.
-    # Returns exit status:
+    #
+    # Exit status:
     #     2 if no arguments are given
     #     1 if a given target does not exist
     #     0 otherwise
@@ -33,32 +45,37 @@ function ship () {
     [[ $# -eq 0 ]] && return 2
 
     local result=0
-    local statement
-    for statement in "$@"; do
-        # Get the target of the statement (right-hand of equals sign).
+    local variable
+
+    for variable in "$@"; do
+        # Get the target of the variable (right-hand of equals sign).
         # i.e. find the target of the variable in: variable=target
-        # Strip off STATEMENT from left to first equal sign.
-        local target=${statement#*=}
+        #
+        # Parse VARIABLE from left to first equal sign.
+        local target=${variable#*=}
 
         # Determine if the target exists, and export if so.
         if [ -e "$target" ]; then
-            export "$statement"
+            export "$variable"
         else
             result=1
         fi
     done
+
     return $result
 }
 
-function receive () {
+function receive() {
     # Run `source` with same syntax, but only if the target file exists.
+    #
     # usage: receive path/to/file
     #
     # similar to: source path/to/file
     #
-    # Note: this does nothing if target file does not exist.
+    # Note: This does nothing if target file does not exist.
     # Overload: sendfile includes a receive command; this isn't it.
-    # Returns exit status:
+    #
+    # Exit status:
     #     2 if no arguments are given
     #     1 if target file does not exist
     #     exit status of `source` otherwise
@@ -72,14 +89,16 @@ function receive () {
     [[ -f "$target" ]] && source "$target" "$@"
 }
 
-function forhost () {
+function forhost() {
     # Run a given command if the current hostname matches the first argument.
+    #
     # usage: forhost host command args
     #
-    # similar to: command args (if current hostname matches forhost host arg)
+    # similar to: command args # if current hostname matches forhost host arg.
     #
-    # Note: this does nothing if current hostname does not match host arg.
-    # Returns exit status:
+    # Note: This does nothing if current hostname does not match host arg.
+    #
+    # Exit status:
     #     2 if no arguments are given
     #     1 if host does not match
     #     exit status of command otherwise
@@ -89,25 +108,29 @@ function forhost () {
 
     local result=0
     local target_host=$1
-    shift;
+    shift
+
     if [ `uname -n` = "$target_host" ]; then
         "$@"
         result=$?
     else
         result=1
     fi
+
     return $result
 }
 
-function prune_colons () {
-    # Clean colons in a colon-separated PATH-like environment variable.
+function prune_colons() {
+    # Clean colons in colon-separated PATH-like environment variable, in place.
+    #
     # usage: prune_colons ENV
     #
     # Note that ENV should be passed by name. For example:
+    #
     #     prune_colons PATH
     #     prune_colons LD_LIBRARY_PATH
     #
-    # Returns exit status:
+    # Exit status:
     #     2 if no arguments are given
     #     0 otherwise
 
@@ -125,20 +148,21 @@ function prune_colons () {
         envswap=${env//::/:}
     done
 
-    env=${env#:} # remove leading colon
-    env=${env%:} # remove trailing colon
+    env=${env#:} # Remove leading colon.
+    env=${env%:} # Remove trailing colon.
 
     # Restore the environment variable.
     export $envname="${env}"
     return 0
 }
 
-function _pend () {
+function _pend() {
     # Provide core of prepend and append functions.
-    # usage: _pend pre ARGS
-    # usage: _pend post ARGS
     #
-    # Returns exit status:
+    # usage: _pend pre ARGS
+    # usage: _pend ap ARGS
+    #
+    # Exit status:
     #     2 if no arguments are given
     #     1 if any given argument is not a directory
     #     0 otherwise
@@ -185,15 +209,16 @@ function _pend () {
     local result=0
     local target
     local -i k
+
     for (( k=0; $k < ${#targets[*]}; k++ )); do
         target=${targets[$k]}
         # Verify new target exists before prepending it.
-        if [ -d "$target" ]; then
+        if [ -e "$target" ]; then
             # Add target while removing previous entries matching target.
             # Tack on colons, for pattern matching in parameter expansion.
             env=:${env}: # to be sure :$target: matches.
             [[ $mode == "pre" ]] && env=$target:${env//:$target:/:}
-            [[ $mode == "post" ]] && env=${env//:$target:/:}:$target
+            [[ $mode == "ap" ]] && env=${env//:$target:/:}:$target
             # Don't worry about too many colons; prune_colons later.
         else
             result=1
@@ -205,19 +230,21 @@ function _pend () {
     return $result
 }
 
-function prepend () {
-    # Prepend each argument to a :-delimited environment variable, LIFO.
-    # usage: prepend env NEWVALUE1 [NEWVALUE2, NEWVALUE3, ...]
+function prepend() {
+    # Prepend each argument to :-delimited variable, in place, LIFO.
+    #
+    # usage: prepend ENV NEWVALUE1 [NEWVALUE2, NEWVALUE3, ...]
     #
     # Note that env should be passed by name. For example:
     #     prepend PATH /usr/bin /bin
     #     prepend LD_LIBRARY_PATH /usr/lib /lib
     #
-    # Last in, first out (LIFO) suggests NEWVALUE1 prepends after NEWVALUE2.
-    # Note: arguments are prepended if and only if the path exists.
-    # Note: argument is removed from variable before prepending.
+    # With last in, first out (LIFO), NEWVALUE1 prepends after NEWVALUE2.
     #
-    # Returns exit status:
+    # Note: Arguments are prepended if and only if the path exists, and
+    #       argument is removed from variable before prepending.
+    #
+    # Exit status:
     #     2 if no arguments are given
     #     1 if any given argument is not a directory
     #     0 otherwise
@@ -225,22 +252,24 @@ function prepend () {
     _pend pre "$@"
 }
 
-function append () {
-    # Append each argument to a :-delimited environment variable, FIFO.
-    # usage: append env NEWVALUE1 [NEWVALUE2, NEWVALUE3, ...]
+function append() {
+    # Append each argument to :-delimited variable, in place, FIFO.
+    #
+    # usage: append ENV NEWVALUE1 [NEWVALUE2, NEWVALUE3, ...]
     #
     # Note that env should be passed by name. For example:
     #     append PATH /usr/bin /bin
     #     append LD_LIBRARY_PATH /usr/lib /lib
     #
-    # First in, first out (FIFO) suggests NEWVALUE1 appends before NEWVALUE2.
-    # Note: arguments are appended if and only if the path exists.
-    # Note: argument is removed from variable before appending.
+    # With first in, first out (FIFO), NEWVALUE1 appends before NEWVALUE2.
     #
-    # Returns exit status:
+    # Note: Arguments are appended if and only if the path exists, and
+    #       argument is removed from variable before appending.
+    #
+    # Exit status:
     #     2 if no arguments are given
     #     1 if any given argument is not a directory
     #     0 otherwise
 
-    _pend post "$@"
+    _pend ap "$@"
 }

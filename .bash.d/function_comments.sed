@@ -1,24 +1,29 @@
 #!/bin/sed -nf
-# Generate some markdown from the comments in the functions.bash file.
+# Generate a markdown README from comments in functions.bash.
+#
 # Usage:
 #     ./function_comments.sed functions.bash > README.md
 
-1,1 { # Insert a header, and insert spaces before and after first line.
-    i Utility functions for GNU Bash to simplify rc scripts & env manipulation
-    i ========================================================================
-    # Above: insert header. Below: insert empty lines before, after first line.
-    i
+# a: Append an empty line.
+# p: Print result of the sed block to stdout.
+
+1 {                  # With line 1 from file:
+    s/# /## /g       # Replace comment with markdown header level 2.
     a
+    p
 }
 
-1,/^$/ {             # match from the first line until the first empty line
-    s/# *//g         # remove the comment symbol and spaces following it
+3,5 {                # With lines 3 and 5 from file:
+    s/# *//g         # Uncomment the line; remove '#' and all spaces after it.
+    p
 }
 
-/^function/,/^$/ {   # match line starting with 'function ...' until empty line
-    s/^function /**`/# change 'function ' to '**`'
-    s/ () {$/`**\n/  # change ' () {' to '`**' with an extra line feed
-    s/    #/    /g   # change '    #' to '    '
-    s/^ *$//g        # clear out (but don't remove) lines with just spaces
-    p                # print result to stdout
+5 a
+
+/^function/,/^$/ {   # Match line starting with 'function ...' until empty line.
+    s/^function /**`/# Replace 'function ' with '**`'.
+    s/() {$/`**\n/   # Replace ' () {' with '`**' and an extra line feed.
+    s/    #/    /g   # Replace '    #' with '    '
+    s/^ *$//g        # Trim lines with just whitespace to empty lines.
+    p
 }
