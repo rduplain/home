@@ -118,3 +118,14 @@ Released under the BSD License.
          1 if any given argument is not a directory
          0 otherwise
 
+**`command_exists`**
+
+     Check if command exists, looking for programs and bash functions/aliases.
+
+     usage: command_exists COMMAND
+
+     Exit status:
+         2 if no arguments are given
+         1 if given command is not found
+         0 otherwise
+

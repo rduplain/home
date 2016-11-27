@@ -11,11 +11,6 @@
 export BASH_DIR=$HOME/.bash.d
 source $BASH_DIR/functions.bash
 
-# virtualenvwrapper for Python
-ship WORKON_HOME=$HOME/.virtualenvs
-ship WORKON_HOME=$HOME/.virtualenvs-$HOSTNAME
-receive $HOME/bin/virtualenvwrapper.sh >/dev/null 2>&1
-
 function on_new_shell() {
     receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
 
@@ -31,9 +26,20 @@ function on_new_shell() {
     # Set prompt PS1 to "user@host dir$ "
     export PS1='\u@\h \W\$ '
 
+    # Load virtualenvwrapper for Python.
+    #
+    # This expects virtualenvwrapper.sh to be symlinked from the
+    # virtualenvwrapper installation. To disable virtualenvwrapper (and
+    # therefore speedup shell init), simply remove the symlink.
+    ship WORKON_HOME=$HOME/.virtualenvs
+    ship WORKON_HOME=$HOME/.virtualenvs-$HOSTNAME
+    receive $HOME/bin/virtualenvwrapper.sh >/dev/null 2>&1
+
     # Set the virtual environment.
     if [ "$USE_VIRTUALENV" != "false" ]; then
-        workon_walk
+        if command_exists workon; then
+            workon_walk
+        fi
         receive $PWD/.env/bin/activate
         receive $PWD/env/bin/activate
     fi
@@ -125,10 +131,13 @@ append PATH $HOME/sandbox/android/sdk/tools
 
 append PATH $HOME/.*-dist/bin
 
-for envtool in pyenv rbenv; do
-    prepend PATH $HOME/.${envtool}/bin
-    which $envtool >/dev/null 2>&1 && eval "$($envtool init -)"
-done
+if [ -z "$ENVTOOLS_INITIALIZED" ]; then
+    for envtool in pyenv rbenv; do
+        prepend PATH $HOME/.${envtool}/bin
+        which $envtool >/dev/null 2>&1 && eval "$($envtool init -)"
+    done
+    export ENVTOOLS_INITIALIZED=`date +%s` # unix timestamp
+fi
 
 export PATH
 export LD_LIBRARY_PATH
@@ -247,51 +256,49 @@ export -f workon_walk source_these walk_root_to_curdir omit_home
 
 on_new_shell
 
-# If not running interactively, don't do anything further.
-if [ -z "$PS1" ]; then
-    return
+if [ -n "$PS1" ]; then
+    # When running interactively...
+
+    # Set editor and essential program defaults.
+    export EDITOR='emacs -nw'
+    export VISUAL=vi
+    export TEXEDIT=$EDITOR
+    export PAGER=less
+    export GZIP="-9"
+
+    # Set locale.
+    export LC_ALL=en_US.UTF-8
+
+    # Make less more friendly for non-text input files, see lesspipe(1).
+    [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+
+    # Set window title to "user@host dir" on xterm.
+    case "$TERM" in
+    xterm*|rxvt*)
+        PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
+        ;;
+    *)
+        PROMPT_COMMAND='history -a'
+        ;;
+    esac
+    export PROMPT_COMMAND
+
+    # Don't put duplicate lines in the history. See bash(1) for more options.
+    export HISTCONTROL=ignoreboth
+    export HISTFILESIZE=9999
+    export HISTSIZE=20000
+    export FCEDIT=$EDITOR
+    export FIGNORE='~'
+    unset MAILCHECK MAILPATH
+    unset CDPATH
+
+    export WORKSPACES_RESERVED=5
+
+    function commands () {
+        history | cut -c8- | sort | uniq -c | sort -rn | head
+    }
+
+    export -f commands
 fi
 
-# Set editor and essential program defaults.
-export EDITOR='emacs -nw'
-export VISUAL=vi
-export TEXEDIT=$EDITOR
-export PAGER=less
-export GZIP="-9"
-
-# Set locale.
-export LC_ALL=en_US.UTF-8
-
-# Make less more friendly for non-text input files, see lesspipe(1).
-[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
-
-# Set window title to "user@host dir" on xterm.
-case "$TERM" in
-xterm*|rxvt*)
-    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
-    ;;
-*)
-    PROMPT_COMMAND='history -a'
-    ;;
-esac
-export PROMPT_COMMAND
-
-# Don't put duplicate lines in the history. See bash(1) for more options.
-export HISTCONTROL=ignoreboth
-export HISTFILESIZE=9999
-export HISTSIZE=20000
-export FCEDIT=$EDITOR
-export FIGNORE='~'
-unset MAILCHECK MAILPATH
-unset CDPATH
-
-export WORKSPACES_RESERVED=5
-
-function commands () {
-    history | cut -c8- | sort | uniq -c | sort -rn | head
-}
-
-export -f commands
-
-# Set a sentinel variable to the current time in seconds since epoch.
-export BASHRC_INITIALIZED=`date +%s`
+export BASHRC_INITIALIZED=`date +%s` # unix timestamp
