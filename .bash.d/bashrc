@@ -46,7 +46,7 @@ function on_new_shell() {
 
     # Enable color support of ls.
     if [ "$TERM" != "dumb" ]; then
-        if ( which dircolors >/dev/null 2>&1 ); then
+        if command_exists dircolors; then
             eval "`dircolors -b`"
             alias ls='ls --color=auto'
         fi
@@ -72,7 +72,7 @@ function on_new_shell() {
 }
 
 function docker-cleanup() {
-    if ! which docker > /dev/null; then
+    if ! command_exists docker; then
         echo 'docker: command not found' >&2
         return 2
     fi
@@ -134,7 +134,7 @@ append PATH $HOME/.*-dist/bin
 if [ -z "$ENVTOOLS_INITIALIZED" ]; then
     for envtool in pyenv rbenv; do
         prepend PATH $HOME/.${envtool}/bin
-        which $envtool >/dev/null 2>&1 && eval "$($envtool init -)"
+        command_exists $envtool && eval "$($envtool init -)"
     done
     export ENVTOOLS_INITIALIZED=`date +%s` # unix timestamp
 fi
