@@ -71,100 +71,6 @@ function on_new_shell() {
     complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 }
 
-function docker-cleanup() {
-    if ! command_exists docker; then
-        echo 'docker: command not found' >&2
-        return 2
-    fi
-
-    exited=$(docker ps -a -q -f status=exited)
-    if [ -n "$exited" ]; then
-        docker rm -v $exited
-    fi
-
-    dangling=$(docker images -f dangling=true -q)
-    if [ -n "$dangling" ]; then
-        docker rmi $dangling
-    fi
-}
-
-export -f docker-cleanup
-
-# Avoid mangling the various PATHS on new bash invocations.
-if [ -n "$BASHRC_INITIALIZED" ]; then
-    on_new_shell
-    return
-fi
-
-## PATH management.
-
-# Set important paths.
-prepend PATH /bin /sbin
-prepend LD_LIBRARY_PATH /lib /lib32 /lib/i386-linux-gnu /lib64 /lib/x86_64-linux-gnu
-
-prepend PATH /usr/bin /usr/sbin
-prepend LD_LIBRARY_PATH /usr/lib /usr/lib32 /usr/lib/i386-linux-gnu /usr/lib64 /usr/lib/x86_64-linux-gnu
-prepend MANPATH /usr/man /usr/share/man
-
-prepend PATH /usr/local/bin /usr/local/sbin
-prepend LD_LIBRARY_PATH /usr/local/lib /usr/local/lib32 /usr/local/lib/i386-linux-gnu /usr/local/lib64 /usr/local/lib/x86_64-linux-gnu
-prepend MANPATH /usr/local/man /usr/local/share/man
-
-prepend PATH /opt/local/bin /opt/local/sbin
-prepend LD_LIBRARY_PATH /opt/local/lib /opt/local/lib32 /opt/local/lib64
-prepend MANPATH /opt/local/man /opt/local/share/man
-
-prepend PATH /opt/*/bin
-prepend LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
-prepend MANPATH /opt/*/man /opt/*/share/man
-
-prepend PATH $HOME/bin
-prepend LD_LIBRARY_PATH $HOME/lib $HOME/lib32 $HOME/lib64
-prepend MANPATH $HOME/man $HOME/share/man
-
-prepend PATH $HOME/usr/bin
-prepend LD_LIBRARY_PATH $HOME/usr/lib $HOME/usr/lib32 $HOME/usr/lib64
-prepend MANPATH $HOME/usr/man $HOME/usr/share/man
-
-append PATH $HOME/sandbox/android/sdk/platform-tools
-append PATH $HOME/sandbox/android/sdk/tools
-
-append PATH $HOME/.*-dist/bin
-
-if [ -z "$ENVTOOLS_INITIALIZED" ]; then
-    for envtool in pyenv rbenv; do
-        prepend PATH $HOME/.${envtool}/bin
-        command_exists $envtool && eval "$($envtool init -)"
-    done
-    export ENVTOOLS_INITIALIZED=`date +%s` # unix timestamp
-fi
-
-export PATH
-export LD_LIBRARY_PATH
-export MANPATH
-
-## ... and so on.
-
-# Put snagged files from bin/snag in obvious place: home.
-export SNAG_HOME=$HOME
-
-# Have bin/screen choose opt screen if installed.
-ship SCREEN=/opt/screen/bin/screen
-ship SCREENRC_DEFAULT=$HOME/.screenrc-default
-
-# Android
-ship ANDROID_HOME=$HOME/sandbox/android/sdk
-
-# Go
-export GOPATH=$HOME/.go
-append PATH $GOPATH/bin
-
-# Python
-ship PYTHONSTARTUP="$HOME/.pythonrc.py"
-
-# R
-ship R_LIBS_USER=$HOME/.r
-
 function workon_walk () {
     # Walk the directory tree upward until:
     #  * a virtualenv is found which matches the name of a directory
@@ -251,54 +157,146 @@ function omit_home() {
     fi
 }
 
-# Provide walk functions to new shell invocations.
 export -f workon_walk source_these walk_root_to_curdir omit_home
+
+function commands () {
+    history | cut -c8- | sort | uniq -c | sort -rn | head
+}
+
+function docker-cleanup() {
+    if ! command_exists docker; then
+        echo 'docker: command not found' >&2
+        return 2
+    fi
+
+    exited=$(docker ps -a -q -f status=exited)
+    if [ -n "$exited" ]; then
+        docker rm -v $exited
+    fi
+
+    dangling=$(docker images -f dangling=true -q)
+    if [ -n "$dangling" ]; then
+        docker rmi $dangling
+    fi
+}
+
+export -f commands docker-cleanup
+
+# Avoid editing PATHS on new bash invocations.
+if [ -n "$BASHRC_INITIALIZED" ]; then
+    on_new_shell
+    return
+fi
+
+## PATH management.
+
+# Set important paths.
+prepend PATH /bin /sbin
+prepend LD_LIBRARY_PATH /lib /lib32 /lib/i386-linux-gnu /lib64 /lib/x86_64-linux-gnu
+
+prepend PATH /usr/bin /usr/sbin
+prepend LD_LIBRARY_PATH /usr/lib /usr/lib32 /usr/lib/i386-linux-gnu /usr/lib64 /usr/lib/x86_64-linux-gnu
+prepend MANPATH /usr/man /usr/share/man
+
+prepend PATH /usr/local/bin /usr/local/sbin
+prepend LD_LIBRARY_PATH /usr/local/lib /usr/local/lib32 /usr/local/lib/i386-linux-gnu /usr/local/lib64 /usr/local/lib/x86_64-linux-gnu
+prepend MANPATH /usr/local/man /usr/local/share/man
+
+prepend PATH /opt/local/bin /opt/local/sbin
+prepend LD_LIBRARY_PATH /opt/local/lib /opt/local/lib32 /opt/local/lib64
+prepend MANPATH /opt/local/man /opt/local/share/man
+
+prepend PATH /opt/*/bin
+prepend LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
+prepend MANPATH /opt/*/man /opt/*/share/man
+
+prepend PATH $HOME/bin
+prepend LD_LIBRARY_PATH $HOME/lib $HOME/lib32 $HOME/lib64
+prepend MANPATH $HOME/man $HOME/share/man
+
+prepend PATH $HOME/usr/bin
+prepend LD_LIBRARY_PATH $HOME/usr/lib $HOME/usr/lib32 $HOME/usr/lib64
+prepend MANPATH $HOME/usr/man $HOME/usr/share/man
+
+append PATH $HOME/sandbox/android/sdk/platform-tools
+append PATH $HOME/sandbox/android/sdk/tools
+
+append PATH $HOME/.*-dist/bin
+
+if [ -z "$ENVTOOLS_INITIALIZED" ]; then
+    for envtool in pyenv rbenv; do
+        prepend PATH $HOME/.${envtool}/bin
+        command_exists $envtool && eval "$($envtool init -)"
+    done
+    export ENVTOOLS_INITIALIZED=`date +%s` # unix timestamp
+fi
+
+export PATH
+export LD_LIBRARY_PATH
+export MANPATH
+
+## ... and so on.
+
+# Put snagged files from bin/snag in obvious place: home.
+export SNAG_HOME=$HOME
+
+# Have bin/screen choose opt screen if installed.
+ship SCREEN=/opt/screen/bin/screen
+ship SCREENRC_DEFAULT=$HOME/.screenrc-default
+
+# Android
+ship ANDROID_HOME=$HOME/sandbox/android/sdk
+
+# Go
+export GOPATH=$HOME/.go
+append PATH $GOPATH/bin
+
+# Python
+ship PYTHONSTARTUP="$HOME/.pythonrc.py"
+
+# R
+ship R_LIBS_USER=$HOME/.r
 
 on_new_shell
 
-if [ -n "$PS1" ]; then
-    # When running interactively...
-
-    # Set editor and essential program defaults.
-    export EDITOR='emacs -nw'
-    export VISUAL=vi
-    export TEXEDIT=$EDITOR
-    export PAGER=less
-    export GZIP="-9"
-
-    # Set locale.
-    export LC_ALL=en_US.UTF-8
-
-    # Make less more friendly for non-text input files, see lesspipe(1).
-    [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
-
-    # Set window title to "user@host dir" on xterm.
-    case "$TERM" in
-    xterm*|rxvt*)
-        PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
-        ;;
-    *)
-        PROMPT_COMMAND='history -a'
-        ;;
-    esac
-    export PROMPT_COMMAND
-
-    # Don't put duplicate lines in the history. See bash(1) for more options.
-    export HISTCONTROL=ignoreboth
-    export HISTFILESIZE=9999
-    export HISTSIZE=20000
-    export FCEDIT=$EDITOR
-    export FIGNORE='~'
-    unset MAILCHECK MAILPATH
-    unset CDPATH
-
-    export WORKSPACES_RESERVED=5
-
-    function commands () {
-        history | cut -c8- | sort | uniq -c | sort -rn | head
-    }
-
-    export -f commands
+# If not running interactively, don't do anything further.
+if [ -z "$PS1" ]; then
+    return
 fi
+
+# Set editor and essential program defaults.
+export EDITOR='emacs -nw'
+export VISUAL=vi
+export TEXEDIT=$EDITOR
+export PAGER=less
+export GZIP="-9"
+
+# Set locale.
+export LC_ALL=en_US.UTF-8
+
+# Make less more friendly for non-text input files, see lesspipe(1).
+[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+
+# Set window title to "user@host dir" on xterm.
+case "$TERM" in
+xterm*|rxvt*)
+    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
+    ;;
+*)
+    PROMPT_COMMAND='history -a'
+    ;;
+esac
+export PROMPT_COMMAND
+
+# Don't put duplicate lines in the history. See bash(1) for more options.
+export HISTCONTROL=ignoreboth
+export HISTFILESIZE=9999
+export HISTSIZE=20000
+export FCEDIT=$EDITOR
+export FIGNORE='~'
+unset MAILCHECK MAILPATH
+unset CDPATH
+
+export WORKSPACES_RESERVED=5
 
 export BASHRC_INITIALIZED=`date +%s` # unix timestamp
