@@ -1,3 +1,0 @@
-set "editor=xterm -e emacs"
-set runtimepath=/home/rduplain/.vimperator
-set "titlestring=Firefox (vi)"

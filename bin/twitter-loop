@@ -1,6 +1,0 @@
-#!/bin/bash
-
-while [ 1 ]; do
-    twitter -r -R 150 2>/dev/null;
-    sleep 30;
-done
