@@ -47,7 +47,7 @@ index=0
 args=( )
 for arg in $@; do
     args[$index]=${arg%/}
-    ((index++))
+    let index=index+1
 done
 
 # Replace $@ with modified args.

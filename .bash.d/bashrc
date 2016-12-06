@@ -12,6 +12,8 @@ export BASH_DIR=$HOME/.bash.d
 source $BASH_DIR/functions.bash
 
 function on_new_shell() {
+    ship BAK_HOME=/media/rduplain/bak
+
     receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
 
     if [ -z "$SSH_AUTH_SOCK" ]; then
