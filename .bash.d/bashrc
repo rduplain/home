@@ -11,7 +11,10 @@
 export BASH_DIR=$HOME/.bash.d
 source $BASH_DIR/functions.bash
 
-alias timestamp='date +%s'
+if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
+    # Loaded via X desktop manager. Treat as interactive session.
+    export PS1="init> "
+fi
 
 function on_new_shell() {
     ship BAK_HOME=/media/$USER/bak
@@ -258,6 +261,8 @@ ship PYTHONSTARTUP="$HOME/.pythonrc.py"
 # R
 ship R_LIBS_USER=$HOME/.r
 
+export WORKSPACES_RESERVED=5
+
 on_new_shell
 
 # If not running interactively, don't do anything further.
@@ -298,6 +303,4 @@ export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
 
-export WORKSPACES_RESERVED=5
-
-export BASHRC_INITIALIZED=$(timestamp)
+export BASHRC_INITIALIZED=$(date +%s)
