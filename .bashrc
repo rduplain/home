@@ -1,4 +1,4 @@
-. $HOME/.bash.d/functions.bash
+. "$HOME/.bash.d/functions.bash"
 
 if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
     # Loaded via X desktop manager. Treat as interactive session.
@@ -9,7 +9,7 @@ function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
     unset BASHRC_INITIALIZED
-    . $HOME/.bashrc
+    . "$HOME/.bashrc"
     for envtool in pyenv rbenv; do
         command_exists $envtool && $envtool rehash
     done
@@ -23,7 +23,7 @@ function workon_walk() {
     # Activate the identified virtualenv with virtualenvwrapper's workon.
     dir=${PWD}
     while [ -n "$dir" ]; do
-        workon ${dir##*/} >/dev/null 2>&1
+        workon "${dir##*/}" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             break
         fi
@@ -43,10 +43,10 @@ function source_these() {
     if [ $# -eq 0 ]; then
         exit 2
     elif [ $# -eq 1 ]; then
-        dir=$PWD
+        dir="$PWD"
     else
         for last in "$@"; do true; done
-        dir=$last
+        dir="$last"
     fi
 
     let length=$#-1
@@ -64,7 +64,7 @@ function walk_root_to_curdir() {
     # Call in order for $dir from / to current directory: command $dir
 
     local line_command="$@"
-    local curdir=$PWD
+    local curdir="$PWD"
     local dir_count=$(grep -o '/' <<< "$curdir" | wc -l)
 
     local paths
@@ -146,14 +146,14 @@ prepend LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
 prepend MANPATH /opt/*/man /opt/*/share/man
 
 for envtool in pyenv rbenv; do
-    prepend PATH $HOME/.${envtool}/bin
+    prepend PATH "$HOME/.${envtool}/bin"
     if command_exists $envtool; then
         if [ -z "$BASHRC_INITIALIZED" ]; then
             # First initialization.
             eval "$($envtool init -)"
         else
             # Already initialized once.
-            prepend PATH $HOME/.$envtool/shims
+            prepend PATH "$HOME/.$envtool/shims"
         fi
 
         if [ "$(type -t $envtool)" = "function" ]; then
@@ -169,47 +169,47 @@ for envtool in pyenv rbenv; do
     fi
 done
 
-prepend PATH $HOME/bin
-prepend LD_LIBRARY_PATH $HOME/lib $HOME/lib32 $HOME/lib64
-prepend MANPATH $HOME/man $HOME/share/man
+prepend PATH "$HOME/bin"
+prepend LD_LIBRARY_PATH "$HOME/lib" "$HOME/lib32" "$HOME/lib64"
+prepend MANPATH "$HOME/man" "$HOME/share/man"
 
-prepend PATH $HOME/usr/bin
-prepend LD_LIBRARY_PATH $HOME/usr/lib $HOME/usr/lib32 $HOME/usr/lib64
-prepend MANPATH $HOME/usr/man $HOME/usr/share/man
+prepend PATH "$HOME/usr/bin"
+prepend LD_LIBRARY_PATH "$HOME/usr/lib" "$HOME/usr/lib32" "$HOME/usr/lib64"
+prepend MANPATH "$HOME/usr/man" "$HOME/usr/share/man"
 
-append PATH $HOME/sandbox/android/sdk/platform-tools
-append PATH $HOME/sandbox/android/sdk/tools
+append PATH "$HOME/sandbox/android/sdk/platform-tools"
+append PATH "$HOME/sandbox/android/sdk/tools"
 
-append PATH $HOME/.*-dist/bin
+append PATH "$HOME"/.*-dist/bin
 
 dedupe_path PATH LD_LIBRARY_PATH MANPATH
 
 export PATH LD_LIBRARY_PATH MANPATH
 
 # Put snagged files from bin/snag in obvious place: home.
-export SNAG_HOME=$HOME
+export SNAG_HOME="$HOME"
 
 # Have bin/screen choose opt screen if installed.
 ship SCREEN=/opt/screen/bin/screen
-ship SCREENRC_DEFAULT=$HOME/.screenrc-default
+ship SCREENRC_DEFAULT="$HOME/.screenrc-default"
 
-ship ANDROID_HOME=$HOME/sandbox/android/sdk
+ship ANDROID_HOME="$HOME/sandbox/android/sdk"
 
-export GOPATH=$HOME/.go
-append PATH $GOPATH/bin
+export GOPATH="$HOME/.go"
+append PATH "$GOPATH/bin"
 
 ship PYTHONSTARTUP="$HOME/.pythonrc.py"
 
-ship R_LIBS_USER=$HOME/.r
+ship R_LIBS_USER="$HOME/.r"
 
 export WORKSPACES_RESERVED=5
 
-ship BAK_HOME=/media/$USER/bak
+ship BAK_HOME="/media/$USER/bak"
 
-receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
+receive "$HOME/.config/host/${HOSTNAME:-default}/bashrc"
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
-    receive $HOME/.ssh/agent.bash
+    receive "$HOME/.ssh/agent.bash"
 fi
 
 # If not running interactively, don't do anything further.
@@ -225,16 +225,16 @@ export PS1='\u@\h \W\$ '
 # This expects virtualenvwrapper.sh to be symlinked from the
 # virtualenvwrapper installation. To disable virtualenvwrapper (and
 # therefore speedup shell init), simply remove the symlink.
-ship WORKON_HOME=$HOME/.virtualenvs
-ship WORKON_HOME=$HOME/.virtualenvs-$HOSTNAME
-receive $HOME/bin/virtualenvwrapper.sh >/dev/null 2>&1
+ship WORKON_HOME="$HOME/.virtualenvs"
+ship WORKON_HOME="$HOME/.virtualenvs-$HOSTNAME"
+receive "$HOME/bin/virtualenvwrapper.sh" >/dev/null 2>&1
 
 if [ "$USE_VIRTUALENV" != "false" ]; then
     if command_exists workon; then
         workon_walk
     fi
-    receive $PWD/.env/bin/activate
-    receive $PWD/env/bin/activate
+    receive "$PWD/.env/bin/activate"
+    receive "$PWD/env/bin/activate"
 fi
 
 # Enable color support of ls.
