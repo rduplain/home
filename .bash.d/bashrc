@@ -70,6 +70,26 @@ function on_new_shell() {
     alias pydoc='python `which pydoc`' # Support virtualenv.
     alias emacs='emacs -nw'
 
+    # Set window title to "user@host dir" if terminal detected.
+    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/\~}\007"'
+    case "$TERM" in
+    xterm*|rxvt*)
+        ;;
+    screen)
+        # STY holds name of screen session, in format of:
+        # PID.NAME (PID: screen pid, NAME, sessionname)
+        #
+        # ${STY#*.} removes everything up to and including the first '.'.
+        if [ -n "$STY" ]; then
+            PROMPT_COMMAND='history -a; echo -ne "\033]0;screen: ${STY#*.}\007"'
+        fi
+        ;;
+    *)
+        PROMPT_COMMAND='history -a'
+        ;;
+    esac
+    export PROMPT_COMMAND
+
     receive /etc/bash_completion
 
     # Alias git completion to homegit script.
@@ -290,26 +310,6 @@ export LC_ALL=en_US.UTF-8
 
 # Make less more friendly for non-text input files, see lesspipe(1).
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
-
-# Set window title to "user@host dir" if terminal detected.
-PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/\~}\007"'
-case "$TERM" in
-xterm*|rxvt*)
-    ;;
-screen)
-    # STY holds name of screen session, in format of:
-    # PID.NAME (PID: screen pid, NAME, sessionname)
-    #
-    # ${STY#*.} removes everything up to and including the first '.'.
-    if [ -n "$STY" ]; then
-        PROMPT_COMMAND='history -a; echo -ne "\033]0;screen: ${STY#*.}\007"'
-    fi
-    ;;
-*)
-    PROMPT_COMMAND='history -a'
-    ;;
-esac
-export PROMPT_COMMAND
 
 # Don't put duplicate lines in the history. See bash(1) for more options.
 export HISTCONTROL=ignoreboth
