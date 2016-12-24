@@ -292,16 +292,18 @@ export LC_ALL=en_US.UTF-8
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
 # Set window title to "user@host dir" if terminal detected.
+PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/\~}\007"'
 case "$TERM" in
 xterm*|rxvt*)
-    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/\~}\007"'
     ;;
 screen)
     # STY holds name of screen session, in format of:
     # PID.NAME (PID: screen pid, NAME, sessionname)
     #
     # ${STY#*.} removes everything up to and including the first '.'.
-    PROMPT_COMMAND='history -a; echo -ne "\033]0;screen: ${STY#*.}\007"'
+    if [ -n "$STY" ]; then
+        PROMPT_COMMAND='history -a; echo -ne "\033]0;screen: ${STY#*.}\007"'
+    fi
     ;;
 *)
     PROMPT_COMMAND='history -a'
