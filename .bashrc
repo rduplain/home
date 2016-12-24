@@ -147,7 +147,20 @@ prepend MANPATH /opt/*/man /opt/*/share/man
 
 for envtool in pyenv rbenv; do
     prepend PATH $HOME/.${envtool}/bin
-    command_exists $envtool && eval "$($envtool init -)"
+    if command_exists $envtool; then
+        if [ -z "$BASHRC_INITIALIZED" ]; then
+            # First initialization.
+            eval "$($envtool init -)"
+        else
+            # Already initialized once.
+            eval "$($envtool init - | grep PATH)"
+        fi
+
+        if [ "$(type -t $envtool)" = "function" ]; then
+            # Command is a function. Pass function down to next shell.
+            export -f $envtool
+        fi
+    fi
 done
 
 prepend PATH $HOME/bin
@@ -276,12 +289,14 @@ export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
 
-receive /etc/bash_completion
+if [ -z "$BASHRC_INITIALIZED" ]; then
+    receive /etc/bash_completion
 
-# Alias git completion to homegit script.
-receive /usr/share/bash-completion/completions/git
-complete -o default -o nospace -F _git homegit >/dev/null 2>&1
-complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
+    # Alias git completion to homegit script.
+    receive /usr/share/bash-completion/completions/git
+    complete -o default -o nospace -F _git homegit >/dev/null 2>&1
+    complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
+fi
 
 # Source all .bashrc found in directory ancestry, in order.
 # (Keep this at the end of .bashrc to allow overrides.)
