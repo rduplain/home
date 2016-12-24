@@ -11,6 +11,8 @@
 export BASH_DIR=$HOME/.bash.d
 source $BASH_DIR/functions.bash
 
+alias timestamp='date +%s'
+
 function on_new_shell() {
     ship BAK_HOME=/media/$USER/bak
 
@@ -225,13 +227,10 @@ append PATH $HOME/sandbox/android/sdk/tools
 
 append PATH $HOME/.*-dist/bin
 
-if [ -z "$ENVTOOLS_INITIALIZED" ]; then
-    for envtool in pyenv rbenv; do
-        prepend PATH $HOME/.${envtool}/bin
-        command_exists $envtool && eval "$($envtool init -)"
-    done
-    export ENVTOOLS_INITIALIZED=`date +%s` # unix timestamp
-fi
+for envtool in pyenv rbenv; do
+    prepend PATH $HOME/.${envtool}/bin
+    command_exists $envtool && eval "$($envtool init -)"
+done
 
 export PATH
 export LD_LIBRARY_PATH
@@ -301,4 +300,4 @@ unset CDPATH
 
 export WORKSPACES_RESERVED=5
 
-export BASHRC_INITIALIZED=`date +%s` # unix timestamp
+export BASHRC_INITIALIZED=$(timestamp)
