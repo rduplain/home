@@ -12,7 +12,7 @@ export BASH_DIR=$HOME/.bash.d
 source $BASH_DIR/functions.bash
 
 function on_new_shell() {
-    ship BAK_HOME=/media/rduplain/bak
+    ship BAK_HOME=/media/$USER/bak
 
     receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
 
@@ -73,7 +73,7 @@ function on_new_shell() {
     complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 }
 
-function workon_walk () {
+function workon_walk() {
     # Walk the directory tree upward until:
     #  * a virtualenv is found which matches the name of a directory
     #  * the root directory is reached (no virtualenv found)
@@ -161,7 +161,7 @@ function omit_home() {
 
 export -f workon_walk source_these walk_root_to_curdir omit_home
 
-function commands () {
+function commands() {
     history | cut -c8- | sort | uniq -c | sort -rn | head
 }
 
