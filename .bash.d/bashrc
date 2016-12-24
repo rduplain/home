@@ -54,7 +54,7 @@ function on_new_shell() {
     # Enable color support of ls.
     if [ "$TERM" != "dumb" ]; then
         if command_exists dircolors; then
-            eval "`dircolors -b`"
+            eval "$(dircolors -b)"
             alias ls='ls --color=auto'
         fi
     fi
@@ -67,7 +67,7 @@ function on_new_shell() {
     walk_root_to_curdir omit_home source_these .bashrc .env #dir
 
     # Set aliases.
-    alias pydoc='python `which pydoc`' # Support virtualenv.
+    alias pydoc='python $(which pydoc)' # Support virtualenv.
     alias emacs='emacs -nw'
 
     # Set window title to "user@host dir" if terminal detected.
@@ -89,6 +89,11 @@ function on_new_shell() {
         ;;
     esac
     export PROMPT_COMMAND
+
+    # Don't put duplicate lines in the history. See bash(1) for more options.
+    export HISTCONTROL=ignoreboth
+    export HISTFILESIZE=9999
+    export HISTSIZE=20000
 
     receive /etc/bash_completion
 
@@ -311,10 +316,6 @@ export LC_ALL=en_US.UTF-8
 # Make less more friendly for non-text input files, see lesspipe(1).
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
-# Don't put duplicate lines in the history. See bash(1) for more options.
-export HISTCONTROL=ignoreboth
-export HISTFILESIZE=9999
-export HISTSIZE=20000
 export FCEDIT=$EDITOR
 export FIGNORE='~'
 unset MAILCHECK MAILPATH
