@@ -308,4 +308,6 @@ fi
 # (Keep this at the end of .bashrc to allow overrides.)
 walk_root_to_curdir omit_home source_these .bashrc .env #dir
 
-export BASHRC_INITIALIZED=$(date +%s)
+if [ -z "$BASHRC_INITIALIZED" ]; then
+    export BASHRC_INITIALIZED=$(date +%s)
+fi
