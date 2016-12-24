@@ -27,5 +27,6 @@ export SSH_AUTH_SOCK
 
 echo "export DISPLAY='$DISPLAY'"       >  ~/.x-env
 echo "export XAUTHORITY='$XAUTHORITY'" >> ~/.x-env
+chmod 600 ~/.x-env
 
 exec ck-launch-session dbus-launch --autolaunch=444e9b7694df1a1f58655309536f0f3b --exit-with-session /opt/fluxbox/bin/startfluxbox
