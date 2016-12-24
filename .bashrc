@@ -1,15 +1,4 @@
-# bashrc - GNU bash source script for bash rc, login
-#
-# To use:
-#     place this directory at ~/.bash.d
-#     link to ~/.bashrc, in $HOME directory:
-#     ln -s .bash.d/bashrc .bashrc
-
-## Essential shell environment bootstrapping.
-
-# Use custom bash functions.
-export BASH_DIR=$HOME/.bash.d
-source $BASH_DIR/functions.bash
+. $HOME/.bash.d/functions.bash
 
 if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
     # Loaded via X desktop manager. Treat as interactive session.
@@ -230,9 +219,6 @@ if [ -n "$BASHRC_INITIALIZED" ]; then
     return
 fi
 
-## PATH management.
-
-# Set important paths.
 prepend PATH /bin /sbin
 prepend LD_LIBRARY_PATH /lib /lib32 /lib/i386-linux-gnu /lib64 /lib/x86_64-linux-gnu
 
@@ -271,8 +257,6 @@ append PATH $HOME/sandbox/android/sdk/tools
 append PATH $HOME/.*-dist/bin
 
 export PATH LD_LIBRARY_PATH MANPATH
-
-## ... and so on.
 
 # Put snagged files from bin/snag in obvious place: home.
 export SNAG_HOME=$HOME
