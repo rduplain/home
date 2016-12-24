@@ -5,93 +5,6 @@ if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
     export PS1="init> "
 fi
 
-function on_new_shell() {
-    ship BAK_HOME=/media/$USER/bak
-
-    receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
-
-    if [ -z "$SSH_AUTH_SOCK" ]; then
-        receive $HOME/.ssh/agent.bash
-    fi
-
-    # If not running interactively, don't do anything further.
-    if [ -z "$PS1" ]; then
-        return
-    fi
-
-    # Set prompt PS1 to "user@host dir$ "
-    export PS1='\u@\h \W\$ '
-
-    # Load virtualenvwrapper for Python.
-    #
-    # This expects virtualenvwrapper.sh to be symlinked from the
-    # virtualenvwrapper installation. To disable virtualenvwrapper (and
-    # therefore speedup shell init), simply remove the symlink.
-    ship WORKON_HOME=$HOME/.virtualenvs
-    ship WORKON_HOME=$HOME/.virtualenvs-$HOSTNAME
-    receive $HOME/bin/virtualenvwrapper.sh >/dev/null 2>&1
-
-    # Set the virtual environment.
-    if [ "$USE_VIRTUALENV" != "false" ]; then
-        if command_exists workon; then
-            workon_walk
-        fi
-        receive $PWD/.env/bin/activate
-        receive $PWD/env/bin/activate
-    fi
-
-    # Enable color support of ls.
-    if [ "$TERM" != "dumb" ]; then
-        if command_exists dircolors; then
-            eval "$(dircolors -b)"
-            alias ls='ls --color=auto'
-        fi
-    fi
-
-    # Check the window size after each command and, if necessary,
-    # update the values of LINES and COLUMNS.
-    shopt -s checkwinsize
-
-    # Source all .bashrc found in directory ancestry, in order.
-    walk_root_to_curdir omit_home source_these .bashrc .env #dir
-
-    # Set aliases.
-    alias pydoc='python $(which pydoc)' # Support virtualenv.
-    alias emacs='emacs -nw'
-
-    # Set window title to "user@host dir" if terminal detected.
-    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/\~}\007"'
-    case "$TERM" in
-    xterm*|rxvt*)
-        ;;
-    screen)
-        # STY holds name of screen session, in format of:
-        # PID.NAME (PID: screen pid, NAME, sessionname)
-        #
-        # ${STY#*.} removes everything up to and including the first '.'.
-        if [ -n "$STY" ]; then
-            PROMPT_COMMAND='history -a; echo -ne "\033]0;screen: ${STY#*.}\007"'
-        fi
-        ;;
-    *)
-        PROMPT_COMMAND='history -a'
-        ;;
-    esac
-    export PROMPT_COMMAND
-
-    # Don't put duplicate lines in the history. See bash(1) for more options.
-    export HISTCONTROL=ignoreboth
-    export HISTFILESIZE=9999
-    export HISTSIZE=20000
-
-    receive /etc/bash_completion
-
-    # Alias git completion to homegit script.
-    receive /usr/share/bash-completion/completions/git
-    complete -o default -o nospace -F _git homegit >/dev/null 2>&1
-    complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
-}
-
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
@@ -213,12 +126,6 @@ function docker-cleanup() {
 
 export -f commands docker-cleanup
 
-# Avoid editing PATHS on new bash invocations.
-if [ -n "$BASHRC_INITIALIZED" ]; then
-    on_new_shell
-    return
-fi
-
 prepend PATH /bin /sbin
 prepend LD_LIBRARY_PATH /lib /lib32 /lib/i386-linux-gnu /lib64 /lib/x86_64-linux-gnu
 
@@ -256,6 +163,8 @@ append PATH $HOME/sandbox/android/sdk/tools
 
 append PATH $HOME/.*-dist/bin
 
+dedupe_path PATH LD_LIBRARY_PATH MANPATH
+
 export PATH LD_LIBRARY_PATH MANPATH
 
 # Put snagged files from bin/snag in obvious place: home.
@@ -265,27 +174,89 @@ export SNAG_HOME=$HOME
 ship SCREEN=/opt/screen/bin/screen
 ship SCREENRC_DEFAULT=$HOME/.screenrc-default
 
-# Android
 ship ANDROID_HOME=$HOME/sandbox/android/sdk
 
-# Go
 export GOPATH=$HOME/.go
 append PATH $GOPATH/bin
 
-# Python
 ship PYTHONSTARTUP="$HOME/.pythonrc.py"
 
-# R
 ship R_LIBS_USER=$HOME/.r
 
 export WORKSPACES_RESERVED=5
 
-on_new_shell
+ship BAK_HOME=/media/$USER/bak
+
+receive $HOME/.config/host/${HOSTNAME:-default}/bashrc
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    receive $HOME/.ssh/agent.bash
+fi
 
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
     return
 fi
+
+# Set prompt PS1 to "user@host dir$ "
+export PS1='\u@\h \W\$ '
+
+# Load virtualenvwrapper for Python.
+#
+# This expects virtualenvwrapper.sh to be symlinked from the
+# virtualenvwrapper installation. To disable virtualenvwrapper (and
+# therefore speedup shell init), simply remove the symlink.
+ship WORKON_HOME=$HOME/.virtualenvs
+ship WORKON_HOME=$HOME/.virtualenvs-$HOSTNAME
+receive $HOME/bin/virtualenvwrapper.sh >/dev/null 2>&1
+
+if [ "$USE_VIRTUALENV" != "false" ]; then
+    if command_exists workon; then
+        workon_walk
+    fi
+    receive $PWD/.env/bin/activate
+    receive $PWD/env/bin/activate
+fi
+
+# Enable color support of ls.
+if [ "$TERM" != "dumb" ]; then
+    if command_exists dircolors; then
+        eval "$(dircolors -b)"
+        alias ls='ls --color=auto'
+    fi
+fi
+
+# Check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+alias pydoc='python $(which pydoc)' # Support virtualenv.
+alias emacs='emacs -nw'
+
+# Set window title to "user@host dir" if terminal detected.
+PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/\~}\007"'
+case "$TERM" in
+xterm*|rxvt*)
+    ;;
+screen)
+    # STY holds name of screen session, in format of:
+    # PID.NAME (PID: screen pid, NAME, sessionname)
+    #
+    # ${STY#*.} removes everything up to and including the first '.'.
+    if [ -n "$STY" ]; then
+        PROMPT_COMMAND='history -a; echo -ne "\033]0;screen: ${STY#*.}\007"'
+    fi
+    ;;
+*)
+    PROMPT_COMMAND='history -a'
+    ;;
+esac
+export PROMPT_COMMAND
+
+# Don't put duplicate lines in the history. See bash(1) for more options.
+export HISTCONTROL=ignoreboth
+export HISTFILESIZE=9999
+export HISTSIZE=20000
 
 # Set editor and essential program defaults.
 export EDITOR='emacs -nw'
@@ -305,6 +276,15 @@ export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
 
-dedupe_path PATH LD_LIBRARY_PATH MANPATH
+receive /etc/bash_completion
+
+# Alias git completion to homegit script.
+receive /usr/share/bash-completion/completions/git
+complete -o default -o nospace -F _git homegit >/dev/null 2>&1
+complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
+
+# Source all .bashrc found in directory ancestry, in order.
+# (Keep this at the end of .bashrc to allow overrides.)
+walk_root_to_curdir omit_home source_these .bashrc .env #dir
 
 export BASHRC_INITIALIZED=$(date +%s)
