@@ -78,6 +78,16 @@ function on_new_shell() {
     complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
 }
 
+function rehash() {
+    # Re-read bashrc and perform relevant rehash routines.
+
+    unset BASHRC_INITIALIZED
+    . $HOME/.bashrc
+    for envtool in pyenv rbenv; do
+        command_exists $envtool && $envtool rehash
+    done
+}
+
 function workon_walk() {
     # Walk the directory tree upward until:
     #  * a virtualenv is found which matches the name of a directory
