@@ -107,10 +107,10 @@ function forhost() {
     [[ $# -eq 0 ]] && return 2
 
     local result=0
-    local target_host=$1
+    local target_host="$1"
     shift
 
-    if [ `uname -n` = "$target_host" ]; then
+    if [ "$(uname -n)" = "$target_host" ]; then
         "$@"
         result=$?
     else
@@ -138,18 +138,18 @@ function prune_colons() {
     [[ $# -eq 0 ]] && return 2
 
     # Get the environment variable name.
-    local envname=$1
-    local env=${!envname}
+    local envname="$1"
+    local env="${!envname}"
 
     # Repeatedly remove double colons until no double colons exist.
-    local envswap=${env//::/:}
+    local envswap="${env//::/:}"
     until [ "$env" = "$envswap" ]; do
-        env=$envswap
-        envswap=${env//::/:}
+        env="$envswap"
+        envswap="${env//::/:}"
     done
 
-    env=${env#:} # Remove leading colon.
-    env=${env%:} # Remove trailing colon.
+    env="${env#:}" # Remove leading colon.
+    env="${env%:}" # Remove trailing colon.
 
     # Restore the environment variable.
     export $envname="${env}"
@@ -167,14 +167,14 @@ function _pend() {
     #     1 if any given argument is not a directory
     #     0 otherwise
 
-    local mode=$1
+    local mode="$1"
     shift;
 
     # Return now if there are no arguments.
     [[ $# -eq 0 ]] && return 2
 
-    local envname=$1
-    local env=${!envname}
+    local envname="$1"
+    local env="${!envname}"
     shift;
 
     # Get the arguments in targets, in the right order.
@@ -186,7 +186,7 @@ function _pend() {
             local -i count=$#
             for value in "$@"; do
                 let index=$count-$x
-                targets[$index]=$value
+                targets[$index]="$value"
                 let x++
             done
             ;;
@@ -194,15 +194,15 @@ function _pend() {
             # Maintain same order in list, so first is appended first, FIFO.
             local -i x=0
             for value in "$@"; do
-                targets[$x]=$value
+                targets[$x]="$value"
                 let x++
             done
             ;;
     esac
 
     # Assume current working directory if no target is given.
-    if [ -z "${targets[*]}" ]; then
-        targets[0]=`pwd`
+    if [ ${#targets[@]} -eq 0 ]; then
+        targets[0]="$(pwd)"
     fi
 
     # Iterate through all targets and prepend/append according to mode.
@@ -210,15 +210,15 @@ function _pend() {
     local target
     local -i k
 
-    for (( k=0; $k < ${#targets[*]}; k++ )); do
-        target=${targets[$k]}
+    for (( k=0; k < ${#targets[@]}; k++ )); do
+        target="${targets[$k]}"
         # Verify new target exists before prepending it.
         if [ -e "$target" ]; then
             # Add target while removing previous entries matching target.
             # Tack on colons, for pattern matching in parameter expansion.
-            env=:${env}: # to be sure :$target: matches.
-            [[ $mode == "pre" ]] && env=$target:${env//:$target:/:}
-            [[ $mode == "ap" ]] && env=${env//:$target:/:}:$target
+            env=":${env}:" # to be sure :$target: matches.
+            [[ $mode == "pre" ]] && env="$target:${env//:$target:/:}"
+            [[ $mode == "ap" ]] && env="${env//:$target:/:}:$target"
             # Don't worry about too many colons; prune_colons later.
         else
             result=1
@@ -294,8 +294,14 @@ function dedupe_path() {
     [[ $# -eq 0 ]] && return 2
 
     for envname in "$@"; do
-        local env=${!envname}
-        prepend $envname ${env//:/ }
+        local env="${!envname}"
+        # Support paths with spaces.
+        #
+        # First, escape spaces.
+        # Then, use the shell to parse arguments, replacing all ':' with ' '.
+        env="${env// /\\ }"
+        eval set -- "${env//:/ }"
+        prepend $envname "$@"
     done
 }
 
