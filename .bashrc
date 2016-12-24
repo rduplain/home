@@ -153,7 +153,7 @@ for envtool in pyenv rbenv; do
             eval "$($envtool init -)"
         else
             # Already initialized once.
-            eval "$($envtool init - | grep PATH)"
+            prepend PATH $HOME/.$envtool/shims
         fi
 
         if [ "$(type -t $envtool)" = "function" ]; then
