@@ -159,6 +159,12 @@ for envtool in pyenv rbenv; do
         if [ "$(type -t $envtool)" = "function" ]; then
             # Command is a function. Pass function down to next shell.
             export -f $envtool
+
+            # Preserve completion, too.
+            if [ -n "$(type -t _$envtool)" ]; then
+                export -f _$envtool
+                complete -F _$envtool $envtool
+            fi
         fi
     fi
 done
