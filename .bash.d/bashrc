@@ -245,9 +245,7 @@ for envtool in pyenv rbenv; do
     command_exists $envtool && eval "$($envtool init -)"
 done
 
-export PATH
-export LD_LIBRARY_PATH
-export MANPATH
+export PATH LD_LIBRARY_PATH MANPATH
 
 ## ... and so on.
 
@@ -319,5 +317,7 @@ export FCEDIT=$EDITOR
 export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
+
+dedupe_path PATH LD_LIBRARY_PATH MANPATH
 
 export BASHRC_INITIALIZED=$(date +%s)

@@ -274,6 +274,31 @@ function append() {
     _pend ap "$@"
 }
 
+function dedupe_path() {
+    # Remove duplicates from :-delimited variable.
+    #
+    # usage: dedupe_path ENV
+    #
+    # Note that env should be passed by name. For example:
+    #     dedupe_path PATH
+    #     dedupe_path LD_LIBRARY_PATH
+    #
+    # Supports one or more variables to dedupe, for example:
+    #     dedupe_path PATH LD_LIBRARY_PATH
+    #
+    # Exit status:
+    #     2 if no arguments are given
+    #     0 otherwise
+
+    # Return now if there are no arguments.
+    [[ $# -eq 0 ]] && return 2
+
+    for envname in "$@"; do
+        local env=${!envname}
+        prepend $envname ${env//:/ }
+    done
+}
+
 function command_exists() {
     # Check if command exists, looking for programs and bash functions/aliases.
     #
