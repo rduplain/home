@@ -227,6 +227,11 @@ prepend PATH /opt/*/bin
 prepend LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
 prepend MANPATH /opt/*/man /opt/*/share/man
 
+for envtool in pyenv rbenv; do
+    prepend PATH $HOME/.${envtool}/bin
+    command_exists $envtool && eval "$($envtool init -)"
+done
+
 prepend PATH $HOME/bin
 prepend LD_LIBRARY_PATH $HOME/lib $HOME/lib32 $HOME/lib64
 prepend MANPATH $HOME/man $HOME/share/man
@@ -239,11 +244,6 @@ append PATH $HOME/sandbox/android/sdk/platform-tools
 append PATH $HOME/sandbox/android/sdk/tools
 
 append PATH $HOME/.*-dist/bin
-
-for envtool in pyenv rbenv; do
-    prepend PATH $HOME/.${envtool}/bin
-    command_exists $envtool && eval "$($envtool init -)"
-done
 
 export PATH LD_LIBRARY_PATH MANPATH
 
