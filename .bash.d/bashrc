@@ -282,7 +282,7 @@ export LC_ALL=en_US.UTF-8
 # Set window title to "user@host dir" on xterm.
 case "$TERM" in
 xterm*|rxvt*)
-    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"'
+    PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/\~}\007"'
     ;;
 *)
     PROMPT_COMMAND='history -a'
