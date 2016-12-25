@@ -15,6 +15,14 @@ function rehash() {
     done
 }
 
+function set_title() {
+    # Set window title of xterm-like terminal emulators.
+
+    echo -ne "\033]0;$@\007"
+}
+
+export -f rehash set_title
+
 function workon_walk() {
     # Walk the directory tree upward until:
     #  * a virtualenv is found which matches the name of a directory
@@ -253,7 +261,7 @@ alias pydoc='python $(which pydoc)' # Support virtualenv.
 alias emacs='emacs -nw'
 
 # Set window title to "user@host dir" if terminal detected.
-PROMPT_COMMAND='history -a; echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/\~}\007"'
+PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~}"'
 case "$TERM" in
 xterm*|rxvt*)
     ;;
@@ -263,8 +271,11 @@ screen)
     #
     # ${STY#*.} removes everything up to and including the first '.'.
     if [ -n "$STY" ]; then
-        PROMPT_COMMAND='history -a; echo -ne "\033]0;screen: ${STY#*.}\007"'
+        set_title "screen: ${STY#*.}"
+    else
+        set_title screen
     fi
+    PROMPT_COMMAND='history -a'
     ;;
 *)
     PROMPT_COMMAND='history -a'
