@@ -1,0 +1,5 @@
+# Disable bell.
+set bell-style none
+
+# Allow many completions before asking.
+set completion-query-items 9999
