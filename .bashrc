@@ -271,10 +271,8 @@ screen)
     #
     # ${STY#*.} removes everything up to and including the first '.'.
     if [ -n "$STY" ]; then
-        set_title "[${STY#*.}]"
         PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~} [${STY#*.}]"'
     else
-        set_title "[screen]"
         PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~} [screen]"'
     fi
     ;;
