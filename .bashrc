@@ -8,7 +8,6 @@ fi
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
-    unset BASHRC_INITIALIZED
     . "$HOME/.bashrc"
     for envtool in pyenv rbenv; do
         command_exists $envtool && $envtool rehash
@@ -153,27 +152,11 @@ prepend PATH /opt/*/bin
 prepend LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
 prepend MANPATH /opt/*/man /opt/*/share/man
 
-for envtool in pyenv rbenv; do
+export ENVTOOLS="pyenv rbenv"
+for envtool in $ENVTOOLS; do
     prepend PATH "$HOME/.${envtool}/bin"
     if command_exists $envtool; then
-        if [ -z "$BASHRC_INITIALIZED" ]; then
-            # First initialization.
-            eval "$($envtool init -)"
-        else
-            # Already initialized once.
-            prepend PATH "$HOME/.$envtool/shims"
-        fi
-
-        if [ "$(type -t $envtool)" = "function" ]; then
-            # Command is a function. Pass function down to next shell.
-            export -f $envtool
-
-            # Preserve completion, too.
-            if [ -n "$(type -t _$envtool)" ]; then
-                export -f _$envtool
-                complete -F _$envtool $envtool
-            fi
-        fi
+        prepend PATH "$HOME/.$envtool/shims"
     fi
 done
 
@@ -227,6 +210,41 @@ fi
 
 # Set prompt PS1 to "user@host dir$ "
 export PS1='\u@\h \W\$ '
+
+function _completion_loader() {
+    # Default bash completion handler to load specifications lazily.
+
+    if [ -z "$BASH_COMPLETION_LOADED" ]; then
+        export BASH_COMPLETION_LOADED=$(date +%s)
+
+        for envtool in $ENVTOOLS; do
+            if command_exists $envtool; then
+                eval "$($envtool init -)"
+            fi
+        done
+
+        receive /etc/bash_completion
+        receive /usr/share/bash-completion/completions/git
+
+        # Alias git completion to homegit script.
+        function _homegit() {
+            export GIT_DIR=$HOME/.homegit
+            _git "$@"
+        }
+        function _hometig() {
+            export GIT_DIR=$HOME/.homegit
+            _tig "$@"
+        }
+        export -f _homegit _hometig
+        complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
+        complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
+    fi
+
+    # Restart completion process.
+    return 124
+}
+
+complete -D -F _completion_loader -o bashdefault -o default
 
 # Load virtualenvwrapper for Python.
 #
@@ -305,28 +323,6 @@ export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
 
-if [ -z "$BASHRC_INITIALIZED" ]; then
-    receive /etc/bash_completion
-    receive /usr/share/bash-completion/completions/git
-
-    # Alias git completion to homegit script.
-    function _homegit() {
-        export GIT_DIR=$HOME/.homegit
-        _git "$@"
-    }
-    function _hometig() {
-        export GIT_DIR=$HOME/.homegit
-        _tig "$@"
-    }
-    export -f _homegit _hometig
-    complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
-    complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
-fi
-
 # Source all .bashrc found in directory ancestry, in order.
 # (Keep this at the end of .bashrc to allow overrides.)
 walk_root_to_curdir omit_home source_these .bashrc .env #dir
-
-if [ -z "$BASHRC_INITIALIZED" ]; then
-    export BASHRC_INITIALIZED=$(date +%s)
-fi
