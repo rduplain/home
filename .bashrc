@@ -308,11 +308,20 @@ unset CDPATH
 
 if [ -z "$BASHRC_INITIALIZED" ]; then
     receive /etc/bash_completion
+    receive /usr/share/bash-completion/completions/git
 
     # Alias git completion to homegit script.
-    receive /usr/share/bash-completion/completions/git
-    complete -o default -o nospace -F _git homegit >/dev/null 2>&1
-    complete -o default -o nospace -F _tig hometig >/dev/null 2>&1
+    function _homegit() {
+        export GIT_DIR=$HOME/.homegit
+        _git "$@"
+    }
+    function _hometig() {
+        export GIT_DIR=$HOME/.homegit
+        _tig "$@"
+    }
+    export -f _homegit _hometig
+    complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
+    complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
 fi
 
 # Source all .bashrc found in directory ancestry, in order.
