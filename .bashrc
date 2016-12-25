@@ -224,7 +224,6 @@ function _completion_loader() {
         done
 
         receive /etc/bash_completion
-        receive /usr/share/bash-completion/completions/git
 
         # Alias git completion to homegit script.
         function _homegit() {
