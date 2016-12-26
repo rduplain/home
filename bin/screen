@@ -11,6 +11,7 @@ SCREENRC_DEFAULT=${SCREENRC_DEFAULT:-$HOME/$SCREENRC} # project default
 # SCREENRC and SCREENRC_DEFAULT variables:
 #
 # SCREENRC is configuring what GNU screen calls it's rc file.
+#
 # Below, you'll see that this wrapper looks for a project-local .screenrc which
 # is expected to source $HOME/.screenrc.  If no local .screenrc is found, use
 # $SCREENRC_DEFAULT, which is $HOME/.screenrc, unless you set the
@@ -26,12 +27,6 @@ local_args=""
 if [ $# -eq 0 ]; then
     # Set sessionname to basename of $PWD, e.g. ~/someproject is someproject.
     local_args="$local_args -S ${PWD##*/}"
-fi
-
-# Experiment: if no Python files are found, disable auto-virtualenv.
-if ( ! ls *.py >/dev/null 2>&1 ); then
-    # USE_VIRTUALENV is read by .bashrc.
-    export USE_VIRTUALENV=false
 fi
 
 # Select a screenrc, in order of priority (see comment at top of file).
