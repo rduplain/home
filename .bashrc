@@ -275,7 +275,7 @@ fi
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-alias pydoc='python $(which pydoc)' # Support virtualenv.
+alias pydoc=pydoc3
 alias emacs='emacs -nw'
 
 # Set window title to "user@host dir" if terminal detected.
