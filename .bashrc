@@ -162,21 +162,26 @@ export -f commands docker-cleanup
 
 prepend PATH /bin /sbin
 prepend LD_LIBRARY_PATH /lib /lib32 /lib/i386-linux-gnu /lib64 /lib/x86_64-linux-gnu
+prepend PKG_CONFIG_PATH /lib/pkgconfig /lib32/pkgconfig /lib/i386-linux-gnu/pkgconfig /lib64/pkgconfig /lib/x86_64-linux-gnu/pkgconfig
 
 prepend PATH /usr/bin /usr/sbin
 prepend LD_LIBRARY_PATH /usr/lib /usr/lib32 /usr/lib/i386-linux-gnu /usr/lib64 /usr/lib/x86_64-linux-gnu
+prepend PKG_CONFIG_PATH /usr/lib/pkgconfig /usr/lib32/pkgconfig /usr/lib/i386-linux-gnu/pkgconfig /usr/lib64/pkgconfig /usr/lib/x86_64-linux-gnu/pkgconfig
 prepend MANPATH /usr/man /usr/share/man
 
 prepend PATH /usr/local/bin /usr/local/sbin
 prepend LD_LIBRARY_PATH /usr/local/lib /usr/local/lib32 /usr/local/lib/i386-linux-gnu /usr/local/lib64 /usr/local/lib/x86_64-linux-gnu
+prepend PKG_CONFIG_PATH /usr/local/lib/pkgconfig /usr/local/lib32/pkgconfig /usr/local/lib/i386-linux-gnu/pkgconfig /usr/local/lib64/pkgconfig /usr/local/lib/x86_64-linux-gnu/pkgconfig
 prepend MANPATH /usr/local/man /usr/local/share/man
 
 prepend PATH /opt/local/bin /opt/local/sbin
 prepend LD_LIBRARY_PATH /opt/local/lib /opt/local/lib32 /opt/local/lib64
+prepend PKG_CONFIG_PATH /opt/local/lib/pkgconfig /opt/local/lib32/pkgconfig /opt/local/lib64/pkgconfig
 prepend MANPATH /opt/local/man /opt/local/share/man
 
 prepend PATH /opt/*/bin
 prepend LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
+prepend PKG_CONFIG_PATH /opt/*/lib/pkgconfig /opt/*/lib32/pkgconfig /opt/*/lib64/pkgconfig
 prepend MANPATH /opt/*/man /opt/*/share/man
 
 for envtool in $ENVTOOLS; do
@@ -188,10 +193,12 @@ done
 
 prepend PATH "$HOME/bin"
 prepend LD_LIBRARY_PATH "$HOME/lib" "$HOME/lib32" "$HOME/lib64"
+prepend PKG_CONFIG_PATH "$HOME/lib/pkgconfig" "$HOME/lib32/pkgconfig" "$HOME/lib64/pkgconfig"
 prepend MANPATH "$HOME/man" "$HOME/share/man"
 
 prepend PATH "$HOME/usr/bin"
 prepend LD_LIBRARY_PATH "$HOME/usr/lib" "$HOME/usr/lib32" "$HOME/usr/lib64"
+prepend PKG_CONFIG_PATH "$HOME/usr/lib/pkgconfig" "$HOME/usr/lib32/pkgconfig" "$HOME/usr/lib64/pkgconfig"
 prepend MANPATH "$HOME/usr/man" "$HOME/usr/share/man"
 
 append PATH "$HOME/sandbox/android/sdk/platform-tools"
@@ -199,9 +206,9 @@ append PATH "$HOME/sandbox/android/sdk/tools"
 
 append PATH "$HOME"/.*-dist/bin
 
-dedupe_path PATH LD_LIBRARY_PATH MANPATH
+dedupe_path PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
-export PATH LD_LIBRARY_PATH MANPATH
+export PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
 # Put snagged files from bin/snag in obvious place: home.
 export SNAG_HOME="$HOME"
