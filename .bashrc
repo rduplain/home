@@ -322,6 +322,9 @@ export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
 
+# Force reload of _completion_loader.
+unset BASH_COMPLETION_LOADED
+
 # Source all .bashrc found in directory ancestry, in order.
 # (Keep this at the end of .bashrc to allow overrides.)
 walk_root_to_curdir omit_home source_these .bashrc .env #dir
