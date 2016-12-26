@@ -135,6 +135,31 @@ function docker-cleanup() {
 
 export -f commands docker-cleanup
 
+# PATH Management
+#
+# On each shell invocation, each :-delimited path variable is populated with
+# filepaths of interest, using prepend/append functions from functions.bash,
+# and later ensuring no duplicates (without losing order) with the dedupe_paths
+# function (also from functions.bash). This approach ensures a clean set of
+# variables free of any entries which do not exist (though directories removed
+# prior to invocation of a subshell may remain at low priority in the path) and
+# free of any duplicate entries. Performing this on each shell invocation
+# ensures that any wildcard paths will pick up new changes
+# (e.g. /opt). Existing shells can update paths with the rehash function.
+#
+# In other words, multiple hosts can load the same config without loading
+# spurious entries into their paths
+#
+# Runtime modifications to paths will be overridden on subshells which source
+# .bashrc. Most of the time, this is the desired behavior. When specific
+# modifications are needed, the simplest approaches are to (a) `prepend PATH`
+# in the directory of interest for temporary path changes and to (b) create a
+# local .bashrc file for project-level changes to paths so that new shell
+# invocations in the project directory -- typically through windows in GNU
+# screen or tmux -- will have the intended environment. Using a project-level
+# .bashrc or .env file (see `source_these` in this .bashrc) is repeatable and
+# automated.
+
 prepend PATH /bin /sbin
 prepend LD_LIBRARY_PATH /lib /lib32 /lib/i386-linux-gnu /lib64 /lib/x86_64-linux-gnu
 
