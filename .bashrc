@@ -5,11 +5,13 @@ if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
     export PS1="init> "
 fi
 
+export ENVTOOLS="pyenv rbenv"
+
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
     . "$HOME/.bashrc"
-    for envtool in pyenv rbenv; do
+    for envtool in $ENVTOOLS; do
         command_exists $envtool && $envtool rehash
     done
 }
@@ -152,7 +154,6 @@ prepend PATH /opt/*/bin
 prepend LD_LIBRARY_PATH /opt/*/lib /opt/*/lib32 /opt/*/lib64
 prepend MANPATH /opt/*/man /opt/*/share/man
 
-export ENVTOOLS="pyenv rbenv"
 for envtool in $ENVTOOLS; do
     prepend PATH "$HOME/.${envtool}/bin"
     if command_exists $envtool; then
