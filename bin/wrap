@@ -1,8 +1,7 @@
 #!/bin/bash
 # I was looking for a way to have screen run program at start then run a shell.
 
-# Ideally, we would use $SHELL instead of bash-isms.
-# HACK: want to set environment before running command:
+# Assume $SHELL is /bin/bash.
 . "$HOME"/.bashrc
 
 if [ "$1" = "-C" ]; then
@@ -10,17 +9,15 @@ if [ "$1" = "-C" ]; then
    shift 2
 fi
 
-# HACK: (but it works)
-# run echo from PROMPT_COMMAND to put info in title bar
-echo -ne "\033]0;${USER}@${HOSTNAME} ${PWD/$HOME/~}\007"
+eval "$PROMPT_COMMAND"
 
 # run the requested command
-$@
+eval "$@"
 
-# HACK: (but it works)
-# put command in history before executing shell
-# need unambiguous redirect, so hard-coded .bash_history
-[[ -n "$@" ]] && echo "$@" >> $HOME/.bash_history
+# HACK: Put command in history before executing shell. `history -s "$@"`
+# together with `history -a` serves this purpose, but does not appear to be as
+# reliable as a direct echo appending the result.
+[[ -n "$@" ]] && echo "$@" >> "$HOME"/.bash_history
 
 # now launch shell
 exec /bin/bash
