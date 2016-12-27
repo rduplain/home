@@ -192,10 +192,8 @@ function _pend() {
             ;;
         *)
             # Maintain same order in list, so first is appended first, FIFO.
-            local -i x=0
             for dir in "$@"; do
-                dirs[$x]="$dir"
-                let x++
+                dirs[${#dirs[@]}]="$dir"
             done
             ;;
     esac
