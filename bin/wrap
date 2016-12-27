@@ -3,7 +3,7 @@
 
 # Ideally, we would use $SHELL instead of bash-isms.
 # HACK: want to set environment before running command:
-source $HOME/.bashrc
+. "$HOME"/.bashrc
 
 if [ "$1" = "-C" ]; then
    cd $2

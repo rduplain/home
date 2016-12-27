@@ -4,5 +4,5 @@ screen -t make       2
 select 1
 select 0
 
-source $HOME/.screenrc
+source "$HOME"/.screenrc
 caption always

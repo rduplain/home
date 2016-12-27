@@ -4,9 +4,9 @@
 # * default the sessionname to the basename of $PWD.
 
 # Override these with eponymous environment variables.
-SCREEN=${SCREEN:-/usr/bin/screen} # absolute path to screen executable
-SCREENRC=${SCREENRC:-.screenrc} # conventional name of screenrc
-SCREENRC_DEFAULT=${SCREENRC_DEFAULT:-$HOME/$SCREENRC} # project default
+SCREEN="${SCREEN:-/usr/bin/screen}" # absolute path to screen executable
+SCREENRC="${SCREENRC:-.screenrc}" # conventional name of screenrc
+SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}" # project default
 
 # SCREENRC and SCREENRC_DEFAULT variables:
 #
@@ -30,12 +30,12 @@ if [ $# -eq 0 ]; then
 fi
 
 # Select a screenrc, in order of priority (see comment at top of file).
-if [ -e ${SCREENRC}-${USER} ]; then
-    exec $SCREEN -c $SCREENRC-${USER} $local_args $@
-elif [ -e $SCREENRC ]; then
-    exec $SCREEN -c $SCREENRC $local_args $@
-elif [ -e $SCREENRC_DEFAULT ]; then
-    exec $SCREEN -c $SCREENRC_DEFAULT $local_args $@
+if [ -e "${SCREENRC}-${USER}" ]; then
+    exec "$SCREEN" -c "$SCREENRC-${USER}" $local_args $@
+elif [ -e "$SCREENRC" ]; then
+    exec "$SCREEN" -c "$SCREENRC" $local_args $@
+elif [ -e "$SCREENRC_DEFAULT" ]; then
+    exec "$SCREEN" -c "$SCREENRC_DEFAULT" $local_args $@
 else
-    exec $SCREEN $local_args $@
+    exec "$SCREEN" $local_args $@
 fi

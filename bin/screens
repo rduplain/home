@@ -1,6 +1,6 @@
 #!/bin/bash -li
 
-conf=$HOME/.screens
+conf="$HOME"/.screens
 screen="$HOME/bin/screen -s -/bin/bash"
 
 screen_running() {

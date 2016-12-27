@@ -11,12 +11,12 @@
 #
 # Author: Ron DuPlain <ron.duplain@gmail.com>
 
-BAK_RSYNC_FLAGS=${BAK_RSYNC_FLAGS-"-av"}
-BAK_HOME=${BAK_HOME-$HOME/.bak}
-BAK_DATE_FORMAT=${BAK_DATE_FORMAT-"%Y/%m/%d"}
+BAK_RSYNC_FLAGS="${BAK_RSYNC_FLAGS--av}"
+BAK_HOME="${BAK_HOME-$HOME/.bak}"
+BAK_DATE_FORMAT="${BAK_DATE_FORMAT-%Y/%m/%d}"
 
 date_dir=`date +"$BAK_DATE_FORMAT"`
-dest_dir=$BAK_HOME/$date_dir
+dest_dir="$BAK_HOME/$date_dir"
 
 if [ $# -lt 1 ]; then
     exec 1>&2 # redirect stdout to stderr
@@ -25,7 +25,7 @@ if [ $# -lt 1 ]; then
     echo
     echo "$prog will mv files or directories to an bak location."
     echo "Had you supplied arguments, $prog would move them to"
-    echo $dest_dir
+    echo "$dest_dir"
     echo
     echo "environment variables you can set, and current values to use:"
     echo "BAK_HOME: $BAK_HOME"
@@ -56,8 +56,8 @@ export IFS="$OLDIFS"
 unset OLDIFS index arg args
 
 # Run rsync, echoing the rsync command.
-mkdir -p $dest_dir
+mkdir -p "$dest_dir"
 unset PS4
 set -x
-rsync $BAK_RSYNC_FLAGS "$@" $dest_dir
+rsync $BAK_RSYNC_FLAGS "$@" "$dest_dir"
 sync
