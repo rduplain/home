@@ -57,7 +57,7 @@ function workon_walk() {
         if [ $? -eq 0 ]; then
             break
         fi
-        dir=${dir%/*}
+        dir="${dir%/*}"
     done
 }
 

@@ -52,7 +52,7 @@ function ship() {
         # i.e. find the target of the variable in: variable=target
         #
         # Parse VARIABLE from left to first equal sign.
-        local target=${variable#*=}
+        local target="${variable#*=}"
 
         # Determine if the target exists, and export if so.
         if [ -e "$target" ]; then
