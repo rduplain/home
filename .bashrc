@@ -163,43 +163,43 @@ export -f commands docker-cleanup
 function prepend_paths() {
     # Given root filepath(s) (LIFO), prepend all path variables of interest.
 
-    # Reorder list, so first is prepended last, LIFO.
-    local -a dirs
-    local -i x=1
-    local -i count=$#
+    # Optimization: Build arguments for each path across all filepaths given,
+    # then call prepend just once for each path.
+    local -a path lib pkg man
+
     for dir in "$@"; do
-        let index=$count-$x
-        dirs[$index]="$dir"
-        let x++
-    done
-
-    # Assume current working directory if no argument is given.
-    if [ ${#dirs[@]} -eq 0 ]; then
-        dirs[0]="$(pwd)"
-    fi
-
-    for dir in "${dirs[@]}"; do
         if [ "$dir" = "/" ]; then
             dir=""
         fi
 
-        prepend PATH "$dir"/bin "$dir"/sbin
-        prepend LD_LIBRARY_PATH \
-                "$dir"/lib \
-                "$dir"/lib/x86_64-linux-gnu "$dir"/lib64 \
-                "$dir"/lib/i386-linux-gnu "$dir"/lib32
-        prepend PKG_CONFIG_PATH \
-                "$dir"/lib/pkgconfig \
-                "$dir"/lib/x86_64-linux-gnu/pkgconfig "$dir"/lib64/pkgconfig \
-                "$dir"/lib/i386-linux-gnu/pkgconfig "$dir"/lib32/pkgconfig
-        prepend MANPATH "$dir"/man "$dir"/share/man
+        path[${#path[@]}]="$dir"/bin
+        path[${#path[@]}]="$dir"/sbin
+
+        lib[${#lib[@]}]="$dir"/lib
+        lib[${#lib[@]}]="$dir"/lib/x86_64-linux-gnu
+        lib[${#lib[@]}]="$dir"/lib64
+        lib[${#lib[@]}]="$dir"/lib/i386-linux-gnu
+        lib[${#lib[@]}]="$dir"/lib32
+
+        pkg[${#pkg[@]}]="$dir"/lib/pkgconfig
+        pkg[${#pkg[@]}]="$dir"/lib/x86_64-linux-gnu/pkgconfig
+        pkg[${#pkg[@]}]="$dir"/lib64/pkgconfig
+        pkg[${#pkg[@]}]="$dir"/lib/i386-linux-gnu/pkgconfig
+        pkg[${#pkg[@]}]="$dir"/lib32/pkgconfig
+
+        man[${#man[@]}]="$dir"/man
+        man[${#man[@]}]="$dir"/share/man
     done
+
+    prepend PATH "${path[@]}"
+    prepend LD_LIBRARY_PATH "${lib[@]}"
+    prepend PKG_CONFIG_PATH "${pkg[@]}"
+    prepend MANPATH "${man[@]}"
 }
 
 export -f prepend_paths
 
-prepend_paths /usr/local /usr /
-prepend_paths /opt/local /opt/*
+prepend_paths /opt/local /opt/* /usr/local /usr /
 
 for envtool in $ENVTOOLS; do
     prepend_paths "$HOME/.${envtool}"
