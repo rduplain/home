@@ -168,14 +168,14 @@ function _pend() {
     #     0 otherwise
 
     local mode="$1"
-    shift;
+    shift
 
     # Return now if there are no arguments.
     [[ $# -eq 0 ]] && return 2
 
     local envname="$1"
     local env="${!envname}"
-    shift;
+    shift
 
     # Determine the right order of dirs, LIFO or FIFO.
     local -a dirs
