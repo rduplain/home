@@ -22,7 +22,28 @@ function set_title() {
     echo -ne "\033]0;$@\007"
 }
 
-export -f rehash set_title
+function commands() {
+    history | cut -c8- | sort | uniq -c | sort -rn | head
+}
+
+function docker-cleanup() {
+    if ! command_exists docker; then
+        echo 'docker: command not found' >&2
+        return 2
+    fi
+
+    exited=$(docker ps -a -q -f status=exited)
+    if [ -n "$exited" ]; then
+        docker rm -v $exited
+    fi
+
+    dangling=$(docker images -f dangling=true -q)
+    if [ -n "$dangling" ]; then
+        docker rmi $dangling
+    fi
+}
+
+export -f rehash set_title commands docker-cleanup
 
 function workon_walk() {
     # Walk the directory tree upward until:
@@ -110,31 +131,6 @@ function omit_home() {
     fi
 }
 
-export -f workon_walk source_these walk_root_to_curdir omit_home
-
-function commands() {
-    history | cut -c8- | sort | uniq -c | sort -rn | head
-}
-
-function docker-cleanup() {
-    if ! command_exists docker; then
-        echo 'docker: command not found' >&2
-        return 2
-    fi
-
-    exited=$(docker ps -a -q -f status=exited)
-    if [ -n "$exited" ]; then
-        docker rm -v $exited
-    fi
-
-    dangling=$(docker images -f dangling=true -q)
-    if [ -n "$dangling" ]; then
-        docker rmi $dangling
-    fi
-}
-
-export -f commands docker-cleanup
-
 # PATH Management
 #
 # On each shell invocation, each :-delimited path variable is populated with
@@ -196,8 +192,6 @@ function prepend_paths() {
     prepend PKG_CONFIG_PATH "${pkg[@]}"
     prepend MANPATH "${man[@]}"
 }
-
-export -f prepend_paths
 
 prepend_paths /opt/local /opt/* /usr/local /usr /
 
