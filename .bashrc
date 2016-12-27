@@ -233,6 +233,27 @@ export WORKSPACES_RESERVED=5
 
 ship BAK_HOME="/media/$USER/bak"
 
+# Set locale.
+export LC_ALL=en_US.UTF-8
+
+# Don't put duplicate lines in the history. See bash(1) for more options.
+export HISTCONTROL=ignoreboth
+export HISTFILESIZE=9999
+export HISTSIZE=20000
+
+# Set editor and essential program defaults.
+export EDITOR='emacs -nw'
+export VISUAL=vi
+export TEXEDIT=$EDITOR
+export PAGER=less
+export GZIP="-9"
+
+# Make less more friendly for non-text input files, see lesspipe(1).
+[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+
+alias pydoc=pydoc3
+alias emacs='emacs -nw'
+
 receive "$HOME"/.config/host/${HOSTNAME:-default}/bashrc
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
@@ -281,6 +302,9 @@ function _completion_loader() {
 
 complete -D -F _completion_loader -o bashdefault -o default
 
+# Force reload of _completion_loader.
+unset BASH_COMPLETION_LOADED
+
 # Load virtualenvwrapper for Python.
 #
 # This expects virtualenvwrapper.sh to be symlinked from the
@@ -310,9 +334,6 @@ fi
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-alias pydoc=pydoc3
-alias emacs='emacs -nw'
-
 # Set window title to "user@host dir" if terminal detected.
 PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~}"'
 case "$TERM" in
@@ -335,31 +356,10 @@ screen)
 esac
 export PROMPT_COMMAND
 
-# Don't put duplicate lines in the history. See bash(1) for more options.
-export HISTCONTROL=ignoreboth
-export HISTFILESIZE=9999
-export HISTSIZE=20000
-
-# Set editor and essential program defaults.
-export EDITOR='emacs -nw'
-export VISUAL=vi
-export TEXEDIT=$EDITOR
-export PAGER=less
-export GZIP="-9"
-
-# Set locale.
-export LC_ALL=en_US.UTF-8
-
-# Make less more friendly for non-text input files, see lesspipe(1).
-[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
-
 export FCEDIT=$EDITOR
 export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
-
-# Force reload of _completion_loader.
-unset BASH_COMPLETION_LOADED
 
 # Source all .bashrc found in directory ancestry, in order.
 # (Keep this at the end of .bashrc to allow overrides.)
