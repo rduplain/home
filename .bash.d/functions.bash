@@ -177,48 +177,47 @@ function _pend() {
     local env="${!envname}"
     shift;
 
-    # Get the arguments in targets, in the right order.
-    local -a targets # Use array to allow values with spaces.
+    # Determine the right order of dirs, LIFO or FIFO.
+    local -a dirs
     case $mode in
         "pre")
             # Reorder list, so first is prepended last, LIFO.
             local -i x=1
             local -i count=$#
-            for value in "$@"; do
+            for dir in "$@"; do
                 let index=$count-$x
-                targets[$index]="$value"
+                dirs[$index]="$dir"
                 let x++
             done
             ;;
         *)
             # Maintain same order in list, so first is appended first, FIFO.
             local -i x=0
-            for value in "$@"; do
-                targets[$x]="$value"
+            for dir in "$@"; do
+                dirs[$x]="$dir"
                 let x++
             done
             ;;
     esac
 
-    # Assume current working directory if no target is given.
-    if [ ${#targets[@]} -eq 0 ]; then
-        targets[0]="$(pwd)"
+    # Assume current working directory if no dir is given.
+    if [ ${#dirs[@]} -eq 0 ]; then
+        dirs[0]="$(pwd)"
     fi
 
-    # Iterate through all targets and prepend/append according to mode.
+    # Iterate through all dirs and prepend/append according to mode.
     local result=0
-    local target
+    local dir
     local -i k
 
-    for (( k=0; k < ${#targets[@]}; k++ )); do
-        target="${targets[$k]}"
-        # Verify new target exists before prepending it.
-        if [ -e "$target" ]; then
-            # Add target while removing previous entries matching target.
+    for dir in "${dirs[@]}"; do
+        # Verify new dir exists before prepending it.
+        if [ -e "$dir" ]; then
+            # Add dir while removing previous entries matching dir.
             # Tack on colons, for pattern matching in parameter expansion.
-            env=":${env}:" # to be sure :$target: matches.
-            [[ $mode == "pre" ]] && env="$target:${env//:$target:/:}"
-            [[ $mode == "ap" ]] && env="${env//:$target:/:}:$target"
+            env=":${env}:" # to be sure :$dir: matches.
+            [[ $mode == "pre" ]] && env="$dir:${env//:$dir:/:}"
+            [[ $mode == "ap" ]] && env="${env//:$dir:/:}:$dir"
             # Don't worry about too many colons; prune_colons later.
         else
             result=1
