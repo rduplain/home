@@ -1,4 +1,4 @@
-. "$HOME/.bash.d/functions.bash"
+. "$HOME"/.bash.d/functions.bash
 
 if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
     # Loaded via X desktop manager. Treat as interactive session.
@@ -10,7 +10,7 @@ export ENVTOOLS="pyenv rbenv"
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
-    . "$HOME/.bashrc"
+    . "$HOME"/.bashrc
     for envtool in $ENVTOOLS; do
         command_exists $envtool && $envtool rehash
     done
@@ -210,8 +210,8 @@ done
 
 prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME"
 
-append PATH "$HOME/sandbox/android/sdk/platform-tools"
-append PATH "$HOME/sandbox/android/sdk/tools"
+append PATH "$HOME"/sandbox/android/sdk/platform-tools
+append PATH "$HOME"/sandbox/android/sdk/tools
 
 append PATH "$HOME"/.*-dist/bin
 
@@ -224,25 +224,25 @@ export SNAG_HOME="$HOME"
 
 # Have bin/screen choose opt screen if installed.
 ship SCREEN=/opt/screen/bin/screen
-ship SCREENRC_DEFAULT="$HOME/.screenrc-default"
+ship SCREENRC_DEFAULT="$HOME"/.screenrc-default
 
-ship ANDROID_HOME="$HOME/sandbox/android/sdk"
+ship ANDROID_HOME="$HOME"/sandbox/android/sdk
 
-export GOPATH="$HOME/.go"
+export GOPATH="$HOME"/.go
 append PATH "$GOPATH/bin"
 
-ship PYTHONSTARTUP="$HOME/.pythonrc.py"
+ship PYTHONSTARTUP="$HOME"/.pythonrc.py
 
-ship R_LIBS_USER="$HOME/.r"
+ship R_LIBS_USER="$HOME"/.r
 
 export WORKSPACES_RESERVED=5
 
 ship BAK_HOME="/media/$USER/bak"
 
-receive "$HOME/.config/host/${HOSTNAME:-default}/bashrc"
+receive "$HOME"/.config/host/${HOSTNAME:-default}/bashrc
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
-    receive "$HOME/.ssh/agent.bash"
+    receive "$HOME"/.ssh/agent.bash
 fi
 
 # If not running interactively, don't do anything further.
@@ -269,11 +269,11 @@ function _completion_loader() {
 
         # Alias git completion to homegit script.
         function _homegit() {
-            export GIT_DIR=$HOME/.homegit
+            export GIT_DIR="$HOME"/.homegit
             _git "$@"
         }
         function _hometig() {
-            export GIT_DIR=$HOME/.homegit
+            export GIT_DIR="$HOME"/.homegit
             _tig "$@"
         }
         export -f _homegit _hometig
@@ -292,9 +292,9 @@ complete -D -F _completion_loader -o bashdefault -o default
 # This expects virtualenvwrapper.sh to be symlinked from the
 # virtualenvwrapper installation. To disable virtualenvwrapper (and
 # therefore speedup shell init), simply remove the symlink.
-ship WORKON_HOME="$HOME/.virtualenvs"
-ship WORKON_HOME="$HOME/.virtualenvs-$HOSTNAME"
-receive "$HOME/bin/virtualenvwrapper.sh" >/dev/null 2>&1
+ship WORKON_HOME="$HOME"/.virtualenvs
+ship WORKON_HOME="$HOME"/.virtualenvs-$HOSTNAME
+receive "$HOME"/bin/virtualenvwrapper.sh >/dev/null 2>&1
 
 if [ "$USE_VIRTUALENV" != "false" ]; then
     if command_exists workon; then
