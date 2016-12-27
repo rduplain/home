@@ -30,7 +30,7 @@ function workon_walk() {
     #  * the root directory is reached (no virtualenv found)
     #
     # Activate the identified virtualenv with virtualenvwrapper's workon.
-    dir=${PWD}
+    dir="$PWD"
     while [ -n "$dir" ]; do
         workon "${dir##*/}" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
@@ -300,8 +300,8 @@ if [ "$USE_VIRTUALENV" != "false" ]; then
     if command_exists workon; then
         workon_walk
     fi
-    receive "$PWD/.env/bin/activate"
-    receive "$PWD/env/bin/activate"
+    receive "$PWD"/.env/bin/activate
+    receive "$PWD"/env/bin/activate
 fi
 
 # Enable color support of ls.

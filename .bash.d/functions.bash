@@ -202,7 +202,7 @@ function _pend() {
 
     # Assume current working directory if no dir is given.
     if [ ${#dirs[@]} -eq 0 ]; then
-        dirs[0]="$(pwd)"
+        dirs[0]="$PWD"
     fi
 
     # Iterate through all dirs and prepend/append according to mode.
