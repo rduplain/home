@@ -65,6 +65,9 @@
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 
+;; By default, disable auto-fill-mode.
+(setq-default auto-fill-mode nil)
+
 ;; Fill columns at 80 characters.
 (setq-default fill-column 79)
 
@@ -481,8 +484,6 @@
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook
           '(lambda ()
-             ; Declare defaults here.
-             (auto-fill-mode 1)
              ; Handle git commit message editing.
              (if (string= "COMMIT_EDITMSG" (buffer-name))
                  (configure-commit-buffer))))
