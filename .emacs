@@ -165,7 +165,12 @@
 (global-unset-key (kbd "C-z"))
 
 ;; Bind to shell instead of suspending.
-(global-set-key (kbd "C-z") 'ansi-term)
+(defun interactive-shell (&optional shell)
+  "Run ansi-term with the given shell, default bash."
+  (interactive)
+  (unless shell (setq shell "/bin/bash"))
+  (ansi-term shell))
+(global-set-key (kbd "C-z") 'interactive-shell)
 
 
 ;;; Convenient Functions
