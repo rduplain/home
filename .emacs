@@ -1,10 +1,6 @@
 ;;; Emacs configuration for Ron DuPlain.
 ;;;
-;;; Based circa 2008 on .emacs of Jeff Uphoff, Eric Sessoms, and various web
-;;; communities.
-;;;
 ;;; GNU Emacs 24
-
 
 ;;; Basics
 
@@ -13,10 +9,7 @@
 ;; Reader note: I have code in ~/.emacs.d and ~/.quicklisp which are rsync'd to
 ;; new machines on clone of $HOME. Note this if you try something and it fails.
 
-;; Define the load path.
-; Nothing special. Use package manager.
-
-;; Use package manager.
+;; Use package manager, which sets the load path for all external packages.
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
@@ -164,6 +157,7 @@
 
 ;; Some terminals (incl. PuTTY) send [select] on home keypress.
 (define-key global-map [select] 'end-of-line)
+
 
 ;;; Suspend vs. Shell
 
