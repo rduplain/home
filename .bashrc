@@ -217,6 +217,7 @@ export PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 export SNAG_HOME="$HOME"
 
 # Have bin/screen choose opt screen if installed.
+ship SCREEN=/usr/bin/screen
 ship SCREEN=/opt/screen/bin/screen
 ship SCREENRC_DEFAULT="$HOME"/.screenrc-default
 
@@ -231,6 +232,7 @@ ship R_LIBS_USER="$HOME"/.r
 
 export WORKSPACES_RESERVED=5
 
+ship BAK_HOME="$HOME"/.bak
 ship BAK_HOME="/media/$USER/bak"
 
 # Set locale.
