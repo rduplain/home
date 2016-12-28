@@ -40,6 +40,9 @@
 ;; Disable beeps.
 (setq ring-bell-function 'ignore)
 
+;; Disable automatic backups, i.e. filename~ files.
+(setq-default backup-inhibited t)
+
 ;; Disable tramp.
 (setq tramp-mode nil)
 
