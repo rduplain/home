@@ -230,6 +230,10 @@ ship PYTHONSTARTUP="$HOME"/.pythonrc.py
 
 ship R_LIBS_USER="$HOME"/.r
 
+ship DEVKITPRO=/opt/devkitpro
+ship DEVKITPPC=$DEVKITPRO/devkitPPC
+ship DEVKITARM=$DEVKITPRO/devkitARM
+
 export WORKSPACES_RESERVED=5
 
 ship BAK_HOME="$HOME"/.bak
