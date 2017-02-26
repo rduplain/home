@@ -446,7 +446,6 @@
 ;; Python
 (require 'python)
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
-(add-hook 'python-mode-hook '(lambda () (require 'virtualenv)))
 
 (if (not (boundp 'python-python-command))
     (setq python-python-command "python"))
