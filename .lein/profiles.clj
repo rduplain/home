@@ -2,6 +2,7 @@
  {:plugins
   [[com.jakemccrary/lein-test-refresh "0.18.0"]
    [lein-ancient "0.6.10"]
+   [lein-cloverage "1.0.9"]
    [lein-create-template "0.2.0"]
    [lein-maven-s3-wagon "0.2.5"]
    [lein-midje "3.2.1"]
