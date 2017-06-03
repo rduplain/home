@@ -398,6 +398,7 @@
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 
 ;; Clojure
+(add-hook 'clojure-mode-hook 'show-paren-mode)
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
 
 ;; Cucumber/Lettuce
