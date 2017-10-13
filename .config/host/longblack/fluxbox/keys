@@ -175,9 +175,9 @@ Mod4 l :ExecCommand xscreensaver-command -lock
 Mod4 u :ExecCommand gnome-dictionary
 # Mod4 v :ExecCommand auto-disper --change
 # Mod4 Mod1 v :ExecCommand nvidia-settings
-Mod4 w :ExecCommand google-chrome
+Mod4 w :ExecCommand google-chrome --disable-features=SendMouseLeaveEvents
 # Mod4 w :ExecCommand firefox -P default
-Mod4 Mod1 w :ExecCommand google-chrome --incognito
+Mod4 Mod1 w :ExecCommand google-chrome --incognito --disable-features=SendMouseLeaveEvents
 Control Mod4 Mod1 w :ExecCommand firefox -P transient
 # Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote
 Mod4 x :ExecCommand xterm

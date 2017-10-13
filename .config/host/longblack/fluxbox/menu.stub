@@ -1,5 +1,5 @@
 # Build with `generate_menu` in same directory.
 [begin] (   longblack   )
 	[exec] (Terminal) {xterm}
-	[exec] (Chrome) {google-chrome}
+	[exec] (Chrome) {google-chrome --disable-features=SendMouseLeaveEvents}
 	[separator]
