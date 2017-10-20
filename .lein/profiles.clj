@@ -1,7 +1,7 @@
 {:user
  {:plugins
   [[com.jakemccrary/lein-test-refresh "0.21.1"]
-   [lein-ancient "0.6.12"]
+   [lein-ancient "0.6.14"]
    [lein-cloverage "1.0.9"]
    [lein-create-template "0.2.0"]
    [lein-midje "3.2.1"]
