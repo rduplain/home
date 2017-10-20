@@ -4,10 +4,10 @@
    [lein-ancient "0.6.12"]
    [lein-cloverage "1.0.9"]
    [lein-create-template "0.2.0"]
-   [lein-maven-s3-wagon "0.2.5"]
    [lein-midje "3.2.1"]
    [lein-ring "0.12.1"]
-   [lein-try "0.4.3"]]
+   [lein-try "0.4.3"]
+   [s3-wagon-private "1.3.0"]]
   :repl-options {:timeout 300000}
   :dependencies [[slamhound "1.5.5"]]
   :aliases {"slamhound" ["run" "-m" "slam.hound"]}}
