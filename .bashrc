@@ -168,23 +168,23 @@ function prepend_paths() {
             dir=""
         fi
 
-        path[${#path[@]}]="$dir"/bin
-        path[${#path[@]}]="$dir"/sbin
+        path+=("$dir"/bin)
+        path+=("$dir"/sbin)
 
-        lib[${#lib[@]}]="$dir"/lib
-        lib[${#lib[@]}]="$dir"/lib/x86_64-linux-gnu
-        lib[${#lib[@]}]="$dir"/lib64
-        lib[${#lib[@]}]="$dir"/lib/i386-linux-gnu
-        lib[${#lib[@]}]="$dir"/lib32
+        lib+=("$dir"/lib)
+        lib+=("$dir"/lib/x86_64-linux-gnu)
+        lib+=("$dir"/lib64)
+        lib+=("$dir"/lib/i386-linux-gnu)
+        lib+=("$dir"/lib32)
 
-        pkg[${#pkg[@]}]="$dir"/lib/pkgconfig
-        pkg[${#pkg[@]}]="$dir"/lib/x86_64-linux-gnu/pkgconfig
-        pkg[${#pkg[@]}]="$dir"/lib64/pkgconfig
-        pkg[${#pkg[@]}]="$dir"/lib/i386-linux-gnu/pkgconfig
-        pkg[${#pkg[@]}]="$dir"/lib32/pkgconfig
+        pkg+=("$dir"/lib/pkgconfig)
+        pkg+=("$dir"/lib/x86_64-linux-gnu/pkgconfig)
+        pkg+=("$dir"/lib64/pkgconfig)
+        pkg+=("$dir"/lib/i386-linux-gnu/pkgconfig)
+        pkg+=("$dir"/lib32/pkgconfig)
 
-        man[${#man[@]}]="$dir"/man
-        man[${#man[@]}]="$dir"/share/man
+        man+=("$dir"/man)
+        man+=("$dir"/share/man)
     done
 
     prepend PATH "${path[@]}"
