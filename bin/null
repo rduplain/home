@@ -1,0 +1,4 @@
+#!/bin/sh
+# Send stdin to /dev/null.
+
+cat - > /dev/null
