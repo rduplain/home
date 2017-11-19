@@ -274,6 +274,24 @@ fi
 # Set prompt PS1 to "user@host dir$ "
 export PS1='\u@\h \W\$ '
 
+function _call_default_completion_loader() {
+    # Find the default completion loader, call it.
+
+    # Get the default completion spec; there should be only one line.
+    # Example value:
+    #
+    #     complete -o bashdefault -o default -F _completion_loader -D
+    local line=$(complete -p -D 2>/dev/null)
+    line=${line##*-F} # Remove everything up to and including -F.
+    line=$(echo $line | cut -f1 -d' ') # Remove first space & everything after.
+
+    local fn=$line
+
+    if [ -n "$fn" ]; then
+        $fn "$@"
+    fi
+}
+
 function _completion_loader() {
     # Default bash completion handler to load specifications lazily.
 
@@ -288,6 +306,21 @@ function _completion_loader() {
 
         receive /etc/bash_completion
 
+        # The default completion loader may have a new definition.
+        # Call it again to ensure completion is fully initialized.
+        #
+        # Otherwise, completing some commands could result in another 124,
+        # i.e. the `return 124` from the newly defined completion loader,
+        # after bash has restarted the completion process. This would result in
+        # completion failing on certain commands on the first tab in the shell
+        # session.
+        #
+        # In other words, flush out another default 124 return value so that
+        # everything is ready when bash restarts the completion process.
+        _call_default_completion_loader "$@"
+
+        receive /opt/src/git/contrib/completion/git-completion.bash
+
         # Alias git completion to homegit script.
         function _homegit() {
             GIT_DIR="$HOME"/.homegit _git "$@"
@@ -298,13 +331,13 @@ function _completion_loader() {
         export -f _homegit _hometig
         complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
         complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
-    fi
 
-    # Restart completion process.
-    return 124
+        # Restart completion process.
+        return 124
+    fi
 }
 
-complete -D -F _completion_loader -o bashdefault -o default
+complete -D -F _completion_loader -o bashdefault -o default >/dev/null 2>&1
 
 # Force reload of _completion_loader.
 unset BASH_COMPLETION_LOADED
