@@ -13,6 +13,7 @@ defscrollback 81920
 vbell off
 bell_msg ""
 vbell_msg ""
+rendition bell ""
 
 # Disable the startup message.
 startup_message off
@@ -49,17 +50,18 @@ bind  ( select 19
 # %H       - hostname (H)
 # %l       - system load (l)
 # %{=r gk} - set attributes to reverse (r) black (k) on green (g)
-# %-Lw     - all window numbers & names (w) up to current (-), with flags (L)
+# %-w      - all window numbers & names (w) up to current (-)
 # %{=r kg} - set attributes to reverse (r) green (g) on black (b)
 # %60L>    - truncate here when too many screens to fit, L means print '...'
 #            (60 means give up to 60 spaces from left margin)
 # %n       - current window number (n)
 # %t       - current window title (t)
 # %{-}     - restore attributes before last change was made ("pop" %{=r kg})
-# %+Lw     - all window numbers & names (w) after current (+), with flags (L)
+# %+w      - all window numbers & names (w) after current (+)
 # %-0<     - truncate up to here, placing zero spaces (0) from right margin (-)
+# Window listings with %-w and %+w can show window flags with %-Lw and %+Lw.
 # Spaces outside of escapes and other text are interpreted literally.
-caption always "%{=r gk}%Y-%m-%d %0c %{=b kg} %S  %H  %l  %{=r gk}%-Lw%{=r kg}%60L>%n* %t%{-}%+Lw%-0<"
+caption always "%{=r gk}%Y-%m-%d %0c %{=b kg} %S  %H  %l  %{=r gk}%-w%{=r kg}%60L>%n* %t%{-}%+w%-0<"
 
 # Use F8 to turn the status bar *off* at the bottom of the screen.
 bindkey -k k8 caption splitonly
