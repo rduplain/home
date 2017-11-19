@@ -9,6 +9,12 @@ set page-completions off
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
+# Do not insert existing text when completing in middle of a word.
+set skip-completed-text on
+
+# Require a leading '.' to complete on hidden files.
+set match-hidden-files off
+
 $if Bash
 # Display possible completions using color to indicate filetype.
 set colored-stats on
