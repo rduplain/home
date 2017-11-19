@@ -43,7 +43,7 @@ function docker-cleanup() {
     fi
 }
 
-export -f rehash set_title commands docker-cleanup
+export -f rehash set_title commands
 
 function workon_walk() {
     # Walk the directory tree upward until:
