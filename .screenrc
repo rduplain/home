@@ -7,7 +7,12 @@ escape ^]]
 # Use vi-like keybindings to move about, C-s or C-r to search.
 # <spacebar> to mark the region, C-] . to paste.
 bind . paste .
+
+# Keep scrollback. By default, this value is very low.
 defscrollback 81920
+
+# Ignore case when searching in copy mode.
+ignorecase on
 
 # Disable bells as much as possible.
 vbell off
