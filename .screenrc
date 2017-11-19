@@ -7,24 +7,19 @@ escape ^]]
 # Use vi-like keybindings to move about, C-s or C-r to search.
 # <spacebar> to mark the region, C-] . to paste.
 bind . paste .
+defscrollback 81920
 
-# I can live without bells. These settings seem to get rid of bells entirely.
+# Disable bells as much as possible.
 vbell off
 bell_msg ""
 vbell_msg ""
 
-# Why we use screen:
-autodetach on
-
-# Useful?
+# Disable the startup message.
 startup_message off
-defflow off
-deflogin on
-defscrollback 20480
-defnonblock 5
 
-# Should we make TERM=xterm or TERM=screen ... ?
-term 'screen'
+# Enable non-blocking mode to better cope with low-fidelity remote connections.
+defflow off
+defnonblock 5
 
 # Select screens 10-19 with shift+0-9.
 bind  ) select 10
@@ -43,10 +38,6 @@ bind  ( select 19
 # bind  c screen 1
 # bind  0 select 10
 # bind  ) select 20
-# screen 1
-
-# Use display.  Yes, that's a kluge.
-# setenv DISPLAY ':0'
 
 # caption: date time  load  <windows up to> <current window> <windows after>
 # Explained:
@@ -75,14 +66,26 @@ bindkey -k k8 caption splitonly
 # Use F9 to turn the status bar *on* at the bottom of the screen.
 bindkey -k k9 caption always
 
-# Set some termcapinfo, from Ubuntu's screenrc.
+# Set TERM=screen.
+term 'screen'
+
+# All remaining lines in this file are selected from Ubuntu's /etc/screenrc.
+
 # The vt100 description does not mention "dl". *sigh*
 termcapinfo vt100 dl=5\E[M
+
+# Set the hardstatus prop on gui terms to set the titlebar/icon title
+termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
 
 # set these terminals up to be 'optimal' instead of vt100
 termcapinfo xterm*|linux*|rxvt*|Eterm* OP
 
-# To get screen to add lines to xterm's scrollback buffer, the
+# Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
+# (This fixes the "Aborted because of window size change" konsole symptoms found
+#  in bug #134198)
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+
+# To get screen to add lines to xterm's scrollback buffer, uncomment the
 # following termcapinfo line which tells xterm to use the normal screen buffer
 # (which has scrollback), not the alternate screen buffer.
 #
