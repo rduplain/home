@@ -290,12 +290,10 @@ function _completion_loader() {
 
         # Alias git completion to homegit script.
         function _homegit() {
-            export GIT_DIR="$HOME"/.homegit
-            _git "$@"
+            GIT_DIR="$HOME"/.homegit _git "$@"
         }
         function _hometig() {
-            export GIT_DIR="$HOME"/.homegit
-            _tig "$@"
+            GIT_DIR="$HOME"/.homegit _tig "$@"
         }
         export -f _homegit _hometig
         complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
