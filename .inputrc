@@ -1,8 +1,13 @@
 # Disable bell.
 set bell-style none
 
-# Allow many completions before asking.
-set completion-query-items 9999
+# Just show completions.
+set completion-query-items -1
+set page-completions off
+
+# Show completions sooner.
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
 
 $if Bash
 # Display possible completions using color to indicate filetype.
