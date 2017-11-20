@@ -77,7 +77,7 @@ bind  ( select 19
 # %Y-%m-%d - e.g. 2009-09-22 (Y = 2009, m = 09, d = 22)
 # %0c      - current time HH:MM in 24h format (c), zero-padded (0) when < 10h
 # %{=b kg} - set attributes to bold (b) blue (b) on black (k)
-# %S       - sessionname (S), in git sources of GNU screen
+# %S       - sessionname (S), available in GNU screen 4.2.0+
 # %H       - hostname (H)
 # %l       - system load (l)
 # %{=r gk} - set attributes to reverse (r) black (k) on blue (b)
