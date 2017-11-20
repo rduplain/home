@@ -2,11 +2,36 @@
 # C-] is a really useful key, since it's hardly used elsewhere theses days.
 escape ^]]
 
-# Having just overridden the paste keybinding, bind a new one.
-# Enter copy mode with C-] C-[
+# With C-a free, set `C-] a` to the same as `C-] A`.
+bind  a title
+
+# Unbind key bindings which are best avoided, especially on typos.
+# Type these commands out when needed, using `C-] :`.
+bind  _ # silence
+bind  . # dumptermcap
+bind  { # history
+bind  } # history
+bind \\ # quit
+bind  C # clear
+bind  f # flow
+bind ^f # flow
+bind ^g # vbell
+bind  h # hardcopy
+bind  H # log
+bind  M # monitor
+bind  L # login
+bind  r # wrap
+bind ^r # wrap
+bind  x # lockscreen
+bind ^x # lockscreen
+bind  z # suspend
+bind ^z # suspend
+
+# Having overridden the paste key binding, bind a new one.
+# Enter copy mode with `C-] C-[`
 # Use vi-like keybindings to move about, C-s or C-r to search.
-# <spacebar> to mark the region, C-] . to paste.
-bind . paste .
+# <spacebar> to mark the region, `C-] .` to paste.
+bind  . paste .
 
 # Keep scrollback. By default, this value is very low.
 defscrollback 81920
@@ -19,6 +44,7 @@ vbell off
 bell_msg ""
 vbell_msg ""
 rendition bell ""
+bind ^g # vbell
 
 # Disable the startup message.
 startup_message off
