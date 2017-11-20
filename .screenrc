@@ -73,16 +73,16 @@ bind  ( select 19
 
 # caption: date time  load  <windows up to> <current window> <windows after>
 # Explained:
-# %{=r gk} - set attributes to reverse (r) black (k) on green (g)
+# %{=r gk} - set attributes to reverse (r) black (k) on blue (b)
 # %Y-%m-%d - e.g. 2009-09-22 (Y = 2009, m = 09, d = 22)
 # %0c      - current time HH:MM in 24h format (c), zero-padded (0) when < 10h
-# %{=b kg} - set attributes to bold (b) green (g) on black (k)
+# %{=b kg} - set attributes to bold (b) blue (b) on black (k)
 # %S       - sessionname (S), in git sources of GNU screen
 # %H       - hostname (H)
 # %l       - system load (l)
-# %{=r gk} - set attributes to reverse (r) black (k) on green (g)
+# %{=r gk} - set attributes to reverse (r) black (k) on blue (b)
 # %-w      - all window numbers & names (w) up to current (-)
-# %{=r kg} - set attributes to reverse (r) green (g) on black (b)
+# %{=r kg} - set attributes to reverse (r) blue (b) on black (b)
 # %60L>    - truncate here when too many screens to fit, L means print '...'
 #            (60 means give up to 60 spaces from left margin)
 # %n       - current window number (n)
@@ -92,7 +92,7 @@ bind  ( select 19
 # %-0<     - truncate up to here, placing zero spaces (0) from right margin (-)
 # Window listings with %-w and %+w can show window flags with %-Lw and %+Lw.
 # Spaces outside of escapes and other text are interpreted literally.
-caption always "%{=r gk}%Y-%m-%d %0c %{=b kg} %S  %H  %l  %{=r gk}%-w%{=r kg}%60L>%n* %t%{-}%+w%-0<"
+caption always "%{=r bk}%Y-%m-%d %0c %{=b kb} %S  %H  %l  %{=r bk}%-w%{=r kb}%60L>%n* %t%{-}%+w%-0<"
 
 # Use F8 to turn the status bar *off* at the bottom of the screen.
 bindkey -k k8 caption splitonly
