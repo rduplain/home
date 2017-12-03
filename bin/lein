@@ -4,7 +4,7 @@
 # somewhere on your $PATH, like ~/bin. The rest of Leiningen will be
 # installed upon first run into the ~/.lein/self-installs directory.
 
-export LEIN_VERSION=${LEIN_VERSION:-"2.7.1"}
+export LEIN_VERSION="2.8.1"
 
 case $LEIN_VERSION in
     *SNAPSHOT) SNAPSHOT="YES" ;;
@@ -212,7 +212,7 @@ fi
 
 if [ ! -x "$JAVA_CMD" ] && ! type -f java >/dev/null
 then
-    >&2 echo "Leiningen coundn't find 'java' executable, which is required."
+    >&2 echo "Leiningen couldn't find 'java' executable, which is required."
     >&2 echo "Please either set JAVA_CMD or put java (>=1.6) in your \$PATH ($PATH)."
     exit 1
 fi
@@ -364,11 +364,9 @@ else
           stty icanon echo > /dev/null 2>&1
         fi
 
-        ## TODO: [ -r "$TRAMPOLINE_FILE" ] may be redundant? A trampoline file
-        ## is always generated these days.
         if [ -r "$TRAMPOLINE_FILE" ] && [ "$LEIN_TRAMPOLINE_WARMUP" = "" ]; then
             TRAMPOLINE="$(cat "$TRAMPOLINE_FILE")"
-            if [ "$INPUT_CHECKSUM" = "" ]; then
+            if [ "$INPUT_CHECKSUM" = "" ]; then # not using fast trampoline
                 rm "$TRAMPOLINE_FILE"
             fi
             if [ "$TRAMPOLINE" = "" ]; then
