@@ -274,7 +274,7 @@ fi
 # Set prompt PS1 to "user@host dir$ "
 export PS1='\u@\h \W\$ '
 
-function _call_default_completion_loader() {
+function _default_completion_loader() {
     # Find the default completion loader, call it.
 
     # Get the default completion spec; there should be only one line.
@@ -317,7 +317,7 @@ function _completion_loader() {
         #
         # In other words, flush out another default 124 return value so that
         # everything is ready when bash restarts the completion process.
-        _call_default_completion_loader "$@"
+        _default_completion_loader "$@"
 
         receive /opt/src/git/contrib/completion/git-completion.bash
 
