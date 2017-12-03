@@ -202,7 +202,7 @@ for envtool in $ENVTOOLS; do
     fi
 done
 
-prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME"
+prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME" "$HOME"/.npm-global
 
 append PATH "$HOME"/sandbox/android/sdk/platform-tools
 append PATH "$HOME"/sandbox/android/sdk/tools
@@ -229,6 +229,11 @@ append PATH "$GOPATH/bin"
 ship PYTHONSTARTUP="$HOME"/.pythonrc.py
 
 ship R_LIBS_USER="$HOME"/.r
+
+# Path management above sets paths for ~/.npm-global.
+# On permissions errors with `npm install -g`, be sure ~/.npmrc is configured:
+#
+#     npm config set prefix '~/.npm-global'
 
 ship DEVKITPRO=/opt/devkitpro
 ship DEVKITPPC=$DEVKITPRO/devkitPPC
