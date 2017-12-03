@@ -6,6 +6,7 @@
    [lein-create-template "0.2.0"]
    [lein-midje "3.2.1"]
    [lein-ring "0.12.1"]
+   [lein-tach "0.4.0"]
    [lein-try "0.4.3"]
    [s3-wagon-private "1.3.0"]]
   :repl-options {:timeout 300000}
