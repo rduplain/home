@@ -41,8 +41,6 @@ trap 'notice `uname -n` fluxbox is stopping' 0 INT TERM QUIT EXIT
 
 screens &
 
-audacity &
-
 # xmessage -file - <<EOF &
 # Hello, world!
 # EOF
