@@ -8,7 +8,7 @@
    [lein-ring "0.12.2"]
    [lein-tach "0.4.0"]
    [lein-try "0.4.3"]
-   [s3-wagon-private "1.3.1"]]
+   [savagematt/lein-maven-s3-wagon "0.2.5"]]
   :repl-options {:timeout 300000}
   :dependencies [[slamhound "1.5.5"]]
   :aliases {"slamhound" ["run" "-m" "slam.hound"]}}
@@ -17,4 +17,4 @@
  {:repository-auth
   {#"s3(p)?:\/\/rk-maven"
    {:username :env/aws_access_key_id
-    :passphrase :env/aws_secret_key}}}}
+    :passphrase :env/aws_secret_access_key}}}}
