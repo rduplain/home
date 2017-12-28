@@ -1,0 +1,4 @@
+#!/bin/bash
+# SSH into a one-off host, when confident there is no mitm.
+
+exec ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$@"
