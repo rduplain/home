@@ -12,7 +12,7 @@
   :repl-options {:timeout 300000}
   :dependencies [[slamhound "1.5.5"]]
   :aliases {"slamhound" ["run" "-m" "slam.hound"]}}
- :repl {:plugins [[cider/cider-nrepl "0.15.1"]]}
+ :repl {:plugins [[cider/cider-nrepl "0.16.0"]]}
  :auth
  {:repository-auth
   {#"s3(p)?:\/\/rk-maven"
