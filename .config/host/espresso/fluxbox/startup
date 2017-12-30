@@ -16,16 +16,17 @@ gnome-settings-daemon &
 eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
 
-parcellite &
 nm-applet &
 thunar --daemon &
-xfce4-power-manager --no-daemon &
 gnome-sound-applet &
+dropbox start &
+
+bash -c 'sleep 1; exec parcellite' &
+bash -c 'sleep 1; exec xfce4-power-manager --no-daemon' &
+
 gnome-screensaver-watch &
 bash -c 'sleep 10; exec gnome-do' &
-bash -c 'sleep 300; killall update-notifier' &
 screens &
-dropbox start &
 
 notice `uname -n` fluxbox is starting
 trap 'notice `uname -n` fluxbox is stopping' 0 INT TERM QUIT EXIT
