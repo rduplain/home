@@ -2,4 +2,5 @@
 [begin] (   mocha   )
 	[exec] (Terminal) {xterm}
 	[exec] (Chrome) {google-chrome --purge-memory-button --memory-model=medium --disable-hang-monitor --disable-renderer-accessibility}
+        [exec] (Shotwell) {shotwell}
 	[separator]

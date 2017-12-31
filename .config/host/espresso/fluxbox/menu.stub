@@ -2,4 +2,5 @@
 [begin] (   espresso   )
 	[exec] (Terminal) {xterm}
 	[exec] (Chrome) {google-chrome --disable-features=SendMouseLeaveEvents}
+	[exec] (Shotwell) {shotwell}
 	[separator]
