@@ -1,8 +1,0 @@
-# Build with `generate_menu` in same directory.
-[begin] (   sol   )
-	[exec] (Terminal) {xterm}
-	[exec] (Firefox) {firefox -P default}
-	[exec] (Chrome) {google-chrome --purge-memory-button --memory-model=medium --disable-hang-monitor --disable-renderer-accessibility}
-	[exec] (WakeOnLan) {gwakeonlan}
-	[exec] (Jukebox) {rhythmbox}
-	[separator]
