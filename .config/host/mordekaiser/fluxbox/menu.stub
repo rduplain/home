@@ -1,5 +1,0 @@
-# Build with `generate_menu` in same directory.
-[begin] (   mordekaiser   )
-	[exec] (Terminal) {xterm}
-	[exec] (Chrome) {google-chrome --purge-memory-button --memory-model=medium --disable-renderer-accessibility}
-	[separator]
