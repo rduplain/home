@@ -21,10 +21,6 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-gnome-settings-daemon &
-eval $(gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
-
 echo "export DISPLAY='$DISPLAY'"       >  ~/.x-env
 echo "export XAUTHORITY='$XAUTHORITY'" >> ~/.x-env
 chmod 600 ~/.x-env
