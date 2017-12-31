@@ -1,8 +1,0 @@
-[app] (name=fbrun)
-  [Position]	(CENTER)	{0 0}
-  [Layer]	{2}
-[end]
-[app] (name=google-chrome) (class=Google-chrome) (role=pop-up)
-  [Dimensions]	{228 364}
-  [Layer]	{6}
-[end]
