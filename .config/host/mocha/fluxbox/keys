@@ -175,11 +175,8 @@ Mod4 l :ExecCommand xscreensaver-command -lock
 Mod4 u :ExecCommand gnome-dictionary
 # Mod4 v :ExecCommand auto-disper --change
 # Mod4 Mod1 v :ExecCommand nvidia-settings
-Mod4 w :ExecCommand google-chrome --purge-memory-button --memory-model=medium --disable-hang-monitor --disable-renderer-accessibility
-# Mod4 w :ExecCommand firefox -P default
-Mod4 Mod1 w :ExecCommand google-chrome --incognito --purge-memory-button --memory-model=medium --disable-hang-monitor --disable-renderer-accessibility
-Control Mod4 Mod1 w :ExecCommand firefox -P transient
-# Control Mod4 Mod1 w :ExecCommand firefox -P proxy --no-remote
+Mod4 w :ExecCommand google-chrome --disable-features=SendMouseLeaveEvents
+Mod4 Mod1 w :ExecCommand google-chrome --incognito --disable-features=SendMouseLeaveEvents
 Mod4 x :ExecCommand xterm
 # Mod4 slash :ExecCommand gnome-power-manager-background
 
