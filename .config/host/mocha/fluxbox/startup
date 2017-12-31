@@ -13,6 +13,10 @@ if [ -f $HOME/.Xresources ]; then
     xrdb -merge $HOME/.Xresources
 fi
 
+gnome-settings-daemon &
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+
 parcellite &
 xscreensaver -no-splash &
 nm-applet &
