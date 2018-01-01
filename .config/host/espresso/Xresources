@@ -34,7 +34,7 @@ XTerm*fullscreen: never
 
 ! force blinking off, even if it is on:
 *cursorOffTime: 0
-*cursorOnTime: 1000
+*cursorOnTime: 100
 
 XTerm*cursorBlink:              false
 XTerm*visualBell:               false
