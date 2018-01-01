@@ -2,7 +2,7 @@
 
 Xcursor.theme: oxy-black
 
-Xft*dpi:  96
+Xft*dpi: 96
 Xft*hinting: true
 Xft*hintstyle: hintslight
 Xft*antialias: true
@@ -18,27 +18,27 @@ XTerm*fullscreen: never
 *faceSize: 13
 
 *fontMenu*font1*Label: Small
-*faceSize1:  11
+*faceSize1: 11
 *fontMenu*font2*Label: Not-too-small
-*faceSize2:  12
+*faceSize2: 12
 *fontMenu*font3*Label: Medium
-*faceSize3:  13
+*faceSize3: 13
 *fontMenu*font4*Label: Large
-*faceSize4:  16
+*faceSize4: 16
 *fontMenu*font5*Label: Huge
-*faceSize5:  22
+*faceSize5: 22
 *fontMenu*font6*Label: F*ing Huge
-*faceSize6:  36
+*faceSize6: 36
 
 *metaSendsEscape: true
+
+XTerm*cursorBlink: false
+XTerm*visualBell: false
+XTerm*scrollBar: false
 
 ! force blinking off, even if it is on:
 *cursorOffTime: 0
 *cursorOnTime: 100
-
-XTerm*cursorBlink:              false
-XTerm*visualBell:               false
-XTerm*scrollBar:                false
 
 #if defined(COLOR_FG) && defined(COLOR_BG)
 XTerm*background:              COLOR_BG
@@ -112,14 +112,6 @@ URxvt*color15:                 COLOR_TERM_WHITE
 URxvt.perl-ext-common: default,matcher,font-size
 URxvt.urlLauncher: sensible-browser
 URxvt.matcher.button: 1
-
-! urxvt*scrollTtyOutput: False
-! urxvt*scrollWithBuffer: True
-! urxvt*scrollTtyKeypress: True
-
-!------------------------------------------------------------------------------
-
-!------------------------------------------------------------------------------
 
 yeahconsole*toggleKey: Win+t
 yeahconsole*consoleHeight: 20
