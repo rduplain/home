@@ -494,6 +494,8 @@
 ;; XML
 (add-hook 'xml-mode-hook 'flyspell-prog-mode)
 
+;; X
+(add-to-list 'auto-mode-alist '("\\.xrdb$" . xrdb-mode))
 
 ;;; Modes to Consider
 

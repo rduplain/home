@@ -1,4 +1,5 @@
 #include ".xrdb/colors/zenburn-modified.xrdb"
+#include ".xrdb/xscreensaver.xrdb"
 
 Xcursor.theme: oxy-black
 
