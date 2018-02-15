@@ -204,8 +204,8 @@ done
 
 prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME" "$HOME"/.npm-global
 
-append PATH "$HOME"/sandbox/android/sdk/platform-tools
-append PATH "$HOME"/sandbox/android/sdk/tools
+append PATH "$HOME"/src/android/sdk/platform-tools
+append PATH "$HOME"/src/android/sdk/tools
 
 append PATH "$HOME"/.*-dist/bin
 
@@ -221,7 +221,7 @@ ship SCREEN=/usr/bin/screen
 ship SCREEN=/opt/screen/bin/screen
 ship SCREENRC_DEFAULT="$HOME"/.screenrc-default
 
-ship ANDROID_HOME="$HOME"/sandbox/android/sdk
+ship ANDROID_HOME="$HOME"/src/android/sdk
 
 export GOPATH="$HOME"/.go
 append PATH "$GOPATH/bin"
