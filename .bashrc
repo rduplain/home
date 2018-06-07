@@ -347,6 +347,12 @@ complete -D -F _completion_loader -o bashdefault -o default >/dev/null 2>&1
 # Force reload of _completion_loader.
 unset BASH_COMPLETION_LOADED
 
+# Configure shell if running inside Jupyter notebook.
+if [ -n "$JPY_PARENT_PID" ]; then
+    unset HISTFILE
+    _completion_loader
+fi
+
 # Load virtualenvwrapper for Python.
 #
 # This expects virtualenvwrapper.sh to be symlinked from the
