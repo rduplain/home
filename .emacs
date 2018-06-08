@@ -400,6 +400,7 @@
 ;; Clojure
 (add-hook 'clojure-mode-hook 'show-paren-mode)
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
+(add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 
 ;; Cucumber/Lettuce
 (require 'feature-mode)
