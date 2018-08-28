@@ -4,7 +4,8 @@
 homegit="git --git-dir=$HOME/.homegit --work-tree=$HOME"
 
 if [ "$1" = "sync" ]; then
-    $homegit fetch && $homegit rebase origin/master
+    $homegit fetch &&
+        $homegit rebase --committer-date-is-author-date origin/master
 else
     exec $homegit "$@";
 fi
