@@ -204,6 +204,9 @@ done
 
 prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME" "$HOME"/.npm-global
 
+# Use Rust if installed.
+prepend PATH "$HOME"/.cargo/bin
+
 append PATH "$HOME"/src/android/sdk/platform-tools
 append PATH "$HOME"/src/android/sdk/tools
 
