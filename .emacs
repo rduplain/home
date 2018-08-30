@@ -13,8 +13,6 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
 ;; Disable useless decorations.
@@ -186,54 +184,6 @@
 
 ;; Enlarge/shrink windows with ease with Control-6.
 (global-set-key [?\C-^] 'enlarge-window)
-
-;; yic buffer cycle - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
-(defun yic-ignore (str)
-  (or
-   ;;buffers I don't want to switch to
-   (string-match "^\\*scratch\\*$" str)
-   (string-match "\\*Buffer List\\*" str)
-   (string-match "^TAGS" str)
-   (string-match "^\\*Messages\\*$" str)
-   (string-match "^\\*Completions\\*$" str)
-   (string-match "^\\*ESS\\*$" str)
-   (string-match "^\\*Pymacs\\*$" str)
-   (string-match "^ " str)
-
-   ;;Test to see if the window is visible on an existing visible frame.
-   ;;Because I can always ALT-TAB to that visible frame, I never want to
-   ;;Ctrl-TAB to that buffer in the current frame.  That would cause
-   ;;a duplicate top-level buffer inside two frames.
-   (memq str
-         (mapcar
-          (lambda (x)
-            (buffer-name
-             (window-buffer
-              (frame-selected-window x))))
-          (visible-frame-list)))))
-
-(defun yic-next (ls)
-  "Switch to next buffer in ls skipping unwanted ones."
-  (let* ((ptr ls) bf bn go)
-    (while (and ptr (null go))
-      (setq bf (car ptr)  bn (buffer-name bf))
-      (if (null (yic-ignore bn)) ;skip over
-          (setq go bf)
-        (setq ptr (cdr ptr))))
-    (if go (switch-to-buffer go))))
-
-(defun yic-prev-buffer ()
-  "Switch to previous buffer in current window."
-  (interactive)
-  (yic-next (reverse (buffer-list))))
-
-(defun yic-next-buffer ()
-  "Switch to the other buffer (2nd in list-buffer) in current window."
-  (interactive)
-  (bury-buffer (current-buffer))
-  (yic-next (buffer-list)))
-
-(global-set-key (kbd "<M-RET>") 'yic-next-buffer)
 
 ;; dos2unix/unix2dos - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
 (defun dos2unix ()
@@ -447,11 +397,6 @@
 (require 'python)
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 
-(if (not (boundp 'python-python-command))
-    (setq python-python-command "python"))
-(if (not (boundp 'python-python-command-args))
-    (setq python-python-command-args ""))
-
 ;; R
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
 (add-to-list 'auto-mode-alist '("\\.r$" . R-mode))
@@ -495,14 +440,3 @@
 
 ;; X
 (add-to-list 'auto-mode-alist '("\\.xrdb$" . xrdb-mode))
-
-;;; Modes to Consider
-
-;; Abbrev
-;; Org
-;; Paredit
-
-
-;;; Auto-generated customizations.
-(custom-set-variables
- '(bmkp-last-as-first-bookmark-file "~/.emacs.bmk"))
