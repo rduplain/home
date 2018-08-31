@@ -336,6 +336,7 @@
 
 ;; CSS
 (require 'less-css-mode)
+(add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
 
 ;; Cappuccino
 (add-to-list 'auto-mode-alist '("\\.j$" . objc-mode))
