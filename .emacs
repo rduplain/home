@@ -335,8 +335,7 @@
 (add-hook 'c++-mode-hook 'flyspell-prog-mode)
 
 ;; CSS
-(require 'less-css-mode)
-(add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
 ;; Cappuccino
 (add-to-list 'auto-mode-alist '("\\.j$" . objc-mode))
