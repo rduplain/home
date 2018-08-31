@@ -368,6 +368,7 @@
 
 ;; HTML
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.vue$" . html-mode))
 (add-hook 'html-mode-hook 'flyspell-prog-mode)
 (add-hook 'html-mode-hook '(lambda ()
                              (auto-fill-mode nil)
