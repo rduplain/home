@@ -180,7 +180,7 @@ Mod4 l :ExecCommand gnome-screensaver-command --lock
 # gnome-do is set to <super>r
 # Mod4 r :ExecCommand ~/bin/fbrun
 # Mod4 s :ExecCommand skype
-# Mod4 t for tilde console, set in .Xresources
+Mod4 t :ExecCommand gedit
 Mod4 u :ExecCommand gnome-dictionary
 # Mod4 v :ExecCommand auto-disper --change
 # Mod4 Mod1 v :ExecCommand nvidia-settings
