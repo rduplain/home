@@ -1,6 +1,0 @@
-#!/bin/bash
-# Kickoff xset-restore-trigger in the background.
-# Fork to prevent deadlock in loading devices.
-
-HOME=${HOME:-/home/rduplain}
-$HOME/bin/xset-restore-udev &

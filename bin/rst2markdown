@@ -1,4 +1,0 @@
-#!/bin/sh
-# Just trying something out...
-
-rst2html.py "$@" | pandoc -f html -w markdown
