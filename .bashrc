@@ -243,7 +243,8 @@ ship DEVKITARM=$DEVKITPRO/devkitARM
 
 export WORKSPACES_RESERVED=5
 
-ship BAK_HOME="$HOME"/.bak
+# Use volume labeled "bak" if mounted, for ~/bin/bak.
+export BAK_HOME="$HOME"/.bak
 ship BAK_HOME="/media/$USER/bak"
 
 # Set locale.
