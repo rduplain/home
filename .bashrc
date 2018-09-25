@@ -202,6 +202,11 @@ for envtool in $ENVTOOLS; do
     fi
 done
 
+# Path management below sets paths for ~/.npm-global.
+# On permissions errors with `npm install -g`, be sure ~/.npmrc is configured:
+#
+#     npm config set prefix '~/.npm-global'
+#
 prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME" "$HOME"/.npm-global
 
 prepend PATH "$HOME"/.cargo/bin # rust
@@ -215,10 +220,10 @@ dedupe_path PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
 export PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
-# Put snagged files from bin/snag in obvious place: home.
+# Put snagged files from ~/bin/snag in an obvious place: home.
 export SNAG_HOME="$HOME"
 
-# Have bin/screen choose opt screen if installed.
+# Have ~/bin/screen choose opt screen if installed.
 ship SCREEN=/usr/bin/screen
 ship SCREEN=/opt/screen/bin/screen
 ship SCREENRC_DEFAULT="$HOME"/.screenrc-default
@@ -231,11 +236,6 @@ append PATH "$GOPATH/bin"
 ship PYTHONSTARTUP="$HOME"/.pythonrc.py
 
 ship R_LIBS_USER="$HOME"/.r
-
-# Path management above sets paths for ~/.npm-global.
-# On permissions errors with `npm install -g`, be sure ~/.npmrc is configured:
-#
-#     npm config set prefix '~/.npm-global'
 
 ship DEVKITPRO=/opt/devkitpro
 ship DEVKITPPC=$DEVKITPRO/devkitPPC
