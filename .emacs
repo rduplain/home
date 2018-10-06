@@ -168,6 +168,7 @@
   (interactive)
   (unless shell (setq shell "/bin/bash"))
   (ansi-term shell))
+
 (global-set-key (kbd "C-z") 'interactive-shell)
 
 
@@ -255,11 +256,8 @@
 ;; Compilation: compile/recompile - great for make files.
 
 ; Provide a keybinding to run the nearest Makefile.
-(global-set-key (kbd "C-x C-a") 'compile)
-; TODO: Consider special make keybindings.
-;(global-set-key (kbd "C-x C-n") 'compile) ; make clean
-;(global-set-key (kbd "C-x C-j") 'compile) ; make flakes
-; or... C-x C-a compiles without asking, and C-x C-n sets a new compile-command.
+; TODO: Provide an interactive workflow for setting the target.
+;       C-x C-a compiles without asking, and C-x C-n sets a new compile-command.
 
 ; Scroll the compilation buffer with new output.
 (setq compilation-scroll-output t)
@@ -337,12 +335,8 @@
 ;; CSS
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
-;; Cappuccino
-(add-to-list 'auto-mode-alist '("\\.j$" . objc-mode))
-(add-hook 'objc-mode-hook 'flyspell-prog-mode)
-
 ;; Common Lisp
-(setq inferior-lisp-program "sbcl") ; default, override with hooks
+(setq inferior-lisp-program "sbcl")
 
 ;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
