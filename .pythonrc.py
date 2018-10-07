@@ -4,12 +4,9 @@ import os
 import sys
 
 def _print_debug(message):
-    """Print debug information to stderr.
-
-    Keyword arguments:
-    message -- message to print.
-    """
-    print >> sys.stderr, message
+    "Print debug information to stderr."
+    sys.stderr.write(message)
+    sys.stderr.write(os.linesep)
 
 # Enable tab completion.
 try:
@@ -48,7 +45,7 @@ del _print_debug
 del sys
 del os
 
-# Reset __vars__ to default, for transparency of rc file.
+# Reset __vars__ to default, to make rc file invisible.
 try:
     del __file__
     __doc__ = None
