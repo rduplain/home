@@ -1,0 +1,17 @@
+#!/bin/sh
+# vncdefault: run vncviewer with configured password and host.
+#
+# Configure password, which sets a ~/.vnc/passwd file:
+#
+#     vncpasswd
+#
+# Configure host:
+#
+#     echo HOSTNAME > ~/.vnc/default
+
+if [ ! -e ~/.vnc/default ]; then
+    echo 'vncdefault: no default found at ~/.vnc/default' >&2
+    exit 1
+fi
+
+exec vncviewer -passwd ~/.vnc/passwd $(cat ~/.vnc/default)
