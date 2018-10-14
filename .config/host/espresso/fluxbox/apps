@@ -5,5 +5,4 @@
 [app] (name=VNC: mocha) (class=Vncviewer)
   [Head]	{1}
   [Position]	(UPPERLEFT)	{0% 0%}
-  [Close]	{yes}
 [end]
