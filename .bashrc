@@ -82,7 +82,7 @@ function source_these() {
     let length=$#-1
     for filename in "${@:1:$length}"; do
         path="$dir/$filename"
-        if [ -e "$path" ]; then
+        if [ -e "$path" ] && [ ! -d "$path" ]; then
             . "$path"
         fi
     done
