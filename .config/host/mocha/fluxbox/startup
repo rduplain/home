@@ -22,7 +22,7 @@ xscreensaver -no-splash &
 nm-applet &
 thunar --daemon &
 gnome-sound-applet &
-dropbox start &
+start-dropbox &
 bash -c 'sleep 10; exec gnome-do' &
 bash -c 'sleep 10; killall update-notifier' &
 bash -c 'sleep 300; killall update-notifier' &
