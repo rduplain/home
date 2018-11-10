@@ -15,6 +15,9 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 
+;; Do not have an initial major mode. Set *scratch* to Fundamental, not Lisp.
+(setq initial-major-mode '(lambda () nil))
+
 ;; Disable useless decorations.
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
