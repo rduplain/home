@@ -6,8 +6,8 @@
 
 (require 'cl)
 
-;; Reader note: I have code in ~/.emacs.d and ~/.quicklisp which are rsync'd to
-;; new machines on clone of $HOME. Note this if you try something and it fails.
+;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced on new and
+;; existing installations. Check this directory when initalization fails.
 
 ;; Use package manager, which sets the load path for all external packages.
 (require 'package)
@@ -43,8 +43,8 @@
 ;; Always use syntax highlighting.
 (global-font-lock-mode 1)
 
-;; If you are using a dark background, set to dark.  Comment out otherwise.
-;; This is essential for rst-mode, where sections & blocks are highlighted.
+;; If using a dark background, set to dark; Comment out otherwise.
+;; Essential for rst-mode, where sections & blocks are highlighted.
 ;; See rst.el for more details.
 (setq frame-background-mode 'dark)
 
