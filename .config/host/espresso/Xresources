@@ -1,4 +1,4 @@
-#include ".xrdb/colors/zenburn-modified.xrdb"
+#include ".xrdb/colors/zenburn.xrdb"
 
 Xcursor.theme: oxy-black
 

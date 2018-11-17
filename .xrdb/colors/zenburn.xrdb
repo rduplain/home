@@ -1,12 +1,13 @@
-#define COLOR_FG                  #dcdccc
-#define COLOR_BG                  #3f3f3f
+/* Based on zenburn, modified to taste. */
+
+#define COLOR_FG                  #dcdcdc
+#define COLOR_BG                  #333333
 
 #define COLOR_TERM_BLACK          COLOR_BG
-!#define COLOR_TERM_DARK_RED       #705050
-#define COLOR_TERM_DARK_RED       #a05050
+#define COLOR_TERM_DARK_RED       #a06060
 #define COLOR_TERM_DARK_GREEN     #60b48a
 #define COLOR_TERM_DARK_YELLOW    #dfaf8f
-#define COLOR_TERM_DARK_BLUE      #506070
+#define COLOR_TERM_DARK_BLUE      #7080a0
 #define COLOR_TERM_DARK_MAGENTA   #dc8cc3
 #define COLOR_TERM_DARK_CYAN      #8cd0d3
 #define COLOR_TERM_LIGHT_GRAY     COLOR_FG
