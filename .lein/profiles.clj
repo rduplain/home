@@ -9,4 +9,4 @@
    [lein-try "0.4.3"]
    [venantius/ultra "0.5.2"]]
   :repl-options {:timeout 300000}}
- :repl {:plugins [[cider/cider-nrepl "0.17.0"]]}}
+ :repl {:plugins [[cider/cider-nrepl "0.18.0"]]}}
