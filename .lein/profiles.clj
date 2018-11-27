@@ -7,6 +7,5 @@
    [lein-ring "0.12.4"]
    [lein-tach "1.0.0"]
    [lein-try "0.4.3"]
-   [venantius/ultra "0.5.2"]]
-  :repl-options {:timeout 300000}}
+   [venantius/ultra "0.5.2"]]}
  :repl {:plugins [[cider/cider-nrepl "0.18.0"]]}}
