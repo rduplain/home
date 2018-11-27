@@ -348,6 +348,9 @@
 (add-hook 'clojure-mode-hook 'show-paren-mode)
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
+(setq cider-lein-parameters
+      "with-profile -user repl :headless :host localhost")
 
 ;; Cucumber/Lettuce
 (require 'feature-mode)
