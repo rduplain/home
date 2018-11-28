@@ -352,7 +352,7 @@
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
 
-;; Cucumber/Lettuce
+;; Cucumber
 (require 'feature-mode)
 (add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode))
 
