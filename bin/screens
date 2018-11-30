@@ -11,6 +11,11 @@ start_screen() {
     local path="$1"
     shift
 
+    if [ ! -e "$path" ]; then
+        echo "screens: path does not exist: $path" >&2
+        return 1
+    fi
+
     path=$(cd $path; pwd)
 
     name=${path##*/}
