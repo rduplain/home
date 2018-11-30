@@ -9,7 +9,7 @@
 ;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced on new and
 ;; existing installations. Check this directory when initalization fails.
 
-;; Use package manager, which sets the load path for all external packages.
+;; Use elpa package manager, which in turn loads its installed packages.
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
@@ -186,7 +186,7 @@
 
 (global-set-key [f5] 'insert-date)
 
-;; Enlarge/shrink windows with ease with Control-6.
+;; Enlarge windows with ease with Control-6.
 (global-set-key [?\C-^] 'enlarge-window)
 
 ;; dos2unix/unix2dos - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
