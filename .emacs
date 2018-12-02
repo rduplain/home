@@ -58,6 +58,10 @@
 ;; Always use syntax highlighting.
 (global-font-lock-mode 1)
 
+;; Always show parentheses, in every mode.
+(show-paren-mode t)
+(setq show-paren-delay 0)
+
 ;; Inform Emacs of a dark color background.
 ;; Essential for modes (e.g. rst-mode) which highlight sections & blocks.
 (setq frame-background-mode 'dark)
@@ -352,7 +356,6 @@
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 
 ;; Clojure
-(add-hook 'clojure-mode-hook 'show-paren-mode)
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 ; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
