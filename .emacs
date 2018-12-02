@@ -1,6 +1,21 @@
 ;;; Emacs configuration for Ron DuPlain.
 ;;;
-;;; GNU Emacs 24
+;;; GNU Emacs 24+
+
+;;; Meta
+
+;; Configure variables.
+;;
+;; setq         - Set variable for all of Emacs.
+;; setq-default - Set default variable, potentially overridden in local buffer.
+;; add-to-list  - Insert a value into a list with a given (symbol) name.
+;; fset         - Override a function with a given (symbol) name.
+;; (function)   - Call a configuration function directly (without setq).
+
+;; Edit .emacs in Emacs.
+;;
+;; C-h o RET    - View doc for symbol at cursor.
+
 
 ;;; Basics
 
@@ -9,7 +24,7 @@
 ;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced on new and
 ;; existing installations. Check this directory when initalization fails.
 
-;; Use elpa package manager, which in turn loads its installed packages.
+;; Use elpa package manager and load all installed packages.
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
@@ -25,7 +40,7 @@
 ;; Disable the menu bar.
 (menu-bar-mode -1)
 
-;; Require a final newline (and prompt if not exists).
+;; Add a final newline automatically on save.
 (setq-default require-final-newline t)
 
 ;; Accept y or n when presented with yes or no.
@@ -43,13 +58,12 @@
 ;; Always use syntax highlighting.
 (global-font-lock-mode 1)
 
-;; If using a dark background, set to dark; Comment out otherwise.
-;; Essential for rst-mode, where sections & blocks are highlighted.
-;; See rst.el for more details.
+;; Inform Emacs of a dark color background.
+;; Essential for modes (e.g. rst-mode) which highlight sections & blocks.
 (setq frame-background-mode 'dark)
 
 ;; Show the column number in addition to the line number.
-(setq-default column-number-mode 1)
+(setq-default column-number-mode t)
 
 ;; Don't just show me buffers, interact!
 (global-set-key "\C-x\C-b" 'electric-buffer-list)
@@ -59,14 +73,14 @@
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 
-;; By default, disable auto-fill-mode.
-(setq-default auto-fill-mode nil)
+;; Disable auto-fill-mode by default.
+(auto-fill-mode -1)
 
 ;; Fill columns at 80 characters.
 (setq-default fill-column 79)
 
 ;; Truncate long lines on partial windows.
-(setq-default truncate-partial-width-windows t)
+(setq truncate-partial-width-windows t)
 
 ;; Remove trailing whitespace before saving files.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -83,8 +97,9 @@
 (require 'bookmark+)
 
 ;; Extend dired.
-(eval-after-load "dired"
-  '(require 'dired-x))
+(add-hook 'dired-load-hook
+          (lambda ()
+            (load "dired-x")))
 
 ; Ignore uninteresting files.
 (add-hook 'dired-mode-hook
@@ -189,7 +204,7 @@
 ;; Enlarge windows with ease with Control-6.
 (global-set-key [?\C-^] 'enlarge-window)
 
-;; dos2unix/unix2dos - http://www.dotemacs.de/dotfiles/BenjaminRutt.emacs.html
+;; Change line endings between Unix and DOS.
 (defun dos2unix ()
   (interactive)
   (goto-char (point-min))
@@ -200,6 +215,9 @@
   (goto-char (point-min))
   (while (search-forward "\n" nil t) (replace-match "\r\n")))
 
+(fset 'todos 'unix2dos)
+(fset 'fromdos 'dos2unix)
+
 
 ;;; Modes - General Purpose
 
@@ -208,8 +226,9 @@
 
 ;; Interactively Do Things, with fuzzy matching enabled.
 (require 'ido)
-(ido-mode t)
+(setq ido-mode 'both) ; both file and buffer.
 (setq ido-enable-flex-matching t)
+(ido-mode 1)
 
 ;; Redo
 (require 'redo+)
@@ -217,7 +236,7 @@
 (global-set-key (kbd "C-\\") 'redo)
 
 ;; Winner, undo and redo window configuration changes.
-(winner-mode t)
+(winner-mode 1)
 (global-set-key (kbd "C-x /") 'winner-undo)
 (global-set-key (kbd "C-x \\") 'winner-redo)
 
@@ -226,6 +245,7 @@
 (setq flymake-start-syntax-check-on-find-file -1)
 
 ;; Flyspell, on-the-fly spellcheck.
+
 ; Keep quiet.
 (setq flyspell-issue-welcome-flag nil)
 (setq flyspell-issue-message-flag nil)
@@ -248,7 +268,7 @@
 
 ;; Drag stuff.
 (require 'drag-stuff)
-(drag-stuff-global-mode t)
+(drag-stuff-global-mode 1)
 (defvar drag-stuff-mode-map (make-sparse-keymap)
   "Keymap for `drag-stuff-mode'.")
 (define-key drag-stuff-mode-map (kbd "M-p") 'drag-stuff-up)
@@ -339,7 +359,7 @@
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
 ;; Common Lisp
-(setq inferior-lisp-program "sbcl")
+(setq-default inferior-lisp-program "sbcl")
 
 ;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
@@ -371,16 +391,15 @@
 (add-to-list 'auto-mode-alist '("\\.vue$" . html-mode))
 (add-hook 'html-mode-hook 'flyspell-prog-mode)
 (add-hook 'html-mode-hook '(lambda ()
-                             (auto-fill-mode nil)
+                             (auto-fill-mode -1)
                              (setq indent-tabs-mode nil)
                              (setq standard-indent 2)
-                             (setq tab-width 2)
-                             (setq sgml-basic-offset 2)))
+                             (setq tab-width 2)))
 
 ;; JavaScript
 (require 'coffee-mode)
 (add-hook 'js-mode-hook '(lambda ()
-                           (setq auto-fill-mode nil)
+                           (auto-fill-mode -1)
                            (setq indent-tabs-mode nil)
                            (setq standard-indent 2)
                            (setq tab-width 2)))
@@ -411,26 +430,24 @@
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
-(add-hook 'ruby-mode-hook '(lambda () (setq standard-indent 2)))
+(add-hook 'ruby-mode-hook '(lambda ()
+                             (setq standard-indent 2)))
 
 ;; Shell
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
 
 ;; Text
-(defun configure-commit-buffer ()
-  (auto-fill-mode 1)
-  (ruler-mode 1)
-  (setq fill-column 72)
-  (setq goal-column nil)
-  (setq comment-column 50))
-
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook
           '(lambda ()
              ; Handle git commit message editing.
-             (if (string= "COMMIT_EDITMSG" (buffer-name))
-                 (configure-commit-buffer))))
+             (when (string= "COMMIT_EDITMSG" (buffer-name))
+               (auto-fill-mode 1)
+               (ruler-mode 1)
+               (setq fill-column 72)
+               (setq goal-column nil)
+               (setq comment-column 50))))
 
 ;; Apache Thrift
 (require 'thrift)
