@@ -106,67 +106,57 @@
           (lambda ()
             (dired-omit-mode 1)))
 
-; Add more uninteresting files.
+; Simplify declaration of patterns to omit in dired.
+(defmacro add-to-dired-omit (&rest expressions)
+  "Append to dired-x regular expression for dired-omit-mode"
+  `(setq dired-omit-files
+         (concat ,dired-omit-files
+                 "\\|"
+                 (mapconcat 'identity ',expressions "\\|"))))
+
 ; Archive files are uninteresting in emacs.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|\\.zip$"))
-
-(setq dired-omit-files
-      (concat dired-omit-files "\\|\\.tar\\.gz$\\|\\.tgz$"))
-
-(setq dired-omit-files
-      (concat dired-omit-files "\\|\\.tar\\.bz$\\|\\.tar\\.bz2$\\|\\.tbz$\\|\\.tbz2$"))
+(add-to-dired-omit "\\.zip$")
+(add-to-dired-omit "\\.tar\\.gz$" "\\.tgz$")
+(add-to-dired-omit "\\.tar\\.bz$" "\\.tar\\.bz2$" "\\.tbz$" "\\.tbz2$")
 
 ; Swap files from vi/vim are uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|\\.sw[op]$"))
+(add-to-dired-omit "\\.sw[op]$")
 
 ; Build output directories are uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^dist$"))
+(add-to-dired-omit "^dist$")
 
 ; Data and database files are uninteresting in emacs.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|\\.dat$\\|\\.sqlite3?$"))
+(add-to-dired-omit "\\.dat$" "\\.sqlite3?$")
+(add-to-dired-omit "\\.db$" "\\.db-journal$")
 
-(setq dired-omit-files
-      (concat dired-omit-files "\\|\\.db$\\|\\.db-journal$"))
+; TODO: WIP, move these to language area below.
 
 ; Python "egg" files are uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|\\.egg$\\|\\.egg-info$"))
+(add-to-dired-omit "\\.egg$" "\\.egg-info$")
 
 ; Python test tool files are uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\.coverage$\\|^\\.tox$"))
+(add-to-dired-omit "^\\.coverage$" "^\\.tox$")
 
 ; Python cache directories are uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|__pycache__$"))
+(add-to-dired-omit "^__pycache__$")
 
 ; Rope project directories are uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\.ropeproject$"))
+(add-to-dired-omit "^\\.ropeproject$")
 
 ; IPython Notebook checkpoints are uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\.ipynb_checkpoints$"))
+(add-to-dired-omit "^\\.ipynb_checkpoints$")
 
 ; Mac OS X clutter is uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\.DS_Store$\\|^__MACOSX$"))
+(add-to-dired-omit "^\\.DS_Store$" "^__MACOSX$")
 
 ; Emacs project files (e.g. desktop) are unintersting in dired.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\.emacs.*$"))
+(add-to-dired-omit "^\\.emacs.*$")
 
 ; Empty target files from make (to record events) are uninteresting.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\.ts-.*$"))
+(add-to-dired-omit "^\\.ts-.*$")
 
 ; Log files are interesting, but not all the time.
-(setq dired-omit-files
-      (concat dired-omit-files "\\|\\.log$"))
+(add-to-dired-omit "\\.log$")
 
 
 ;;; Fixes
