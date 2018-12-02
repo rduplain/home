@@ -234,10 +234,6 @@
 (global-set-key (kbd "C-x /") 'winner-undo)
 (global-set-key (kbd "C-x \\") 'winner-redo)
 
-;; Flymake, on-the-fly compilation & static analysis.
-(setq flymake-no-changes-timeout nil)
-(setq flymake-start-syntax-check-on-find-file -1)
-
 ;; Flyspell, on-the-fly spellcheck.
 
 ; Keep quiet.
