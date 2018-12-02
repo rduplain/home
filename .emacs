@@ -348,9 +348,6 @@
 ;; CSS
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
-;; Common Lisp
-(setq-default inferior-lisp-program "sbcl")
-
 ;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 
