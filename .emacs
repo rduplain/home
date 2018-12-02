@@ -133,21 +133,7 @@
 (add-to-dired-omit "\\.dat$" "\\.sqlite3?$")
 (add-to-dired-omit "\\.db$" "\\.db-journal$")
 
-; TODO: WIP, move these to language area below.
-
-; Python "egg" files are uninteresting.
-(add-to-dired-omit "\\.egg$" "\\.egg-info$")
-
-; Python test tool files are uninteresting.
-(add-to-dired-omit "^\\.coverage$" "^\\.tox$")
-
-; Python cache directories are uninteresting.
-(add-to-dired-omit "^__pycache__$")
-
-; Rope project directories are uninteresting.
-(add-to-dired-omit "^\\.ropeproject$")
-
-; IPython Notebook checkpoints are uninteresting.
+; Jupyter/IPython Notebook checkpoints are uninteresting.
 (add-to-dired-omit "^\\.ipynb_checkpoints$")
 
 ; Mac OS X clutter is uninteresting.
@@ -404,6 +390,9 @@
 ;; Python
 (require 'python)
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
+(add-to-dired-omit "\\.egg$" "\\.egg-info$")
+(add-to-dired-omit "^\\.coverage$" "^\\.tox$")
+(add-to-dired-omit "\\.pyc$" "^__pycache__$")
 
 ;; R
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
