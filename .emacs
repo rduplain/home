@@ -126,8 +126,8 @@
 ; Swap files from vi/vim are uninteresting.
 (add-to-dired-omit "\\.sw[op]$")
 
-; Build output directories are uninteresting.
-(add-to-dired-omit "^dist$")
+; Build output directories are uninteresting (most of the time).
+(add-to-dired-omit "^dist$" "^out$" "^target$")
 
 ; Data and database files are uninteresting in emacs.
 (add-to-dired-omit "\\.dat$" "\\.sqlite3?$")
@@ -147,6 +147,9 @@
 
 ; Log files are interesting, but not all the time.
 (add-to-dired-omit "\\.log$")
+
+; Version control databases are interesting, but not all the time.
+(add-to-dired-omit "^\\.bzr$" "^_darcs$" "^\\.git$" "^\\.hg$")
 
 
 ;;; Fixes
@@ -345,6 +348,8 @@
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
 
+(add-to-dired-omit "^\\.cljs_node_repl$" "^\\.nrepl-port$")
+
 ;; Cucumber
 (require 'feature-mode)
 (add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode))
@@ -377,6 +382,8 @@
                            (setq indent-tabs-mode nil)
                            (setq standard-indent 2)
                            (setq tab-width 2)))
+
+(add-to-dired-omit "^node_modules$")
 
 ;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
