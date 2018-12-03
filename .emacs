@@ -167,8 +167,9 @@
 (defun interactive-shell (&optional shell)
   "Run ansi-term with the given shell, default bash."
   (interactive)
-  (unless shell (setq shell "/bin/bash"))
-  (ansi-term shell))
+  (let ((shell (or shell
+                   "/bin/bash")))
+    (ansi-term shell)))
 
 (global-set-key (kbd "C-z") 'interactive-shell)
 
@@ -179,8 +180,9 @@
 (defun insert-date (&optional insert-date-format)
   "Insert the current date formatted to the given argument."
   (interactive)
-  (unless insert-date-format (setq insert-date-format "%a %b %d %T %Z %Y\n"))
-  (insert (format-time-string insert-date-format)))
+  (let ((insert-date-format (or insert-date-format
+                                "%a %b %d %T %Z %Y\n")))
+    (insert (format-time-string insert-date-format))))
 
 (global-set-key [f5] 'insert-date)
 
