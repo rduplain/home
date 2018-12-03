@@ -191,11 +191,13 @@
 
 ;; Change line endings between Unix and DOS.
 (defun dos2unix ()
+  "Change line endings of current buffer from DOS to Unix."
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
 
 (defun unix2dos ()
+  "Change line endings of current buffer from Unix to DOS."
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\n" nil t) (replace-match "\r\n")))
