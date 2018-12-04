@@ -271,66 +271,11 @@
 ; Do not ask for the make command to run. This is set with the hook below.
 (setq compilation-read-command nil)
 
-; get-closest-pathname - to find the project make file.
-; http://www.emacswiki.org/emacs/CompileCommand
-(defun* get-closest-pathname (filename)
-  "Determine the pathname of the first instance of FILE starting from the
-  current directory towards root. This may not do the correct thing in presence
-  of links. If it does not find FILE, then it shall return the name of FILE in
-  the current directory, suitable for creation"
-  (let ((root (expand-file-name "/"))) ; win32 builds should translate
-    (expand-file-name filename
-                      (loop
-                       for d = default-directory then (expand-file-name ".." d)
-                       if (file-exists-p (expand-file-name filename d))
-                       return d
-                       if (equal d root)
-                       return nil))))
-
-; Set compile-command to run on the nearest Makefile.
-(defun use-nearest-makefile ()
-  ; Compile using the nearest Makefile
-  ; NOTE this only looks for Makefile, not makefile.
-  (set (make-local-variable 'compile-command)
-       ; Making "make -f %s" work across working directories is hard.
-       ; Using "make -C %s" changes directories on make, works well.
-       (format "make -C %s" (file-name-directory
-                             (get-closest-pathname "Makefile")))))
-
-(defun arduino-compile ()
-  (interactive)
-  (compile (format "make -f %s" (get-closest-pathname "Makefile"))))
-
-(defun arduino-upload ()
-  (interactive)
-  (compile (format "make -f %s upload" (get-closest-pathname "Makefile"))))
-
-; Set the compile-command for each buffer, in lieu of using compilation modes.
-; Why? compilation modes have keymaps which override common key bindings.
-(add-hook 'after-change-major-mode-hook
-          '(lambda ()
-             (let ((target (file-name-sans-extension (buffer-name)))
-                   (extension (file-name-extension (buffer-name))))
-               (cond
-                ; Arduino
-                ((string= "pde" extension)
-                 (set (make-local-variable 'compile-command)
-                      (format "make -f %s"
-                              (get-closest-pathname "Makefile")))
-                 (global-set-key (kbd "C-x C-a") 'arduino-compile)
-                 (global-set-key (kbd "C-x C-u") 'arduino-upload))
-                ; otherwise
-                (t
-                 (use-nearest-makefile))))))
-
+(global-set-key (kbd "C-x C-a") 'compile)
 
 ;;; Modes - Programming Languages, Formats, & Frameworks
 ;;;
 ;;; Many language modes just work and are omitted here.
-
-;; Arduino
-; See more Arduino customizations in compile-command settings.
-(add-to-list 'auto-mode-alist '("\\.pde$" . c++-mode))
 
 ;; C
 (add-hook 'c-mode-hook 'flyspell-prog-mode)
