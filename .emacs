@@ -19,8 +19,6 @@
 
 ;;; Basics
 
-(require 'cl)
-
 ;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced on new and
 ;; existing installations. Check this directory when initalization fails.
 
