@@ -206,6 +206,19 @@
 (fset 'fromdos 'dos2unix)
 
 
+;;; Modes - Utilities to Support Configuration
+
+(defun dominating-file (filename)
+  "Provide filepath of dominating file, or nil, walking up directory tree."
+  (let ((directory (locate-dominating-file "." filename)))
+    (when directory
+      (concat (file-name-as-directory directory) filename))))
+
+(defun dominating-directory (filename)
+  "Provide directory of dominating file, or ., walking up directory tree."
+  (or (locate-dominating-file "." filename) "."))
+
+
 ;;; Modes - General Purpose
 
 ;; Set the default mode to Text.
@@ -257,13 +270,7 @@
 (define-key drag-stuff-mode-map (kbd "M-p") 'drag-stuff-up)
 (define-key drag-stuff-mode-map (kbd "M-n") 'drag-stuff-down)
 
-;;; Programming Tools
-
-;; Compilation: compile/recompile - great for make files.
-
-; Provide a keybinding to run the nearest Makefile.
-; TODO: Provide an interactive workflow for setting the target.
-;       C-x C-a compiles without asking, and C-x C-n sets a new compile-command.
+;; Compilation: compile/recompile when using a Makefile.
 
 ; Scroll the compilation buffer with new output.
 (setq compilation-scroll-output t)
@@ -272,6 +279,13 @@
 (setq compilation-read-command nil)
 
 (global-set-key (kbd "C-x C-a") 'compile)
+
+; Set compile-command to run on the nearest Makefile.
+(add-hook 'after-change-major-mode-hook
+          '(lambda ()
+             (set (make-local-variable 'compile-command)
+                  (format "make -C %s" (dominating-directory "Makefile")))))
+
 
 ;;; Modes - Programming Languages, Formats, & Frameworks
 ;;;
