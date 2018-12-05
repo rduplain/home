@@ -19,8 +19,8 @@
 
 ;;; Basics
 
-;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced on new and
-;; existing installations. Check this directory when initalization fails.
+;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced separately
+;; between installations. Check this directory when initalization fails.
 
 ;; Use elpa package manager and load all installed packages.
 (require 'package)
@@ -403,3 +403,10 @@
 
 ;; X
 (add-to-list 'auto-mode-alist '("\\.xrdb$" . xrdb-mode))
+
+
+;;; M-x customize
+
+;; Manage custom-set-variables and custom-set-faces in a separate file.
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror)
