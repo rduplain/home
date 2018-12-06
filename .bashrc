@@ -133,28 +133,27 @@ function omit_home() {
 
 # PATH Management
 #
+# Support multiple hosts with the same .bashrc file, loading each PATH variable
+# but only with entries which exist on the filesystem.
+#
+# Implementation note:
+#
 # On each shell invocation, each :-delimited path variable is populated with
-# filepaths of interest, using prepend/append functions from functions.bash,
-# and later ensuring no duplicates (without losing order) with the dedupe_paths
-# function (also from functions.bash). This approach ensures a clean set of
-# variables free of any entries which do not exist (though directories removed
-# prior to invocation of a subshell may remain at low priority in the path) and
-# free of any duplicate entries. Performing this on each shell invocation
-# ensures that any wildcard paths will pick up new changes
-# (e.g. /opt). Existing shells can update paths with the rehash function.
+# filepaths of interest, using `prepend`/`append` functions from
+# functions.bash, and later ensuring no duplicates (without losing order) with
+# the `dedupe_paths` function (also from functions.bash). This approach ensures
+# a clean set of PATH variables free of any entries which do not exist (though
+# directories removed prior to invocation of child interactive shell may remain
+# at low priority in the path) and free of any duplicate entries. Perform this
+# on each shell invocation instead of caching results, as to pick up any new
+# paths. Existing shells can update paths with the rehash function.
 #
-# In other words, multiple hosts can load the same config without loading
-# spurious entries into their paths
-#
-# Runtime modifications to paths will be overridden on subshells which source
+# Runtime modifications to paths will be overridden when the shell sources
 # .bashrc. Most of the time, this is the desired behavior. When specific
-# modifications are needed, the simplest approaches are to (a) `prepend PATH`
-# in the directory of interest for temporary path changes and to (b) create a
-# local .bashrc file for project-level changes to paths so that new shell
-# invocations in the project directory -- typically through windows in GNU
-# screen or tmux -- will have the intended environment. Using a project-level
-# .bashrc or .env file (see `source_these` in this .bashrc) is repeatable and
-# automated.
+# modifications are needed, create a local .bashrc or .env file. Windows in GNU
+# screen or tmux will create shells with working directories inside the
+# project, and this .bashrc will find the project-local configuration files.
+# See `source_these` in this .bashrc.
 
 function prepend_paths() {
     # Given root filepath(s) (LIFO), prepend all path variables of interest.
