@@ -276,13 +276,32 @@
 ; Do not ask for the make command to run. This is set with the hook below.
 (setq compilation-read-command nil)
 
-(global-set-key (kbd "C-x C-a") 'compile)
+; Support a configurable `make` recipe, global for all buffers.
+(defvar compile-command-recipe nil "make recipe")
 
-; Set compile-command to run on the nearest Makefile.
-(add-hook 'after-change-major-mode-hook
-          '(lambda ()
-             (set (make-local-variable 'compile-command)
-                  (format "make -C %s" (dominating-directory "Makefile")))))
+; Define a function to interactively configure `make` recipe.
+(defun compile-set-command-recipe (recipe)
+  "Interactively set the value of compile-command-recipe for all buffers."
+  (interactive "smake recipe: ")
+  (setq compile-command-recipe recipe))
+
+; Set a global key to set `make` recipe.
+(global-set-key (kbd "C-x M-a") 'compile-set-command-recipe)
+
+; Define wrapper function for `compile` to set its command just in time.
+(defun compile-with-config ()
+  "Set a compile command just in time and run Emacs `compile`.
+
+  Run the Emacs `compile` command with `make` against the nearest
+  Makefile using the recipe interactively set with `C-x M-a`."
+  (interactive)
+  (let ((command (format "make -C %s %s"
+                         (dominating-directory "Makefile")
+                         (or compile-command-recipe ""))))
+    (compile command)))
+
+; Set a global key for compilation, in all modes.
+(global-set-key (kbd "C-x C-a") 'compile-with-config)
 
 
 ;;; Modes - Programming Languages, Formats, & Frameworks
