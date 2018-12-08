@@ -163,9 +163,10 @@
 
 ;; Bind to shell instead of suspending.
 (defun interactive-shell (&optional shell)
-  "Run ansi-term with the given shell, default bash."
+  "Run ansi-term with the given shell, default $SHELL, falling back to bash."
   (interactive)
   (let ((shell (or shell
+                   (getenv "SHELL")
                    "/bin/bash")))
     (ansi-term shell)))
 
