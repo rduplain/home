@@ -394,6 +394,7 @@
 ;; Ruby
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.simplecov$" . ruby-mode))
 (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
 (add-hook 'ruby-mode-hook '(lambda ()
                              (setq standard-indent 2)))
