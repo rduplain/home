@@ -1,5 +1,6 @@
 #!/bin/bash
-# snag stdin, put it into a common file area, optionally using file extension
+# Snag stdin, put it into a common file area, optionally using file extension.
+#
 # usage: snag [file-extension]
 # example: svn diff | snag .patch
 #

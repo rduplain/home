@@ -1,5 +1,4 @@
 #!/bin/sh
-# Original recipe from Kai Groner <kai@gronr.com>.
 
 homegit="git --git-dir=$HOME/.homegit --work-tree=$HOME"
 

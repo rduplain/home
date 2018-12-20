@@ -1,5 +1,6 @@
 #!/bin/bash
-# Wrap GNU screen.  Extends to:
+# Wrap GNU screen. Extend screen to:
+#
 # * prefer .screenrc-$USER or .screenrc in $PWD before $HOME/.screenrc.
 # * default the sessionname to the basename of $PWD.
 
@@ -13,7 +14,7 @@ SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}" # project default
 # SCREENRC is configuring what GNU screen calls it's rc file.
 #
 # Below, you'll see that this wrapper looks for a project-local .screenrc which
-# is expected to source $HOME/.screenrc.  If no local .screenrc is found, use
+# is expected to source $HOME/.screenrc. If no local .screenrc is found, use
 # $SCREENRC_DEFAULT, which is $HOME/.screenrc, unless you set the
 # SCREENRC_DEFAULT env variable to some rc file which provides a nice set of
 # windows which you'd like to have on each project.
