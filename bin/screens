@@ -1,4 +1,8 @@
 #!/bin/bash -li
+# Start a screen session in the background.
+#
+# When given an argument, start a screen session in the given directory.
+# Without an argument, start a screen session for every filepath in ~/.screens.
 
 conf="$HOME"/.screens
 screen="$HOME/bin/screen -s -/bin/bash"
