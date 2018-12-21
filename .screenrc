@@ -104,22 +104,16 @@ term 'screen'
 
 # All remaining lines in this file are selected from Ubuntu's /etc/screenrc.
 
-# The vt100 description does not mention "dl". *sigh*
+# The vt100 description does not mention "dl".
 termcapinfo vt100 dl=5\E[M
 
-# Set the hardstatus prop on gui terms to set the titlebar/icon title
+# Set the hardstatus prop on GUI terminals to set the titlebar/icon title.
 termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
 
-# set these terminals up to be 'optimal' instead of vt100
+# Set these terminals to be 'optimal' instead of vt100.
 termcapinfo xterm*|linux*|rxvt*|Eterm* OP
 
-# Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
-# (This fixes the "Aborted because of window size change" konsole symptoms found
-#  in bug #134198)
-termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
-
-# To get screen to add lines to xterm's scrollback buffer, uncomment the
-# following termcapinfo line which tells xterm to use the normal screen buffer
-# (which has scrollback), not the alternate screen buffer.
-#
+# To get screen to add lines to xterm's scrollback buffer, the following
+# termcapinfo line has xterm use the normal screen buffer (which has
+# scrollback), not the alternate screen buffer.
 termcapinfo xterm|xterms|xs|rxvt ti@:te@
