@@ -25,7 +25,7 @@ thunar --daemon &
 pnmixer &
 start-dropbox &
 bash -c 'sleep 5; killall gnome-screensaver' &
-bash -c 'sleep 10; exec gnome-do' &
+bash -c 'sleep 10; exec gnome-do >/dev/null 2>&1' &
 bash -c 'sleep 10; killall update-notifier' &
 bash -c 'sleep 300; killall update-notifier' &
 xscreensaver-watch &

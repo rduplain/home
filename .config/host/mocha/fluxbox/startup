@@ -23,7 +23,7 @@ nm-applet &
 thunar --daemon &
 gnome-sound-applet &
 start-dropbox &
-bash -c 'sleep 10; exec gnome-do' &
+bash -c 'sleep 10; exec gnome-do >/dev/null 2>&1' &
 bash -c 'sleep 10; killall update-notifier' &
 bash -c 'sleep 300; killall update-notifier' &
 xscreensaver-watch &

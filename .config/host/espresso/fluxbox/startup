@@ -25,7 +25,7 @@ bash -c 'sleep 1; exec parcellite' &
 bash -c 'sleep 1; exec xfce4-power-manager --no-daemon' &
 
 gnome-screensaver-watch &
-bash -c 'sleep 10; exec gnome-do' &
+bash -c 'sleep 10; exec gnome-do >/dev/null 2>&1' &
 screens &
 
 notice `uname -n` fluxbox is starting
