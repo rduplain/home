@@ -1,4 +1,7 @@
 {:aliases
  {:1.8 {:override-deps {org.clojure/clojure {:mvn/version "1.8.0"}}}
   :1.9 {:override-deps {org.clojure/clojure {:mvn/version "1.9.0"}}}
-  :1.10 {:override-deps {org.clojure/clojure {:mvn/version "1.10.0"}}}}}
+  :1.10 {:override-deps {org.clojure/clojure {:mvn/version "1.10.0"}}}
+
+  :outdated {:extra-deps {olical/depot {:mvn/version "RELEASE"}}
+             :main-opts ["-m" "depot.outdated.main"]}}}
