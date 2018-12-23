@@ -3,5 +3,8 @@
   :1.9 {:override-deps {org.clojure/clojure {:mvn/version "1.9.0"}}}
   :1.10 {:override-deps {org.clojure/clojure {:mvn/version "1.10.0"}}}
 
+  :cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.10.439"}}
+         :main-opts ["-m" "cljs.main"]}
+
   :outdated {:extra-deps {olical/depot {:mvn/version "RELEASE"}}
              :main-opts ["-m" "depot.outdated.main"]}}}
