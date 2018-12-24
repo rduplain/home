@@ -352,19 +352,19 @@
 (add-hook 'html-mode-hook 'flyspell-prog-mode)
 (add-hook 'html-mode-hook '(lambda ()
                              (auto-fill-mode -1)
-                             (setq indent-tabs-mode nil)
-                             (setq standard-indent 2)
-                             (setq tab-width 2)))
+                             (setq-local indent-tabs-mode nil)
+                             (setq-local standard-indent 2)
+                             (setq-local tab-width 2)))
 
 ;; JavaScript
 (require 'coffee-mode)
 
 (defun javascript-settings ()
   (auto-fill-mode -1)
-  (setq indent-tabs-mode nil)
-  (setq standard-indent 2)
-  (setq js-indent-level 2)
-  (setq tab-width 2))
+  (setq-local indent-tabs-mode nil)
+  (setq-local standard-indent 2)
+  (setq-local js-indent-level 2)
+  (setq-local tab-width 2))
 
 (add-hook 'js-mode-hook 'javascript-settings)
 (add-hook 'json-mode-hook 'javascript-settings)
@@ -402,7 +402,7 @@
 (add-to-list 'auto-mode-alist '("\\.simplecov$" . ruby-mode))
 (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
 (add-hook 'ruby-mode-hook '(lambda ()
-                             (setq standard-indent 2)))
+                             (setq-local standard-indent 2)))
 
 ;; Shell
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
@@ -416,9 +416,9 @@
              (when (string= "COMMIT_EDITMSG" (buffer-name))
                (auto-fill-mode 1)
                (ruler-mode 1)
-               (setq fill-column 72)
-               (setq goal-column nil)
-               (setq comment-column 50))))
+               (setq-local fill-column 72)
+               (setq-local goal-column nil)
+               (setq-local comment-column 50))))
 
 ;; Apache Thrift
 (require 'thrift)
