@@ -358,11 +358,16 @@
 
 ;; JavaScript
 (require 'coffee-mode)
-(add-hook 'js-mode-hook '(lambda ()
-                           (auto-fill-mode -1)
-                           (setq indent-tabs-mode nil)
-                           (setq standard-indent 2)
-                           (setq tab-width 2)))
+
+(defun javascript-settings ()
+  (auto-fill-mode -1)
+  (setq indent-tabs-mode nil)
+  (setq standard-indent 2)
+  (setq js-indent-level 2)
+  (setq tab-width 2))
+
+(add-hook 'js-mode-hook 'javascript-settings)
+(add-hook 'json-mode-hook 'javascript-settings)
 
 (add-to-dired-omit "^node_modules$")
 
