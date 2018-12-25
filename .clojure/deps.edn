@@ -6,5 +6,8 @@
   :cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.10.439"}}
          :main-opts ["-m" "cljs.main"]}
 
+  :repl-node {:extra-deps {org.clojure/clojurescript {:mvn/version "1.10.439"}}
+              :main-opts ["-m" "cljs.main" "--repl-env" "node"]}
+
   :outdated {:extra-deps {olical/depot {:mvn/version "RELEASE"}}
              :main-opts ["-m" "depot.outdated.main"]}}}
