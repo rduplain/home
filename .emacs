@@ -141,7 +141,7 @@
 (add-to-dired-omit "^\\.emacs.*$")
 
 ; Empty target files from make (to record events) are uninteresting.
-(add-to-dired-omit "^\\.ts-.*$")
+(add-to-dired-omit "^\\.ts-.*$" "^\\..*-install")
 
 ; Log files are interesting, but not all the time.
 (add-to-dired-omit "\\.log$")
