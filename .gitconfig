@@ -1,13 +1,13 @@
 [color]
 	ui = auto
-[user]
-	email = ron.duplain@gmail.com
-	name = Ron DuPlain
-[push]
-	default = matching
 [core]
 	excludesfile = /home/rduplain/.gitignore
 [fetch]
 	prune = true
+[push]
+	default = matching
 [rebase]
 	autosquash = true
+[user]
+	email = ron.duplain@gmail.com
+	name = Ron DuPlain
