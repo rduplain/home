@@ -6,8 +6,8 @@ OnTitlebar Mouse1         :MacroCmd {Focus} {Raise} {ActivateTab}
 OnTitlebar Mouse2         :StartTabbing
 OnTitlebar Mouse3         :WindowMenu
 OnTitlebar Move1          :StartMoving
-OnToolbar Mouse8          :PrevWorkspace
-OnToolbar Mouse9          :NextWorkspace
+OnToolbar Mouse8          :ExecCommand workspace prev
+OnToolbar Mouse9          :ExecCommand workspace next
 OnWindow Mod1 Mouse1      :MacroCmd {Raise} {Focus} {StartMoving}
 OnWindow Mod1 Mouse2      :MacroCmd {Raise} {Focus} {WindowMenu}
 OnWindow Mod1 Mouse3      :MacroCmd {Raise} {Focus} {StartResizing BottomRight}
