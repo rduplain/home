@@ -62,8 +62,6 @@ Control Mod4 Mod1 Left   :TakeToPrevWorkspace
 
 Mod4 Right               :ExecCommand workspace next
 Mod4 Left                :ExecCommand workspace prev
-Control Mod4 Right       :ExecCommand workspace take 1
-Control Mod4 Left        :ExecCommand workspace take -1
 
 Mod4 equal               :ExecCommand workspace add
 Mod4 minus               :ExecCommand workspace remove
@@ -181,6 +179,13 @@ Control Mod4 l         :MoveTo    0    * Right
 Control Mod4 u         :MoveTo    0    0 UpperLeft
 Control Mod4 i         :MoveTo    *    0 Upper
 Control Mod4 o         :MoveTo    0    0 UpperRight
+
+
+## Nudge Position ##
+Control Mod4 Right     :MoveRight 8
+Control Mod4 Left      :MoveLeft 8
+Control Mod4 Up        :MoveUp 8
+Control Mod4 Down      :MoveDown 8
 
 
 ## Size Presets ##
