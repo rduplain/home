@@ -1,9 +1,9 @@
 [color]
-	ui = auto
+    ui = auto
 [core]
-	excludesfile = /home/rduplain/.gitignore
+    excludesfile = /home/rduplain/.gitignore
 [fetch]
-	prune = true
+    prune = true
 [gc]
     pruneexpire = now
     reflogexpire = 0
@@ -11,9 +11,9 @@
     rerereresolved = 0
     rerereunresolved = 0
 [push]
-	default = matching
+    default = matching
 [rebase]
-	autosquash = true
+    autosquash = true
 [user]
-	email = ron.duplain@gmail.com
-	name = Ron DuPlain
+    email = ron.duplain@gmail.com
+    name = Ron DuPlain
