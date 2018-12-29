@@ -4,6 +4,12 @@
 	excludesfile = /home/rduplain/.gitignore
 [fetch]
 	prune = true
+[gc]
+    pruneexpire = now
+    reflogexpire = 0
+    reflogexpireunreachable = 0
+    rerereresolved = 0
+    rerereunresolved = 0
 [push]
 	default = matching
 [rebase]
