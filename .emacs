@@ -370,7 +370,7 @@
 (add-hook 'js-mode-hook 'javascript-settings)
 (add-hook 'json-mode-hook 'javascript-settings)
 
-(add-to-dired-omit "^node_modules$")
+(add-to-dired-omit "^node_modules$" "^package-lock\\.json$")
 
 ;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
