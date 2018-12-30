@@ -329,7 +329,8 @@
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
 
-(add-to-dired-omit "^\\.cljs_node_repl$" "^\\.cpcache" "^\\.nrepl-port$")
+(add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$")
+(add-to-dired-omit "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
 
 ;; Cucumber
 (require 'feature-mode)
