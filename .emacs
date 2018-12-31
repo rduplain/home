@@ -252,7 +252,7 @@
 ; Highlight only when near cursor.
 (setq flyspell-persistent-highlight nil)
 
-; Override default key-binding.
+; Override default key binding.
 (setq flyspell-use-meta-tab nil)
 (global-unset-key [?\M-s])
 (setq flyspell-auto-correct-binding [?\M-s])
