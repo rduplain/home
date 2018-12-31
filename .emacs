@@ -1,6 +1,6 @@
 ;;; Emacs configuration for Ron DuPlain.
 ;;;
-;;; GNU Emacs 24+
+;;; GNU Emacs 24.4+
 
 ;;; Meta
 
@@ -218,6 +218,34 @@
   "Provide directory of dominating file, or ., walking up directory tree."
   (or (locate-dominating-file "." filename) "."))
 
+(defun file-string (filepath)
+  "Read the contents of a file and return as a string."
+  (when filepath
+    (with-temp-buffer
+      (insert-file-contents filepath)
+      (buffer-string))))
+
+(defun on-keyword (fn filepath &rest keywords)
+  "Apply fn to keywords found when searching keywords in a given file."
+  (when filepath
+    (let* ((pattern (string-join keywords "\\|"))
+           (command (format "grep -e '%s' -o %s" pattern filepath))
+           (result (string-trim (shell-command-to-string command))))
+      (unless (string= "" result)
+        (funcall fn (split-string result "\n"))))))
+
+(defun sniff (filepath &rest keywords)
+  "Return the first keyword found when searching keywords in a given file."
+  (apply 'on-keyword 'car filepath keywords))
+
+(defun tcp-listening (port)
+  "Return non-nil if a process is listening on localhost for given TCP port."
+  (let ((proc (ignore-errors
+                (open-network-stream "tcp-listening" nil "localhost" port))))
+    (when proc
+      (process-send-eof proc)
+      t)))
+
 
 ;;; Modes - General Purpose
 
@@ -304,6 +332,82 @@
 
 ; Set a global key for compilation, in all modes.
 (global-set-key (kbd "C-x C-a") 'compile-with-config)
+
+
+;;; Modes - Configure a REPL based on project files.
+
+; Define zero-configuration command to run Emacs-integrated REPL, if available.
+(defun run-repl ()
+  "Run an Emacs-integrated REPL, if available, based on project files."
+  (interactive)
+  (cond ((dominating-file "shadow-cljs.edn")
+         (run-repl-rebind-to-cider)
+         (setq cider-preferred-build-tool 'shadow-cljs)
+         (setq cider-shadow-cljs-global-options "--force-spawn")
+         (let ((keywords '(":node-script")))
+           (pcase (apply 'sniff (dominating-file "shadow-cljs.edn") keywords)
+
+             (":node-script"
+              (unless nrepl-connected-hook-added
+                (add-hook 'nrepl-connected-hook
+                          '(lambda ()
+                             (message "Starting node-repl ...")
+                             (cider-interactive-eval
+                              "(do (require '[shadow.cljs.devtools.api])
+                                   (shadow.cljs.devtools.api/node-repl))")))
+                (setq nrepl-connected-hook-added t))
+              (cider-jack-in `()))
+
+             (_ (error "No REPL. Update ~/.emacs for this shadow-cljs.edn.")))))
+
+        ((dominating-file ".nrepl-port")
+         (if (thread-first
+                 (dominating-file ".nrepl-port")
+               (file-string)
+               (string-to-number)
+               (tcp-listening))
+             (let ((host "localhost")
+                   (port (file-string (dominating-file ".nrepl-port"))))
+               (run-repl-rebind-to-cider)
+               (cider-connect `(:host ,host :port ,port)))
+           (error "Unable to connect to nREPL server with .nrepl-port file.")))
+
+        ((dominating-file "build.boot")
+         (run-repl-rebind-to-cider)
+         (cider-jack-in `()))
+
+        ((dominating-file "project.clj")
+         (run-repl-rebind-to-cider)
+         (cider-jack-in `()))
+
+        (t (error "No REPL. Update ~/.emacs to support this project."))))
+
+; Track whether hook was added to nrepl-connected-hook.
+(unless (boundp 'nrepl-connected-hook-added)
+  (setq nrepl-connected-hook-added nil))
+
+; Dynamically reconfigure REPL key binding.
+(setq run-repl-kbd-str "C-x C-z")
+(setq run-repl-kbd (kbd run-repl-kbd-str))
+(setq run-repl-reset-kbd (kbd "C-x M-z"))
+
+(defun run-repl-rebind-default ()
+  (global-set-key run-repl-kbd 'run-repl))
+
+(defun run-repl-rebind-to-cider ()
+  (global-set-key run-repl-kbd 'cider-switch-to-repl-buffer))
+
+; Set a global key for REPL, in all modes.
+(run-repl-rebind-default)
+
+; Provide an alternate key binding to restore default `run-repl` key binding.
+(defun run-repl-reset ()
+  "Reset 'run-repl key binding (since it rebinds itself to the new REPL)."
+  (interactive)
+  (run-repl-rebind-default)
+  (message "Reset 'run-repl key binding: %s" run-repl-kbd-str))
+
+(global-set-key run-repl-reset-kbd 'run-repl-reset)
 
 
 ;;; Modes - Programming Languages, Formats, & Frameworks
