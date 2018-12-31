@@ -160,6 +160,7 @@
 
 ;; Disable suspend.
 (global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
 
 ;; Bind to shell instead of suspending.
 (defun interactive-shell (&optional shell)
