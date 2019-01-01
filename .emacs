@@ -91,7 +91,6 @@
 ;;; Extensions
 
 ;; Use magit for git interactions.
-(require 'magit)
 (global-set-key "\C-xg" 'magit-status)
 (add-hook 'magit-log-edit-mode-hook 'configure-commit-buffer)
 
@@ -437,10 +436,6 @@
 (add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$")
 (add-to-dired-omit "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
 
-;; Cucumber
-(require 'feature-mode)
-(add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode))
-
 ;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
@@ -463,8 +458,6 @@
                              (setq-local tab-width 2)))
 
 ;; JavaScript
-(require 'coffee-mode)
-
 (defun javascript-settings ()
   (auto-fill-mode -1)
   (setq-local indent-tabs-mode nil)
@@ -487,7 +480,6 @@
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 ;; Python
-(require 'python)
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 (add-to-dired-omit "\\.egg$" "\\.egg-info$")
 (add-to-dired-omit "^\\.coverage$" "^\\.tox$")
@@ -527,7 +519,6 @@
                (setq-local comment-column 50))))
 
 ;; Apache Thrift
-(require 'thrift)
 (add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
 
 ;; XML
