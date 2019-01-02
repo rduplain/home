@@ -201,6 +201,10 @@ for envtool in $ENVTOOLS; do
     fi
 done
 
+if command_exists opam; then
+    eval $(opam env) # ocaml
+fi
+
 # Path management below sets paths for ~/.npm-global.
 # On permissions errors with `npm install -g`, be sure ~/.npmrc is configured:
 #

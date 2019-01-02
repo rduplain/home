@@ -479,6 +479,10 @@
 ;; Markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
+;; OCaml
+(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el" 'noerror)
+
+
 ;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 (add-to-dired-omit "\\.egg$" "\\.egg-info$")
