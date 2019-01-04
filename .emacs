@@ -226,6 +226,25 @@
       (insert-file-contents filepath)
       (buffer-string))))
 
+(defun filter (pred coll)
+  "Return list of items in coll for which pred returns true."
+  (let ((null-item (gensym)))
+    (delete null-item
+            (mapcar (lambda (item)
+                      (if (funcall pred item)
+                          item
+                        null-item))
+                    coll))))
+
+(defun find-buffer (regexp)
+  "Find existing buffer with name matching regular expression"
+  (car
+   (filter 'identity
+           (mapcar (lambda (buffer)
+                     (when (string-match regexp (buffer-name buffer))
+                       buffer))
+                   (buffer-list)))))
+
 (defun on-keyword (fn filepath &rest keywords)
   "Apply fn to keywords found when searching keywords in a given file."
   (when filepath
@@ -434,6 +453,27 @@
 ; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
+
+(defun clear-cider-repl ()
+  "Clear CIDER REPL buffer, callable from any buffer."
+  (interactive)
+  (when-let ((cider-repl
+              (find-buffer "^\\*cider-repl.*$")))
+    (with-current-buffer cider-repl
+      (ignore-errors
+        (cider-repl-clear-buffer)))))
+
+; Set key binding to clear the CIDER REPL from a Clojure buffer.
+(add-hook 'clojure-mode-hook
+          '(lambda ()
+             (local-set-key (kbd "C-c l") 'clear-cider-repl)))
+
+; Set key binding to clear the CIDER REPL from the CIDER REPL.
+(add-hook 'cider-repl-mode-hook
+          '(lambda ()
+             (define-key cider-repl-mode-map
+               (kbd "C-c l")
+               'cider-repl-clear-buffer)))
 
 (add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$")
 (add-to-dired-omit "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
