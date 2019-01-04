@@ -355,7 +355,7 @@
                              (message "Starting node-repl ...")
                              (cider-interactive-eval
                               "(do (require '[shadow.cljs.devtools.api])
-                                   (shadow.cljs.devtools.api/node-repl))")))
+                                   (shadow.cljs.devtools.api/node-repl :app))")))
                 (setq nrepl-connected-hook-added t))
               (cider-jack-in `()))
 
