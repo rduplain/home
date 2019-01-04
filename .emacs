@@ -207,6 +207,8 @@
 
 ;;; Modes - Utilities to Support Configuration
 
+(require 'subr-x)
+
 (defun dominating-file (filename)
   "Provide filepath of dominating file, or nil, walking up directory tree."
   (let ((directory (locate-dominating-file "." filename)))
