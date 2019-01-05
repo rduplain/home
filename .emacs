@@ -88,6 +88,17 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
+;;; Desktop - Save & Restore Sessions
+
+(setq desktop-auto-save-timeout -1
+      desktop-base-file-name ".emacs.desktop"
+      desktop-load-locked-desktop t
+      desktop-path '(".")
+      desktop-save 'if-exists)
+
+(desktop-save-mode 1)
+
+
 ;;; Extensions
 
 ;; Use magit for git interactions.
