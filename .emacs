@@ -387,7 +387,7 @@
 
 ;;; Modes - Configure a REPL based on project files.
 
-; Define zero-configuration command to run Emacs-integrated REPL, if available.
+;; Define zero-configuration command to run available Emacs-integrated REPL.
 (defun run-repl ()
   "Run an Emacs-integrated REPL, if available, based on project files."
   (interactive)
@@ -430,7 +430,7 @@
 
    (t (error "No REPL. Update ~/.emacs to support this project."))))
 
-; Track whether hook was added to nrepl-connected-hook.
+;; Track whether hook was added to nrepl-connected-hook.
 (unless (boundp 'repl-hook-added?)
   (setq repl-hook-added? nil))
 
@@ -451,7 +451,7 @@
              ((src-path (project-path-from "shadow-cljs.edn" "src")))
            (cider-load-all-files-clj-cljc src-path)))))))
 
-; Dynamically reconfigure REPL key binding.
+;; Dynamically reconfigure REPL key binding.
 (setq run-repl-kbd-str "C-x C-z"
       run-repl-kbd (kbd run-repl-kbd-str)
       run-repl-reset-kbd (kbd "C-x M-z"))
@@ -462,10 +462,10 @@
 (defun run-repl-rebind-to-cider ()
   (global-set-key run-repl-kbd 'cider-switch-to-repl-buffer))
 
-; Set a global key for REPL, in all modes.
+;; Set a global key for REPL, in all modes.
 (run-repl-rebind-default)
 
-; Provide an alternate key binding to restore default `run-repl` key binding.
+;; Provide an alternate key binding to restore default `run-repl` key binding.
 (defun run-repl-reset ()
   "Reset 'run-repl key binding (since it rebinds itself to the new REPL)."
   (interactive)
