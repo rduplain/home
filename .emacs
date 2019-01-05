@@ -254,6 +254,12 @@
       (unless (string= "" result)
         (funcall fn (split-string result "\n"))))))
 
+(defun project-path-from (dominating-filename path)
+  "Provide filepath within project, with directory of dominating-file as root."
+  (let ((directory (locate-dominating-file "." dominating-filename)))
+    (when directory
+      (concat (file-name-as-directory directory) path))))
+
 (defun sniff (filepath &rest keywords)
   "Return the first keyword found when searching keywords in a given file."
   (apply 'on-keyword 'car filepath keywords))
@@ -369,12 +375,7 @@
 
              (":node-script"
               (unless nrepl-connected-hook-added
-                (add-hook 'nrepl-connected-hook
-                          '(lambda ()
-                             (message "Starting node-repl ...")
-                             (cider-interactive-eval
-                              "(do (require '[shadow.cljs.devtools.api])
-                                   (shadow.cljs.devtools.api/node-repl :app))")))
+                (add-hook 'nrepl-connected-hook 'on-shadow-cljs-node-repl)
                 (setq nrepl-connected-hook-added t))
               (cider-jack-in `()))
 
@@ -405,6 +406,23 @@
 ; Track whether hook was added to nrepl-connected-hook.
 (unless (boundp 'nrepl-connected-hook-added)
   (setq nrepl-connected-hook-added nil))
+
+(defun on-shadow-cljs-node-repl ()
+  "Hook to run on newly created shadow-cljs REPL."
+  (message "Starting node-repl ...")
+  (cider-interactive-eval
+   "(do (require '[shadow.cljs.devtools.api])
+        (shadow.cljs.devtools.api/node-repl :app))"
+   ;; Then:
+   (lambda (response)
+     (nrepl-dbind-response response (status)
+       (when (member "done" status)
+         ;; Load & eval all clj/cljc files, to ensure that any macros defined
+         ;; therein are available before evaluating cljs files.
+         (message "Loading project clj/cljc files ...")
+         (when-let
+             ((src-path (project-path-from "shadow-cljs.edn" "src")))
+           (cider-load-all-files-clj-cljc src-path)))))))
 
 ; Dynamically reconfigure REPL key binding.
 (setq run-repl-kbd-str "C-x C-z")
@@ -453,6 +471,23 @@
 ; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
+
+(defun cider-load-all-files-clj-cljc (directory)
+  "Load all files in DIRECTORY (recursively). Added to include .cljc files.
+
+  See `cider-load-all-files'."
+  (interactive "DLoad files beneath directory: ")
+  (mapcar #'cider-load-file
+          ;; cider-load-all-files as of CIDER 0.19.0 has ".clj$".
+          (directory-files-recursively directory "\\.cljc?$")))
+
+(defun cider-load-all-files-cljs (directory)
+  "Load all .cljs files in DIRECTORY (recursively). Added for .cljs option.
+
+  See `cider-load-all-files'."
+  (interactive "DLoad files beneath directory: ")
+  (mapcar #'cider-load-file
+          (directory-files-recursively directory "\\.cljs?$")))
 
 (defun clear-cider-repl ()
   "Clear CIDER REPL buffer, callable from any buffer."
