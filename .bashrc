@@ -205,14 +205,17 @@ if command_exists opam; then
     eval $(opam env) # ocaml
 fi
 
+# Load programming environment which only require setting PATH.
+#
+# * cargo for rust
+prepend PATH "$HOME"/.cargo/bin
+
 # Path management below sets paths for ~/.npm-global.
 # On permissions errors with `npm install -g`, be sure ~/.npmrc is configured:
 #
 #     npm config set prefix '~/.npm-global'
 #
 prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME" "$HOME"/.npm-global
-
-prepend PATH "$HOME"/.cargo/bin # rust
 
 append PATH "$HOME"/src/android/sdk/platform-tools
 append PATH "$HOME"/src/android/sdk/tools
