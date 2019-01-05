@@ -68,7 +68,7 @@
 (setq-default column-number-mode t)
 
 ;; Don't just show me buffers, interact!
-(global-set-key "\C-x\C-b" 'electric-buffer-list)
+(global-set-key (kbd "C-x C-b") 'electric-buffer-list)
 
 ;; Indent only with spaces (default 4), never tabs.
 (setq-default standard-indent 4)
@@ -91,7 +91,7 @@
 ;;; Extensions
 
 ;; Use magit for git interactions.
-(global-set-key "\C-xg" 'magit-status)
+(global-set-key (kbd "C-x g") 'magit-status)
 (add-hook 'magit-log-edit-mode-hook 'configure-commit-buffer)
 
 ;; Use bookmark+.
@@ -181,10 +181,10 @@
   (interactive)
   (insert (format-time-string (or insert-date-format "%a %b %d %T %Z %Y\n"))))
 
-(global-set-key [f5] 'insert-date)
+(global-set-key (kbd "<f5>") 'insert-date)
 
 ;; Enlarge windows with ease with Control-6.
-(global-set-key [?\C-^] 'enlarge-window)
+(global-set-key (kbd "C-^") 'enlarge-window)
 
 ;; Change line endings between Unix and DOS.
 (defun dos2unix ()
