@@ -1,6 +1,6 @@
 ;;; Emacs configuration for Ron DuPlain.
 ;;;
-;;; GNU Emacs 24.4+
+;;; GNU Emacs 25.1+
 
 ;;; Meta
 
