@@ -207,8 +207,9 @@ fi
 
 # Load programming environment which only require setting PATH.
 #
+# * cask for emacs
 # * cargo for rust
-prepend PATH "$HOME"/.cargo/bin
+prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin
 
 # Path management below sets paths for ~/.npm-global.
 # On permissions errors with `npm install -g`, be sure ~/.npmrc is configured:
