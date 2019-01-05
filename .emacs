@@ -179,9 +179,7 @@
 (defun insert-date (&optional insert-date-format)
   "Insert the current date formatted to the given argument."
   (interactive)
-  (let ((insert-date-format (or insert-date-format
-                                "%a %b %d %T %Z %Y\n")))
-    (insert (format-time-string insert-date-format))))
+  (insert (format-time-string (or insert-date-format "%a %b %d %T %Z %Y\n"))))
 
 (global-set-key [f5] 'insert-date)
 
