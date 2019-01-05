@@ -91,6 +91,7 @@
 ;;; Extensions
 
 ;; Use magit for git interactions.
+(require 'magit) ; Load eagerly to run hook below at Emacs start.
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ; Support .homegit for tracking $HOME files.
