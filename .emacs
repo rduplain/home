@@ -92,7 +92,6 @@
 
 ;; Use magit for git interactions.
 (global-set-key (kbd "C-x g") 'magit-status)
-(add-hook 'magit-log-edit-mode-hook 'configure-commit-buffer)
 
 ;; Use bookmark+.
 (require 'bookmark+)
