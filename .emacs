@@ -93,6 +93,34 @@
 ;; Use magit for git interactions.
 (global-set-key (kbd "C-x g") 'magit-status)
 
+; Support .homegit for tracking $HOME files.
+;
+; While changing magit's "global" configuration for a singular repository is
+; generally a bad idea, _this_ .emacs file supports many independent concurrent
+; emacs sessions. If Emacs is running from the $HOME directory, then the intent
+; is to edit $HOME files.
+(unless (boundp 'homegit-magit-hook?)
+  (setq homegit-magit-hook? nil))
+
+(defun homegit-magit-hook ()
+  (unless homegit-magit-hook?
+    (let ((homegit-path (expand-file-name ".homegit")))
+      (when (and (file-exists-p homegit-path)
+                 (not (file-exists-p ".git")))
+        (add-to-list 'magit-git-global-arguments
+                     (format "--work-tree=%s"
+                             (thread-first
+                                 homegit-path
+                               file-name-directory
+                               directory-file-name)))
+        (add-to-list 'magit-git-global-arguments
+                     (format "--git-dir=%s" homegit-path))))
+    (setq homegit-magit-hook? t)))
+
+(eval-after-load 'magit
+  '(homegit-magit-hook))
+
+
 ;; Use bookmark+.
 (require 'bookmark+)
 
