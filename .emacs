@@ -376,9 +376,9 @@
       (pcase (apply 'sniff (dominating-file "shadow-cljs.edn") keywords)
 
         (":node-script"
-         (unless nrepl-connected-hook-added
+         (unless repl-hook-added?
            (add-hook 'nrepl-connected-hook 'on-shadow-cljs-node-repl)
-           (setq nrepl-connected-hook-added t))
+           (setq repl-hook-added? t))
          (cider-jack-in `()))
 
         (_ (error "No REPL. Update ~/.emacs for this shadow-cljs.edn.")))))
@@ -406,8 +406,8 @@
    (t (error "No REPL. Update ~/.emacs to support this project."))))
 
 ; Track whether hook was added to nrepl-connected-hook.
-(unless (boundp 'nrepl-connected-hook-added)
-  (setq nrepl-connected-hook-added nil))
+(unless (boundp 'repl-hook-added?)
+  (setq repl-hook-added? nil))
 
 (defun on-shadow-cljs-node-repl ()
   "Hook to run on newly created shadow-cljs REPL."
