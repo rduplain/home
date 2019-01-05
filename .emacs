@@ -32,8 +32,8 @@
 (setq initial-major-mode '(lambda () nil))
 
 ;; Disable useless decorations.
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
+(setq inhibit-startup-message t
+      initial-scratch-message nil)
 
 ;; Disable the menu bar.
 (menu-bar-mode -1)
@@ -71,9 +71,9 @@
 (global-set-key (kbd "C-x C-b") 'electric-buffer-list)
 
 ;; Indent only with spaces (default 4), never tabs.
-(setq-default standard-indent 4)
-(setq-default tab-width 4)
-(setq-default indent-tabs-mode nil)
+(setq-default standard-indent 4
+              tab-width 4
+              indent-tabs-mode nil)
 
 ;; Disable auto-fill-mode by default.
 (auto-fill-mode -1)
@@ -141,38 +141,39 @@
                  "\\|"
                  (mapconcat 'identity ',expressions "\\|"))))
 
-; Archive files are uninteresting in emacs.
-(add-to-dired-omit "\\.zip$")
-(add-to-dired-omit "\\.tar\\.gz$" "\\.tgz$")
-(add-to-dired-omit "\\.tar\\.bz$" "\\.tar\\.bz2$" "\\.tbz$" "\\.tbz2$")
+; Omit uninteresting files in dired.
+                   ; Archive files.
+(add-to-dired-omit "\\.zip$"
+                   "\\.tar\\.gz$" "\\.tgz$"
+                   "\\.tar\\.bz$" "\\.tar\\.bz2$" "\\.tbz$" "\\.tbz2$"
 
-; Swap files from vi/vim are uninteresting.
-(add-to-dired-omit "\\.sw[op]$")
+                   ; Swap files from vi/vim.
+                   "\\.sw[op]$"
 
-; Build output directories are uninteresting (most of the time).
-(add-to-dired-omit "^dist$" "^out$" "^target$")
+                   ; Build output directories.
+                   "^dist$" "^out$" "^target$"
 
-; Data and database files are uninteresting in emacs.
-(add-to-dired-omit "\\.dat$" "\\.sqlite3?$")
-(add-to-dired-omit "\\.db$" "\\.db-journal$")
+                   ; Data and database files.
+                   "\\.dat$" "\\.sqlite3?$"
+                   "\\.db$" "\\.db-journal$"
 
-; Jupyter/IPython Notebook checkpoints are uninteresting.
-(add-to-dired-omit "^\\.ipynb_checkpoints$")
+                   ; Jupyter/IPython Notebook checkpoints.
+                   "^\\.ipynb_checkpoints$"
 
-; Mac OS X clutter is uninteresting.
-(add-to-dired-omit "^\\.DS_Store$" "^__MACOSX$")
+                   ; Mac OS X clutter.
+                   "^\\.DS_Store$" "^__MACOSX$"
 
-; Emacs project files (e.g. desktop) are unintersting in dired.
-(add-to-dired-omit "^\\.emacs.*$")
+                   ; Emacs project files (e.g. desktop).
+                   "^\\.emacs.*$"
 
-; Empty target files from make (to record events) are uninteresting.
-(add-to-dired-omit "^\\.ts-.*$" "^\\..*-install")
+                   ; Empty target files from make (to record events).
+                   "^\\.ts-.*$" "^\\..*-install"
 
-; Log files are interesting, but not all the time.
-(add-to-dired-omit "\\.log$")
+                   ; Log files.
+                   "\\.log$"
 
-; Version control databases are interesting, but not all the time.
-(add-to-dired-omit "^\\.bzr$" "^_darcs$" "^\\.git$" "^\\.hg$")
+                   ; Version control databases.
+                   "^\\.bzr$" "^_darcs$" "^\\.git$" "^\\.hg$")
 
 
 ;;; Fixes
@@ -304,8 +305,8 @@
 
 ;; Interactively Do Things, with fuzzy matching enabled.
 (require 'ido)
-(setq ido-mode 'both) ; both file and buffer.
-(setq ido-enable-flex-matching t)
+(setq ido-mode 'both ; both file and buffer.
+      ido-enable-flex-matching t)
 (ido-mode 1)
 
 ;; Redo
@@ -321,8 +322,8 @@
 ;; Flyspell, on-the-fly spellcheck.
 
 ; Keep quiet.
-(setq flyspell-issue-welcome-flag nil)
-(setq flyspell-issue-message-flag nil)
+(setq flyspell-issue-welcome-flag nil
+      flyspell-issue-message-flag nil)
 
 ; Sort by likelihood, not alphabetically.
 (setq flyspell-sort-corrections nil)
@@ -394,8 +395,8 @@
 
    ((dominating-file "shadow-cljs.edn")
     (run-repl-rebind-to-cider)
-    (setq cider-preferred-build-tool 'shadow-cljs)
-    (setq cider-shadow-cljs-global-options "--force-spawn")
+    (setq cider-preferred-build-tool 'shadow-cljs
+          cider-shadow-cljs-global-options "--force-spawn")
     (let ((keywords '(":node-script")))
       (pcase (apply 'sniff (dominating-file "shadow-cljs.edn") keywords)
 
@@ -451,9 +452,9 @@
            (cider-load-all-files-clj-cljc src-path)))))))
 
 ; Dynamically reconfigure REPL key binding.
-(setq run-repl-kbd-str "C-x C-z")
-(setq run-repl-kbd (kbd run-repl-kbd-str))
-(setq run-repl-reset-kbd (kbd "C-x M-z"))
+(setq run-repl-kbd-str "C-x C-z"
+      run-repl-kbd (kbd run-repl-kbd-str)
+      run-repl-reset-kbd (kbd "C-x M-z"))
 
 (defun run-repl-rebind-default ()
   (global-set-key run-repl-kbd 'run-repl))
@@ -536,8 +537,8 @@
                (kbd "C-c l")
                'cider-repl-clear-buffer)))
 
-(add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$")
-(add-to-dired-omit "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
+(add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$"
+                   "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
 
 ;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
@@ -588,9 +589,9 @@
 
 ;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
-(add-to-dired-omit "\\.egg$" "\\.egg-info$")
-(add-to-dired-omit "^\\.coverage$" "^\\.tox$")
-(add-to-dired-omit "\\.pyc$" "^__pycache__$")
+(add-to-dired-omit "\\.egg$" "\\.egg-info$"
+                   "^\\.coverage$" "^\\.tox$"
+                   "\\.pyc$" "^__pycache__$")
 
 ;; R
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
