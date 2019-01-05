@@ -110,16 +110,14 @@
                  (not (file-exists-p ".git")))
         (add-to-list 'magit-git-global-arguments
                      (format "--work-tree=%s"
-                             (thread-first
-                                 homegit-path
-                               file-name-directory
-                               directory-file-name)))
+                             (directory-file-name
+                              (file-name-directory homegit-path))))
         (add-to-list 'magit-git-global-arguments
                      (format "--git-dir=%s" homegit-path))))
     (setq homegit-magit-hook? t)))
 
-(eval-after-load 'magit
-  '(homegit-magit-hook))
+(with-eval-after-load 'magit
+  (homegit-magit-hook))
 
 
 ;; Use bookmark+.
