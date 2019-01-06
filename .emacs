@@ -73,7 +73,7 @@
 ;; Set electric buffer key binding to sort by filename.
 (add-hook 'electric-buffer-menu-mode-hook
           '(lambda ()
-             (local-set-key (kbd "M-b")
+             (local-set-key (kbd "M-f")
                             '(lambda ()
                                (interactive)
                                ;; Tabular sort, where argument is column #.
