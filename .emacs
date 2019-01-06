@@ -247,9 +247,8 @@
 
 (defun dominating-file (filename)
   "Provide filepath of dominating file, or nil, walking up directory tree."
-  (let ((directory (locate-dominating-file "." filename)))
-    (when directory
-      (concat (file-name-as-directory directory) filename))))
+  (when-let ((directory (locate-dominating-file "." filename)))
+    (concat (file-name-as-directory directory) filename)))
 
 (defun dominating-directory (filename)
   "Provide directory of dominating file, or ., walking up directory tree."
@@ -292,9 +291,8 @@
 
 (defun project-path-from (dominating-filename path)
   "Provide filepath within project, with directory of dominating-file as root."
-  (let ((directory (locate-dominating-file "." dominating-filename)))
-    (when directory
-      (concat (file-name-as-directory directory) path))))
+  (when-let ((directory (locate-dominating-file "." dominating-filename)))
+    (concat (file-name-as-directory directory) path)))
 
 (defun sniff (filepath &rest keywords)
   "Return the first keyword found when searching keywords in a given file."
@@ -302,11 +300,11 @@
 
 (defun tcp-listening (port)
   "Return non-nil if a process is listening on localhost for given TCP port."
-  (let ((proc (ignore-errors
-                (open-network-stream "tcp-listening" nil "localhost" port))))
-    (when proc
-      (process-send-eof proc)
-      t)))
+  (when-let ((proc (ignore-errors
+                     (open-network-stream "tcp-listening" nil
+                                          "localhost" port))))
+    (process-send-eof proc)
+    t))
 
 
 ;;; Modes - General Purpose
