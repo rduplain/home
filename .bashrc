@@ -230,9 +230,6 @@ export PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 # Put snagged files from ~/bin/snag in an obvious place: home.
 export SNAG_HOME="$HOME"
 
-# Have ~/bin/screen choose opt screen if installed.
-ship SCREEN=/usr/bin/screen
-ship SCREEN=/opt/screen/bin/screen
 ship SCREENRC_DEFAULT="$HOME"/.screenrc-default
 
 ship ANDROID_HOME="$HOME"/src/android/sdk
