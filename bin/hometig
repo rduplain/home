@@ -1,4 +1,4 @@
 #!/bin/sh
 
 export GIT_DIR=$HOME/.homegit
-exec tig "$@"
+exec ${TIG:-tig} "$@"

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-homegit="git --git-dir=$HOME/.homegit --work-tree=$HOME"
+homegit="${GIT:-git} --git-dir=$HOME/.homegit --work-tree=$HOME"
 
 if [ "$1" = "sync" ]; then
     $homegit fetch &&

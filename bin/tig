@@ -1,0 +1,28 @@
+#!/bin/bash
+# Wrap `tig` to use .homegit.
+
+use_homegit() {
+    [ -d .homegit ] && ! [ -d .git ]
+}
+
+main() {
+    DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    . "$DIR"/wrapper.bash
+
+    tig="$(set_aside_this_and_find_that "$DIR" tig)"
+
+    if [ -z "$tig" ]; then
+        # No other `tig` found. Present a command not found.
+        PATH= tig
+        return 2
+    fi
+
+    if use_homegit && command_exists hometig; then
+        export TIG="$tig"
+        exec hometig "$@"
+    else
+        exec "$tig" "$@"
+    fi
+}
+
+main "$@"

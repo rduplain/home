@@ -1,0 +1,28 @@
+#!/bin/bash
+# Wrap `git` to use .homegit.
+
+use_homegit() {
+    [ -d .homegit ] && ! [ -d .git ]
+}
+
+main() {
+    DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    . "$DIR"/wrapper.bash
+
+    git="$(set_aside_this_and_find_that "$DIR" git)"
+
+    if [ -z "$git" ]; then
+        # No other `git` found. Present a command not found.
+        PATH= git
+        return 2
+    fi
+
+    if use_homegit && command_exists homegit; then
+        export GIT="$git"
+        exec homegit "$@"
+    else
+        exec "$git" "$@"
+    fi
+}
+
+main "$@"
