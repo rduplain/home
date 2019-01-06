@@ -400,6 +400,7 @@
 (defun run-repl ()
   "Run an Emacs-integrated REPL, if available, based on project files."
   (interactive)
+  (require 'cider)
   (cond
 
    ((dominating-file "shadow-cljs.edn")
@@ -411,9 +412,13 @@
 
         (":node-script"
          (unless repl-hook-added?
+           (cider-register-cljs-repl-type
+            'shadow-cljs-node
+            "(do (require '[shadow.cljs.devtools.api])
+                 (shadow.cljs.devtools.api/node-repl :app))")
            (add-hook 'nrepl-connected-hook 'on-shadow-cljs-node-repl)
            (setq repl-hook-added? t))
-         (cider-jack-in `()))
+         (cider-jack-in-cljs `(:cljs-repl-type shadow-cljs-node)))
 
         (_ (error "No REPL. Update ~/.emacs for this shadow-cljs.edn.")))))
 
@@ -445,10 +450,9 @@
 
 (defun on-shadow-cljs-node-repl ()
   "Hook to run on newly created shadow-cljs REPL."
-  (message "Starting node-repl ...")
+  (message "Waiting for cljs repl ...")
   (cider-interactive-eval
-   "(do (require '[shadow.cljs.devtools.api])
-        (shadow.cljs.devtools.api/node-repl :app))"
+   "()"
    ;; Then:
    (lambda (response)
      (nrepl-dbind-response response (status)
@@ -458,7 +462,7 @@
          (message "Loading project clj/cljc files ...")
          (when-let
              ((src-path (project-path-from "shadow-cljs.edn" "src")))
-           (cider-load-all-files-clj-cljc src-path)))))))
+           (cider-load-all-files-clj-cljc-cljs src-path)))))))
 
 ;;; Dynamically reconfigure REPL key binding.
 (setq run-repl-kbd-str "C-x C-z"
@@ -508,22 +512,13 @@
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
 
-(defun cider-load-all-files-clj-cljc (directory)
-  "Load all files in DIRECTORY (recursively). Added to include .cljc files.
+(defun cider-load-all-files-clj-cljc-cljs (directory)
+  "Load all files in DIRECTORY (recursively).
 
   See `cider-load-all-files'."
   (interactive "DLoad files beneath directory: ")
   (mapcar #'cider-load-file
-          ;;; cider-load-all-files as of CIDER 0.19.0 has ".clj$".
-          (directory-files-recursively directory "\\.cljc?$")))
-
-(defun cider-load-all-files-cljs (directory)
-  "Load all .cljs files in DIRECTORY (recursively). Added for .cljs option.
-
-  See `cider-load-all-files'."
-  (interactive "DLoad files beneath directory: ")
-  (mapcar #'cider-load-file
-          (directory-files-recursively directory "\\.cljs?$")))
+          (directory-files-recursively directory "\\.clj[cs]?$")))
 
 (defun clear-cider-repl ()
   "Clear CIDER REPL buffer, callable from any buffer."
