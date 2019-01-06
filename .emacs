@@ -1,94 +1,94 @@
-;;; Emacs configuration for Ron DuPlain.
+;;;; Emacs configuration for Ron DuPlain.
+;;;;
+;;;; GNU Emacs 26.1
+
+;;;; Meta
+
+;;; Configure variables.
 ;;;
-;;; GNU Emacs 26.1
+;;; setq         - Set variable for all of Emacs.
+;;; setq-default - Set default variable, able to be overridden in local buffer.
+;;; add-to-list  - Insert a value into a list with a given (symbol) name.
+;;; fset         - Override a function with a given (symbol) name.
+;;; (function)   - Call a configuration function directly (without setq).
 
-;;; Meta
-
-;; Configure variables.
-;;
-;; setq         - Set variable for all of Emacs.
-;; setq-default - Set default variable, potentially overridden in local buffer.
-;; add-to-list  - Insert a value into a list with a given (symbol) name.
-;; fset         - Override a function with a given (symbol) name.
-;; (function)   - Call a configuration function directly (without setq).
-
-;; Edit .emacs in Emacs.
-;;
-;; C-h o RET    - View doc for symbol at cursor.
+;;; Edit .emacs in Emacs.
+;;;
+;;; C-h o RET    - View doc for symbol at cursor.
 
 
-;;; Basics
+;;;; Basics
 
-;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced separately
-;; between installations. Check this directory when initalization fails.
+;;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced separately
+;;; between installations. Check this directory when initalization fails.
 
-;; Use elpa package manager and load all installed packages.
+;;; Use elpa package manager and load all installed packages.
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 
-;; Do not have an initial major mode. Set *scratch* to Fundamental, not Lisp.
+;;; Do not have an initial major mode. Set *scratch* to Fundamental, not Lisp.
 (setq initial-major-mode '(lambda () nil))
 
-;; Disable useless decorations.
+;;; Disable useless decorations.
 (setq inhibit-startup-message t
       initial-scratch-message nil)
 
-;; Disable the menu bar.
+;;; Disable the menu bar.
 (menu-bar-mode -1)
 
-;; Add a final newline automatically on save.
+;;; Add a final newline automatically on save.
 (setq-default require-final-newline t)
 
-;; Accept y or n when presented with yes or no.
+;;; Accept y or n when presented with yes or no.
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Disable beeps.
+;;; Disable beeps.
 (setq ring-bell-function 'ignore)
 
-;; Disable automatic backups, i.e. filename~ files.
+;;; Disable automatic backups, i.e. filename~ files.
 (setq-default backup-inhibited t)
 
-;; Disable tramp.
+;;; Disable tramp.
 (setq tramp-mode nil)
 
-;; Always use syntax highlighting.
+;;; Always use syntax highlighting.
 (global-font-lock-mode 1)
 
-;; Always show parentheses, in every mode.
+;;; Always show parentheses, in every mode.
 (show-paren-mode t)
 (setq show-paren-delay 0)
 
-;; Inform Emacs of a dark color background.
-;; Essential for modes (e.g. rst-mode) which highlight sections & blocks.
+;;; Inform Emacs of a dark color background.
+;;; Essential for modes (e.g. rst-mode) which highlight sections & blocks.
 (setq frame-background-mode 'dark)
 
-;; Show the column number in addition to the line number.
+;;; Show the column number in addition to the line number.
 (setq-default column-number-mode t)
 
-;; Don't just show me buffers, interact!
+;;; Don't just show me buffers, interact!
 (global-set-key (kbd "C-x C-b") 'electric-buffer-list)
 
-;; Indent only with spaces (default 4), never tabs.
+;;; Indent only with spaces (default 4), never tabs.
 (setq-default standard-indent 4
               tab-width 4
               indent-tabs-mode nil)
 
-;; Disable auto-fill-mode by default.
+;;; Disable auto-fill-mode by default.
 (auto-fill-mode -1)
 
-;; Fill columns at 80 characters.
+;;; Fill columns at 80 characters.
 (setq-default fill-column 79)
 
-;; Truncate long lines on partial windows.
+;;; Truncate long lines on partial windows.
 (setq truncate-partial-width-windows t)
 
-;; Remove trailing whitespace before saving files.
+;;; Remove trailing whitespace before saving files.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
-;;; Desktop - Save & Restore Sessions
+;;;; Desktop - Save & Restore Sessions
 
 (setq desktop-auto-save-timeout -1
       desktop-base-file-name ".emacs.desktop"
@@ -99,18 +99,18 @@
 (desktop-save-mode 1)
 
 
-;;; Extensions
+;;;; Extensions
 
-;; Use magit for git interactions.
-(require 'magit) ; Load eagerly to run hook below at Emacs start.
+;;; Use magit for git interactions.
+(require 'magit) ;; Load eagerly to run hook below at Emacs start.
 (global-set-key (kbd "C-x g") 'magit-status)
 
-; Support .homegit for tracking $HOME files.
-;
-; While changing magit's "global" configuration for a singular repository is
-; generally a bad idea, _this_ .emacs file supports many independent concurrent
-; emacs sessions. If Emacs is running from the $HOME directory, then the intent
-; is to edit $HOME files.
+;; Support .homegit for tracking $HOME files.
+;;
+;; While changing magit's "global" configuration for a singular repository is
+;; generally a bad idea, _this_ .emacs file supports many independent
+;; concurrent emacs sessions. If Emacs is running from the $HOME directory,
+;; then the intent is to edit $HOME files.
 (unless (boundp 'homegit-magit-hook?)
   (setq homegit-magit-hook? nil))
 
@@ -131,20 +131,20 @@
   (homegit-magit-hook))
 
 
-;; Use bookmark+.
+;;; Use bookmark+.
 (require 'bookmark+)
 
-;; Extend dired.
+;;; Extend dired.
 (add-hook 'dired-load-hook
           (lambda ()
             (load "dired-x")))
 
-; Ignore uninteresting files.
+;; Ignore uninteresting files.
 (add-hook 'dired-mode-hook
           (lambda ()
             (dired-omit-mode 1)))
 
-; Simplify declaration of patterns to omit in dired.
+;; Simplify declaration of patterns to omit in dired.
 (defmacro add-to-dired-omit (&rest expressions)
   "Append to dired-x regular expression for dired-omit-mode"
   `(setq dired-omit-files
@@ -152,54 +152,54 @@
                  "\\|"
                  (mapconcat 'identity ',expressions "\\|"))))
 
-; Omit uninteresting files in dired.
-                   ; Archive files.
+;; Omit uninteresting files in dired.
+;;                 ;; Archive files.
 (add-to-dired-omit "\\.zip$"
                    "\\.tar\\.gz$" "\\.tgz$"
                    "\\.tar\\.bz$" "\\.tar\\.bz2$" "\\.tbz$" "\\.tbz2$"
 
-                   ; Swap files from vi/vim.
+                   ;; Swap files from vi/vim.
                    "\\.sw[op]$"
 
-                   ; Build output directories.
+                   ;; Build output directories.
                    "^dist$" "^out$" "^target$"
 
-                   ; Data and database files.
+                   ;; Data and database files.
                    "\\.dat$" "\\.sqlite3?$"
                    "\\.db$" "\\.db-journal$"
 
-                   ; Jupyter/IPython Notebook checkpoints.
+                   ;; Jupyter/IPython Notebook checkpoints.
                    "^\\.ipynb_checkpoints$"
 
-                   ; Mac OS X clutter.
+                   ;; Mac OS X clutter.
                    "^\\.DS_Store$" "^__MACOSX$"
 
-                   ; Emacs project files (e.g. desktop).
+                   ;; Emacs project files (e.g. desktop).
                    "^\\.emacs.*$"
 
-                   ; Empty target files from make (to record events).
+                   ;; Empty target files from make (to record events).
                    "^\\.ts-.*$" "^\\..*-install"
 
-                   ; Log files.
+                   ;; Log files.
                    "\\.log$"
 
-                   ; Version control databases.
+                   ;; Version control databases.
                    "^\\.bzr$" "^_darcs$" "^\\.git$" "^\\.hg$")
 
 
-;;; Fixes
+;;;; Fixes
 
-;; Some terminals (incl. PuTTY) send [select] on home keypress.
+;;; Some terminals (incl. PuTTY) send [select] on home keypress.
 (define-key global-map [select] 'end-of-line)
 
 
-;;; Suspend vs. Shell
+;;;; Suspend vs. Shell
 
-;; Disable suspend.
+;;; Disable suspend.
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
-;; Bind to shell instead of suspending.
+;;; Bind to shell instead of suspending.
 (defun interactive-shell (&optional shell)
   "Run ansi-term with the given shell, default $SHELL, falling back to bash."
   (interactive)
@@ -211,9 +211,9 @@
 (global-set-key (kbd "C-z") 'interactive-shell)
 
 
-;;; Convenient Functions
+;;;; Convenient Functions
 
-;; Insert the date with F5, formatted just like the UNIX date command.
+;;; Insert the date with F5, formatted just like the UNIX date command.
 (defun insert-date (&optional insert-date-format)
   "Insert the current date formatted to the given argument."
   (interactive)
@@ -221,10 +221,10 @@
 
 (global-set-key (kbd "<f5>") 'insert-date)
 
-;; Enlarge windows with ease with Control-6.
+;;; Enlarge windows with ease with Control-6.
 (global-set-key (kbd "C-^") 'enlarge-window)
 
-;; Change line endings between Unix and DOS.
+;;; Change line endings between Unix and DOS.
 (defun dos2unix ()
   "Change line endings of current buffer from DOS to Unix."
   (interactive)
@@ -241,7 +241,7 @@
 (fset 'fromdos 'dos2unix)
 
 
-;;; Modes - Utilities to Support Configuration
+;;;; Modes - Utilities to Support Configuration
 
 (require 'subr-x)
 
@@ -307,50 +307,50 @@
     t))
 
 
-;;; Modes - General Purpose
+;;;; Modes - General Purpose
 
-;; Set the default mode to Text.
+;;; Set the default mode to Text.
 (setq default-major-mode 'text-mode)
 
-;; Interactively Do Things, with fuzzy matching enabled.
+;;; Interactively Do Things, with fuzzy matching enabled.
 (require 'ido)
-(setq ido-mode 'both ; both file and buffer.
+(setq ido-mode 'both ;; both file and buffer.
       ido-enable-flex-matching t)
 (ido-mode 1)
 
-;; Redo
+;;; Redo
 (require 'redo+)
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
 
-;; Winner, undo and redo window configuration changes.
+;;; Winner, undo and redo window configuration changes.
 (winner-mode 1)
 (global-set-key (kbd "C-x /") 'winner-undo)
 (global-set-key (kbd "C-x \\") 'winner-redo)
 
-;; Flyspell, on-the-fly spellcheck.
+;;; Flyspell, on-the-fly spellcheck.
 
-; Keep quiet.
+;; Keep quiet.
 (setq flyspell-issue-welcome-flag nil
       flyspell-issue-message-flag nil)
 
-; Sort by likelihood, not alphabetically.
+;; Sort by likelihood, not alphabetically.
 (setq flyspell-sort-corrections nil)
 
-; Highlight only when near cursor.
+;; Highlight only when near cursor.
 (setq flyspell-persistent-highlight nil)
 
-; Override default key binding.
+;; Override default key binding.
 (setq flyspell-use-meta-tab nil)
 (global-unset-key [?\M-s])
 (setq flyspell-auto-correct-binding [?\M-s])
 
-;; Yet Another Snippet system, for code/text snippets.
+;;; Yet Another Snippet system, for code/text snippets.
 (require 'yasnippet)
 (setq yas-snippet-dirs (cons "~/.emacs.d/snippets" yas-snippet-dirs))
 (yas-global-mode 1)
 
-;; Drag stuff.
+;;; Drag stuff.
 (require 'drag-stuff)
 (drag-stuff-global-mode 1)
 (defvar drag-stuff-mode-map (make-sparse-keymap)
@@ -358,27 +358,27 @@
 (define-key drag-stuff-mode-map (kbd "M-p") 'drag-stuff-up)
 (define-key drag-stuff-mode-map (kbd "M-n") 'drag-stuff-down)
 
-;; Compilation: compile/recompile when using a Makefile.
+;;; Compilation: compile/recompile when using a Makefile.
 
-; Scroll the compilation buffer with new output.
+;; Scroll the compilation buffer with new output.
 (setq compilation-scroll-output t)
 
-; Do not ask for the make command to run. This is set with the hook below.
+;; Do not ask for the make command to run. This is set with the hook below.
 (setq compilation-read-command nil)
 
-; Support a configurable `make` recipe, global for all buffers.
+;; Support a configurable `make` recipe, global for all buffers.
 (defvar compile-command-recipe nil "make recipe")
 
-; Define a function to interactively configure `make` recipe.
+;; Define a function to interactively configure `make` recipe.
 (defun compile-set-command-recipe (recipe)
   "Interactively set the value of compile-command-recipe for all buffers."
   (interactive "smake recipe: ")
   (setq compile-command-recipe recipe))
 
-; Set a global key to set `make` recipe.
+;; Set a global key to set `make` recipe.
 (global-set-key (kbd "C-x M-a") 'compile-set-command-recipe)
 
-; Define wrapper function for `compile` to set its command just in time.
+;; Define wrapper function for `compile` to set its command just in time.
 (defun compile-with-config ()
   "Set a compile command just in time and run Emacs `compile`.
 
@@ -390,13 +390,13 @@
                          (or compile-command-recipe ""))))
     (compile command)))
 
-; Set a global key for compilation, in all modes.
+;; Set a global key for compilation, in all modes.
 (global-set-key (kbd "C-x C-a") 'compile-with-config)
 
 
-;;; Modes - Configure a REPL based on project files.
+;;;; Modes - Configure a REPL based on project files.
 
-;; Define zero-configuration command to run available Emacs-integrated REPL.
+;;; Define zero-configuration command to run available Emacs-integrated REPL.
 (defun run-repl ()
   "Run an Emacs-integrated REPL, if available, based on project files."
   (interactive)
@@ -439,7 +439,7 @@
 
    (t (error "No REPL. Update ~/.emacs to support this project."))))
 
-;; Track whether hook was added to nrepl-connected-hook.
+;;; Track whether hook was added to nrepl-connected-hook.
 (unless (boundp 'repl-hook-added?)
   (setq repl-hook-added? nil))
 
@@ -460,7 +460,7 @@
              ((src-path (project-path-from "shadow-cljs.edn" "src")))
            (cider-load-all-files-clj-cljc src-path)))))))
 
-;; Dynamically reconfigure REPL key binding.
+;;; Dynamically reconfigure REPL key binding.
 (setq run-repl-kbd-str "C-x C-z"
       run-repl-kbd (kbd run-repl-kbd-str)
       run-repl-reset-kbd (kbd "C-x M-z"))
@@ -471,10 +471,10 @@
 (defun run-repl-rebind-to-cider ()
   (global-set-key run-repl-kbd 'cider-switch-to-repl-buffer))
 
-;; Set a global key for REPL, in all modes.
+;;; Set a global key for REPL, in all modes.
 (run-repl-rebind-default)
 
-;; Provide an alternate key binding to restore default `run-repl` key binding.
+;;; Provide an alternate key binding to restore default `run-repl` key binding.
 (defun run-repl-reset ()
   "Reset 'run-repl key binding (since it rebinds itself to the new REPL)."
   (interactive)
@@ -484,27 +484,27 @@
 (global-set-key run-repl-reset-kbd 'run-repl-reset)
 
 
-;;; Modes - Programming Languages, Formats, & Frameworks
-;;;
-;;; Many language modes just work and are omitted here.
+;;;; Modes - Programming Languages, Formats, & Frameworks
+;;;;
+;;;; Many language modes just work and are omitted here.
 
-;; C
+;;; C
 (add-hook 'c-mode-hook 'flyspell-prog-mode)
 
-;; C++
+;;; C++
 (add-hook 'c++-mode-hook 'flyspell-prog-mode)
 
-;; CSS
+;;; CSS
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
-;; Conf
+;;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 
-;; Clojure
+;;; Clojure
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
-; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
+;; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
 
@@ -514,7 +514,7 @@
   See `cider-load-all-files'."
   (interactive "DLoad files beneath directory: ")
   (mapcar #'cider-load-file
-          ;; cider-load-all-files as of CIDER 0.19.0 has ".clj$".
+          ;;; cider-load-all-files as of CIDER 0.19.0 has ".clj$".
           (directory-files-recursively directory "\\.cljc?$")))
 
 (defun cider-load-all-files-cljs (directory)
@@ -534,12 +534,12 @@
       (ignore-errors
         (cider-repl-clear-buffer)))))
 
-; Set key binding to clear the CIDER REPL from a Clojure buffer.
+;; Set key binding to clear the CIDER REPL from a Clojure buffer.
 (add-hook 'clojure-mode-hook
           '(lambda ()
              (local-set-key (kbd "C-c l") 'clear-cider-repl)))
 
-; Set key binding to clear the CIDER REPL from the CIDER REPL.
+;; Set key binding to clear the CIDER REPL from the CIDER REPL.
 (add-hook 'cider-repl-mode-hook
           '(lambda ()
              (define-key cider-repl-mode-map
@@ -549,18 +549,18 @@
 (add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$"
                    "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
 
-;; Emacs Lisp
+;;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 
-;; Go
+;;; Go
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
 (add-hook 'go-mode-hook 'yas/minor-mode)
 
-;; Haskell
+;;; Haskell
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
 
-;; HTML
+;;; HTML
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.vue$" . html-mode))
 (add-hook 'html-mode-hook 'flyspell-prog-mode)
@@ -570,7 +570,7 @@
                              (setq-local standard-indent 2)
                              (setq-local tab-width 2)))
 
-;; JavaScript
+;;; JavaScript
 (defun javascript-settings ()
   (auto-fill-mode -1)
   (setq-local indent-tabs-mode nil)
@@ -583,35 +583,35 @@
 
 (add-to-dired-omit "^node_modules$" "^package-lock\\.json$")
 
-;; Java
+;;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
 
-;; LaTeX
+;;; LaTeX
 (add-to-list 'auto-mode-alist '("\\.latex$" . latex-mode))
 
-;; Markdown
+;;; Markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
-;; OCaml
+;;; OCaml
 (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el" 'noerror)
 
 
-;; Python
+;;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 (add-to-dired-omit "\\.egg$" "\\.egg-info$"
                    "^\\.coverage$" "^\\.tox$"
                    "\\.pyc$" "^__pycache__$")
 
-;; R
+;;; R
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
 (add-to-list 'auto-mode-alist '("\\.r$" . R-mode))
 (add-hook 'ess-mode-hook 'flyspell-prog-mode)
 
-;; ReStructuredText (rst)
+;;; ReStructuredText (rst)
 (add-to-list 'auto-mode-alist '("\\.rst.in$" . rst-mode))
 (add-hook 'rst-mode-hook '(lambda () (auto-fill-mode nil)))
 
-;; Ruby
+;;; Ruby
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.simplecov$" . ruby-mode))
@@ -619,15 +619,15 @@
 (add-hook 'ruby-mode-hook '(lambda ()
                              (setq-local standard-indent 2)))
 
-;; Shell
+;;; Shell
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
 
-;; Text
+;;; Text
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook
           '(lambda ()
-             ; Handle git commit message editing.
+             ;; Handle git commit message editing.
              (when (string= "COMMIT_EDITMSG" (buffer-name))
                (auto-fill-mode 1)
                (ruler-mode 1)
@@ -635,18 +635,18 @@
                (setq-local goal-column nil)
                (setq-local comment-column 50))))
 
-;; Apache Thrift
+;;; Apache Thrift
 (add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
 
-;; XML
+;;; XML
 (add-hook 'xml-mode-hook 'flyspell-prog-mode)
 
-;; X
+;;; X
 (add-to-list 'auto-mode-alist '("\\.xrdb$" . xrdb-mode))
 
 
-;;; M-x customize
+;;;; M-x customize
 
-;; Manage custom-set-variables and custom-set-faces in a separate file.
+;;; Manage custom-set-variables and custom-set-faces in a separate file.
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
