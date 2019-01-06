@@ -205,7 +205,7 @@
   (interactive)
   (let ((shell (or shell
                    (getenv "SHELL")
-                   "/bin/bash")))
+                   "bash")))
     (ansi-term shell)))
 
 (global-set-key (kbd "C-z") 'interactive-shell)
