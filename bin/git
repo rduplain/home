@@ -2,7 +2,7 @@
 # Wrap `git` to use .homegit.
 
 use_homegit() {
-    [ -d .homegit ] && ! [ -d .git ]
+    [ -n "$USE_HOMEGIT" ] || [ -d .homegit ] && ! [ -d .git ]
 }
 
 main() {
@@ -17,9 +17,16 @@ main() {
         return 2
     fi
 
-    if use_homegit && command_exists homegit; then
-        export GIT="$git"
-        exec homegit "$@"
+    if use_homegit; then
+        homegit="$git --git-dir=$HOME/.homegit --work-tree=$HOME"
+
+        if [ "$1" = "sync" ]; then
+            $homegit fetch &&
+                $homegit rebase --committer-date-is-author-date origin/master
+        else
+            exec $homegit "$@";
+        fi
+
     else
         exec "$git" "$@"
     fi

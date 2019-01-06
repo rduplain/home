@@ -2,7 +2,7 @@
 # Wrap `tig` to use .homegit.
 
 use_homegit() {
-    [ -d .homegit ] && ! [ -d .git ]
+    [ -n "$USE_HOMEGIT" ] || [ -d .homegit ] && ! [ -d .git ]
 }
 
 main() {
@@ -17,9 +17,9 @@ main() {
         return 2
     fi
 
-    if use_homegit && command_exists hometig; then
-        export TIG="$tig"
-        exec hometig "$@"
+    if use_homegit; then
+        export GIT_DIR=$HOME/.homegit
+        exec "$tig" "$@"
     else
         exec "$tig" "$@"
     fi
