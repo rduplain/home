@@ -512,6 +512,8 @@
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
 
+(setq cider-offer-to-open-cljs-app-in-browser nil)
+
 (defun cider-load-all-files-clj-cljc-cljs (directory)
   "Load all files in DIRECTORY (recursively).
 
