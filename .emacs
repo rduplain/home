@@ -70,6 +70,15 @@
 ;;; Don't just show me buffers, interact!
 (global-set-key (kbd "C-x C-b") 'electric-buffer-list)
 
+;; Set electric buffer key binding to sort by filename.
+(add-hook 'electric-buffer-menu-mode-hook
+          '(lambda ()
+             (local-set-key (kbd "M-b")
+                            '(lambda ()
+                               (interactive)
+                               ;; Tabular sort, where argument is column #.
+                               (Buffer-menu-sort 3)))))
+
 ;;; Indent only with spaces (default 4), never tabs.
 (setq-default standard-indent 4
               tab-width 4
