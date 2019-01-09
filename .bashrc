@@ -308,14 +308,6 @@ function _completion_loader() {
     # Default bash completion handler to load specifications lazily.
 
     if [ -z "$BASH_COMPLETION_LOADED" ]; then
-        export BASH_COMPLETION_LOADED=$(date +%s)
-
-        for envtool in $ENVTOOLS; do
-            if command_exists $envtool; then
-                eval "$($envtool init -)"
-            fi
-        done
-
         receive /etc/bash_completion
 
         # The default completion loader may have a new definition.
@@ -331,6 +323,12 @@ function _completion_loader() {
         # everything is ready when bash restarts the completion process.
         _default_completion_loader "$@"
 
+        for envtool in $ENVTOOLS; do
+            if command_exists $envtool; then
+                eval "$($envtool init -)"
+            fi
+        done
+
         receive /usr/share/bash-completion/completions/git
         receive /opt/src/git/contrib/completion/git-completion.bash
 
@@ -344,6 +342,8 @@ function _completion_loader() {
         export -f _homegit _hometig
         complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
         complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
+
+        export BASH_COMPLETION_LOADED=$(date +%s)
 
         # Restart completion process.
         return 124
