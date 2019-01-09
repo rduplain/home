@@ -61,6 +61,10 @@ function workon_walk() {
     done
 }
 
+function call_nvm_use() {
+    file_exists "${1:-.}"/.nvmrc && silently nvm use
+}
+
 function source_these() {
     # Source all files found by name, in directory provided as last argument.
     #
@@ -203,7 +207,7 @@ done
 # Load a specific version replacing "node" with version in `nvm ls`.
 receive "$HOME"/.nvm/nvm.sh # node
 
-file_exists .nvmrc && silently nvm use
+walk_root_to_curdir call_nvm_use
 
 command_exists opam && eval "$(opam env)" # ocaml
 
