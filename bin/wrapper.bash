@@ -36,14 +36,21 @@ set_aside_this_and_find_that() {
         IFS=:
         set -o noglob
 
+        found=''
+
         for path in $PATH; do
             if [ "$path" = "$directory_aside" ]; then
                 continue
             fi
             if [ -x "$path/$command" ]; then
-                printf %s "$path/$command"
+                found="$path/$command"
+                printf %s "$found"
                 break
             fi
         done
+
+        if [ -z "$found" ]; then
+            echo "$command: command not found" >&2
+        fi
     )
 }

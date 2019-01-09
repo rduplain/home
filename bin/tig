@@ -12,8 +12,7 @@ main() {
     tig="$(set_aside_this_and_find_that "$DIR" tig)"
 
     if [ -z "$tig" ]; then
-        # No other `tig` found. Present a command not found.
-        PATH= tig
+        # No other `tig` found.
         return 2
     fi
 

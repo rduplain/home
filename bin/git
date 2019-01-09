@@ -12,8 +12,7 @@ main() {
     git="$(set_aside_this_and_find_that "$DIR" git)"
 
     if [ -z "$git" ]; then
-        # No other `git` found. Present a command not found.
-        PATH= git
+        # No other `git` found.
         return 2
     fi
 
