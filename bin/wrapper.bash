@@ -34,6 +34,15 @@ requested() {
     return 1
 }
 
+requested_only() {
+    # Like `requested` but when there's only one argument.
+
+    that="$1"
+    shift
+
+    [ $# -eq 1 ] && [ "$1" = "$that" ]
+}
+
 set_aside_this_and_find_that() {
     # Set aside directory $1 and search PATH for command $2.
 

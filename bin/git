@@ -9,7 +9,7 @@ main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     . "$DIR"/wrapper.bash
 
-    if [ $# -eq 1 ] && requested _source "$@"; then
+    if requested_only _source "$@"; then
         # Make `. git _source` available to pull in functions.
         return 0
     fi
@@ -27,7 +27,7 @@ main() {
         cmd="$git --git-dir=$HOME/.homegit --work-tree=$HOME"
     fi
 
-    if [ $# -eq 1 ] && [ "$1" = "sync" ]; then
+    if requested_only sync "$@"; then
         $cmd fetch &&
             $cmd rebase --committer-date-is-author-date origin/master
     else
