@@ -93,12 +93,12 @@ function receive() {
     fi
 }
 
-function forhost() {
-    # Run a given command if the current hostname matches the first argument.
+function when_host() {
+    # Run a given command when current hostname matches first argument.
     #
-    # usage: forhost host command args
+    # usage: when_host host command args
     #
-    # similar to: command args # if current hostname matches forhost host arg.
+    # similar to: command args # if current hostname matches host arg.
     #
     # Note: This does nothing if current hostname does not match host arg.
     #
