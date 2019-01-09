@@ -16,18 +16,17 @@ main() {
         return 2
     fi
 
+    cmd="$git"
+
     if use_homegit; then
-        homegit="$git --git-dir=$HOME/.homegit --work-tree=$HOME"
+        cmd="$git --git-dir=$HOME/.homegit --work-tree=$HOME"
+    fi
 
-        if [ "$1" = "sync" ]; then
-            $homegit fetch &&
-                $homegit rebase --committer-date-is-author-date origin/master
-        else
-            exec $homegit "$@";
-        fi
-
+    if [ $# -eq 1 ] && [ "$1" = "sync" ]; then
+        $cmd fetch &&
+            $cmd rebase --committer-date-is-author-date origin/master
     else
-        exec "$git" "$@"
+        exec $cmd "$@"
     fi
 }
 
