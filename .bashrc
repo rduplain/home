@@ -201,6 +201,10 @@ for envtool in $ENVTOOLS; do
     fi
 done
 
+# Load latest with `nvm use --delete-prefix node`
+# Load a specific version replacing "node" with version in `nvm ls`.
+receive "$HOME"/.nvm/nvm.sh # node
+
 if command_exists opam; then
     eval "$(opam env)" # ocaml
 fi
@@ -328,6 +332,8 @@ function _completion_loader() {
                 eval "$($envtool init -)"
             fi
         done
+
+        receive "$HOME"/.nvm/bash_completion
 
         receive /usr/share/bash-completion/completions/git
         receive /opt/src/git/contrib/completion/git-completion.bash
