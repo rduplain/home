@@ -206,3 +206,14 @@ Released under the BSD License.
          1 if given command is not found
          0 otherwise
 
+**`file_exists`**
+
+     Check if file exists.
+
+     usage: file_exists FILE
+
+     Exit status:
+         202 if no arguments are given
+         1 if file does not exist
+         0 otherwise
+

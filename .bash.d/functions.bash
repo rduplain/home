@@ -190,7 +190,7 @@ function when_file() {
     local target_file="$1"
     shift
 
-    if [ -e "$target_file" ]; then
+    if file_exists "$target_file"; then
         "$@"
         result=$?
     else
@@ -430,4 +430,23 @@ function command_exists() {
     shift
 
     type -t "$command" >/dev/null 2>&1
+}
+
+function file_exists() {
+    # Check if file exists.
+    #
+    # usage: file_exists FILE
+    #
+    # Exit status:
+    #     202 if no arguments are given
+    #     1 if file does not exist
+    #     0 otherwise
+
+    # Return now if there are no arguments.
+    [[ $# -eq 0 ]] && return 202
+
+    local target_file="$1"
+    shift
+
+    [ -e "$target_file" ]
 }
