@@ -16,8 +16,8 @@ Released under the BSD License.
      Note: export options -fn -p are not supported.
 
      Exit status:
-         2 if no arguments are given
-         1 if a given target does not exist
+         202 if no arguments are given
+         200 if a given target does not exist
          0 otherwise
 
 **`receive`**
@@ -32,8 +32,8 @@ Released under the BSD License.
      Overload: sendfile includes a receive command; this isn't it.
 
      Exit status:
-         2 if no arguments are given
-         1 if target file does not exist
+         202 if no arguments are given
+         200 if target file does not exist
          exit status of `source` otherwise
 
 **`forhost`**
@@ -47,8 +47,8 @@ Released under the BSD License.
      Note: This does nothing if current hostname does not match host arg.
 
      Exit status:
-         2 if no arguments are given
-         1 if host does not match
+         202 if no arguments are given
+         200 if host does not match
          exit status of command otherwise
 
 **`prune_colons`**
@@ -63,7 +63,7 @@ Released under the BSD License.
          prune_colons LD_LIBRARY_PATH
 
      Exit status:
-         2 if no arguments are given
+         202 if no arguments are given
          0 otherwise
 
 **`_pend`**
@@ -74,7 +74,7 @@ Released under the BSD License.
      usage: _pend ap ARGS
 
      Exit status:
-         2 if no arguments are given
+         202 if no arguments are given
          1 if any given argument is not a directory
          0 otherwise
 
@@ -94,7 +94,7 @@ Released under the BSD License.
            argument is removed from variable before prepending.
 
      Exit status:
-         2 if no arguments are given
+         202 if no arguments are given
          1 if any given argument is not a directory
          0 otherwise
 
@@ -114,7 +114,7 @@ Released under the BSD License.
            argument is removed from variable before appending.
 
      Exit status:
-         2 if no arguments are given
+         202 if no arguments are given
          1 if any given argument is not a directory
          0 otherwise
 
@@ -132,7 +132,7 @@ Released under the BSD License.
          dedupe_path PATH LD_LIBRARY_PATH
 
      Exit status:
-         2 if no arguments are given
+         202 if no arguments are given
          0 otherwise
 
 **`command_exists`**
@@ -142,7 +142,7 @@ Released under the BSD License.
      usage: command_exists COMMAND
 
      Exit status:
-         2 if no arguments are given
+         202 if no arguments are given
          1 if given command is not found
          0 otherwise
 

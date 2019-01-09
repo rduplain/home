@@ -37,12 +37,12 @@ function ship() {
     # Note: export options -fn -p are not supported.
     #
     # Exit status:
-    #     2 if no arguments are given
-    #     1 if a given target does not exist
+    #     202 if no arguments are given
+    #     200 if a given target does not exist
     #     0 otherwise
 
     # Return now if there are no arguments.
-    [[ $# -eq 0 ]] && return 2
+    [[ $# -eq 0 ]] && return 202
 
     local result=0
     local variable
@@ -58,7 +58,7 @@ function ship() {
         if [ -e "$target" ]; then
             export "$variable"
         else
-            result=1
+            result=200
         fi
     done
 
@@ -76,17 +76,21 @@ function receive() {
     # Overload: sendfile includes a receive command; this isn't it.
     #
     # Exit status:
-    #     2 if no arguments are given
-    #     1 if target file does not exist
+    #     202 if no arguments are given
+    #     200 if target file does not exist
     #     exit status of `source` otherwise
 
     # Return now if there are no arguments.
-    [[ $# -eq 0 ]] && return 2
+    [[ $# -eq 0 ]] && return 202
 
     local target="$1"
     shift
 
-    [[ -f "$target" ]] && source "$target" "$@"
+    if [ -f "$target" ]; then
+        . "$target" "$@"
+    else
+        return 200
+    fi
 }
 
 function forhost() {
@@ -99,12 +103,12 @@ function forhost() {
     # Note: This does nothing if current hostname does not match host arg.
     #
     # Exit status:
-    #     2 if no arguments are given
-    #     1 if host does not match
+    #     202 if no arguments are given
+    #     200 if host does not match
     #     exit status of command otherwise
 
     # Return now if there are no arguments.
-    [[ $# -eq 0 ]] && return 2
+    [[ $# -eq 0 ]] && return 202
 
     local result=0
     local target_host="$1"
@@ -114,7 +118,7 @@ function forhost() {
         "$@"
         result=$?
     else
-        result=1
+        result=200
     fi
 
     return $result
@@ -131,11 +135,11 @@ function prune_colons() {
     #     prune_colons LD_LIBRARY_PATH
     #
     # Exit status:
-    #     2 if no arguments are given
+    #     202 if no arguments are given
     #     0 otherwise
 
     # Return now if there are no arguments.
-    [[ $# -eq 0 ]] && return 2
+    [[ $# -eq 0 ]] && return 202
 
     # Get the environment variable name.
     local envname="$1"
@@ -163,7 +167,7 @@ function _pend() {
     # usage: _pend ap ARGS
     #
     # Exit status:
-    #     2 if no arguments are given
+    #     202 if no arguments are given
     #     1 if any given argument is not a directory
     #     0 otherwise
 
@@ -171,7 +175,7 @@ function _pend() {
     shift
 
     # Return now if there are no arguments.
-    [[ $# -eq 0 ]] && return 2
+    [[ $# -eq 0 ]] && return 202
 
     local envname="$1"
     local env="${!envname}"
@@ -242,7 +246,7 @@ function prepend() {
     #       argument is removed from variable before prepending.
     #
     # Exit status:
-    #     2 if no arguments are given
+    #     202 if no arguments are given
     #     1 if any given argument is not a directory
     #     0 otherwise
 
@@ -264,7 +268,7 @@ function append() {
     #       argument is removed from variable before appending.
     #
     # Exit status:
-    #     2 if no arguments are given
+    #     202 if no arguments are given
     #     1 if any given argument is not a directory
     #     0 otherwise
 
@@ -284,11 +288,11 @@ function dedupe_path() {
     #     dedupe_path PATH LD_LIBRARY_PATH
     #
     # Exit status:
-    #     2 if no arguments are given
+    #     202 if no arguments are given
     #     0 otherwise
 
     # Return now if there are no arguments.
-    [[ $# -eq 0 ]] && return 2
+    [[ $# -eq 0 ]] && return 202
 
     for envname in "$@"; do
         local env="${!envname}"
@@ -308,12 +312,12 @@ function command_exists() {
     # usage: command_exists COMMAND
     #
     # Exit status:
-    #     2 if no arguments are given
+    #     202 if no arguments are given
     #     1 if given command is not found
     #     0 otherwise
 
     # Return now if there are no arguments.
-    [[ $# -eq 0 ]] && return 2
+    [[ $# -eq 0 ]] && return 202
 
     local command="$1"
     shift
