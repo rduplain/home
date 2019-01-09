@@ -12,7 +12,7 @@ function rehash() {
 
     . "$HOME"/.bashrc
     for envtool in $ENVTOOLS; do
-        command_exists $envtool && $envtool rehash
+        when_installed $envtool rehash
     done
 }
 
@@ -196,9 +196,7 @@ prepend_paths /opt/local /opt/* /usr/local /usr /
 
 for envtool in $ENVTOOLS; do
     prepend_paths "$HOME/.${envtool}"
-    if command_exists $envtool; then
-        prepend PATH "$HOME/.$envtool/shims"
-    fi
+    when_command $envtool prepend PATH "$HOME/.$envtool/shims"
 done
 
 # Load latest with `nvm use --delete-prefix node`
@@ -207,9 +205,7 @@ receive "$HOME"/.nvm/nvm.sh # node
 
 when_file .nvmrc silently nvm use
 
-if command_exists opam; then
-    eval "$(opam env)" # ocaml
-fi
+when_command opam eval "$(opam env)" # ocaml
 
 # Load programming environment which only require setting PATH.
 #
@@ -330,9 +326,7 @@ function _completion_loader() {
         _default_completion_loader "$@"
 
         for envtool in $ENVTOOLS; do
-            if command_exists $envtool; then
-                eval "$($envtool init -)"
-            fi
+            when_command $envtool eval "$($envtool init -)"
         done
 
         receive "$HOME"/.nvm/bash_completion
@@ -379,9 +373,8 @@ ship WORKON_HOME="$HOME"/.virtualenvs-$HOSTNAME
 silently receive "$HOME"/bin/virtualenvwrapper.sh
 
 if [ "$USE_VIRTUALENV" != "false" ]; then
-    if command_exists workon; then
-        workon_walk
-    fi
+    when_command workon workon_walk
+
     receive "$PWD"/.env/bin/activate
     receive "$PWD"/env/bin/activate
 fi
