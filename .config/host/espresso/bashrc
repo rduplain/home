@@ -1,3 +1,0 @@
-# Ubuntu 14.04 bash completion loads git somehow, but not at _git function?
-# Source the completer explicitly so that homegit alias works.
-. /usr/share/bash-completion/completions/git

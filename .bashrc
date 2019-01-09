@@ -331,6 +331,7 @@ function _completion_loader() {
         # everything is ready when bash restarts the completion process.
         _default_completion_loader "$@"
 
+        receive /usr/share/bash-completion/completions/git
         receive /opt/src/git/contrib/completion/git-completion.bash
 
         # Alias git completion to homegit script.
