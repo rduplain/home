@@ -205,6 +205,8 @@ done
 # Load a specific version replacing "node" with version in `nvm ls`.
 receive "$HOME"/.nvm/nvm.sh # node
 
+when_file .nvmrc nvm use >/dev/null 2>&1
+
 if command_exists opam; then
     eval "$(opam env)" # ocaml
 fi
