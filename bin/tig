@@ -18,10 +18,9 @@ main() {
 
     if use_homegit; then
         export GIT_DIR=$HOME/.homegit
-        exec "$tig" "$@"
-    else
-        exec "$tig" "$@"
     fi
+
+    exec "$tig" "$@"
 }
 
 main "$@"
