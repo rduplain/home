@@ -9,6 +9,11 @@ main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     . "$DIR"/wrapper.bash
 
+    if [ $# -eq 1 ] && requested _source "$@"; then
+        # Make `. git _source` available to pull in functions.
+        return 0
+    fi
+
     git="$(set_aside_this_and_find_that "$DIR" git)"
 
     if [ -z "$git" ]; then

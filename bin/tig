@@ -1,13 +1,9 @@
 #!/bin/bash
 # Wrap `tig` to use .homegit.
 
-use_homegit() {
-    [ -n "$USE_HOMEGIT" ] || [ -d .homegit ] && ! [ -d .git ]
-}
-
 main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-    . "$DIR"/wrapper.bash
+    . "$DIR"/git _source
 
     tig="$(set_aside_this_and_find_that "$DIR" tig)"
 
