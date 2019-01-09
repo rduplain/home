@@ -86,7 +86,7 @@ function receive() {
     local target="$1"
     shift
 
-    if [ -f "$target" ]; then
+    if [ -f "$target" ] || [ -L "$target" ]; then
         . "$target" "$@"
     else
         return 200
