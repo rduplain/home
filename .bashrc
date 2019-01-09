@@ -202,7 +202,7 @@ for envtool in $ENVTOOLS; do
 done
 
 if command_exists opam; then
-    eval $(opam env) # ocaml
+    eval "$(opam env)" # ocaml
 fi
 
 # Load programming environment which only require setting PATH.
