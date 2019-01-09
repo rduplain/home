@@ -5,7 +5,7 @@ if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
     export PS1="init> "
 fi
 
-export ENVTOOLS="pyenv rbenv"
+export ENVTOOLS="pyenv rbenv" # python, ruby
 
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
