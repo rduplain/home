@@ -25,6 +25,16 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+function silently() {
+    # Run given command silencing stdout & stderr.
+    #
+    # usage: silently command [ARG...]
+    #
+    # Exit status:
+    #     exit status of command
+
+    "$@" >/dev/null 2>&1
+}
 
 function ship() {
     # Run `export` with same syntax, but only if target value is existing file.

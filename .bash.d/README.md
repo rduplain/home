@@ -4,6 +4,15 @@ Copyright (c) 2007-2019, Ron DuPlain <ron.duplain@gmail.com>
 
 Released under the BSD License.
 
+**`silently`**
+
+     Run given command silencing stdout & stderr.
+
+     usage: silently command [ARG...]
+
+     Exit status:
+         exit status of command
+
 **`ship`**
 
      Run `export` with same syntax, but only if target value is existing file.

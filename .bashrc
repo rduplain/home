@@ -205,7 +205,7 @@ done
 # Load a specific version replacing "node" with version in `nvm ls`.
 receive "$HOME"/.nvm/nvm.sh # node
 
-when_file .nvmrc nvm use >/dev/null 2>&1
+when_file .nvmrc silently nvm use
 
 if command_exists opam; then
     eval "$(opam env)" # ocaml
@@ -376,7 +376,7 @@ fi
 # therefore speedup shell init), simply remove the symlink.
 ship WORKON_HOME="$HOME"/.virtualenvs
 ship WORKON_HOME="$HOME"/.virtualenvs-$HOSTNAME
-receive "$HOME"/bin/virtualenvwrapper.sh >/dev/null 2>&1
+silently receive "$HOME"/bin/virtualenvwrapper.sh
 
 if [ "$USE_VIRTUALENV" != "false" ]; then
     if command_exists workon; then
