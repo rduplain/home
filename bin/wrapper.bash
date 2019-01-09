@@ -19,6 +19,21 @@ command_exists() {
     type -t "$command" >/dev/null 2>&1
 }
 
+requested() {
+    # Check if first argument is found in remaining arguments.
+
+    that="$1"
+    shift
+
+    for arg in "$@"; do
+        if [ "$arg" = "$that" ]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
 set_aside_this_and_find_that() {
     # Set aside directory $1 and search PATH for command $2.
 

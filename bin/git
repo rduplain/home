@@ -18,7 +18,7 @@ main() {
 
     cmd="$git"
 
-    if use_homegit; then
+    if use_homegit && ! requested clone "$@"; then
         cmd="$git --git-dir=$HOME/.homegit --work-tree=$HOME"
     fi
 
