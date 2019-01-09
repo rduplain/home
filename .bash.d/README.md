@@ -36,6 +36,57 @@ Released under the BSD License.
          200 if target file does not exist
          exit status of `source` otherwise
 
+**`when_command`**
+
+     Run a given command line when another given command is installed.
+
+     usage: when_command command1 command2 args
+
+     similar to: command2 args # if command1 is found.
+
+     Note: This does nothing if command1 is not found.
+
+     The first command argument is not assumed to be the desired command, as
+     to allow invocation to programs which have command as a dependency.
+     See `when_installed`.
+
+     Exit status:
+         202 if no arguments are given
+         200 if command1 is not found
+         exit status of command otherwise
+
+**`when_installed`**
+
+     Run a given command line when first argument is a command which is found.
+
+     usage: when_command command args
+
+     similar to: command args # if command is found.
+
+     Note: This does nothing if command is not found.
+
+     See `when_command`.
+
+     Exit status:
+         202 if no arguments are given
+         200 if command is not found
+         exit status of command otherwise
+
+**`when_file`**
+
+     Run a given command when given file exists.
+
+     usage: when_file file command args
+
+     similar to: command args # if file exists.
+
+     Note: This does nothing if file does not exist.
+
+     Exit status:
+         202 if no arguments are given
+         200 if file does not exist
+         exit status of command otherwise
+
 **`when_host`**
 
      Run a given command when current hostname matches first argument.
