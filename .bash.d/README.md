@@ -1,6 +1,6 @@
 ## functions.bash - utilities for a common bashrc across hosts
 
-Copyright (c) 2007-2016, Ron DuPlain <ron.duplain@gmail.com>
+Copyright (c) 2007-2019, Ron DuPlain <ron.duplain@gmail.com>
 
 Released under the BSD License.
 
