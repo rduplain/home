@@ -62,7 +62,7 @@ function workon_walk() {
 }
 
 function call_nvm_use() {
-    file_exists "${1:-.}"/.nvmrc && silently nvm use
+    file_exists "${1:-.}"/.nvmrc && silently nvm use --delete-prefix
 }
 
 function source_these() {
