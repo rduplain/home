@@ -2,7 +2,9 @@
 # Wrap `git` to use .homegit.
 
 use_homegit() {
-    [ -n "$USE_HOMEGIT" ] || [ -d .homegit ] && ! [ -d .git ]
+    [ -n "$USE_HOMEGIT" ] || \
+        [ -d .homegit ] && ! [ -d .git ] || \
+                [ "$PWD" = "$HOME/bin" ]
 }
 
 main() {
