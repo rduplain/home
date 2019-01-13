@@ -25,15 +25,18 @@ main() {
 
     cmd="$git"
 
+    declare -a arg
+
     if use_homegit && ! requested clone "$@"; then
-        cmd="$git --git-dir=$HOME/.homegit --work-tree=$HOME"
+        arg=( --git-dir="$HOME"/.homegit --work-tree="$HOME" )
     fi
 
     if requested_only sync "$@"; then
-        $cmd fetch &&
-            $cmd rebase --committer-date-is-author-date origin/master
+        "$cmd" "${arg[@]}" fetch &&
+            "$cmd" "${arg[@]}" rebase \
+                --committer-date-is-author-date origin/master
     else
-        exec $cmd "$@"
+        exec "$cmd" "${arg[@]}" "$@"
     fi
 }
 
