@@ -8,8 +8,10 @@ main() {
     tig="$(set_aside_this_and_find_that "$DIR" tig)"
 
     if [ -z "$tig" ]; then
-        # No other `tig` found.
-        return 2
+        # No `tig`; fallback to `git log`.
+        local tiglike="%C(blue)%ad %C(green)%<(19)%an%C(auto)%h%d %C(reset)%s"
+        git log --pretty=format:"$tiglike" --date=format:"%Y-%m-%d %H:%M"
+        return
     fi
 
     if use_homegit; then
