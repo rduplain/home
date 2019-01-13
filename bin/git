@@ -3,8 +3,8 @@
 
 use_homegit() {
     [ -n "$USE_HOMEGIT" ] || \
-        [ -d .homegit ] && ! [ -d .git ] || \
-                [ "$PWD" = "$HOME/bin" ]
+        ( [ -d .homegit ] && ! [ -d .git ] ) || \
+        [ "$PWD" = "$HOME/bin" ]
 }
 
 main() {
