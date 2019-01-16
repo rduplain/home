@@ -20,6 +20,7 @@ main() {
 
     if [ -z "$git" ]; then
         # No other `git` found.
+        # Expect set-aside function to write a not-found message to stderr.
         return 2
     fi
 
