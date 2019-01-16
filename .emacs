@@ -471,7 +471,7 @@
          (message "Loading project clj/cljc files ...")
          (when-let
              ((src-path (project-path-from "shadow-cljs.edn" "src")))
-           (cider-load-all-files-clj-cljc-cljs src-path)))))))
+           (cider-load-all-files src-path)))))))
 
 ;;; Dynamically reconfigure REPL key binding.
 (setq run-repl-kbd-str "C-x C-z"
@@ -522,14 +522,6 @@
       "with-profile -user repl :headless :host localhost")
 
 (setq cider-offer-to-open-cljs-app-in-browser nil)
-
-(defun cider-load-all-files-clj-cljc-cljs (directory)
-  "Load all files in DIRECTORY (recursively).
-
-  See `cider-load-all-files'."
-  (interactive "DLoad files beneath directory: ")
-  (mapcar #'cider-load-file
-          (directory-files-recursively directory "\\.clj[cs]?$")))
 
 (defun clear-cider-repl ()
   "Clear CIDER REPL buffer, callable from any buffer."
