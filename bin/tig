@@ -9,8 +9,7 @@ main() {
 
     if [ -z "$tig" ]; then
         # No `tig`; fallback to `git log`.
-        local tiglike="%C(blue)%ad %C(green)%<(19)%an%C(auto)%h%d %C(reset)%s"
-        git log --pretty=format:"$tiglike" --date=format:"%Y-%m-%d %H:%M"
+        exec "$HOME"/bin/git tiglike
         return
     fi
 

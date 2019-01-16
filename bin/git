@@ -1,6 +1,9 @@
 #!/bin/bash
 # Wrap `git` to use .homegit.
 
+TIGLIKE=${TIGLIKE:-"%C(blue)%ad %C(green)%<(19)%an%C(auto)%h%d %C(reset)%s"}
+TIGLIKE_DATE_FORMAT=${TIGLIKE_DATE_FORMAT:-"%Y-%m-%d %H:%M"}
+
 use_homegit() {
     [ -n "$USE_HOMEGIT" ] || \
         ( [ -d .homegit ] && ! [ -d .git ] ) || \
@@ -36,6 +39,10 @@ main() {
         "$cmd" "${arg[@]}" fetch &&
             "$cmd" "${arg[@]}" rebase \
                 --committer-date-is-author-date origin/master
+    elif requested_only tiglike "$@"; then
+        exec "$cmd" "${arg[@]}" log \
+             --pretty=format:"$TIGLIKE" \
+             --date=format:"$TIGLIKE_DATE_FORMAT"
     else
         exec "$cmd" "${arg[@]}" "$@"
     fi
