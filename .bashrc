@@ -344,13 +344,12 @@ function _completion_loader() {
         receive /usr/share/bash-completion/completions/git
         receive /opt/src/git/contrib/completion/git-completion.bash
 
-        # Alias git completion to homegit script.
         function _homegit() {
-            # Use git completion with .homegit GIT_DIR.
+            # Use git completion for `homegit` with .homegit GIT_DIR.
             GIT_DIR="$HOME"/.homegit _git "$@"
         }
         function _hometig() {
-            # Use tig completion with .homegit GIT_DIR.
+            # Use tig completion for `hometig` with .homegit GIT_DIR.
             GIT_DIR="$HOME"/.homegit _tig "$@"
         }
         export -f _homegit _hometig
