@@ -23,10 +23,14 @@ function set_title() {
 }
 
 function commands() {
+    # Display top commands found in shell history.
+
     history | cut -c8- | sort | uniq -c | sort -rn | head
 }
 
 function docker-cleanup() {
+    # Clean up exited containers and unused images.
+
     if ! command_exists docker; then
         echo 'docker: command not found' >&2
         return 2
@@ -62,6 +66,8 @@ function workon_walk() {
 }
 
 function call_nvm_use() {
+    # Call `nvm use --delete-prefix` when .nvmrc is present.
+
     file_exists "${1:-.}"/.nvmrc && silently nvm use --delete-prefix
 }
 
@@ -340,9 +346,11 @@ function _completion_loader() {
 
         # Alias git completion to homegit script.
         function _homegit() {
+            # Use git completion with .homegit GIT_DIR.
             GIT_DIR="$HOME"/.homegit _git "$@"
         }
         function _hometig() {
+            # Use tig completion with .homegit GIT_DIR.
             GIT_DIR="$HOME"/.homegit _tig "$@"
         }
         export -f _homegit _hometig
