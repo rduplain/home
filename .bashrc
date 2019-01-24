@@ -66,9 +66,27 @@ function workon_walk() {
 }
 
 function call_nvm_use() {
-    # Call `nvm use --delete-prefix` when .nvmrc is present.
+    # Use nvm when .nvmrc is present.
+    #
+    # Argument $1 is a directory path, as in `walk_root_to_curdir`.
 
-    file_exists "${1:-.}"/.nvmrc && silently nvm use --delete-prefix
+    local dir="${1:-$PWD}"
+
+    if file_exists "$dir"/.nvmrc; then
+        # nvm warns that it cannot support the npm prefix config, and
+        # recommends using `nvm use --delete-prefix`. However, this
+        # --delete-prefix option rewrites the npmrc file. (!)
+        #
+        # Accordingly, when initializing a bash shell which finds a local
+        # .nvmrc, configure npm to have an alternative config file.
+        ship NPM_CONFIG_USERCONFIG="$HOME"/.nvm-npmrc
+
+        # Source nvm.sh, and assume that it calls `nvm use` if it finds .nvmrc.
+        receive "$HOME"/.nvm/nvm.sh # node
+    elif [ "$dir" = "$PWD" ]; then
+        # If no .nvmrc found, load `nvm` command without separate config.
+        receive "$HOME"/.nvm/nvm.sh # node
+    fi
 }
 
 function source_these() {
@@ -209,12 +227,6 @@ for envtool in $ENVTOOLS; do
     command_exists $envtool && prepend PATH "$HOME/.$envtool/shims"
 done
 
-# Load latest with `nvm use --delete-prefix node`
-# Load a specific version replacing "node" with version in `nvm ls`.
-receive "$HOME"/.nvm/nvm.sh # node
-
-walk_root_to_curdir call_nvm_use
-
 command_exists opam && eval "$(opam env)" # ocaml
 
 # Load programming environment which only require setting PATH.
@@ -229,6 +241,8 @@ prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin
 #     npm config set prefix '~/.npm-global'
 #
 prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME" "$HOME"/.npm-global
+
+walk_root_to_curdir call_nvm_use
 
 append PATH "$HOME"/src/android/sdk/platform-tools
 append PATH "$HOME"/src/android/sdk/tools
