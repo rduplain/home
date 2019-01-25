@@ -29,7 +29,7 @@ function commands() {
 }
 
 function docker-cleanup() {
-    # Clean up exited containers and unused images.
+    # Clean up exited Docker containers and unused images.
 
     if ! command_exists docker; then
         echo 'docker: command not found' >&2
@@ -51,8 +51,9 @@ export -f rehash set_title commands
 
 function workon_walk() {
     # Walk the directory tree upward until:
-    #  * a virtualenv is found which matches the name of a directory
-    #  * the root directory is reached (no virtualenv found)
+    #
+    # * A virtualenv is found which matches the name of a directory.
+    # * The root directory is reached (no virtualenv found).
     #
     # Activate the identified virtualenv with virtualenvwrapper's workon.
     dir="$PWD"
@@ -176,11 +177,12 @@ function omit_home() {
 # on each shell invocation instead of caching results, as to pick up any new
 # paths. Existing shells can update paths with the rehash function.
 #
-# Runtime modifications to paths will be overridden when the shell sources
+# Runtime modifications to paths will be overridden when the shell sources this
 # .bashrc. Most of the time, this is the desired behavior. When specific
 # modifications are needed, create a local .bashrc or .env file. Windows in GNU
 # screen or tmux will create shells with working directories inside the
 # project, and this .bashrc will find the project-local configuration files.
+#
 # See `source_these` in this .bashrc.
 
 function prepend_paths() {
@@ -233,6 +235,7 @@ command_exists opam && eval "$(opam env)" # ocaml
 #
 # * cask for emacs
 # * cargo for rust
+#
 prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin
 
 # Path management below sets paths for ~/.npm-global.
@@ -280,7 +283,7 @@ ship BAK_HOME="/media/$USER/bak"
 # Set locale.
 export LC_ALL=en_US.UTF-8
 
-# Don't put duplicate lines in the history. See bash(1) for more options.
+# Do not put duplicate lines in the history. See bash(1) for more options.
 export HISTCONTROL=ignoreboth
 export HISTFILESIZE=9999
 export HISTSIZE=20000
@@ -292,7 +295,7 @@ export TEXEDIT=$EDITOR
 export PAGER=less
 export GZIP="-9"
 
-# Make less more friendly for non-text input files, see lesspipe(1).
+# Make less more friendly for non-text input files; see lesspipe(1).
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
 alias pydoc=pydoc3
@@ -319,6 +322,7 @@ function _default_completion_loader() {
     # Example value:
     #
     #     complete -o bashdefault -o default -F _completion_loader -D
+    #
     local line=$(complete -p -D 2>/dev/null)
     line=${line##*-F} # Remove everything up to and including -F.
     line=$(echo $line | cut -f1 -d' ') # Remove first space & everything after.
