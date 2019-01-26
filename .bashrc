@@ -152,7 +152,7 @@ function walk_root_to_curdir() {
 function omit_home() {
     # Call command unless last argument is $HOME.
     #
-    # Useful with walk_root_to_curdir.
+    # Useful with `walk_root_to_curdir`.
 
     for last in "$@"; do true; done
     if [ "$last" != "$HOME" ]; then
@@ -256,7 +256,7 @@ dedupe_path PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
 export PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
-# Put snagged files from ~/bin/snag in an obvious place: home.
+# Put snagged files from ~/bin/snag in an obvious place: $HOME.
 export SNAG_HOME="$HOME"
 
 ship SCREENRC_DEFAULT="$HOME"/.screenrc-default
