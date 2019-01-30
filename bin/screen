@@ -19,9 +19,9 @@ DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 screen="$(set_aside_this_and_find_that "$DIR" screen)"
 
 if [ -z "$screen" ]; then
-    # No other `screen` found. Present a command not found.
-    PATH= screen
-    return 2
+    # No other `screen` found.
+    # Expect set-aside function to write a not-found message to stderr.
+    exit 2
 fi
 
 # Build a string of options & arguments to inject into screen command call.
