@@ -1,12 +1,17 @@
 #!/bin/bash
-# Wrap GNU screen. Extend screen to:
+# Wrap `screen` to enable the command-line as IDE.
 #
-# * prefer .screenrc-$USER or .screenrc in $PWD before $HOME/.screenrc.
-# * default the sessionname to the basename of $PWD.
+# SCREENRC configures the filename of GNU screen's rc configuration file.
+# SCREENRC_DEFAULT configures the filepath of the default .screenrc to use.
+#
+# Look for a project-local .screenrc file.
+# By convention, a project-local .screenrc sources $HOME/.screenrc.
+# When there's no project-local .screenrc, use $SCREENRC_DEFAULT.
+#
+# See: ~/.screenrc-default
 
-# Override these with eponymous environment variables.
-SCREENRC="${SCREENRC:-.screenrc}" # conventional name of screenrc
-SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}" # project default
+SCREENRC="${SCREENRC:-.screenrc}"
+SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
 
 DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . "$DIR"/wrapper.bash
@@ -18,18 +23,6 @@ if [ -z "$screen" ]; then
     PATH= screen
     return 2
 fi
-
-# SCREENRC and SCREENRC_DEFAULT variables:
-#
-# SCREENRC is configuring what GNU screen calls it's rc file.
-#
-# Below, you'll see that this wrapper looks for a project-local .screenrc which
-# is expected to source $HOME/.screenrc. If no local .screenrc is found, use
-# $SCREENRC_DEFAULT, which is $HOME/.screenrc, unless you set the
-# SCREENRC_DEFAULT env variable to some rc file which provides a nice set of
-# windows which you'd like to have on each project.
-#
-# See ~/.screenrc-default in the repository containing this wrapper.
 
 # Build a string of options & arguments to inject into screen command call.
 local_args=""
