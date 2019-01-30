@@ -53,7 +53,7 @@ set_aside_this_and_find_that() {
         IFS=:
         set -o noglob
 
-        found=''
+        found=
 
         for path in $PATH; do
             if [ "$path" = "$directory_aside" ]; then
