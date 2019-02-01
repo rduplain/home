@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # start-dropbox: Start Dropbox once its home location is mounted.
 #
 # Effective November 2018, Dropbox on Linux will only sync on unencrypted ext4.

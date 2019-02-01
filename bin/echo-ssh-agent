@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # echo ssh-agent environment details to stdout.
 #
 # Useful for redirecting to a predictable location, e.g. ~/.ssh/agent.bash.

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Snag stdin, put it into a common file area, optionally using file extension.
 #
 # usage: snag [file-extension]

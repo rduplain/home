@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Wrap `git` to use .homegit.
 
 TIGLIKE=${TIGLIKE:-"%C(blue)%ad %C(green)%<(19)%an%C(auto)%h%d %C(reset)%s"}

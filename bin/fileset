@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Rename files into serial file set: PREFIX00010.ext PREFIX00020.ext ...
 
 PROGRAM=`basename $0`

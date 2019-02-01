@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Run given command, retrying indefinitely on failure.
 
 SLEEP=60

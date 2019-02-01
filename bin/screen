@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Wrap `screen` to enable the command-line as IDE.
 #
 # SCREENRC configures the filename of GNU screen's rc configuration file.

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # archive files away, placing them in a date-based directory.
 # usage: archive file1 [file2 [file3] ...]
 #

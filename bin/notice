@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # notice - dead simple user logging utility for the command-line user
 #
 # Copyright 2009-2014 Ron DuPlain <ron.duplain@gmail.com>
