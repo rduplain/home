@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Control X workspaces.
+#
 # Manipulate window manager workspaces and cycle between non-reserved spaces.
 # This script tests "reserving" workspaces and add, remove, and cycle
 # non-reserved workspaces.  The motiviation is to access reserved

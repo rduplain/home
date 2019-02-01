@@ -1,3 +1,4 @@
 #!/bin/sh
+# Run VNC server on X0, allowing remote input.
 
 exec x0vncserver -PasswordFile=$HOME/.vnc/passwd -AlwaysShared $@

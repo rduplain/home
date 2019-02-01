@@ -1,5 +1,6 @@
 #!/usr/bin/env perl
 # Watch gnome-screensaver and react to status changes.
+#
 # Based on gnome-screensaver online docs.
 
 my $cmd = "dbus-monitor --session \"type='signal',interface='org.gnome.ScreenSaver'\"";
