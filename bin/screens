@@ -35,12 +35,16 @@ start_screen() {
     fi
 }
 
-if [ $# -gt 0 ]; then
-    for path in "$@"; do
-        start_screen "$path"
-    done
-else
-    for path in `cat $conf`; do
-        start_screen "$path"
-    done
-fi
+main() {
+    if [ $# -gt 0 ]; then
+        for path in "$@"; do
+            start_screen "$path"
+        done
+    else
+        for path in `cat $conf`; do
+            start_screen "$path"
+        done
+    fi
+}
+
+main "$@"
