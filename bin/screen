@@ -10,16 +10,22 @@
 #
 # See: ~/.screenrc-default
 
+SCREEN=
+
 SCREENRC="${SCREENRC:-.screenrc}"
 SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
+
+screen_running() {
+    "$SCREEN" -ls | grep -q "\.$1\s";
+}
 
 main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     . "$DIR"/wrapper.bash
 
-    screen="$(set_aside_this_and_find_that "$DIR" screen)"
+    SCREEN="$(set_aside_this_and_find_that "$DIR" screen)"
 
-    if [ -z "$screen" ]; then
+    if [ -z "$SCREEN" ]; then
         # No other `screen` found.
         # Expect set-aside function to write a not-found message to stderr.
         exit 2
@@ -30,8 +36,15 @@ main() {
 
     # If no arguments are given, set a default sessionname.
     if [ $# -eq 0 ]; then
-        # Set sessionname to basename of $PWD, e.g. ~/someproject is someproject.
-        args+=( -S ${PWD##*/} )
+        # Use basename of $PWD as sessionname, e.g. ~/somedir is somedir.
+        sessionname="${PWD##*/}"
+
+        # Re-attach to screen if already running.
+        if screen_running "$sessionname"; then
+            exec "$SCREEN" -x "$sessionname"
+        fi
+
+        args+=( -S "$sessionname" )
     fi
 
     # Select a screenrc, in order of priority (see comment at top of file).
@@ -43,7 +56,7 @@ main() {
         args+=( -c "$SCREENRC_DEFAULT" )
     fi
 
-    exec "$screen" "${args[@]}" "$@"
+    exec "$SCREEN" "${args[@]}" "$@"
 }
 
 main "$@"
