@@ -13,33 +13,37 @@
 SCREENRC="${SCREENRC:-.screenrc}"
 SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
 
-DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-. "$DIR"/wrapper.bash
+main() {
+    DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    . "$DIR"/wrapper.bash
 
-screen="$(set_aside_this_and_find_that "$DIR" screen)"
+    screen="$(set_aside_this_and_find_that "$DIR" screen)"
 
-if [ -z "$screen" ]; then
-    # No other `screen` found.
-    # Expect set-aside function to write a not-found message to stderr.
-    exit 2
-fi
+    if [ -z "$screen" ]; then
+        # No other `screen` found.
+        # Expect set-aside function to write a not-found message to stderr.
+        exit 2
+    fi
 
-# Build an array of options & arguments to inject into screen command call.
-declare -a args
+    # Build an array of options & arguments to inject into screen command call.
+    declare -a args
 
-# If no arguments are given, set a default sessionname.
-if [ $# -eq 0 ]; then
-    # Set sessionname to basename of $PWD, e.g. ~/someproject is someproject.
-    args+=( -S ${PWD##*/} )
-fi
+    # If no arguments are given, set a default sessionname.
+    if [ $# -eq 0 ]; then
+        # Set sessionname to basename of $PWD, e.g. ~/someproject is someproject.
+        args+=( -S ${PWD##*/} )
+    fi
 
-# Select a screenrc, in order of priority (see comment at top of file).
-if [ -e "${SCREENRC}-${USER}" ]; then
-    args+=( -c "$SCREENRC-${USER}" )
-elif [ -e "$SCREENRC" ]; then
-    args+=( -c "$SCREENRC" )
-elif [ -e "$SCREENRC_DEFAULT" ]; then
-    args+=( -c "$SCREENRC_DEFAULT" )
-fi
+    # Select a screenrc, in order of priority (see comment at top of file).
+    if [ -e "${SCREENRC}-${USER}" ]; then
+        args+=( -c "$SCREENRC-${USER}" )
+    elif [ -e "$SCREENRC" ]; then
+        args+=( -c "$SCREENRC" )
+    elif [ -e "$SCREENRC_DEFAULT" ]; then
+        args+=( -c "$SCREENRC_DEFAULT" )
+    fi
 
-exec "$screen" "${args[@]}" "$@"
+    exec "$screen" "${args[@]}" "$@"
+}
+
+main "$@"
