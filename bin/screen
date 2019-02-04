@@ -4,7 +4,9 @@
 # SCREENRC configures the filename of GNU screen's rc configuration file.
 # SCREENRC_DEFAULT configures the filepath of the default .screenrc to use.
 #
-# Look for a project-local .screenrc file.
+# Look for a project-local .screenrc file, first checking for a local
+# .screenrc-username file to allow personal customizations.
+#
 # By convention, a project-local .screenrc sources $HOME/.screenrc.
 # When there's no project-local .screenrc, use $SCREENRC_DEFAULT.
 #
