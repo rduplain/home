@@ -34,7 +34,7 @@ main() {
     fi
 
     # Build an array of options & arguments to inject into screen command call.
-    declare -a args
+    declare -a arg
 
     # If no arguments are given, set a default sessionname.
     if [ $# -eq 0 ]; then
@@ -46,19 +46,19 @@ main() {
             exec "$SCREEN" -x "$sessionname"
         fi
 
-        args+=( -S "$sessionname" )
+        arg+=( -S "$sessionname" )
     fi
 
     # Select a screenrc, in order of priority (see comment at top of file).
     if [ -e "${SCREENRC}-${USER}" ]; then
-        args+=( -c "$SCREENRC-${USER}" )
+        arg+=( -c "$SCREENRC-${USER}" )
     elif [ -e "$SCREENRC" ]; then
-        args+=( -c "$SCREENRC" )
+        arg+=( -c "$SCREENRC" )
     elif [ -e "$SCREENRC_DEFAULT" ]; then
-        args+=( -c "$SCREENRC_DEFAULT" )
+        arg+=( -c "$SCREENRC_DEFAULT" )
     fi
 
-    exec "$SCREEN" "${args[@]}" "$@"
+    exec "$SCREEN" "${arg[@]}" "$@"
 }
 
 main "$@"
