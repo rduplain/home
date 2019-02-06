@@ -30,7 +30,7 @@ main() {
     if [ -z "$SCREEN" ]; then
         # No other `screen` found.
         # Expect set-aside function to write a not-found message to stderr.
-        exit 2
+        return 2
     fi
 
     # Build an array of options & arguments to inject into screen command call.
