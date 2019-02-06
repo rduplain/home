@@ -18,7 +18,58 @@ SCREENRC="${SCREENRC:-.screenrc}"
 SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
 
 screen_running() {
+    # Check whether a screen session is running with the given name.
+
+    if [ -z "$@" ]; then
+        return 2
+    fi
+
     "$SCREEN" -ls | grep -q "\.$1\s";
+}
+
+sessionname() {
+    # Print session name for screen to stdout.
+
+    if [ -n "$(sessionname_attach "$@")" ]; then
+        sessionname_attach "$@"
+    elif [ -n "$(sessionname_start "$@")" ]; then
+        sessionname_start "$@"
+    elif [ $# -eq 0 ]; then
+        sessionname_default
+    fi
+}
+
+sessionname_attach() {
+    # Print session name for screen attach to stdout, if found in arguments.
+
+    while getopts ":r:x:" opt; do
+        case $opt in
+            r|x)
+                echo "$OPTARG"
+                break
+                ;;
+        esac
+    done
+}
+
+sessionname_default() {
+    # Print default session name for new screen to stdout.
+
+    # Use basename of $PWD as sessionname, e.g. ~/src/project is "project".
+    echo "${PWD##*/}"
+}
+
+sessionname_start() {
+    # Print session name for new screen to stdout, if found in arguments.
+
+    while getopts ":S:" opt; do
+        case $opt in
+            S)
+                echo "$OPTARG"
+                break
+                ;;
+        esac
+    done
 }
 
 main() {
@@ -33,19 +84,29 @@ main() {
         return 2
     fi
 
+    sessionname="$(sessionname "$@")"
+
+    # Re-attach to screen if already running.
+    if screen_running "$sessionname"; then
+        exec "$SCREEN" -x "$sessionname"
+    fi
+
+    # Screen is not running. If request to attach, start screen automatically.
+    if [ -n "$(sessionname_attach "$@")" ]; then
+        project="$HOME/src/$sessionname"
+        if [ ! -d "$project" ]; then
+            echo "There is no screen to be resumed matching $sessionname." >&2
+            return 1
+        fi
+        cd "$project"; screen -fn -dmS "$sessionname"
+        exec "$SCREEN" -x "$sessionname"
+    fi
+
     # Build an array of options & arguments to inject into screen command call.
     declare -a arg
 
-    # If no arguments are given, set a default sessionname.
-    if [ $# -eq 0 ]; then
-        # Use basename of $PWD as sessionname, e.g. ~/somedir is somedir.
-        sessionname="${PWD##*/}"
-
-        # Re-attach to screen if already running.
-        if screen_running "$sessionname"; then
-            exec "$SCREEN" -x "$sessionname"
-        fi
-
+    # Set session name if not provided in arguments.
+    if [ -n "$sessionname" ] && [ -z "$(sessionname_start "$@")" ]; then
         arg+=( -S "$sessionname" )
     fi
 
