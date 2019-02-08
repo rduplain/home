@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
-# Wrap `screen` to enable the command-line as IDE.
+# Wrap `screen` to enable the command line as IDE.
 #
 # SCREENRC configures the filename of GNU screen's rc configuration file.
 # SCREENRC_DEFAULT configures the filepath of the default .screenrc to use.
 #
-# Look for a project-local .screenrc file, first checking for a local
-# .screenrc-username file to allow personal customizations.
+# Look for a project-local .screenrc file, in order:
+#
+# 1. A local .screenrc-username file, to allow personalization.
+# 2. A local .screenrc file, typically checked in with a project.
+# 3. The file at $SCREENRC_DEFAULT, as a fallback.
 #
 # By convention, a project-local .screenrc sources $HOME/.screenrc.
-# When there's no project-local .screenrc, use $SCREENRC_DEFAULT.
 #
 # See: ~/.screenrc-default
 
@@ -18,7 +20,9 @@ SCREENRC="${SCREENRC:-.screenrc}"
 SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
 
 screen_running() {
-    # Check whether a screen session is running with the given name.
+    # Check whether a screen session is running with given name.
+    #
+    # Note: This function uses the global SCREEN variable set in `main`.
 
     if [ -z "$@" ]; then
         return 2
@@ -28,7 +32,9 @@ screen_running() {
 }
 
 sessionname() {
-    # Print session name for screen to stdout.
+    # Print session name for screen to stdout, based on arguments.
+    #
+    # Print nothing, if default does not apply and no session name is found.
 
     if [ -n "$(sessionname_attach "$@")" ]; then
         sessionname_attach "$@"
@@ -54,8 +60,9 @@ sessionname_attach() {
 
 sessionname_default() {
     # Print default session name for new screen to stdout.
-
+    #
     # Use basename of $PWD as sessionname, e.g. ~/src/project is "project".
+
     echo "${PWD##*/}"
 }
 
@@ -73,6 +80,8 @@ sessionname_start() {
 }
 
 main() {
+    # Start & attach sessions automatically.
+
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     . "$DIR"/wrapper.bash
 
@@ -98,7 +107,9 @@ main() {
             echo "There is no screen to be resumed matching $sessionname." >&2
             return 1
         fi
+        # Start screen in background.
         cd "$project"; screen -fn -dmS "$sessionname"
+        # Attach to new screen.
         exec "$SCREEN" -x "$sessionname"
     fi
 
