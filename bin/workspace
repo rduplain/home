@@ -165,11 +165,15 @@ workspace-plow() {
     workspace-goto $target
 }
 
-subcommand=$1
-shift
+main() {
+    subcommand=$1
+    shift
 
-if [ -n "$subcommand" ]; then
-    workspace-${subcommand} $@
-else
-    usage
-fi
+    if [ -n "$subcommand" ]; then
+        workspace-${subcommand} $@
+    else
+        usage
+    fi
+}
+
+main "$@"
