@@ -1,7 +1,8 @@
 #!/bin/bash
 # I was looking for a way to have screen run program at start then run a shell.
-
+#
 # Assume $SHELL is /bin/bash.
+
 . "$HOME"/.bashrc
 
 if [ "$1" = "-C" ]; then
@@ -11,13 +12,13 @@ fi
 
 eval "$PROMPT_COMMAND"
 
-# run the requested command
+# Run the requested command.
 eval "$@"
 
 # HACK: Put command in history before executing shell. `history -s "$@"`
-# together with `history -a` serves this purpose, but does not appear to be as
-# reliable as a direct echo appending the result.
+# together with `history -a` serves this purpose, but is not as reliable as
+# appending the file.
 [[ -n "$@" ]] && echo "$@" >> "$HOME"/.bash_history
 
-# now launch shell
+# Now launch shell.
 exec /bin/bash
