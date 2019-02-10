@@ -18,7 +18,7 @@ active_char='*' # char in `wmctrl -d` marking active workspace
 # Since active_char is *, need to avoid shell globbing.
 set -o noglob
 
-function usage() {
+usage() {
     # usage: usage [command [args]]
     if [ $# -gt 0 ]; then
         echo usage: $prog $@ >&2
@@ -29,7 +29,7 @@ function usage() {
     exit 2
 }
 
-function workspace-help() {
+workspace-help() {
     echo 'workspace command [number|name]'
     echo
     echo 'goto [number]   - goto workspace with number given, default last'
@@ -64,7 +64,7 @@ count=${#active[*]}
 min_cycle=$reserved
 max_cycle=$((count-1))
 
-function workspace-current() {
+workspace-current() {
     for num in ${!active[*]}; do
         if [ ${active[num]} = $active_char ]; then
             echo $num
@@ -72,7 +72,7 @@ function workspace-current() {
     done
 }
 
-function workspace-goto() {
+workspace-goto() {
     if [ -z "$1" ]; then
         wmctrl -s $((count-1))
     else
@@ -80,7 +80,7 @@ function workspace-goto() {
     fi
 }
 
-function workspace-set() {
+workspace-set() {
     local newcount=${1:-$count}
     if [ $newcount -gt $reserved ]; then
         wmctrl -n $newcount
@@ -90,20 +90,20 @@ function workspace-set() {
     fi
 }
 
-function workspace-add() {
+workspace-add() {
     local newcount=$((count+${1:-1}))
     workspace-set $newcount
 }
 
-function workspace-remove() {
+workspace-remove() {
     workspace-add -${1:-1}
 }
 
-function workspace-subtract() {
+workspace-subtract() {
     workspace-remove $@
 }
 
-function workspace-up() {
+workspace-up() {
     local gap=${1:-1}
     local next=$((`workspace-current`+1))
     [[ $next -lt $min_cycle ]] && next=$min_cycle
@@ -120,7 +120,7 @@ function workspace-up() {
     echo $target
 }
 
-function workspace-down() {
+workspace-down() {
     local gap=${1:-1}
     local prev=$((`workspace-current`-1))
     [[ $prev -gt $max_cycle ]] && prev=$max_cycle
@@ -137,15 +137,15 @@ function workspace-down() {
     echo $target
 }
 
-function workspace-next() {
+workspace-next() {
     workspace-goto `workspace-up $@`
 }
 
-function workspace-prev() {
+workspace-prev() {
     workspace-goto `workspace-down $@`
 }
 
-function workspace-take() {
+workspace-take() {
     local gap=${1:-1}
     if [ $gap -gt 0 ]; then
         local target=`workspace-up $gap`
@@ -158,7 +158,7 @@ function workspace-take() {
     workspace-goto $target
 }
 
-function workspace-plow() {
+workspace-plow() {
     local target=$count
     wmctrl -n $((count+1))
     wmctrl -r :ACTIVE: -t $target
