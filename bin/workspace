@@ -11,21 +11,21 @@
 #
 # NOTE: This script depends heavily on wmctrl and its behavior.
 
-prog=${0##*/} # same as `basename $0`
-reserved=${WORKSPACES_RESERVED:-5}
-active_char='*' # char in `wmctrl -d` marking active workspace
+PROG=${0##*/} # same as `basename $0`
+RESERVED=${WORKSPACES_RESERVED:-5}
+ACTIVE_CHAR='*' # char in `wmctrl -d` marking active workspace
 
-# Since active_char is *, need to avoid shell globbing.
+# Since ACTIVE_CHAR is *, need to avoid shell globbing.
 set -o noglob
 
 usage() {
     # usage: usage [command [args]]
     if [ $# -gt 0 ]; then
-        echo usage: $prog $@ >&2
+        echo usage: $PROG $@ >&2
     else
-        echo usage: $prog command args >&2
+        echo usage: $PROG command args >&2
     fi
-    echo "type \"$prog help\" for more information"
+    echo "type \"$PROG help\" for more information"
     exit 2
 }
 
@@ -55,18 +55,18 @@ workspace-help() {
 # 6 - three
 
 # Create lookup tables via bash arrays.
-# number=( `wmctrl -d | awk '{ print $1 }'` )
-active=( `wmctrl -d | awk '{ print $2 }'` )
-# name=( `wmctrl -d | awk '{ print $NF }'` )
+# NUMBER=( `wmctrl -d | awk '{ print $1 }'` )
+ACTIVE=( `wmctrl -d | awk '{ print $2 }'` )
+# NAME=( `wmctrl -d | awk '{ print $NF }'` )
 
-count=${#active[*]}
+COUNT=${#ACTIVE[*]}
 
-min_cycle=$reserved
-max_cycle=$((count-1))
+MIN_CYCLE=$RESERVED
+MAX_CYCLE=$((COUNT-1))
 
 workspace-current() {
-    for num in ${!active[*]}; do
-        if [ ${active[num]} = $active_char ]; then
+    for num in ${!ACTIVE[*]}; do
+        if [ ${ACTIVE[num]} = $ACTIVE_CHAR ]; then
             echo $num
         fi
     done
@@ -74,24 +74,24 @@ workspace-current() {
 
 workspace-goto() {
     if [ -z "$1" ]; then
-        wmctrl -s $((count-1))
+        wmctrl -s $((COUNT-1))
     else
         wmctrl -s $1
     fi
 }
 
 workspace-set() {
-    local newcount=${1:-$count}
-    if [ $newcount -gt $reserved ]; then
+    local newcount=${1:-$COUNT}
+    if [ $newcount -gt $RESERVED ]; then
         wmctrl -n $newcount
         workspace-goto $((newcount-1))
     else
-        workspace-goto $reserved
+        workspace-goto $RESERVED
     fi
 }
 
 workspace-add() {
-    local newcount=$((count+${1:-1}))
+    local newcount=$((COUNT+${1:-1}))
     workspace-set $newcount
 }
 
@@ -106,9 +106,9 @@ workspace-subtract() {
 workspace-up() {
     local gap=${1:-1}
     local next=$((`workspace-current`+1))
-    [[ $next -lt $min_cycle ]] && next=$min_cycle
+    [[ $next -lt $MIN_CYCLE ]] && next=$MIN_CYCLE
     until [ $gap -le 0 ]; do
-        for (( target=${next:-min_cycle}; target <= max_cycle; target++ )); do
+        for (( target=${next:-MIN_CYCLE}; target <= MAX_CYCLE; target++ )); do
             let gap=gap-1
             if [ $gap -le 0 ]; then
                 echo $target
@@ -123,9 +123,9 @@ workspace-up() {
 workspace-down() {
     local gap=${1:-1}
     local prev=$((`workspace-current`-1))
-    [[ $prev -gt $max_cycle ]] && prev=$max_cycle
+    [[ $prev -gt $MAX_CYCLE ]] && prev=$MAX_CYCLE
     until [ $gap -le 0 ]; do
-        for (( target=${prev:-max_cycle}; target >= $min_cycle; target-- )); do
+        for (( target=${prev:-MAX_CYCLE}; target >= $MIN_CYCLE; target-- )); do
             let gap=gap-1
             if [ $gap -le 0 ]; then
                 echo $target
@@ -150,7 +150,7 @@ workspace-take() {
     if [ $gap -gt 0 ]; then
         local target=`workspace-up $gap`
     elif [ $gap -eq 0 ]; then
-        local target=$((count-1))
+        local target=$((COUNT-1))
     else
         local target=`workspace-down $((gap*-1))`
     fi
@@ -159,8 +159,8 @@ workspace-take() {
 }
 
 workspace-plow() {
-    local target=$count
-    wmctrl -n $((count+1))
+    local target=$COUNT
+    wmctrl -n $((COUNT+1))
     wmctrl -r :ACTIVE: -t $target
     workspace-goto $target
 }
