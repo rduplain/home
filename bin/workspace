@@ -2,12 +2,13 @@
 # Control X workspaces.
 #
 # Manipulate window manager workspaces and cycle between non-reserved spaces.
-# This script tests "reserving" workspaces and add, remove, and cycle
-# non-reserved workspaces.  The motiviation is to access reserved
-# workspaces by specific shortcut (e.g. Super-7, Super-8, Super-9, Super-0)
-# and access non-reserved workspaces by cycling (e.g. Super-n, Super-p),
-# with the first n being accessible by specific shortcuts (e.g. Super-1 - 6).
-# Reserved workspaces are not accessed by cycling.
+# This script allows for "reserved" workspaces and provides add, remove, and
+# cycle operations for non-reserved, ephemeral workspaces. The motiviation is
+# to access reserved workspaces by specific shortcut (e.g. Super-7, Super-8,
+# Super-9, Super-0) and access non-reserved workspaces by cycling
+# (e.g. Super-n, Super-p), with the first n being accessible by specific
+# shortcuts (e.g. Super-1 - 6). Reserved workspaces are not accessed by
+# cycling.
 #
 # NOTE: This script depends heavily on wmctrl and its behavior.
 
