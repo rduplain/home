@@ -18,7 +18,11 @@ unlock() {
     # Do other things here, like resume music playback & unmute speakers.
 }
 
-xscreensaver-command -watch | while read a; do
-    echo "$a" | grep -q '^LOCK' && lock
-    echo "$a" | grep -q '^UNBLANK' && unlock
-done
+main() {
+    xscreensaver-command -watch | while read a; do
+        echo "$a" | grep -q '^LOCK' && lock
+        echo "$a" | grep -q '^UNBLANK' && unlock
+    done
+}
+
+main "$@"
