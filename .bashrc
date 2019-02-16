@@ -1,3 +1,5 @@
+# A .bashrc for all systems.
+
 . "$HOME"/.bash.d/functions.bash
 
 if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
