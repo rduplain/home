@@ -231,7 +231,7 @@ for envtool in $ENVTOOLS; do
     command_exists $envtool && prepend PATH "$HOME/.$envtool/shims"
 done
 
-command_exists opam && eval "$(opam env)" # ocaml
+command_exists opam && file_exists "$HOME"/.opam && eval "$(opam env)" # ocaml
 
 # Load programming environment which only require setting PATH.
 #
