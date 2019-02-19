@@ -73,9 +73,17 @@ URxvt*saveLines: 9999
 URxvt*font: xft:Inconsolata:size=16
 URxvt*letterSpace: -1
 
-URxvt.keysym.C-Up: perl:font-size:increase
-URxvt.keysym.C-Down: perl:font-size:decrease
 URxvt.font-size.step: 3
+
+! Increase/Decrease font size with Control-Up & Control-Down.
+URxvt.keysym.Control-Up: perl:font-size:increase
+URxvt.keysym.Control-Down: perl:font-size:decrease
+! Increase/Decrease font size with Shift-KP_Add & Shift-KP_Subtract.
+URxvt.keysym.Shift-0xffab: perl:font-size:increase
+URxvt.keysym.Shift-0xffad: perl:font-size:decrease
+! Increase/Decrease font size with Control-equal & Control-minus.
+URxvt.keysym.Control-equal: perl:font-size:increase
+URxvt.keysym.Control-minus: perl:font-size:decrease
 
 URxvt*cursorBlink:              false
 URxvt*visualBell:               false
@@ -109,7 +117,7 @@ URxvt*color14:                 COLOR_TERM_LIGHT_CYAN
 URxvt*color15:                 COLOR_TERM_WHITE
 #endif
 
-URxvt.perl-ext-common: default,matcher,font-size
+URxvt.perl-ext-common: default,font-size,matcher
 URxvt.urlLauncher: sensible-browser
 URxvt.matcher.button: 1
 
