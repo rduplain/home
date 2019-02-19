@@ -85,6 +85,9 @@ URxvt.keysym.Shift-0xffad: perl:font-size:decrease
 URxvt.keysym.Control-equal: perl:font-size:increase
 URxvt.keysym.Control-minus: perl:font-size:decrease
 
+! Disable mode which inserts unicode symbols.
+URxvt.iso14755 : false
+
 URxvt*cursorBlink:              false
 URxvt*visualBell:               false
 URxvt*scrollBar:                false
