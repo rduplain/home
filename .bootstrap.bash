@@ -11,7 +11,7 @@ HOMEGIT_DIR=${HOMEGIT_DIR:-"$HOME"/.homegit}
 set_host_config() {
     # Set host configuration files.
 
-    host_dir=.config/host/$HOSTNAME
+    host_dir=.config/host/${HOSTNAME:-default}
 
     # Use a subshell to isolate PWD change.
     (
