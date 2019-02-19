@@ -30,7 +30,7 @@ main() {
 
     if [ -e "$HOMEGIT_DIR" ]; then
         echo "$PROG: $HOMEGIT_DIR already exists."
-        return 3
+        exec bash
     fi
 
     cd "$HOME"
@@ -42,6 +42,8 @@ main() {
     GIT_DIR="$HOME"/.homegit git config --add status.showUntrackedFiles no
 
     set_host_config
+
+    exec bash
 }
 
 main "$@"
