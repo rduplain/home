@@ -35,11 +35,11 @@ main() {
 
     cd "$HOME"
     git clone $HOME_URL homegit-bootstrap
-    mv homegit-bootstrap/.git .homegit
+    mv homegit-bootstrap/.git "$HOMEGIT_DIR"
     rm -fr homegit-bootstrap
-    GIT_DIR="$HOME"/.homegit git checkout $HOME_REV >/dev/null
-    GIT_DIR="$HOME"/.homegit git checkout .
-    GIT_DIR="$HOME"/.homegit git config --add status.showUntrackedFiles no
+    GIT_DIR="$HOMEGIT_DIR" git checkout $HOME_REV >/dev/null
+    GIT_DIR="$HOMEGIT_DIR" git checkout .
+    GIT_DIR="$HOMEGIT_DIR" git config --add status.showUntrackedFiles no
 
     set_host_config
 
