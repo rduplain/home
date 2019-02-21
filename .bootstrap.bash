@@ -29,7 +29,7 @@ main() {
     # Bootstrap $HOME git.
 
     if [ -e "$HOMEGIT_DIR" ]; then
-        echo "$PROG: $HOMEGIT_DIR already exists."
+        echo "$PROG: $HOMEGIT_DIR already exists." >&2
         exec bash
     fi
 
