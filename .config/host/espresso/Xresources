@@ -75,9 +75,6 @@ URxvt*letterSpace: -1
 
 URxvt.font-size.step: 3
 
-! Increase/Decrease font size with Control-Up & Control-Down.
-URxvt.keysym.Control-Up: perl:font-size:increase
-URxvt.keysym.Control-Down: perl:font-size:decrease
 ! Increase/Decrease font size with Shift-KP_Add & Shift-KP_Subtract.
 URxvt.keysym.Shift-0xffab: perl:font-size:increase
 URxvt.keysym.Shift-0xffad: perl:font-size:decrease
