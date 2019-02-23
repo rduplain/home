@@ -8,10 +8,17 @@ HOME_REV=${HOME_REV:-master}
 
 HOMEGIT_DIR=${HOMEGIT_DIR:-"$HOME"/.homegit}
 
+clear_trap() {
+    # Clear shell trap.
+
+    trap - EXIT
+}
+
 exec_shell() {
     # Print a message to stdout and `exec bash`, replacing current process.
 
     echo "Executing configured shell."
+    clear_trap
     exec bash
 }
 
@@ -32,13 +39,33 @@ set_host_config() {
     )
 }
 
+set_trap() {
+    # Set shell trap in order to do the right thing on program exit.
+
+    trap 'trap_ensure_shell' EXIT
+}
+
+trap_ensure_shell() {
+    # Trap to ensure a configured shell in case of error.
+
+    if [ $? -ne 0 ]; then
+        echo "Bootstrap hit an error; executing unconfigured shell."
+        clear_trap
+        exec bash
+    fi
+}
+
 main() {
     # Bootstrap $HOME git.
+
+    set -e # Exit immediately on command error.
 
     if [ -e "$HOMEGIT_DIR" ]; then
         echo "$PROG: $HOMEGIT_DIR already exists." >&2
         exec_shell
     fi
+
+    set_trap
 
     cd "$HOME"
     git clone $HOME_URL homegit-bootstrap
