@@ -8,6 +8,13 @@ HOME_REV=${HOME_REV:-master}
 
 HOMEGIT_DIR=${HOMEGIT_DIR:-"$HOME"/.homegit}
 
+exec_shell() {
+    # Print a message to stdout and `exec bash`, replacing current process.
+
+    echo "Executing configured shell."
+    exec bash
+}
+
 set_host_config() {
     # Set host configuration files.
 
@@ -30,7 +37,7 @@ main() {
 
     if [ -e "$HOMEGIT_DIR" ]; then
         echo "$PROG: $HOMEGIT_DIR already exists." >&2
-        exec bash
+        exec_shell
     fi
 
     cd "$HOME"
@@ -43,7 +50,7 @@ main() {
 
     set_host_config
 
-    exec bash
+    exec_shell
 }
 
 main "$@"
