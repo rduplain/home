@@ -1,5 +1,8 @@
 #!/bin/bash
 # Bootstrap ~/.homegit git repository of $HOME files.
+#
+# This program replaces itself with `exec bash` to drop into a configured
+# shell. Regardless of $SHELL, bash is the configured shell in ~/.homegit.
 
 PROG=.bootstrap.bash
 
@@ -47,6 +50,9 @@ set_trap() {
 
 trap_ensure_shell() {
     # Trap to ensure a configured shell in case of error.
+    #
+    # Support replacing this bootstrap program with a shell, falling back to an
+    # unconfigured shell on error.
 
     if [ $? -ne 0 ]; then
         echo "Bootstrap hit an error; executing unconfigured shell."
