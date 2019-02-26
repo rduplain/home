@@ -66,6 +66,8 @@ main() {
 
     set -e # Exit immediately on command error.
 
+    set_trap
+
     if [ -e "$HOMEGIT_DIR" ]; then
         echo "$PROG: $HOMEGIT_DIR already exists." >&2
         exec_shell
