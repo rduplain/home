@@ -73,12 +73,12 @@ main() {
         exec_shell
     fi
 
-    set_trap
+    clone_dir="homegit-bootstrap-$(date +%s)"
 
     cd "$HOME"
-    git clone $HOME_URL homegit-bootstrap
-    mv homegit-bootstrap/.git "$HOMEGIT_DIR"
-    rm -fr homegit-bootstrap
+    git clone $HOME_URL "$clone_dir"
+    mv "$clone_dir"/.git "$HOMEGIT_DIR"
+    rm -fr "$clone_dir"
     GIT_DIR="$HOMEGIT_DIR" git checkout $HOME_REV >/dev/null
     GIT_DIR="$HOMEGIT_DIR" git checkout .
     GIT_DIR="$HOMEGIT_DIR" git config --add status.showUntrackedFiles no
