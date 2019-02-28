@@ -614,6 +614,7 @@
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.simplecov$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.irbrc$" . ruby-mode))
 (add-hook 'ruby-mode-hook 'flyspell-prog-mode)
 (add-hook 'ruby-mode-hook '(lambda ()
                              (setq-local standard-indent 2)))
