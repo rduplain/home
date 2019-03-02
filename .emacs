@@ -409,49 +409,76 @@
 (defun run-repl ()
   "Run an Emacs-integrated REPL, if available, based on project files."
   (interactive)
-  (require 'cider)
   (cond
 
    ((dominating-file "shadow-cljs.edn")
-    (run-repl-rebind-to-cider)
-    (setq cider-preferred-build-tool 'shadow-cljs
-          cider-shadow-cljs-global-options "--force-spawn")
-    (let ((keywords '(":node-script")))
-      (pcase (apply 'sniff (dominating-file "shadow-cljs.edn") keywords)
-
-        (":node-script"
-         (unless repl-hook-added?
-           (cider-register-cljs-repl-type
-            'shadow-cljs-node
-            "(do (require '[shadow.cljs.devtools.api])
-                 (shadow.cljs.devtools.api/node-repl :app))")
-           (add-hook 'nrepl-connected-hook 'on-shadow-cljs-node-repl)
-           (setq repl-hook-added? t))
-         (cider-jack-in-cljs `(:cljs-repl-type shadow-cljs-node)))
-
-        (_ (error "No REPL. Update ~/.emacs for this shadow-cljs.edn.")))))
+    (run-repl-shadow-cljs))
 
    ((dominating-file ".nrepl-port")
-    (if (thread-first
-            (dominating-file ".nrepl-port")
-          (file-string)
-          (string-to-number)
-          (tcp-listening))
-        (let ((host "localhost")
-              (port (file-string (dominating-file ".nrepl-port"))))
-          (run-repl-rebind-to-cider)
-          (cider-connect `(:host ,host :port ,port)))
-      (error "Unable to connect to nREPL server with .nrepl-port file.")))
+    (run-repl-nrepl))
 
    ((dominating-file "build.boot")
-    (run-repl-rebind-to-cider)
-    (cider-jack-in `()))
+    (run-repl-boot))
 
    ((dominating-file "project.clj")
-    (run-repl-rebind-to-cider)
-    (cider-jack-in `()))
+    (run-repl-lein))
 
    (t (error "No REPL. Update ~/.emacs to support this project."))))
+
+(defun run-repl-boot ()
+  "Run an Emacs-integrated REPL with boot-clj."
+  (interactive)
+  (require 'cider)
+
+  (run-repl-rebind-to-cider)
+  (cider-jack-in `()))
+
+(defun run-repl-lein ()
+  "Run an Emacs-integrated REPL with leiningen."
+  (interactive)
+  (require 'cider)
+
+  (run-repl-rebind-to-cider)
+  (cider-jack-in `()))
+
+(defun run-repl-nrepl ()
+  "Run an Emacs-integrated REPL connecting with .nrepl-port file."
+  (interactive)
+  (require 'cider)
+
+  (if (thread-first
+          (dominating-file ".nrepl-port")
+        (file-string)
+        (string-to-number)
+        (tcp-listening))
+      (let ((host "localhost")
+            (port (file-string (dominating-file ".nrepl-port"))))
+        (run-repl-rebind-to-cider)
+        (cider-connect `(:host ,host :port ,port)))
+    (error "Unable to connect to nREPL server with .nrepl-port file.")))
+
+(defun run-repl-shadow-cljs ()
+  "Run an Emacs-integrated REPL with shadow-cljs."
+  (interactive)
+  (require 'cider)
+
+  (run-repl-rebind-to-cider)
+  (setq cider-preferred-build-tool 'shadow-cljs
+        cider-shadow-cljs-global-options "--force-spawn")
+  (let ((keywords '(":node-script")))
+    (pcase (apply 'sniff (dominating-file "shadow-cljs.edn") keywords)
+
+      (":node-script"
+       (unless repl-hook-added?
+         (cider-register-cljs-repl-type
+          'shadow-cljs-node
+          "(do (require '[shadow.cljs.devtools.api])
+                 (shadow.cljs.devtools.api/node-repl :app))")
+         (add-hook 'nrepl-connected-hook 'on-shadow-cljs-node-repl)
+         (setq repl-hook-added? t))
+       (cider-jack-in-cljs `(:cljs-repl-type shadow-cljs-node)))
+
+      (_ (error "No REPL. Update ~/.emacs for this shadow-cljs.edn.")))))
 
 ;;; Track whether hook was added to nrepl-connected-hook.
 (unless (boundp 'repl-hook-added?)
