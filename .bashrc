@@ -58,6 +58,7 @@ function workon_walk() {
     # * The root directory is reached (no virtualenv found).
     #
     # Activate the identified virtualenv with virtualenvwrapper's workon.
+
     dir="$PWD"
     while [ -n "$dir" ]; do
         workon "${dir##*/}" >/dev/null 2>&1
@@ -321,11 +322,13 @@ function _default_completion_loader() {
     # Find the default completion loader, call it.
 
     # Get the default completion spec; there should be only one line.
-    # Example value:
+    # Example output:
     #
     #     complete -o bashdefault -o default -F _completion_loader -D
     #
     local line=$(complete -p -D 2>/dev/null)
+
+    # Parse name of completion function.
     line=${line##*-F} # Remove everything up to and including -F.
     line=$(echo $line | cut -f1 -d' ') # Remove first space & everything after.
 
