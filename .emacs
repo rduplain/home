@@ -343,7 +343,7 @@
 (setq flyspell-issue-welcome-flag nil
       flyspell-issue-message-flag nil)
 
-;; Sort by likelihood, not alphabetically.
+;; Sort by order corrections are found (approx likelihood), not alphabetically.
 (setq flyspell-sort-corrections nil)
 
 ;; Highlight only when near cursor.
