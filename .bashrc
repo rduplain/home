@@ -298,7 +298,7 @@ export TEXEDIT=$EDITOR
 export PAGER=less
 export GZIP="-9"
 
-# Make less more friendly for non-text input files; see lesspipe(1).
+# Make `less` more friendly for non-text input files; see lesspipe(1).
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
 alias pydoc=pydoc3
