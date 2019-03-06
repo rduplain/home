@@ -13,7 +13,7 @@ main() {
     fi
 
     if use_homegit; then
-        export GIT_DIR=$HOME/.homegit
+        export GIT_DIR="$HOME"/.homegit
     fi
 
     exec "$tig" "$@"

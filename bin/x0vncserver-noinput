@@ -1,4 +1,4 @@
 #!/bin/sh
 # Run VNC server on X0, disallowing remote input.
 
-exec x0vncserver -PasswordFile=$HOME/.vnc/passwd -AlwaysShared -AcceptKeyEvents=0 -AcceptCutText=0 -AcceptPointerEvents=0 $@
+exec x0vncserver -PasswordFile="$HOME"/.vnc/passwd -AlwaysShared -AcceptKeyEvents=0 -AcceptCutText=0 -AcceptPointerEvents=0 $@
