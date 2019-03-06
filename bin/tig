@@ -10,7 +10,6 @@ main() {
     if [ -z "$tig" ]; then
         # No `tig`; fallback to `git log`.
         exec "$HOME"/bin/git tiglike
-        return
     fi
 
     if use_homegit; then
