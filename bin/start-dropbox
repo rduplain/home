@@ -9,6 +9,11 @@ PROG=start-dropbox
 main() {
     # Start Dropbox once its home location is mounted.
 
+    if file_exists "$HOME"/.dropbox-disabled; then
+        stderr "Dropbox disabled. Exiting."
+        exit 3
+    fi
+
     given dropbox
 
     stderr "Dropbox: $DROPBOX"
@@ -58,6 +63,16 @@ exists() {
     #     exists "$VAR"
 
     [ _"$*" != _ ]
+}
+
+file_exists() {
+    # Check whether file exists at given path.
+    #
+    # Example:
+    #
+    #     file_exists /tmp/foo
+
+    [ -e "$1" ]
 }
 
 given() {
