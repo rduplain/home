@@ -11,7 +11,7 @@ main() {
 
     if file_exists "$HOME"/.dropbox-disabled; then
         stderr "Dropbox disabled. Exiting."
-        exit 3
+        return 3
     fi
 
     given dropbox
@@ -30,7 +30,7 @@ main() {
 
     if ! dropbox_files_exist; then
         stderr "Abort. No files found in mounted Dropbox."
-        exit 1
+        return 1
     fi
 
     stderr "Starting ..."
