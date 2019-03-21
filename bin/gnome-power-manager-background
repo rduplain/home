@@ -1,4 +1,0 @@
-#!/bin/sh
-# Start gnome-power-manager in the background, with screen.
-
-screen -fn -dmS gnome-power-manager /usr/bin/gnome-power-manager --debug
