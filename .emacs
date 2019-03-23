@@ -30,6 +30,15 @@
 
 (global-set-key (kbd "C-x C-p") 'package-list-packages)
 
+;;; Prepare to load features with silent fallback when they do not exist.
+(defmacro require-option (feature &rest body)
+  "Require feature, calling `require' in NOERROR mode, then body if available."
+  (declare (indent 1))
+  `(progn
+     (require ,feature nil 'noerror)
+     (with-eval-after-load ,feature
+       ,@body)))
+
 ;;; Do not have an initial major mode. Set *scratch* to Fundamental, not Lisp.
 (setq initial-major-mode '(lambda () nil))
 
@@ -124,7 +133,7 @@
 ;;;; Extensions
 
 ;;; Use magit for git interactions.
-(require 'magit) ;; Load eagerly to run hook below at Emacs start.
+(require-option 'magit) ;; Load eagerly to run hook below at Emacs start.
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; Support .homegit for tracking $HOME files.
@@ -154,7 +163,7 @@
 
 
 ;;; Use bookmark+.
-(require 'bookmark+)
+(require-option 'bookmark+)
 
 
 ;;; Extend dired.
@@ -170,10 +179,11 @@
 ;; Simplify declaration of patterns to omit in dired.
 (defmacro add-to-dired-omit (&rest expressions)
   "Append to dired-x regular expression for dired-omit-mode"
-  `(setq dired-omit-files
-         (concat ,dired-omit-files
-                 "\\|"
-                 (mapconcat 'identity ',expressions "\\|"))))
+  `(with-eval-after-load 'dired-x
+     (setq dired-omit-files
+           (concat ,'dired-omit-files
+                   "\\|"
+                   (mapconcat 'identity ',expressions "\\|")))))
 
 ;; Omit uninteresting files in dired.
 ;;                 ;; Archive files.
@@ -342,7 +352,7 @@
 (ido-mode 1)
 
 ;;; Redo
-(require 'redo+)
+(require-option 'redo+)
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
 
@@ -369,12 +379,14 @@
 (setq flyspell-auto-correct-binding [?\M-s])
 
 ;;; Yet Another Snippet system, for code/text snippets.
-(require 'yasnippet)
-(setq yas-snippet-dirs (cons "~/.emacs.d/snippets" yas-snippet-dirs))
-(yas-global-mode 1)
+(require-option 'yasnippet
+  (setq yas-snippet-dirs (cons "~/.emacs.d/snippets" yas-snippet-dirs))
+  (yas-global-mode 1))
 
 ;;; Use company-mode to "complete anything."
-(add-hook 'after-init-hook 'global-company-mode)
+(with-eval-after-load 'company
+  (add-hook 'after-init-hook 'global-company-mode))
+
 (add-hook 'company-mode-hook
           '(lambda ()
              ;; Disable completion of plain text.
@@ -393,12 +405,12 @@
   (load "~/.emacs.d/company-theme.el"))
 
 ;;; Drag stuff.
-(require 'drag-stuff)
-(drag-stuff-global-mode 1)
-(defvar drag-stuff-mode-map (make-sparse-keymap)
-  "Keymap for `drag-stuff-mode'.")
-(define-key drag-stuff-mode-map (kbd "M-p") 'drag-stuff-up)
-(define-key drag-stuff-mode-map (kbd "M-n") 'drag-stuff-down)
+(require-option 'drag-stuff
+  (drag-stuff-global-mode 1)
+  (defvar drag-stuff-mode-map (make-sparse-keymap)
+    "Keymap for `drag-stuff-mode'.")
+  (define-key drag-stuff-mode-map (kbd "M-p") 'drag-stuff-up)
+  (define-key drag-stuff-mode-map (kbd "M-n") 'drag-stuff-down))
 
 ;;; Compilation: compile/recompile when using a Makefile.
 
@@ -575,7 +587,8 @@
 
 ;;; Clojure
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
-(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+(with-eval-after-load 'rainbow-delimiters
+  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 ;; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
 (setq cider-lein-parameters
@@ -609,7 +622,8 @@
 
 ;;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+(with-eval-after-load 'rainbow-delimiters
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
 
 ;;; Go
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
