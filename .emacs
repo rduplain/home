@@ -378,6 +378,8 @@
              ;; Disable completion of plain text.
              (delete 'company-dabbrev company-backends)))
 
+(setq company-selection-wrap-around t)
+
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "TAB") 'company-complete-selection)
   (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
