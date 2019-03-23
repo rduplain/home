@@ -371,6 +371,9 @@
 (setq yas-snippet-dirs (cons "~/.emacs.d/snippets" yas-snippet-dirs))
 (yas-global-mode 1)
 
+;;; Use company-mode to "complete anything."
+(add-hook 'after-init-hook 'global-company-mode)
+
 ;;; Drag stuff.
 (require 'drag-stuff)
 (drag-stuff-global-mode 1)
