@@ -154,6 +154,7 @@
 ;;; Use bookmark+.
 (require 'bookmark+)
 
+
 ;;; Extend dired.
 (add-hook 'dired-load-hook
           (lambda ()
