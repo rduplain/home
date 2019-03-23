@@ -587,7 +587,7 @@
 
 ;;; Clojure
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
-(with-eval-after-load 'rainbow-delimiters
+(with-eval-after-load "rainbow-delimiters"
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 ;; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
@@ -622,7 +622,7 @@
 
 ;;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
-(with-eval-after-load 'rainbow-delimiters
+(with-eval-after-load "rainbow-delimiters"
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
 
 ;;; Go
