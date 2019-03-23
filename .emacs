@@ -619,7 +619,7 @@
 
 ;;; OCaml
 (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el" 'noerror)
-
+(add-to-list 'auto-mode-alist '("^\\.ocamlinit$" . tuareg-mode))
 
 ;;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
