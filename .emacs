@@ -28,6 +28,8 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 
+(global-set-key (kbd "C-x C-p") 'package-list-packages)
+
 ;;; Do not have an initial major mode. Set *scratch* to Fundamental, not Lisp.
 (setq initial-major-mode '(lambda () nil))
 
