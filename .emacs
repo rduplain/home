@@ -378,6 +378,14 @@
              ;; Disable completion of plain text.
              (delete 'company-dabbrev company-backends)))
 
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "TAB") 'company-complete-selection)
+  (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+  (define-key company-search-map (kbd "C-n") 'company-select-next-or-abort)
+  (define-key company-search-map (kbd "C-p") 'company-select-previous-or-abort)
+  (define-key company-search-map (kbd "C-t") 'company-search-toggle-filtering))
+
 ;;; Drag stuff.
 (require 'drag-stuff)
 (drag-stuff-global-mode 1)
