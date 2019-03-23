@@ -373,6 +373,10 @@
 
 ;;; Use company-mode to "complete anything."
 (add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'company-mode-hook
+          '(lambda ()
+             ;; Disable completion of plain text.
+             (delete 'company-dabbrev company-backends)))
 
 ;;; Drag stuff.
 (require 'drag-stuff)
