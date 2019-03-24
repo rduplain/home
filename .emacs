@@ -169,7 +169,7 @@
 ;;; Extend dired.
 (add-hook 'dired-load-hook
           (lambda ()
-            (load "dired-x")))
+            (require 'dired-x nil 'noerror)))
 
 ;; Ignore uninteresting files.
 (add-hook 'dired-mode-hook
