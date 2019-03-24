@@ -402,7 +402,7 @@
   (define-key company-search-map (kbd "C-p") 'company-select-previous-or-abort)
   (define-key company-search-map (kbd "C-t") 'company-search-toggle-filtering)
 
-  (load "~/.emacs.d/company-theme.el"))
+  (load "~/.emacs.d/company-theme.el" 'noerror))
 
 ;;; Drag stuff.
 (require-option 'drag-stuff
