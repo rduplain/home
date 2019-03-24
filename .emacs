@@ -17,18 +17,11 @@
 ;;; C-h o RET    - View doc for symbol at cursor.
 
 
+;;;; Packages
+(load "~/.emacs.d/straight-init.el" 'noerror)
+
+
 ;;;; Basics
-
-;;; Note: Packages are loaded in ~/.emacs.d/elpa, which is synced separately
-;;; between installations. Check this directory when initalization fails.
-
-;;; Use elpa package manager and load all installed packages.
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(package-initialize)
-
-(global-set-key (kbd "C-x C-p") 'package-list-packages)
 
 ;;; Prepare to load features with silent fallback when they do not exist.
 (defmacro require-option (feature &rest body)
@@ -133,7 +126,9 @@
 ;;;; Extensions
 
 ;;; Use magit for git interactions.
+(straight-use-package 'magit)
 (require-option 'magit) ;; Load eagerly to run hook (below) at Emacs start.
+
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; Support .homegit for tracking $HOME files.
@@ -163,6 +158,7 @@
 
 
 ;;; Use bookmark+.
+(straight-use-package 'bookmark+)
 (require-option 'bookmark+)
 
 
@@ -352,7 +348,9 @@
 (ido-mode 1)
 
 ;;; Redo
+(straight-use-package 'redo+)
 (require-option 'redo+)
+
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
 
@@ -379,11 +377,13 @@
 (setq flyspell-auto-correct-binding [?\M-s])
 
 ;;; Yet Another Snippet system, for code/text snippets.
+(straight-use-package 'yasnippet)
 (require-option 'yasnippet
   (setq yas-snippet-dirs (cons "~/.emacs.d/snippets" yas-snippet-dirs))
   (yas-global-mode 1))
 
 ;;; Use company-mode to "complete anything."
+(straight-use-package 'company)
 (with-eval-after-load 'company
   (add-hook 'after-init-hook 'global-company-mode))
 
@@ -405,6 +405,7 @@
   (load "~/.emacs.d/company-theme.el" 'noerror))
 
 ;;; Drag stuff.
+(straight-use-package 'drag-stuff)
 (require-option 'drag-stuff
   (drag-stuff-global-mode 1)
   (defvar drag-stuff-mode-map (make-sparse-keymap)
@@ -573,19 +574,32 @@
 ;;;;
 ;;;; Many language modes just work and are omitted here.
 
+;;; AsciiDoc
+(straight-use-package 'adoc-mode)
+(add-to-list 'auto-mode-alist '("\\.asciidoc$" . adoc-mode))
+(add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
+
 ;;; C
 (add-hook 'c-mode-hook 'flyspell-prog-mode)
 
 ;;; C++
 (add-hook 'c++-mode-hook 'flyspell-prog-mode)
 
+;;; C#
+(straight-use-package 'csharp-mode)
+
 ;;; CSS
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
+
+(straight-use-package 'less-mode)
+(straight-use-package 'sass-mode)
 
 ;;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 
 ;;; Clojure
+(straight-use-package 'clojure-mode)
+(straight-use-package 'inf-clojure)
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
 (with-eval-after-load 'rainbow-delimiters
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
@@ -620,16 +634,30 @@
 (add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$"
                    "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
 
+;;; Crontab
+(straight-use-package 'crontab-mode)
+
+;;; CSV
+(straight-use-package 'csv-mode)
+
+;;; Cucumber
+(straight-use-package 'feature-mode)
+
+;;; Docker
+(straight-use-package 'dockerfile-mode)
+
 ;;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 (with-eval-after-load 'rainbow-delimiters
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
 
-;;; Go
+;;; Go (golang)
+(straight-use-package 'go-mode)
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
 (add-hook 'go-mode-hook 'yas/minor-mode)
 
 ;;; Haskell
+(straight-use-package 'haskell-mode)
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
 
 ;;; HTML
@@ -641,6 +669,8 @@
                              (setq-local indent-tabs-mode nil)
                              (setq-local standard-indent 2)
                              (setq-local tab-width 2)))
+
+(straight-use-package 'multi-web-mode)
 
 ;;; JavaScript
 (defun javascript-settings ()
@@ -655,24 +685,42 @@
 
 (add-to-dired-omit "^node_modules$" "^package-lock\\.json$")
 
+(straight-use-package 'coffee-mode)
+(straight-use-package 'json-mode)
+(straight-use-package 'jsx-mode)
+
 ;;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
 
 ;;; LaTeX
 (add-to-list 'auto-mode-alist '("\\.latex$" . latex-mode))
 
+;;; Lua
+(straight-use-package 'lua-mode)
+
 ;;; Markdown
+(straight-use-package 'markdown-mode)
+(straight-use-package 'markdown-toc)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
-;;; OCaml
+;;; OCaml / ReasonML
+(straight-use-package 'tuareg)
 (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el" 'noerror)
 (add-to-list 'auto-mode-alist '("^\\.ocamlinit$" . tuareg-mode))
+
+(straight-use-package 'reason-mode)
+
+;;; PHP
+(straight-use-package 'php-mode)
 
 ;;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 (add-to-dired-omit "\\.egg$" "\\.egg-info$"
                    "^\\.coverage$" "^\\.tox$"
                    "\\.pyc$" "^__pycache__$")
+
+(straight-use-package 'hy-mode)
+(straight-use-package 'pydoc)
 
 ;;; R
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
@@ -693,6 +741,12 @@
 (add-hook 'ruby-mode-hook '(lambda ()
                              (setq-local standard-indent 2)))
 
+;;; Scala
+(straight-use-package 'scala-mode)
+
+;;; Sed
+(straight-use-package 'sed-mode)
+
 ;;; Shell
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
@@ -709,7 +763,8 @@
                (setq-local goal-column nil)
                (setq-local comment-column 50))))
 
-;;; Apache Thrift
+;;; Thrift
+(straight-use-package 'thrift)
 (add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
 
 ;;; XML
@@ -717,6 +772,9 @@
 
 ;;; X
 (add-to-list 'auto-mode-alist '("\\.xrdb$" . xrdb-mode))
+
+;;; YAML
+(straight-use-package 'yaml-mode)
 
 
 ;;;; M-x customize
