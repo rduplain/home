@@ -1,6 +1,6 @@
 ## functions.bash - utilities for a common bashrc across hosts
 
-Copyright (c) 2007-2019, Ron DuPlain <ron.duplain@gmail.com>
+Copyright (c) 2007-2019, R. DuPlain <ron.duplain@gmail.com>
 
 Released under the BSD License.
 
@@ -216,4 +216,3 @@ Released under the BSD License.
          202 if no arguments are given
          1 if file does not exist
          0 otherwise
-

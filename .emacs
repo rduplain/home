@@ -1,4 +1,4 @@
-;;;; Emacs configuration for Ron DuPlain.
+;;;; Emacs configuration for R. DuPlain.
 ;;;;
 ;;;; GNU Emacs 26.1
 

@@ -2,6 +2,6 @@
 # Print the basename of the current working directory to stdout.
 # usage: base
 #
-# Author: Ron DuPlain <ron.duplain@gmail.com>
+# Author: R. DuPlain <ron.duplain@gmail.com>
 
 echo ${PWD##*/}

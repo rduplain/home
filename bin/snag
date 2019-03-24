@@ -4,7 +4,7 @@
 # usage: snag [file-extension]
 # example: svn diff | snag .patch
 #
-# Author: Ron DuPlain <ron.duplain@gmail.com>
+# Author: R. DuPlain <ron.duplain@gmail.com>
 
 SNAG_HOME="${SNAG_HOME-$HOME/.snag}"
 SNAG_DATE_FORMAT="${SNAG_DATE_FORMAT-%Y-%m-%d_%H%M%S}"

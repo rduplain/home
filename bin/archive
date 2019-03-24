@@ -9,7 +9,7 @@
 # Configure with environment variables (ALL_CAPS below).
 # The timezone is the default used by the date command.
 #
-# Author: Ron DuPlain <ron.duplain@gmail.com>
+# Author: R. DuPlain <ron.duplain@gmail.com>
 
 ARCHIVE_HOME="${ARCHIVE_HOME-$HOME/doc/archive}"
 ARCHIVE_DATE_FORMAT=${ARCHIVE_DATE_FORMAT-"%Y/%m/%d/%H%M%S"}
