@@ -207,8 +207,8 @@
                    ;; Mac OS X clutter.
                    "^\\.DS_Store$" "^__MACOSX$"
 
-                   ;; Emacs project files (e.g. desktop).
-                   "^\\.emacs.*$"
+                   ;; Emacs desktop files.
+                   "^\\.emacs\\.desktop.*$"
 
                    ;; Empty target files from make (to record events).
                    "^\\.ts-.*$" "^\\..*-install"
