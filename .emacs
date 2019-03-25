@@ -349,6 +349,10 @@
 (global-set-key (kbd "C-x C-a") 'compile-with-config)
 
 
+;;;; Modes - Language Server Protocol
+(feature 'eglot)
+
+
 ;;;; Modes - Configure a REPL based on project files.
 
 ;;; Define zero-configuration command to run available Emacs-integrated REPL.
