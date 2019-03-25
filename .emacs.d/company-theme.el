@@ -19,6 +19,8 @@
        (search-fg background)
        (select-bg primary)
        (select-fg foreground)
+       (ann-select-bg select-bg)
+       (ann-select-fg secondary)
        (scroll-bg background)
        (scroll-fg background))
 
@@ -42,7 +44,7 @@
    `(company-tooltip-annotation
      ((t (:background ,annotation-bg :foreground ,annotation-fg))))
    `(company-tooltip-annotation-selection
-     ((t (:inherit company-tooltip-annotation))))
+     ((t (:background ,ann-select-bg :foreground ,ann-select-fg))))
    `(company-tooltip-common
      ((((type x)) (:inherit company-tooltip :weight bold))
       (t (:inherit company-tooltip))))
