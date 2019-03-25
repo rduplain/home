@@ -26,5 +26,8 @@ to `with-eval-after-load'."
 
 (defun feature-install ()
   "Install features declared with `feature'."
-  (straight-transaction
-    (mapcar 'straight-use-package (reverse feature-list))))
+  (let ((straight-path (expand-file-name "straight" user-emacs-directory)))
+    (if (file-directory-p straight-path)
+        (straight-transaction
+          (mapcar 'straight-use-package (reverse feature-list)))
+      (message "Create dir in order to install packages: %s" straight-path))))
