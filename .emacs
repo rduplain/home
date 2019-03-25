@@ -21,18 +21,10 @@
 
 ;;;; Packages
 (load "~/.emacs.d/straight-init.el" 'noerror)
+(load "~/.emacs.d/feature.el")
 
 
 ;;;; Basics
-
-;;; Prepare to load features with silent fallback when they do not exist.
-(defmacro require-option (feature &rest body)
-  "Require feature, calling `require' in NOERROR mode, then body if available."
-  (declare (indent 1))
-  `(progn
-     (require ,feature nil 'noerror)
-     (with-eval-after-load ,feature
-       ,@body)))
 
 ;;; Do not have an initial major mode. Set *scratch* to Fundamental, not Lisp.
 (setq initial-major-mode '(lambda () nil))
@@ -106,8 +98,7 @@
 ;;;; Extensions
 
 ;;; Use magit for git interactions.
-(straight-use-package 'magit)
-(require-option 'magit) ;; Load eagerly to run hook (below) at Emacs start.
+(feature 'magit)
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -138,8 +129,7 @@
 
 
 ;;; Use bookmark+.
-(straight-use-package 'bookmark+)
-(require-option 'bookmark+)
+(feature 'bookmark+)
 
 
 ;;; Extend dired.
@@ -262,8 +252,7 @@
 (ido-mode 1)
 
 ;;; Redo
-(straight-use-package 'redo+)
-(require-option 'redo+)
+(feature 'redo+)
 
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
@@ -291,14 +280,12 @@
 (setq flyspell-auto-correct-binding [?\M-s])
 
 ;;; Yet Another Snippet system, for code/text snippets.
-(straight-use-package 'yasnippet)
-(require-option 'yasnippet
+(feature 'yasnippet
   (setq yas-snippet-dirs (cons "~/.emacs.d/snippets" yas-snippet-dirs))
   (yas-global-mode 1))
 
 ;;; Use company-mode to "complete anything."
-(straight-use-package 'company)
-(with-eval-after-load 'company
+(feature 'company
   (add-hook 'after-init-hook 'global-company-mode))
 
 (add-hook 'company-mode-hook
@@ -319,8 +306,7 @@
   (load "~/.emacs.d/company-theme.el" 'noerror))
 
 ;;; Drag stuff.
-(straight-use-package 'drag-stuff)
-(require-option 'drag-stuff
+(feature 'drag-stuff
   (drag-stuff-global-mode 1)
   (defvar drag-stuff-mode-map (make-sparse-keymap)
     "Keymap for `drag-stuff-mode'.")
@@ -489,7 +475,7 @@
 ;;;; Many language modes just work and are omitted here.
 
 ;;; AsciiDoc
-(straight-use-package 'adoc-mode)
+(feature 'adoc-mode)
 (add-to-list 'auto-mode-alist '("\\.asciidoc$" . adoc-mode))
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
 
@@ -500,20 +486,20 @@
 (add-hook 'c++-mode-hook 'flyspell-prog-mode)
 
 ;;; C#
-(straight-use-package 'csharp-mode)
+(feature 'csharp-mode)
 
 ;;; CSS
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
-(straight-use-package 'less-mode)
-(straight-use-package 'sass-mode)
+(feature 'less-mode)
+(feature 'sass-mode)
 
 ;;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 
 ;;; Clojure
-(straight-use-package 'clojure-mode)
-(straight-use-package 'inf-clojure)
+(feature 'clojure-mode)
+(feature 'inf-clojure)
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
 (with-eval-after-load 'rainbow-delimiters
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
@@ -549,16 +535,16 @@
                    "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
 
 ;;; Crontab
-(straight-use-package 'crontab-mode)
+(feature 'crontab-mode)
 
 ;;; CSV
-(straight-use-package 'csv-mode)
+(feature 'csv-mode)
 
 ;;; Cucumber
-(straight-use-package 'feature-mode)
+(feature 'feature-mode)
 
 ;;; Docker
-(straight-use-package 'dockerfile-mode)
+(feature 'dockerfile-mode)
 
 ;;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
@@ -566,12 +552,12 @@
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
 
 ;;; Go (golang)
-(straight-use-package 'go-mode)
+(feature 'go-mode)
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
 (add-hook 'go-mode-hook 'yas/minor-mode)
 
 ;;; Haskell
-(straight-use-package 'haskell-mode)
+(feature 'haskell-mode)
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
 
 ;;; HTML
@@ -584,7 +570,7 @@
                              (setq-local standard-indent 2)
                              (setq-local tab-width 2)))
 
-(straight-use-package 'multi-web-mode)
+(feature 'multi-web-mode)
 
 ;;; JavaScript
 (defun javascript-settings ()
@@ -599,9 +585,9 @@
 
 (add-to-dired-omit "^node_modules$" "^package-lock\\.json$")
 
-(straight-use-package 'coffee-mode)
-(straight-use-package 'json-mode)
-(straight-use-package 'jsx-mode)
+(feature 'coffee-mode)
+(feature 'json-mode)
+(feature 'jsx-mode)
 
 ;;; Java
 (add-hook 'java-mode-hook 'flyspell-prog-mode)
@@ -610,22 +596,22 @@
 (add-to-list 'auto-mode-alist '("\\.latex$" . latex-mode))
 
 ;;; Lua
-(straight-use-package 'lua-mode)
+(feature 'lua-mode)
 
 ;;; Markdown
-(straight-use-package 'markdown-mode)
-(straight-use-package 'markdown-toc)
+(feature 'markdown-mode)
+(feature 'markdown-toc)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 ;;; OCaml / ReasonML
-(straight-use-package 'tuareg)
+(feature 'tuareg)
 (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el" 'noerror)
 (add-to-list 'auto-mode-alist '("^\\.ocamlinit$" . tuareg-mode))
 
-(straight-use-package 'reason-mode)
+(feature 'reason-mode)
 
 ;;; PHP
-(straight-use-package 'php-mode)
+(feature 'php-mode)
 
 ;;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
@@ -633,8 +619,8 @@
                    "^\\.coverage$" "^\\.tox$"
                    "\\.pyc$" "^__pycache__$")
 
-(straight-use-package 'hy-mode)
-(straight-use-package 'pydoc)
+(feature 'hy-mode)
+(feature 'pydoc)
 
 ;;; R
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
@@ -656,10 +642,10 @@
                              (setq-local standard-indent 2)))
 
 ;;; Scala
-(straight-use-package 'scala-mode)
+(feature 'scala-mode)
 
 ;;; Sed
-(straight-use-package 'sed-mode)
+(feature 'sed-mode)
 
 ;;; Shell
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
@@ -678,7 +664,7 @@
                (setq-local comment-column 50))))
 
 ;;; Thrift
-(straight-use-package 'thrift)
+(feature 'thrift)
 (add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
 
 ;;; XML
@@ -688,7 +674,7 @@
 (add-to-list 'auto-mode-alist '("\\.xrdb$" . xrdb-mode))
 
 ;;; YAML
-(straight-use-package 'yaml-mode)
+(feature 'yaml-mode)
 
 
 ;;;; M-x customize
@@ -696,6 +682,10 @@
 ;;; Manage custom-set-variables and custom-set-faces in a separate file.
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+
+
+;;;; Finalize
+(feature-install)
 
 
 ;;;; Desktop - Save & Restore Sessions
