@@ -101,28 +101,6 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
-;;;; Desktop - Save & Restore Sessions
-
-(setq desktop-auto-save-timeout -1
-      desktop-base-file-name ".emacs.desktop"
-      desktop-load-locked-desktop t
-      desktop-path '(".")
-      desktop-save 'if-exists)
-
-;; Add hook to restore frameset within tty (not supported by default).
-(setq desktop-restore-forces-onscreen nil)
-(add-hook 'desktop-after-read-hook
-          (lambda ()
-            (frameset-restore
-             desktop-saved-frameset
-             :reuse-frames (eq desktop-restore-reuses-frames t)
-             :cleanup-frames (not (eq desktop-restore-reuses-frames 'keep))
-             :force-display desktop-restore-in-current-display
-             :force-onscreen desktop-restore-forces-onscreen)))
-
-(desktop-save-mode 1)
-
-
 ;;;; Extensions
 
 ;;; Use magit for git interactions.
@@ -782,3 +760,25 @@
 ;;; Manage custom-set-variables and custom-set-faces in a separate file.
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+
+
+;;;; Desktop - Save & Restore Sessions
+
+(setq desktop-auto-save-timeout -1
+      desktop-base-file-name ".emacs.desktop"
+      desktop-load-locked-desktop t
+      desktop-path '(".")
+      desktop-save 'if-exists)
+
+;; Add hook to restore frameset within tty (not supported by default).
+(setq desktop-restore-forces-onscreen nil)
+(add-hook 'desktop-after-read-hook
+          (lambda ()
+            (frameset-restore
+             desktop-saved-frameset
+             :reuse-frames (eq desktop-restore-reuses-frames t)
+             :cleanup-frames (not (eq desktop-restore-reuses-frames 'keep))
+             :force-display desktop-restore-in-current-display
+             :force-onscreen desktop-restore-forces-onscreen)))
+
+(desktop-save-mode 1)
