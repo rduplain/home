@@ -16,6 +16,8 @@
 ;;;
 ;;; C-h o RET    - View doc for symbol at cursor.
 
+
+;;;; User-Defined Functions / Macros
 (load "~/.emacs.d/patch.el")
 (load "~/.emacs.d/user.el")
 
