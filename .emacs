@@ -94,6 +94,9 @@
 ;;; Remove trailing whitespace before saving files.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;;; Increase large file warning threshold.
+(setq large-file-warning-threshold 50000000)
+
 
 ;;;; Extensions
 
