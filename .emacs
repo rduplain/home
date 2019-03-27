@@ -703,7 +703,7 @@
       desktop-path '(".")
       desktop-save 'if-exists)
 
-;; Add hook to restore frameset within tty (not supported by default).
+;;; Add hook to restore frameset within tty (not supported by default).
 (setq desktop-restore-forces-onscreen nil)
 (add-hook 'desktop-after-read-hook
           (lambda ()
