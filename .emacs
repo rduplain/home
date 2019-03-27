@@ -16,6 +16,7 @@
 ;;;
 ;;; C-h o RET    - View doc for symbol at cursor.
 
+(load "~/.emacs.d/patch.el")
 (load "~/.emacs.d/user.el")
 
 
@@ -41,6 +42,7 @@
 
 ;;; Accept y or n when presented with yes or no.
 (fset 'yes-or-no-p 'y-or-n-p)
+(fset 'original-yes-or-no-p (symbol-function 'yes-or-no-p))
 
 ;;; Disable beeps.
 (setq ring-bell-function 'ignore)
@@ -713,5 +715,8 @@
              :cleanup-frames (not (eq desktop-restore-reuses-frames 'keep))
              :force-display desktop-restore-in-current-display
              :force-onscreen desktop-restore-forces-onscreen)))
+
+;;; Ensure Emacs exits without `desktop-save' prompt; accept the consequences.
+(always-yes 'desktop-save)
 
 (desktop-save-mode 1)
