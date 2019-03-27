@@ -98,6 +98,12 @@
 (setq large-file-warning-threshold 50000000)
 
 
+;;;; Fixes
+
+;;; Some terminals (incl. PuTTY) send [select] on home keypress.
+(define-key global-map [select] 'end-of-line)
+
+
 ;;;; Extensions
 
 ;;; Use magit for git interactions.
@@ -187,12 +193,6 @@
 
                    ;; Version control databases.
                    "^\\.bzr$" "^_darcs$" "^\\.git$" "^\\.hg$")
-
-
-;;;; Fixes
-
-;;; Some terminals (incl. PuTTY) send [select] on home keypress.
-(define-key global-map [select] 'end-of-line)
 
 
 ;;;; Suspend vs. Shell
