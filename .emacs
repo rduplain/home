@@ -22,8 +22,8 @@
 
 
 ;;;; User-Defined Functions / Macros
+(load "functions")
 (load "patch")
-(load "user")
 
 
 ;;;; Packages
