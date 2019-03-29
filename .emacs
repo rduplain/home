@@ -17,14 +17,18 @@
 ;;; C-h o RET    - View doc for symbol at cursor.
 
 
+;;;; Load Path
+(add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
+
+
 ;;;; User-Defined Functions / Macros
-(load "~/.emacs.d/patch.el")
-(load "~/.emacs.d/user.el")
+(load "patch")
+(load "user")
 
 
 ;;;; Packages
-(load "~/.emacs.d/straight-init.el" 'noerror)
-(load "~/.emacs.d/feature.el")
+(load (expand-file-name "straight-init" user-emacs-directory) 'noerror)
+(load "feature")
 
 
 ;;;; Basics
@@ -310,7 +314,7 @@
   (define-key company-search-map (kbd "C-p") 'company-select-previous-or-abort)
   (define-key company-search-map (kbd "C-t") 'company-search-toggle-filtering)
 
-  (load "~/.emacs.d/company-theme.el" 'noerror))
+  (load "company-theme" 'noerror))
 
 ;;; Drag stuff.
 (feature 'drag-stuff
