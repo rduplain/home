@@ -27,4 +27,6 @@
  `(magit-diff-their
    ((t (:inherit magit-diffstat-added))))
  `(magit-diff-their-highlight
-   ((t (:inherit magit-diff-their)))))
+   ((t (:inherit magit-diff-their))))
+ `(magit-hash
+   ((t (:foreground "blue")))))
