@@ -619,11 +619,14 @@
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 ;;; OCaml / ReasonML
-(feature 'tuareg)
-(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el" 'noerror)
-(add-to-list 'auto-mode-alist '("^\\.ocamlinit$" . tuareg-mode))
+(require 'opam-user-setup
+         (expand-file-name "opam-user-setup.el" user-emacs-directory)
+         'noerror)
 
+(feature 'tuareg)
 (feature 'reason-mode)
+
+(add-to-list 'auto-mode-alist '("^\\.ocamlinit$" . tuareg-mode))
 
 ;;; PHP
 (feature 'php-mode)
