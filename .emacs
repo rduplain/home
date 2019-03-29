@@ -292,7 +292,6 @@
 
 ;;; Yet Another Snippet system, for code/text snippets.
 (feature 'yasnippet
-  (setq yas-snippet-dirs (cons "~/.emacs.d/snippets" yas-snippet-dirs))
   (yas-global-mode 1))
 
 ;;; Use company-mode to "complete anything."
