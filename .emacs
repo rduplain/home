@@ -115,7 +115,8 @@
 ;;;; Extensions
 
 ;;; Use magit for git interactions.
-(feature 'magit)
+(feature 'magit
+  (load "magit-theme" 'noerror))
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
