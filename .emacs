@@ -697,7 +697,7 @@
 ;;;; M-x customize
 
 ;;; Manage custom-set-variables and custom-set-faces in a separate file.
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
 
 
