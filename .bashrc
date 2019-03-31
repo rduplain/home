@@ -40,12 +40,12 @@ function docker-cleanup() {
 
     exited=$(docker ps -a -q -f status=exited)
     if [ -n "$exited" ]; then
-        docker rm -v $exited
+        docker rm -f -v $exited
     fi
 
     dangling=$(docker images -f dangling=true -q)
     if [ -n "$dangling" ]; then
-        docker rmi $dangling
+        docker rmi -f $dangling
     fi
 }
 
