@@ -519,6 +519,9 @@
 (with-eval-after-load 'rainbow-delimiters
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+
+(feature 'cider)
+
 ;; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
 (setq cider-lein-parameters
       "with-profile -user repl :headless :host localhost")
