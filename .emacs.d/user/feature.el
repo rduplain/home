@@ -29,5 +29,35 @@ to `with-eval-after-load'."
   (let ((straight-path (expand-file-name "straight" user-emacs-directory)))
     (if (file-directory-p straight-path)
         (straight-transaction
-          (mapcar 'straight-use-package (reverse feature-list)))
+          (mapcar 'feature-install-recipe (reverse feature-list)))
       (message "Create dir in order to install packages: %s" straight-path))))
+
+(defun feature-install-recipe (recipe)
+  "Install package named in feature."
+  (feature--with-recipe recipe (package recipe type version)
+    (when version
+      (straight-use-package recipe nil 'no-build)
+      (straight-vc-check-out-commit type (symbol-name package) version))
+    (straight-use-package recipe)))
+
+(defun feature--unpack-recipe (recipe)
+  "Unpack high-level attributes of recipe, for convenient destructuring."
+  (if (symbolp recipe)
+      `(:package ,recipe
+                 :recipe ,recipe)
+    (let* ((package (car recipe))
+           (recipe-plist (cdr recipe))
+           (version (plist-get recipe-plist :version)))
+      (straight--remq recipe-plist `(:version))
+      `(:package ,package
+                 :recipe ,(if recipe-plist
+                              (cons package recipe-plist)
+                            package)
+                 :type ,(or (plist-get recipe-plist :type)
+                            straight-default-vc)
+                 :version ,version))))
+
+(defmacro feature--with-recipe (recipe attrs &rest body)
+  "Binding from unpacked RECIPE the given ATTRS, eval and return BODY."
+  (declare (indent 2) (debug (form sexp body)))
+  `(straight--with-plist (feature--unpack-recipe ,recipe) ,attrs ,@body))
