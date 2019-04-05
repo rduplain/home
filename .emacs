@@ -520,7 +520,7 @@
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 
-(feature 'cider)
+(feature `(cider :version "v0.21.0"))
 
 ;; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
 (setq cider-lein-parameters
