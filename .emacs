@@ -8,9 +8,9 @@
 ;;;
 ;;; setq         - Set variable for all of Emacs.
 ;;; setq-default - Set default variable, able to be overridden in local buffer.
-;;; add-to-list  - Insert a value into a list with a given (symbol) name.
-;;; fset         - Override a function with a given (symbol) name.
-;;; (function)   - Call a configuration function directly (without setq).
+;;; add-to-list  - For config variables which are lists, insert value at head.
+;;; fset         - Override a function.
+;;; (function)   - Call a configuration function directly.
 
 ;;; Edit .emacs in Emacs.
 ;;;

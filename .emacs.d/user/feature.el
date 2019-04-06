@@ -1,6 +1,7 @@
 ;;;; Declare third-party packages as features.
 
-(setq feature-list '())
+(defvar feature-list '()
+  "List of features declared with `feature'.")
 
 (defmacro feature (feature &rest body)
   "Declare a feature to load via package manager.
@@ -25,7 +26,7 @@ to `with-eval-after-load'."
         `(add-to-list 'feature-list ,feature)))))
 
 (defun feature-install ()
-  "Install features declared with `feature'."
+  "Install features declared with `feature', if straight directory exists."
   (let ((straight-path (expand-file-name "straight" user-emacs-directory)))
     (if (file-directory-p straight-path)
         (straight-transaction
