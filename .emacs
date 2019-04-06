@@ -309,6 +309,12 @@
 (feature 'company
   (global-company-mode))
 
+;;; Configure how many characters are needed before presenting completions.
+(setq company-minimum-prefix-length 1)
+
+;;; Start completion immediately upon `company-minimum-prefix-length'.
+(setq company-idle-delay 0)
+
 (add-hook 'company-mode-hook
           '(lambda ()
              ;; Disable completion of plain text.
