@@ -30,6 +30,9 @@
 (load (expand-file-name "straight-init" user-emacs-directory) 'noerror)
 (load "feature")
 
+;;; Clear recipe overrides in order to support reload of .emacs file.
+(setq straight-recipe-overrides nil)
+
 
 ;;;; Basics
 
