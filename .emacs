@@ -307,18 +307,15 @@
 
 ;;; Use company-mode to "complete anything."
 (feature 'company
-  (global-company-mode))
+  (global-company-mode)
+  ;; Disable completion of plain text.
+  (delete 'company-dabbrev company-backends))
 
 ;;; Configure how many characters are needed before presenting completions.
 (setq company-minimum-prefix-length 1)
 
 ;;; Start completion immediately upon `company-minimum-prefix-length'.
 (setq company-idle-delay 0)
-
-(add-hook 'company-mode-hook
-          '(lambda ()
-             ;; Disable completion of plain text.
-             (delete 'company-dabbrev company-backends)))
 
 (setq company-selection-wrap-around t)
 
