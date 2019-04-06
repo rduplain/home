@@ -40,8 +40,8 @@ to `with-eval-after-load'."
       (straight-vc-check-out-commit type (symbol-name package) version))
     (straight-use-package recipe)))
 
-(defun feature--unpack-recipe (recipe)
-  "Unpack high-level attributes of recipe, for convenient destructuring."
+(defun feature--parse-recipe (recipe)
+  "Parse high-level attributes of recipe, for convenient destructuring."
   (if (symbolp recipe)
       `(:package ,recipe
                  :recipe ,recipe)
@@ -58,6 +58,6 @@ to `with-eval-after-load'."
                  :version ,version))))
 
 (defmacro feature--with-recipe (recipe attrs &rest body)
-  "Binding from unpacked RECIPE the given ATTRS, eval and return BODY."
+  "Binding from parsed RECIPE the given ATTRS, eval and return BODY."
   (declare (indent 2) (debug (form sexp body)))
-  `(straight--with-plist (feature--unpack-recipe ,recipe) ,attrs ,@body))
+  `(straight--with-plist (feature--parse-recipe ,recipe) ,attrs ,@body))
