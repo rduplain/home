@@ -307,7 +307,7 @@
 
 ;;; Use company-mode to "complete anything."
 (feature 'company
-  (add-hook 'after-init-hook 'global-company-mode))
+  (global-company-mode))
 
 (add-hook 'company-mode-hook
           '(lambda ()
