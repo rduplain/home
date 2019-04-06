@@ -6,11 +6,12 @@
 
 ;;; Configure variables.
 ;;;
-;;; setq         - Set variable for all of Emacs.
-;;; setq-default - Set default variable, able to be overridden in local buffer.
+;;; (function)   - Call a configuration function directly.
 ;;; add-to-list  - For config variables which are lists, insert value at head.
 ;;; fset         - Override a function.
-;;; (function)   - Call a configuration function directly.
+;;; load         - Load a module (a .el file) found on the `load-path'.
+;;; setq         - Set variable for all of Emacs.
+;;; setq-default - Set default variable, able to be overridden in local buffer.
 
 ;;; Edit .emacs in Emacs.
 ;;;
