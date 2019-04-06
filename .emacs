@@ -33,6 +33,12 @@
 ;;; Clear recipe overrides in order to support reload of .emacs file.
 (setq straight-recipe-overrides nil)
 
+;;; Configure when straight.el looks for modifications.
+;;;
+;;; Look for package modifications with `straight-check-all' or when saving
+;;; edits to files within ~/.emacs.d/straight/repos, but not at startup.
+(setq straight-check-for-modifications '(find-when-checking check-on-save))
+
 
 ;;;; Basics
 
