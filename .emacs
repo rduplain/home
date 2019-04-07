@@ -121,6 +121,9 @@
 ;;; Some terminals (incl. PuTTY) send [select] on home keypress.
 (define-key global-map [select] 'end-of-line)
 
+;;; Always `vc-refresh-state' (follow symbolic links); accept the consequences.
+(always-yes 'vc-refresh-state)
+
 
 ;;;; Extensions
 
