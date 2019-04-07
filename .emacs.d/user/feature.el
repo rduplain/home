@@ -3,6 +3,9 @@
 (defvar feature-list nil
   "List of features declared with `feature'.")
 
+(defvar feature-setup-hook nil
+  "Hook run after `feature-setup' (whether or not anything installed).")
+
 (defmacro feature (feature &rest body)
   "Declare a feature to load via package manager.
 
@@ -40,6 +43,11 @@ to `with-eval-after-load'."
       (straight-use-package recipe nil 'no-build)
       (straight-vc-check-out-commit type (symbol-name package) version))
     (straight-use-package recipe)))
+
+(defun feature-setup ()
+  "Set up features declared with `feature'."
+  (feature-install)
+  (run-hooks 'feature-setup-hook))
 
 (defun feature--parse-recipe (recipe)
   "Parse high-level attributes of recipe, for convenient destructuring."

@@ -721,7 +721,7 @@
 
 
 ;;;; Finalize
-(feature-install)
+(feature-setup)
 
 
 ;;;; Desktop - Save & Restore Sessions
