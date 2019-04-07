@@ -307,9 +307,11 @@
 
 ;;; Use company-mode to "complete anything."
 (feature 'company
+  (setq company-global-modes '(not text-mode))
   (global-company-mode)
-  ;; Disable completion of plain text.
-  (delete 'company-dabbrev company-backends))
+  ;; Disable completion of plain text by removing dabbrev backends.
+  (delete 'company-dabbrev company-backends)
+  (delete 'company-dabbrev-code company-backends))
 
 ;;; Configure how many characters are needed before presenting completions.
 (setq company-minimum-prefix-length 1)
