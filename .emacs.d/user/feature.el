@@ -1,6 +1,6 @@
 ;;;; Declare third-party packages as features.
 
-(defvar feature-list '()
+(defvar feature-list nil
   "List of features declared with `feature'.")
 
 (defmacro feature (feature &rest body)
