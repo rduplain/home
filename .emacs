@@ -276,6 +276,10 @@
 ;;; Redo
 (feature 'redo+)
 
+;; Load in case package manager does not load "redo+" given a "redo-plus" repo.
+(add-to-list 'feature-setup-hook '(lambda ()
+                                    (load "redo+" 'noerror)))
+
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
 
