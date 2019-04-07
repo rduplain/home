@@ -318,7 +318,13 @@
   (global-company-mode)
   ;; Disable completion of plain text by removing dabbrev backends.
   (delete 'company-dabbrev company-backends)
-  (delete 'company-dabbrev-code company-backends))
+  (delete 'company-dabbrev-code company-backends)
+
+  ;; In the event that company-mode is applied to text-mode, set a suitable
+  ;; minimum prefix as to avoid completing filenames on a single '/'.
+  (add-to-list 'text-mode-hook
+               '(lambda ()
+                  (setq-local company-minimum-prefix-length 3))))
 
 ;;; Configure how many characters are needed before presenting completions.
 (setq company-minimum-prefix-length 1)
