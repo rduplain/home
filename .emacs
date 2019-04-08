@@ -318,13 +318,15 @@
   (global-company-mode)
   ;; Disable completion of plain text by removing dabbrev backends.
   (delete 'company-dabbrev company-backends)
-  (delete 'company-dabbrev-code company-backends)
+  (delete 'company-dabbrev-code company-backends))
 
-  ;; In the event that company-mode is applied to text-mode, set a suitable
-  ;; minimum prefix as to avoid completing filenames on a single '/'.
-  (add-to-list 'text-mode-hook
-               '(lambda ()
-                  (setq-local company-minimum-prefix-length 3))))
+(defun set-text-based-company-minimum-prefix-length ()
+  "Reusable function to set company-mode minimum prefix length.
+
+In the event that `company-mode' is applied to a text-based mode, set a
+suitable minimum prefix as to avoid completing filenames on a single '/'."
+  (setq-local company-minimum-prefix-length 3))
+
 
 ;;; Configure how many characters are needed before presenting completions.
 (setq company-minimum-prefix-length 1)
@@ -522,6 +524,8 @@
 (add-to-list 'auto-mode-alist '("\\.asciidoc$" . adoc-mode))
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
 
+(add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
+
 ;;; C
 (add-hook 'c-mode-hook 'flyspell-prog-mode)
 
@@ -649,6 +653,8 @@
 (feature 'markdown-toc)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
+(add-hook 'markdown-mode-hook 'set-text-based-company-minimum-prefix-length)
+
 ;;; OCaml / ReasonML
 (require 'opam-user-setup
          (expand-file-name "opam-user-setup.el" user-emacs-directory)
@@ -681,6 +687,8 @@
 (add-hook 'rst-mode-hook '(lambda ()
                             (auto-fill-mode nil)))
 
+(add-hook 'rst-mode-hook 'set-text-based-company-minimum-prefix-length)
+
 ;;; Ruby
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
@@ -711,6 +719,8 @@
                (setq-local fill-column 72)
                (setq-local goal-column nil)
                (setq-local comment-column 50))))
+
+(add-hook 'text-mode-hook 'set-text-based-company-minimum-prefix-length)
 
 ;;; Thrift
 (feature 'thrift)
