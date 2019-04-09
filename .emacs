@@ -346,6 +346,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
   (load "company-theme" 'noerror))
 
+;;; Narrow
+(put 'narrow-to-region 'disabled nil)
+
 ;;; Drag stuff.
 (feature 'drag-stuff
   (drag-stuff-global-mode 1)
