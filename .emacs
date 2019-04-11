@@ -347,7 +347,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   (load "company-theme" 'noerror))
 
 ;;; Narrow
+
+;; Enable Narrow functions. Widen with `C-x n w`.
 (put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
 
 ;;; Drag stuff.
 (feature 'drag-stuff
