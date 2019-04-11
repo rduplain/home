@@ -95,6 +95,15 @@
                                ;; Tabular sort, where argument is column #.
                                (Buffer-menu-sort 3)))))
 
+;; Set electric buffer key binding to kill buffer list (to reset sorting).
+(add-hook 'electric-buffer-menu-mode-hook
+          '(lambda ()
+             (local-set-key (kbd "C-M-f")
+                            '(lambda ()
+                               (interactive)
+                               (kill-buffer
+                                (find-buffer "\\*Buffer List\\*"))))))
+
 ;;; Indent only with spaces (default 4), never tabs.
 (setq-default standard-indent 4
               tab-width 4
