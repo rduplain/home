@@ -102,7 +102,8 @@
                             '(lambda ()
                                (interactive)
                                (kill-buffer
-                                (find-buffer "\\*Buffer List\\*"))))))
+                                (find-buffer "\\*Buffer List\\*"))
+                               (keyboard-quit)))))
 
 ;;; Indent only with spaces (default 4), never tabs.
 (setq-default standard-indent 4
