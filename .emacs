@@ -409,6 +409,21 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;;; Modes - Language Server Protocol
 (feature 'eglot)
 
+;;; Load eglot.el eagerly to support `eglot-server-programs' inspection.
+(add-hook 'feature-setup-hook '(lambda ()
+                                 (load "eglot" 'noerror)))
+
+;;; Provide API to check whether eglot supports the current major mode.
+(defun eglot-supported-p (mode)
+  "Return t if mode is supported by `eglot'; call with `major-mode'."
+  (when (assoc mode eglot-server-programs
+               (lambda (m1 m2)
+                 "Lifted from eglot.el."
+                 (cl-find
+                  m2 (if (listp m1) m1 (list m1))
+                  :test #'provided-mode-derived-p)))
+    t))
+
 
 ;;;; Modes - Configure a REPL based on project files.
 
@@ -429,6 +444,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
    ((dominating-file "project.clj")
     (run-repl-lein))
+
+   ((eglot-supported-p major-mode)
+    (call-interactively 'eglot))
 
    (t (error "No REPL. Update ~/.emacs to support this project."))))
 
