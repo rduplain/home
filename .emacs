@@ -370,6 +370,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   (define-key drag-stuff-mode-map (kbd "M-p") 'drag-stuff-up)
   (define-key drag-stuff-mode-map (kbd "M-n") 'drag-stuff-down))
 
+;;; Static Checking
+(with-eval-after-load 'flymake
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
+
 ;;; Compilation: compile/recompile when using a Makefile.
 
 ;; Scroll the compilation buffer with new output.
