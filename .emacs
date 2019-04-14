@@ -411,13 +411,15 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 
 ;;;; Modes - Language Server Protocol
+
+;;; Language Server Protocol - eglot mode
 (feature 'eglot)
 
-;;; Load eglot.el eagerly to support `eglot-server-programs' inspection.
+;; Load eglot.el eagerly to support `eglot-server-programs' inspection.
 (add-hook 'feature-setup-hook '(lambda ()
                                  (load "eglot" 'noerror)))
 
-;;; Provide API to check whether eglot supports the current major mode.
+;; Provide API to check whether eglot supports the current major mode.
 (defun eglot-supported-p (mode)
   "Return t if mode is supported by `eglot'; call with `major-mode'."
   (when (assoc mode eglot-server-programs
