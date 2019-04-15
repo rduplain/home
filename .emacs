@@ -412,6 +412,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 ;;;; Modes - Language Server Protocol
 
+;;; Language Server Protocol - lsp-mode
+(feature 'lsp-mode)
+(feature 'company-lsp)
+
 ;;; Language Server Protocol - eglot mode
 (feature 'eglot)
 
