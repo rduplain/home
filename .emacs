@@ -416,6 +416,19 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (feature 'lsp-mode)
 (feature 'company-lsp)
 
+;; Load lsp-mode.el eagerly to support `lsp-buffer-language' inspection.
+(add-hook 'feature-setup-hook '(lambda ()
+                                 (load "lsp" 'noerror)))
+
+;; Provide API to check whether `lsp' supports the current major mode.
+(defun lsp-mode-supported-p (mode)
+  "Return t if mode is supported by `lsp'; call with `major-mode'."
+  ;; `lsp-buffer-language' takes no arguments; inject global variable values.
+  (let ((major-mode mode)
+        (buffer-file-name ""))
+    (when (lsp-buffer-language)
+      t)))
+
 ;;; Language Server Protocol - eglot mode
 (feature 'eglot)
 
@@ -454,6 +467,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
    ((dominating-file "project.clj")
     (run-repl-lein))
+
+   ((lsp-mode-supported-p major-mode)
+    (call-interactively 'lsp))
 
    ((eglot-supported-p major-mode)
     (call-interactively 'eglot))
