@@ -738,6 +738,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (feature 'pydoc)
 
 ;;; R
+(feature 'ess)
+
 (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
 (add-to-list 'auto-mode-alist '("\\.r$" . R-mode))
 (add-hook 'ess-mode-hook 'flyspell-prog-mode)
