@@ -418,7 +418,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 ;; Load lsp-mode.el eagerly to support `lsp-buffer-language' inspection.
 (add-hook 'feature-setup-hook '(lambda ()
-                                 (load "lsp" 'noerror)))
+                                 (require 'lsp nil 'noerror)))
 
 ;; Provide API to check whether `lsp' supports the current major mode.
 (defun lsp-mode-supported-p (mode)
@@ -434,7 +434,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 ;; Load eglot.el eagerly to support `eglot-server-programs' inspection.
 (add-hook 'feature-setup-hook '(lambda ()
-                                 (load "eglot" 'noerror)))
+                                 (require 'eglot nil 'noerror)))
 
 ;; Provide API to check whether eglot supports the current major mode.
 (defun eglot-supported-p (mode)
