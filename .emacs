@@ -476,6 +476,66 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
    (t (error "No REPL. Update ~/.emacs to support this project."))))
 
+;;; Dynamically reconfigure REPL key binding.
+(setq run-repl-kbd-str "C-x C-z"
+      run-repl-kbd (kbd run-repl-kbd-str)
+      run-repl-reset-kbd (kbd "C-x M-z"))
+
+(defun run-repl-rebind-default ()
+  (global-set-key run-repl-kbd 'run-repl))
+
+;;; Set a global key for REPL, in all modes.
+(run-repl-rebind-default)
+
+;;; Provide an alternate key binding to restore default `run-repl` key binding.
+(defun run-repl-reset ()
+  "Reset 'run-repl key binding (since it rebinds itself to the new REPL)."
+  (interactive)
+  (run-repl-rebind-default)
+  (message "Reset 'run-repl key binding: %s" run-repl-kbd-str))
+
+(global-set-key run-repl-reset-kbd 'run-repl-reset)
+
+
+;;;; Modes - Programming Languages, Formats, & Frameworks
+;;;;
+;;;; Many language modes just work and are omitted here.
+
+;;; AsciiDoc
+(feature 'adoc-mode)
+(add-to-list 'auto-mode-alist '("\\.asciidoc$" . adoc-mode))
+(add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
+
+(add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
+
+;;; C
+(add-hook 'c-mode-hook 'flyspell-prog-mode)
+
+;;; C++
+(add-hook 'c++-mode-hook 'flyspell-prog-mode)
+
+;;; C#
+(feature 'csharp-mode)
+
+;;; CSS
+(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
+
+(feature 'less-mode)
+(feature 'sass-mode)
+
+;;; Conf
+(add-hook 'conf-mode-hook 'flyspell-prog-mode)
+
+;;; Clojure
+(feature 'clojure-mode)
+(feature 'inf-clojure)
+(add-hook 'clojure-mode-hook 'flyspell-prog-mode)
+(with-eval-after-load 'rainbow-delimiters
+  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
+(add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+
+(feature `(cider :version "v0.21.0"))
+
 (defun run-repl-boot ()
   "Run an Emacs-integrated REPL with boot-clj."
   (interactive)
@@ -551,68 +611,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
              ((src-path (project-path-from "shadow-cljs.edn" "src")))
            (cider-load-all-files src-path)))))))
 
-;;; Dynamically reconfigure REPL key binding.
-(setq run-repl-kbd-str "C-x C-z"
-      run-repl-kbd (kbd run-repl-kbd-str)
-      run-repl-reset-kbd (kbd "C-x M-z"))
-
-(defun run-repl-rebind-default ()
-  (global-set-key run-repl-kbd 'run-repl))
-
 (defun run-repl-rebind-to-cider ()
   (global-set-key run-repl-kbd 'cider-switch-to-repl-buffer))
-
-;;; Set a global key for REPL, in all modes.
-(run-repl-rebind-default)
-
-;;; Provide an alternate key binding to restore default `run-repl` key binding.
-(defun run-repl-reset ()
-  "Reset 'run-repl key binding (since it rebinds itself to the new REPL)."
-  (interactive)
-  (run-repl-rebind-default)
-  (message "Reset 'run-repl key binding: %s" run-repl-kbd-str))
-
-(global-set-key run-repl-reset-kbd 'run-repl-reset)
-
-
-;;;; Modes - Programming Languages, Formats, & Frameworks
-;;;;
-;;;; Many language modes just work and are omitted here.
-
-;;; AsciiDoc
-(feature 'adoc-mode)
-(add-to-list 'auto-mode-alist '("\\.asciidoc$" . adoc-mode))
-(add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
-
-(add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
-
-;;; C
-(add-hook 'c-mode-hook 'flyspell-prog-mode)
-
-;;; C++
-(add-hook 'c++-mode-hook 'flyspell-prog-mode)
-
-;;; C#
-(feature 'csharp-mode)
-
-;;; CSS
-(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
-
-(feature 'less-mode)
-(feature 'sass-mode)
-
-;;; Conf
-(add-hook 'conf-mode-hook 'flyspell-prog-mode)
-
-;;; Clojure
-(feature 'clojure-mode)
-(feature 'inf-clojure)
-(add-hook 'clojure-mode-hook 'flyspell-prog-mode)
-(with-eval-after-load 'rainbow-delimiters
-  (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
-(add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
-
-(feature `(cider :version "v0.21.0"))
 
 ;; Skip :user section of ~/.lein/profiles.clj when using cider-jack-in.
 (setq cider-lein-parameters
