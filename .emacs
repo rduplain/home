@@ -774,7 +774,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook
           '(lambda ()
-             ;; Handle git commit message editing.
+             ;; Configure git commit message editing.
              (when (string= "COMMIT_EDITMSG" (buffer-name))
                (auto-fill-mode 1)
                (ruler-mode 1)
