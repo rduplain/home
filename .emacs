@@ -481,10 +481,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
       run-repl-kbd (kbd run-repl-kbd-str)
       run-repl-reset-kbd (kbd "C-x M-z"))
 
+;;; Set a global key for REPL, in all modes.
 (defun run-repl-rebind-default ()
   (global-set-key run-repl-kbd 'run-repl))
 
-;;; Set a global key for REPL, in all modes.
 (run-repl-rebind-default)
 
 ;;; Provide an alternate key binding to restore default `run-repl` key binding.
