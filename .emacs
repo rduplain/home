@@ -18,8 +18,14 @@
 ;;; C-h o RET    - View doc for symbol at cursor.
 
 
+;;;; User Emacs Directory
+(defun .emacs.d (file)
+  "Expand to ~/.emacs.d/FILE."
+  (expand-file-name file user-emacs-directory))
+
+
 ;;;; Load Path
-(add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
+(add-to-list 'load-path (.emacs.d "user"))
 
 
 ;;;; User-Defined Functions / Macros
@@ -28,7 +34,7 @@
 
 
 ;;;; Packages
-(load (expand-file-name "straight-init" user-emacs-directory) 'noerror)
+(load (.emacs.d "straight-init") 'noerror)
 (load "feature")
 
 ;;; Clear recipe overrides in order to support reload of .emacs file.
@@ -716,9 +722,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-hook 'markdown-mode-hook 'set-text-based-company-minimum-prefix-length)
 
 ;;; OCaml / ReasonML
-(require 'opam-user-setup
-         (expand-file-name "opam-user-setup.el" user-emacs-directory)
-         'noerror)
+(require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
 
 (feature 'tuareg)
 (feature 'reason-mode)
@@ -801,7 +805,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;;; M-x customize
 
 ;;; Manage custom-set-variables and custom-set-faces in a separate file.
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(setq custom-file (.emacs.d "custom.el"))
 (load custom-file 'noerror)
 
 
