@@ -70,3 +70,5 @@ to `with-eval-after-load'."
   "Binding from parsed RECIPE the given ATTRS, eval and return BODY."
   (declare (indent 2) (debug (form sexp body)))
   `(straight--with-plist (feature--parse-recipe ,recipe) ,attrs ,@body))
+
+(provide 'feature)
