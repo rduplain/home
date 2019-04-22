@@ -7,6 +7,7 @@
 (defmacro -apply-using-yes-or-no-as (default)
   "Because resulting function is anonymous, it cannot be `advice-remove'd."
   `(lambda (fn &rest args)
+     "Patched to skip all invocations of `yes-or-no-p'."
      (unwind-protect
          (progn
            (fset 'yes-or-no-p '(lambda (&rest args) ,default))
