@@ -819,7 +819,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 ;;;; Desktop - Save & Restore Sessions
 
-(setq desktop-auto-save-timeout -1
+(setq desktop-auto-save-timeout nil
       desktop-base-file-name ".emacs.desktop"
       desktop-load-locked-desktop t
       desktop-path '(".")
