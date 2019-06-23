@@ -22,7 +22,7 @@ exec_shell() {
 
     echo "Executing configured shell."
     clear_trap
-    exec bash
+    exec bash -l
 }
 
 set_host_config() {
