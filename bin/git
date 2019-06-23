@@ -31,6 +31,8 @@ main() {
 
     if use_homegit && ! requested clone "$@"; then
         arg=( --git-dir="$HOME"/.homegit --work-tree="$HOME" )
+    else
+        arg=( )
     fi
 
     if requested_only sync "$@"; then
