@@ -246,7 +246,7 @@ prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin
 #
 #     npm config set prefix '~/.npm-global'
 #
-prepend_paths "$HOME"/usr/local "$HOME"/usr "$HOME" "$HOME"/.npm-global
+prepend_paths "$HOME"/.opt/* "$HOME" "$HOME"/.npm-global
 
 walk_root_to_curdir call_nvm_use
 
