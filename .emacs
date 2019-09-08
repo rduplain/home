@@ -392,6 +392,12 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;; Do not ask for the make command to run. This is set with the hook below.
 (setq compilation-read-command nil)
 
+;; Always save modified buffers when compiling.
+(setq compilation-ask-about-save nil)
+
+;; Always kill a running compilation process before starting a new one.
+(setq compilation-always-kill t)
+
 ;; Support a configurable `make` recipe, global for all buffers.
 (defvar compile-command-recipe nil "make recipe")
 
