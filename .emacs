@@ -233,6 +233,15 @@
                    "^\\.bzr$" "^_darcs$" "^\\.git$" "^\\.hg$")
 
 
+;;; Use an Emacs-native paste bin.
+(feature 'scpaste)
+
+(setq scpaste-http-destination "https://paste.duplain.io"
+      scpaste-scp-destination "paste.duplain.io:/srv/paste"
+      scpaste-user-name "rduplain"
+      scpaste-user-address "https://github.com/rduplain")
+
+
 ;;;; Suspend vs. Shell
 
 ;;; Disable suspend.
