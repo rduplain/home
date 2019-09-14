@@ -740,6 +740,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 (add-hook 'markdown-mode-hook 'set-text-based-company-minimum-prefix-length)
 
+;;; Meson
+(feature 'meson-mode)
+
 ;;; OCaml / ReasonML
 (require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
 
