@@ -1,4 +1,4 @@
-;;;; Declare third-party packages as features.
+;;;; Declare third-party packages for installation and setup.
 
 (defvar feature-list nil
   "List of features declared with `feature'.")
