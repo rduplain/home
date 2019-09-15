@@ -23,7 +23,6 @@ to `with-eval-after-load'."
       (if feature-by-name?
           `(progn
              (add-to-list 'feature-list ,feature)
-             (require ,feature nil 'noerror)
              (with-eval-after-load ,feature
                ,@body))
         `(add-to-list 'feature-list ,feature)))))
@@ -32,17 +31,21 @@ to `with-eval-after-load'."
   "Install features declared with `feature', if straight directory exists."
   (let ((straight-path (expand-file-name "straight" user-emacs-directory)))
     (if (file-directory-p straight-path)
-        (straight-transaction
-          (mapcar 'feature-install-recipe (reverse feature-list)))
+        (mapcar 'feature-install-recipe (reverse feature-list))
       (message "Create dir in order to install packages: %s" straight-path))))
 
 (defun feature-install-recipe (recipe)
   "Install package named in feature."
-  (feature--with-recipe recipe (package recipe type version)
+  (feature--with-recipe recipe (package recipe straight-recipe type version)
     (when version
-      (straight-use-package recipe nil 'no-build)
-      (straight-vc-check-out-commit type (symbol-name package) version))
-    (straight-use-package recipe)))
+      (let* ((local-repo (plist-get straight-recipe (intern ":local-repo")))
+             (commit (straight-vc-get-commit type local-repo)))
+        (straight-use-package recipe nil 'no-build)
+        (straight-vc-check-out-commit straight-recipe version)
+        (unless (string= commit (straight-vc-get-commit type local-repo))
+          (straight-rebuild-package (symbol-name package)))))
+    (straight-use-package recipe)
+    (require package nil 'noerror)))
 
 (defun feature-setup ()
   "Set up features declared with `feature'."
@@ -53,18 +56,21 @@ to `with-eval-after-load'."
   "Parse high-level attributes of recipe, for convenient destructuring."
   (if (symbolp recipe)
       `(:package ,recipe
-                 :recipe ,recipe)
+                 :recipe ,recipe
+                 :straight-recipe ,(straight--convert-recipe recipe))
     (let* ((package (car recipe))
            (recipe-plist (cdr recipe))
            (version (plist-get recipe-plist :version)))
       (straight--remq recipe-plist `(:version))
-      `(:package ,package
-                 :recipe ,(if recipe-plist
-                              (cons package recipe-plist)
-                            package)
-                 :type ,(or (plist-get recipe-plist :type)
-                            straight-default-vc)
-                 :version ,version))))
+      (let ((recipe (if recipe-plist
+                        (cons package recipe-plist)
+                      package)))
+        `(:package ,package
+                   :recipe ,recipe
+                   :straight-recipe ,(straight--convert-recipe recipe)
+                   :type ,(or (plist-get recipe-plist :type)
+                              straight-default-vc)
+                   :version ,version)))))
 
 (defmacro feature--with-recipe (recipe attrs &rest body)
   "Binding from parsed RECIPE the given ATTRS, eval and return BODY."
