@@ -24,7 +24,9 @@
   (expand-file-name file user-emacs-directory))
 
 
-;;;; Load Path
+;;;; Load Configuration
+(setq load-prefer-newer t)
+
 (add-to-list 'load-path (.emacs.d "user"))
 
 
