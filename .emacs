@@ -304,11 +304,7 @@
 (ido-mode 1)
 
 ;;; Redo
-(feature 'redo+)
-
-;; Load in case package manager does not load "redo+" given a "redo-plus" repo.
-(add-hook 'feature-setup-hook '(lambda ()
-                                 (load "redo+" 'noerror)))
+(feature '(redo+ :load t))
 
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
@@ -384,7 +380,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (put 'narrow-to-page 'disabled nil)
 
 ;;; Drag stuff.
-(feature 'drag-stuff
+(feature '(drag-stuff :load t)
   (drag-stuff-global-mode 1)
   (defvar drag-stuff-mode-map (make-sparse-keymap)
     "Keymap for `drag-stuff-mode'.")
@@ -440,12 +436,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;;; Modes - Language Server Protocol
 
 ;;; Language Server Protocol - lsp-mode
-(feature 'lsp-mode)
+(feature '(lsp-mode :load t))
 (feature 'company-lsp)
-
-;; Load lsp-mode.el eagerly to support `lsp-buffer-language' inspection.
-(add-hook 'feature-setup-hook '(lambda ()
-                                 (require 'lsp nil 'noerror)))
 
 ;; Provide API to check whether `lsp' supports the current major mode.
 (defun lsp-mode-supported-p (mode)
@@ -457,11 +449,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
       t)))
 
 ;;; Language Server Protocol - eglot mode
-(feature 'eglot)
-
-;; Load eglot.el eagerly to support `eglot-server-programs' inspection.
-(add-hook 'feature-setup-hook '(lambda ()
-                                 (require 'eglot nil 'noerror)))
+(feature '(eglot :load t))
 
 ;; Provide API to check whether eglot supports the current major mode.
 (defun eglot-supported-p (mode)
