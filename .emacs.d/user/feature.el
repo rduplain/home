@@ -204,6 +204,6 @@ Call this on a clean Emacs installation."
   (straight-pull-all))
 
 
-;;;; End
+;;;; Announce `feature'.
 
 (provide 'feature)

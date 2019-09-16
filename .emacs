@@ -1,6 +1,6 @@
 ;;;; Emacs configuration for R. DuPlain.
 ;;;;
-;;;; GNU Emacs 26.1
+;;;; GNU Emacs 26.1+
 
 ;;;; Meta
 

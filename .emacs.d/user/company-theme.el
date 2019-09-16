@@ -1,4 +1,4 @@
-;;;; Personal theme for company-mode, simple colors for Emacs inside terminal.
+;;;; Personal `company-mode' theme: simple colors for Emacs inside terminal.
 
 (let* ((background "black")
        (foreground "white")
