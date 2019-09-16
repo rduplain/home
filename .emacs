@@ -74,6 +74,9 @@
 ;;; Disable automatic backups, i.e. filename~ files.
 (setq-default backup-inhibited t)
 
+(setq auto-save-list-file-name nil
+      auto-save-list-file-prefix nil)
+
 ;;; Disable tramp.
 (setq tramp-mode nil)
 
