@@ -238,6 +238,8 @@
 
 
 ;;; Use an Emacs-native paste bin.
+(load "htmlize-theme")
+
 (feature 'scpaste)
 
 (setq scpaste-http-destination "https://paste.duplain.io"

@@ -1,0 +1,17 @@
+# X11-style RGB table for zenburn theme (modified to taste).
+ 51  51  51     black
+148 191 243     blue
+147 224 227     cyan
+112 128 160     dark blue
+140 208 211     dark cyan
+112 144 128     dark gray
+ 96 180 138     dark green
+220 140 195     dark magenta
+160  96  96     dark red
+223 175 143     dark yellow
+195 191 159     green
+220 220 220     light gray
+236 147 211     magenta
+220 163 163     red
+255 255 255     white
+240 223 175     yellow
