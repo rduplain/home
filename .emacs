@@ -442,11 +442,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;; Provide API to check whether `lsp' supports the current major mode.
 (defun lsp-mode-supported-p (mode)
   "Return t if mode is supported by `lsp'; call with `major-mode'."
-  ;; `lsp-buffer-language' takes no arguments; inject global variable values.
-  (let ((major-mode mode)
-        (buffer-file-name ""))
-    (when (lsp-buffer-language)
-      t)))
+  ;; Assume that mode is set based on the filename, as this lookup does not
+  ;; implement the filename pattern check in `lsp-buffer-language'.
+  (when (alist-get mode lsp-language-id-configuration)
+    t))
 
 ;;; Language Server Protocol - eglot mode
 (feature '(eglot :load t))
