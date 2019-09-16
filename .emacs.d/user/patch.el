@@ -1,4 +1,4 @@
-;;;; Fixes / Hooks
+;;;; When no config is available, patch functions to force sensible defaults.
 
 ;;; Prepare to patch functions which ask questions despite their configuration.
 (unless (boundp 'original-yes-or-no-p)
