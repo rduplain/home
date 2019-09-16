@@ -13,5 +13,5 @@
 220 220 220     light gray
 236 147 211     magenta
 220 163 163     red
-255 255 255     white
+220 220 220     white
 240 223 175     yellow
