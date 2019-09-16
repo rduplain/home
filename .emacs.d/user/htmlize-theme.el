@@ -22,3 +22,27 @@
         font-lock-variable-name-face "dark yellow"
         font-lock-warning-face (:foreground "red" :weight bold)
         default (:foreground "white" :background "black")))
+
+(defun htmlize-font-after-hook ()
+  "Hook for `htmlize-after-hook' to modify `htmlize' buffer."
+  (let ((font "Inconsolata"))
+    (beginning-of-buffer)
+    (search-forward "<style")
+    (beginning-of-line)
+    (insert "    <link rel=\"stylesheet\"\n")
+    (insert "          href=\"https://fonts.googleapis.com/css?family="
+                                                                   font
+                                                                "\">\n")
+    (search-forward "body {") (search-forward "}")
+    (end-of-line)
+    (forward-char)
+    (insert "      ::selection { background: #999999; }\n")
+    (insert "      ::-moz-selection { background: #999999; }\n")
+    (insert "      pre {\n")
+    (insert "        font-family: " font ", monospace;\n")
+    (insert "        font-size: 16pt;\n")
+    (insert "        line-height: 1.15em;\n")
+    (insert "      }\n")
+    (beginning-of-buffer)))
+
+(add-hook 'htmlize-after-hook 'htmlize-font-after-hook)
