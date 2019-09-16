@@ -303,9 +303,12 @@
 (setq default-major-mode 'text-mode)
 
 ;;; Interactively Do Things, with fuzzy matching enabled.
-(require 'ido)
 (setq ido-mode 'both ;; both file and buffer.
-      ido-enable-flex-matching t)
+      ido-enable-flex-matching t
+      ido-enable-last-directory-history nil
+      ido-enable-tramp-completion nil
+      ido-record-commands nil
+      ido-record-ftp-work-directories nil)
 (ido-mode 1)
 
 ;;; Redo
