@@ -247,12 +247,32 @@
 ;;; Use an Emacs-native paste bin.
 (load "htmlize-theme")
 
-(feature 'scpaste)
+(feature '(scpaste :load t)
+  ;; Patch directly, as `advice' appears to have byte-compiled limitations.
+  (unless (fboundp 'scpaste-footer-original)
+    (fset 'scpaste-footer-original (symbol-function 'scpaste-footer)))
+  (fset 'scpaste-footer (symbol-function 'scpaste-footer-custom)))
 
 (setq scpaste-http-destination "https://paste.duplain.io"
       scpaste-scp-destination "paste.duplain.io:/srv/paste"
       scpaste-user-name "rduplain"
       scpaste-user-address "https://github.com/rduplain")
+
+(setq scpaste-footer-style
+      `(,(concat "font-family: " htmlize-theme-font ", monospace")
+        "font-size: 13pt"
+        "color: #999999"))
+
+(defun scpaste-footer-wrapper (fn &rest args)
+  "Wrap `scpaste-footer' to customize footer style."
+  (replace-regexp-in-string "style='.* -moz-user-select"
+                            (format "style='%s; -moz-user-select"
+                                    (string-join scpaste-footer-style "; "))
+                            (funcall fn)))
+
+(defun scpaste-footer-custom (&rest args)
+  "Drop-in replacement for `scpaste-footer' calling `scpaste-footer-original'."
+  (scpaste-footer-wrapper 'scpaste-footer-original))
 
 
 ;;; Customize eshell.
