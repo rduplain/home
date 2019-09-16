@@ -325,6 +325,23 @@
 (global-set-key (kbd "C-x /") 'winner-undo)
 (global-set-key (kbd "C-x \\") 'winner-redo)
 
+;;; Ace Window, jump to windows with M-o and home row keys.
+(feature 'ace-window)
+
+(global-set-key (kbd "M-o") 'ace-window)
+(global-set-key (kbd "C-x M-o") 'ace-window)
+
+(setq aw-background nil
+      aw-ignore-current nil
+      aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+      aw-minibuffer-flag nil)
+
+(custom-set-faces
+ `(aw-leading-char-face
+   ((t (:background "black" :foreground "yellow" :weight bold))))
+ `(aw-minibuffer-leading-char-face
+   ((t (:inherit aw-leading-char-face)))))
+
 ;;; Flyspell, on-the-fly spellcheck.
 
 ;; Keep quiet.
