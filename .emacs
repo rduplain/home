@@ -29,10 +29,18 @@
 
 (add-to-list 'load-path (.emacs.d "user"))
 
+(load (.emacs.d "bytecomp-user"))
+
+(byte-compile-quietly
+ (byte-recompile-directory (.emacs.d "user") 0))
+
 
 ;;;; User-Defined Functions / Macros
 (load "functions")
 (load "patch")
+
+;;; Clean up earlier byte-compilation.
+(kill-buffer (find-buffer "\\*Compile-Log\\*"))
 
 
 ;;;; Packages

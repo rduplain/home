@@ -207,3 +207,8 @@ Call this on a clean Emacs installation."
 ;;;; Announce `feature'.
 
 (provide 'feature)
+
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
