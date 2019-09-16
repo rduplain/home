@@ -249,9 +249,9 @@
 
 (feature '(scpaste :load t)
   ;; Patch directly, as `advice' appears to have byte-compiled limitations.
-  (unless (fboundp 'scpaste-footer-original)
-    (fset 'scpaste-footer-original (symbol-function 'scpaste-footer)))
-  (fset 'scpaste-footer (symbol-function 'scpaste-footer-custom)))
+  (patch-function :fn 'scpaste-footer
+                  :prefer 'scpaste-footer-custom
+                  :original 'scpaste-footer-original))
 
 (setq scpaste-http-destination "https://paste.duplain.io"
       scpaste-scp-destination "paste.duplain.io:/srv/paste"
