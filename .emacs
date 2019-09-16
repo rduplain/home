@@ -8,7 +8,7 @@
 ;;;
 ;;; (function)   - Call a configuration function directly.
 ;;; add-to-list  - For config variables which are lists, insert value at head.
-;;; fset         - Override a function.
+;;; fset         - Set, alias, or override a function.
 ;;; load         - Load a module (a .el file) found on the `load-path'.
 ;;; setq         - Set variable for all of Emacs.
 ;;; setq-default - Set default variable, able to be overridden in local buffer.
@@ -73,8 +73,7 @@
 (setq-default require-final-newline t)
 
 ;;; Accept y or n when presented with yes or no.
-(fset 'yes-or-no-p 'y-or-n-p)
-(fset 'original-yes-or-no-p (symbol-function 'yes-or-no-p))
+(fset 'yes-or-no-p (symbol-function 'y-or-n-p))
 
 ;;; Disable beeps.
 (setq ring-bell-function 'ignore)
@@ -306,8 +305,8 @@
   (goto-char (point-min))
   (while (search-forward "\n" nil t) (replace-match "\r\n")))
 
-(fset 'todos 'unix2dos)
-(fset 'fromdos 'dos2unix)
+(fset 'todos (symbol-function 'unix2dos))
+(fset 'fromdos (symbol-function 'dos2unix))
 
 
 ;;;; Modes - General Purpose
