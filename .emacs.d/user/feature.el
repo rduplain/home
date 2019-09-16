@@ -4,6 +4,8 @@
 
 ;;; Usage: Declare packages with `feature'; finalize with `feature-setup'.
 
+;;; Example: https://paste.duplain.io/feature-example.el.html
+
 ;;; See `straight-bootstrap' in ~/.emacs.d/straight-init.el for installation.
 
 ;;; On a clean Emacs installation, `feature-setup' does nothing by default
