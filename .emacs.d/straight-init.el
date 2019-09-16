@@ -2,15 +2,11 @@
 
 (defvar bootstrap-version)
 
-;; This straight.el bootstrap only runs if its directory exists.
-;;
-;; Create ~/.emacs.d/straight/ in order to use third-party packages,
-;; then restart Emacs.
-(let ((straight-path (expand-file-name "straight" user-emacs-directory))
-      (bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (when (file-directory-p straight-path)
+(defun straight-bootstrap ()
+  "Bootstrap straight.el installation via straight-init.el."
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
     (unless (file-exists-p bootstrap-file)
       (with-current-buffer
           (url-retrieve-synchronously
@@ -19,3 +15,8 @@
         (goto-char (point-max))
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage)))
+
+;; This straight.el bootstrap only runs if the "straight" directory exists.
+(let ((straight-path (expand-file-name "straight" user-emacs-directory)))
+  (when (file-directory-p straight-path)
+    (straight-bootstrap)))
