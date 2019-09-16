@@ -365,7 +365,7 @@
 
 ;;; Use company-mode to "complete anything."
 (feature 'company
-  (setq company-global-modes '(not csv-mode text-mode))
+  (setq company-global-modes '(not csv-mode eshell-mode text-mode))
   (global-company-mode)
   ;; Disable completion of plain text by removing dabbrev backends.
   (delete 'company-dabbrev company-backends)
