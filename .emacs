@@ -177,10 +177,6 @@
   (homegit-magit-hook))
 
 
-;;; Use bookmark+.
-(feature 'bookmark+)
-
-
 ;;; Extend dired.
 (add-hook 'dired-load-hook
           (lambda ()
