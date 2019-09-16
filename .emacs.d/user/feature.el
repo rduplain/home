@@ -4,9 +4,12 @@
 
 ;;; Usage: Declare packages with `feature'; finalize with `feature-setup'.
 
+;;; See `straight-bootstrap' in ~/.emacs.d/straight-init.el for installation.
+
 ;;; On a clean Emacs installation, `feature-setup' does nothing by default
-;;; (because the ~/.emacs.d/straight/ directory does not exist). Call
-;;; `feature-bootstrap' to create the package directory and install packages.
+;;; (because the ~/.emacs.d/straight/ directory does not exist). With
+;;; straight-init.el loaded, call `feature-bootstrap' to create the package
+;;; directory and install packages.
 
 ;;; Use `feature-upgrade-all' to upgrade all packages.
 
