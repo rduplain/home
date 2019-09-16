@@ -549,7 +549,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 
-(feature `(cider :version "v0.22.0"))
+(feature '(cider :version "v0.22.0"))
 
 (defun run-repl-boot ()
   "Run an Emacs-integrated REPL with boot-clj."
@@ -557,7 +557,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   (require 'cider)
 
   (run-repl-rebind-to-cider)
-  (cider-jack-in `()))
+  (cider-jack-in '()))
 
 (defun run-repl-lein ()
   "Run an Emacs-integrated REPL with leiningen."
@@ -565,7 +565,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   (require 'cider)
 
   (run-repl-rebind-to-cider)
-  (cider-jack-in `()))
+  (cider-jack-in '()))
 
 (defun run-repl-nrepl ()
   "Run an Emacs-integrated REPL connecting with .nrepl-port file."
@@ -602,7 +602,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                  (shadow.cljs.devtools.api/node-repl :app))")
          (add-hook 'nrepl-connected-hook 'on-shadow-cljs-node-repl)
          (setq repl-hook-added? t))
-       (cider-jack-in-cljs `(:cljs-repl-type shadow-cljs-node)))
+       (cider-jack-in-cljs '(:cljs-repl-type shadow-cljs-node)))
 
       (_ (error "No REPL. Update ~/.emacs for this shadow-cljs.edn.")))))
 
