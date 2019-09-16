@@ -1,6 +1,7 @@
 ;;;; Configure `htmlize-buffer' to display terminal colors.
 
-(setq htmlize-theme-font "Inconsolata")
+(setq htmlize-theme-font "Inconsolata"
+      htmlize-theme-muted "#999999")
 
 ;; X11-style RGB table: ~/.emacs.d/user/rgb.txt
 ;; Note that this table is cached on `htmlize' load.
@@ -37,8 +38,8 @@
   (search-forward "body {") (search-forward "}")
   (end-of-line)
   (forward-char)
-  (insert "      ::selection { background: #999999; }\n")
-  (insert "      ::-moz-selection { background: #999999; }\n")
+  (insert "      ::selection { background: " htmlize-theme-muted "; }\n")
+  (insert "      ::-moz-selection { background: " htmlize-theme-muted "; }\n")
   (insert "      pre {\n")
   (insert "        font-family: " htmlize-theme-font ", monospace;\n")
   (insert "        font-size: 16pt;\n")

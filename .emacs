@@ -260,8 +260,8 @@
 
 (setq scpaste-footer-style
       `(,(concat "font-family: " htmlize-theme-font ", monospace")
-        "font-size: 13pt"
-        "color: #999999"))
+        ,(concat "color: " htmlize-theme-muted)
+        "font-size: 13pt"))
 
 (defun scpaste-footer-wrapper (fn &rest args)
   "Wrap `scpaste-footer' to customize footer style."
