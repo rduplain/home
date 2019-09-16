@@ -243,6 +243,12 @@
       scpaste-user-address "https://github.com/rduplain")
 
 
+;;; Customize eshell.
+(setq eshell-directory-name ""
+      eshell-history-file-name nil
+      eshell-last-dir-ring-file-name nil)
+
+
 ;;;; Suspend vs. Shell
 
 ;;; Disable suspend.
