@@ -136,6 +136,9 @@
 ;;; Increase large file warning threshold.
 (setq large-file-warning-threshold 50000000)
 
+;;; Kill processes on exit without querying.
+(setq confirm-kill-processes nil)
+
 
 ;;;; Fixes
 
