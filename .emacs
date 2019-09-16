@@ -492,6 +492,13 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 ;;;; Modes - Configure a REPL based on project files.
 
+;;; Configure inferior Lisp modes.
+(setq display-buffer-alist
+      '(("\\*inf-.*\\*"
+         (display-buffer-below-selected display-buffer-at-bottom)
+         (inhibit-same-window . t)
+         (window-height . 10))))
+
 ;;; Define zero-configuration command to run available Emacs-integrated REPL.
 (defun run-repl ()
   "Run an Emacs-integrated REPL, if available, based on project files."
@@ -515,6 +522,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
    ((eglot-supported-p major-mode)
     (call-interactively 'eglot))
+
+   ((eq major-mode 'janet-mode)
+    (inf-janet inf-janet-program))
 
    (t (error "No REPL. Update ~/.emacs to support this project."))))
 
@@ -723,6 +733,19 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                              (setq-local tab-width 2)))
 
 (feature 'multi-web-mode)
+
+;;; Janet
+(feature '(janet-mode :host github :repo "ALSchwalm/janet-mode"))
+(feature '(inf-janet :host github :repo "velkyel/inf-janet"))
+
+(add-hook 'janet-mode-hook 'inf-janet-minor-mode)
+(setq inf-janet-program "janet"
+      inf-janet-project-root-files '(".git"))
+
+(add-hook 'inf-janet-mode-hook
+          '(lambda ()
+             (setq-local truncate-lines nil)
+             (setq-local truncate-partial-width-windows nil)))
 
 ;;; JavaScript
 (defun javascript-settings ()
