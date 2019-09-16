@@ -10,13 +10,11 @@
   ;; Lifted from `straight--byte-compile-package' and adapted to macro.
   ;;
   ;; These two `let' forms try very, very hard to make
-  ;; byte-compilation an invisible process. Lots of packages have
-  ;; byte-compile warnings; I don't need to know about them and
-  ;; neither do straight.el users.
+  ;; byte-compilation an invisible process.
   `(cl-letf (;; Prevent Emacs from asking the user to save all their
              ;; files before compiling.
              ((symbol-function #'save-some-buffers) #'ignore)
-             ;; Die, byte-compile log, die!!!
+             ;; Further disable byte-compile log.
              ((symbol-function #'byte-compile-log-1) #'ignore)
              ((symbol-function #'byte-compile-log-file) #'ignore)
              ((symbol-function #'byte-compile-log-warning) #'ignore))
@@ -27,6 +25,4 @@
            ;; Suppress the remaining messages.
            (inhibit-message t)
            (message-log-max nil))
-       ;; Note that there is in fact no `byte-compile-directory'
-       ;; function.
        ,@body)))
