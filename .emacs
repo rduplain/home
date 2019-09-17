@@ -764,7 +764,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (feature 'multi-web-mode)
 
 ;;; Janet
-(feature '(janet-mode :host github :repo "ALSchwalm/janet-mode"))
+(feature '(janet-mode :host github :repo "rduplain/janet-mode"))
 (feature '(inf-janet :host github :repo "rduplain/inf-janet"))
 
 (add-hook 'janet-mode-hook 'inf-janet-minor-mode)
