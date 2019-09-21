@@ -386,7 +386,7 @@
 (setq flyspell-auto-correct-binding [?\M-s])
 
 ;;; Yet Another Snippet system, for code/text snippets.
-(feature 'yasnippet
+(feature '(yasnippet :load t)
   (yas-global-mode 1))
 
 ;;; Use company-mode to "complete anything."
