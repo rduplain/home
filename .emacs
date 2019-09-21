@@ -331,9 +331,6 @@
 
 ;;;; Modes - General Purpose
 
-;;; Set the default mode to Text.
-(setq default-major-mode 'text-mode)
-
 ;;; Interactively Do Things, with fuzzy matching enabled.
 (setq ido-mode 'both ;; both file and buffer.
       ido-enable-flex-matching t
