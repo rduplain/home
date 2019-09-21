@@ -863,6 +863,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
 
 ;;; Text
+(add-to-list 'auto-mode-alist '("LICENSE" . text-mode))
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook
           '(lambda ()
