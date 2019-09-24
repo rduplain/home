@@ -861,6 +861,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;; Shell
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
+(add-hook 'sh-mode-hook '(lambda ()
+                           (setq-local company-minimum-prefix-length 2)))
 
 ;;; Text
 (add-to-list 'auto-mode-alist '("LICENSE" . text-mode))
