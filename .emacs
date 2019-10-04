@@ -341,7 +341,7 @@
 (ido-mode 1)
 
 ;;; Redo
-(feature '(redo+ :load t))
+(feature '(redo+ :host github :repo "emacsmirror/redo-plus" :load t))
 
 (global-set-key (kbd "C-/") 'undo)
 (global-set-key (kbd "C-\\") 'redo)
