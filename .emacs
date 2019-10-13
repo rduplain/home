@@ -74,6 +74,7 @@
 
 ;;; Accept y or n when presented with yes or no.
 (fset 'yes-or-no-p (symbol-function 'y-or-n-p))
+(fset 'yes-or-no-p-original (symbol-function 'yes-or-no-p))
 
 ;;; Disable beeps.
 (setq ring-bell-function 'ignore)
