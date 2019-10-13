@@ -255,6 +255,18 @@ append PATH "$HOME"/src/android/sdk/tools
 
 append PATH "$HOME"/.*-dist/bin
 
+# Add Makefile.d paths here to maintain priority within .bashrc PATH settings.
+prepend PATH \
+        "$PWD"/.reqd/usr/bin \
+        "$PWD"/.reqd/bin \
+        "$PWD"/.reqd/opt/janet/bin \
+        "$PWD"/.reqd/opt/python/bin \
+        "$PWD"/.reqd/opt/ruby/bin \
+        "$PWD"/node_modules/.bin \
+        "$PWD"/.reqd/opt/bats/bin
+
+ship GEM_HOME="$PWD"/.reqd/opt/ruby
+
 dedupe_path PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
 export PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
