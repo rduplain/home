@@ -587,6 +587,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 (add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
 
+;;; Batch / Windows Batch
+(add-hook 'bat-mode-hook '(lambda ()
+                            (setq-local standard-indent 2)))
+
 ;;; C
 (add-hook 'c-mode-hook 'flyspell-prog-mode)
 
