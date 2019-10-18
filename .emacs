@@ -900,6 +900,13 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;; YAML
 (feature 'yaml-mode)
 
+;;; Zsh
+
+;; Set sh-mode for zsh when top-line is a #compdef completion definition.
+(add-to-list 'magic-mode-alist '("#compdef " . (lambda ()
+                                                 (sh-mode)
+                                                 (sh-set-shell "zsh"))))
+
 
 ;;;; M-x customize
 
