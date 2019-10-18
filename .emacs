@@ -870,7 +870,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                            (setq-local company-minimum-prefix-length 2)))
 
 ;;; Text
+(add-to-list 'auto-mode-alist '("ACKNOWLEDGEMENTS" . text-mode))
+(add-to-list 'auto-mode-alist '("COPYING" . text-mode))
 (add-to-list 'auto-mode-alist '("LICENSE" . text-mode))
+(add-to-list 'auto-mode-alist '("README" . text-mode))
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook
           '(lambda ()
