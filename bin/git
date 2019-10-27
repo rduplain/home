@@ -50,7 +50,7 @@ main() {
             "$git" "${arg[@]}" rebase \
                 --committer-date-is-author-date "$upstream"
     elif requested_only tiglike "$@"; then
-        exec "$git" "${arg[@]}" log \
+        exec env PAGER="less -S" "$git" "${arg[@]}" log \
              --pretty=format:"$TIGLIKE" \
              --date=format:"$TIGLIKE_DATE_FORMAT"
     else
