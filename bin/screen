@@ -109,6 +109,10 @@ main() {
         fi
         # Start screen in background.
         cd "$project"; screen -fn -dmS "$sessionname"
+        # Wait for screen.
+        while ! screen -ls "$sessionname"  > /dev/null 2>&1; do
+            sleep 0.05
+        done
         # Attach to new screen.
         exec "$SCREEN" -x "$sessionname"
     fi
