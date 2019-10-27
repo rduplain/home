@@ -163,6 +163,9 @@ function omit_home() {
     fi
 }
 
+export -f source_these walk_root_to_curdir omit_home
+
+
 # PATH Management
 #
 # Support multiple hosts with the same .bashrc file, loading each PATH variable

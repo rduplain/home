@@ -134,6 +134,11 @@ main() {
         arg+=( -c "$SCREENRC_DEFAULT" )
     fi
 
+    # Pick up relative environment configuration before calling screen.
+    if command -v source_these > /dev/null 2>&1; then
+        walk_root_to_curdir omit_home source_these .bashrc .env #dir
+    fi
+
     exec "$SCREEN" "${arg[@]}" "$@"
 }
 
