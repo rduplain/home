@@ -820,8 +820,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 (feature 'tuareg)
 (feature 'reason-mode)
+(feature 'dune)
 
 (add-to-list 'auto-mode-alist '("^\\.ocamlinit$" . tuareg-mode))
+(add-to-list 'auto-mode-alist '("dune-project$" . dune-mode))
 
 ;;; PHP
 (feature 'php-mode)
