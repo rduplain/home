@@ -815,6 +815,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (feature 'meson-mode)
 
 ;;; OCaml / ReasonML
+;; `opam user-setup install` installs opam-user-setup.el.
 (require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
 
 (feature 'tuareg)
