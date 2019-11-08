@@ -160,8 +160,9 @@
 ;;;; Extensions
 
 ;;; Use magit for git interactions.
-(feature 'magit
-  (load "magit-theme" 'noerror))
+(feature '(magit :load t)
+  (load "magit-theme" 'noerror)
+  (magit-auto-revert-mode 1))
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
