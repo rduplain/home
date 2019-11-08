@@ -392,7 +392,7 @@
   (yas-global-mode 1))
 
 ;;; Use company-mode to "complete anything."
-(feature 'company
+(feature '(company :load t)
   (setq company-global-modes '(not csv-mode eshell-mode text-mode))
   (global-company-mode)
   ;; Disable completion of plain text by removing dabbrev backends.
