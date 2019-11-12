@@ -821,6 +821,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;; `opam user-setup install` installs opam-user-setup.el.
 (require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
 
+(setq tuareg-opam-insinuate t)
+
 (feature 'tuareg)
 (feature 'reason-mode)
 (feature 'dune)
