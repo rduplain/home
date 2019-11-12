@@ -26,3 +26,9 @@
            (inhibit-message t)
            (message-log-max nil))
        ,@body)))
+
+(defun byte-recompile-directory-non-recursively (directory &optional arg force)
+  "Call `byte-recompile-file' on each .el file in top-level of directory."
+  (mapcar (lambda (filepath)
+            (byte-recompile-file filepath force arg))
+          (directory-files directory t "^.*\.el$")))

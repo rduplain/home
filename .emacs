@@ -32,10 +32,8 @@
 (load (.emacs.d "bytecomp-user"))
 
 (byte-compile-quietly
- (mapcar (lambda (filepath)
-           (byte-recompile-file filepath nil 0 nil))
-         (directory-files user-emacs-directory t "^.*\.el$"))
- (byte-recompile-directory (.emacs.d "user") 0))
+ (byte-recompile-directory-non-recursively user-emacs-directory 0)
+ (byte-recompile-directory-non-recursively (.emacs.d "user") 0))
 
 
 ;;;; User-Defined Functions / Macros
