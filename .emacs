@@ -32,6 +32,9 @@
 (load (.emacs.d "bytecomp-user"))
 
 (byte-compile-quietly
+ (mapcar (lambda (filepath)
+           (byte-recompile-file filepath nil 0 nil))
+         (directory-files user-emacs-directory t "^.*\.el$"))
  (byte-recompile-directory (.emacs.d "user") 0))
 
 
