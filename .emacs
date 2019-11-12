@@ -29,7 +29,8 @@
 
 (add-to-list 'load-path (.emacs.d "user"))
 
-(load (.emacs.d "bytecomp-user"))
+(require 'bytecomp)
+(byte-recompile-file (.emacs.d "bytecomp-user") nil 0 'load)
 
 (byte-compile-quietly
  (byte-recompile-directory-non-recursively user-emacs-directory 0)
