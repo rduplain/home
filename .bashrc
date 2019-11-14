@@ -316,6 +316,29 @@ export GZIP="-9"
 # Make `less` more friendly for non-text input files; see lesspipe(1).
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
+# Stylize `less`.
+# In effect: add two colors to `man`, remove $PAGER inverse color status line.
+#
+#         Foreground  Background
+#
+# black           30          40
+# red             31          41
+# green           32          42
+# yellow          33          43
+# blue            34          44
+# magenta         35          45
+# cyan            36          46
+# white           37          47
+#
+# Each double-digit number is ANSI color code, outlined above. 1 is bold.
+export LESS_TERMCAP_mb=$(printf "\e[1;34m")     # mode blink start
+export LESS_TERMCAP_md=$(printf "\e[1;34m")     # mode bold start
+export LESS_TERMCAP_me=$(printf "\e[0m")        # mode end
+export LESS_TERMCAP_se=$(printf "\e[0m")        # mode standout end
+export LESS_TERMCAP_so=$(printf "\e[1;37m")     # mode standout start
+export LESS_TERMCAP_ue=$(printf "\e[0m")        # mode underline end
+export LESS_TERMCAP_us=$(printf "\e[1;37m")     # mode underline start
+
 alias pydoc=pydoc3
 alias emacs='emacs -nw'
 
