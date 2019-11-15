@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Wrap `utop` to include local _build and require libraries specified in dune.
+
+find_dune() {
+    # Print current directory if dune file found.
+
+    [ -e dune ] && pwd
+}
+
+libraries() {
+    # List to stdout libraries specified in dune, if `dune` is available.
+    #
+    # Assume a dune file is available in the local directory.
+
+    if ! which dune > /dev/null 2>&1; then
+        return
+    fi
+
+    dune external-lib-deps @all | grep '^-' | awk '{ print $2 }'
+}
+
+project_root() {
+    # Print project root to stdout, or `pwd` if nothing is found.
+
+    walkback find_dune || pwd
+}
+
+main() {
+    DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    . "$DIR"/wrapper.bash
+
+    local utop
+    utop="$(set_aside_this_and_find_that "$DIR" utop)"
+
+    if [ -z "$utop" ]; then
+        # No other `utop` found.
+        # Expect set-aside function to write a not-found message to stderr.
+        return 2
+    fi
+
+    cd "$(project_root)"
+
+    declare -a arg
+    arg=( -I _build )
+
+    for lib in $(libraries); do
+        arg+=(-require $lib)
+    done
+
+    exec "$utop" "${arg[@]}" "$@"
+}
+
+main "$@"
