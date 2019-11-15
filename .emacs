@@ -368,7 +368,7 @@
 
 (custom-set-faces
  `(aw-leading-char-face
-   ((t (:background "black" :foreground "yellow" :weight bold))))
+   ((t (:background "black" :foreground "blue" :weight bold))))
  `(aw-minibuffer-leading-char-face
    ((t (:inherit aw-leading-char-face)))))
 
