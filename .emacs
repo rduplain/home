@@ -547,6 +547,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
    ((dominating-file "project.clj")
     (run-repl-lein))
 
+   ((eq major-mode 'tuareg-mode)
+    (run-repl-ocaml))
+
    ((lsp-mode-supported-p major-mode)
     (call-interactively 'lsp))
 
@@ -819,17 +822,53 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (feature 'meson-mode)
 
 ;;; OCaml / ReasonML
-;; `opam user-setup install` installs opam-user-setup.el.
+;; `opam user-setup install` installs opam-user-setup.el, which loads
+;; `utop' and `dune' if these are installed into the opam environment.
 (require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
 
-(setq tuareg-opam-insinuate t)
+(feature 'tuareg
+  (patch-function
+   :fn 'tuareg-discover-phrase
+   :prefer '(lambda ()
+              "Fix `tuareg-discover-phrase' to return triple as expected."
+              ;; Called by `utop-eval-phrase'.
+              (let ((phrase (tuareg-discover-phrase-original)))
+                (if (not (numberp (cdr phrase)))
+                    phrase
+                  (list (car phrase) (cdr phrase) (cdr phrase)))))
+   :original 'tuareg-discover-phrase-original))
 
-(feature 'tuareg)
 (feature 'reason-mode)
-(feature 'dune)
+
+(setq tuareg-opam-insinuate t
+      utop-command (concat (expand-file-name "~") "/bin/utop -emacs")
+      utop-edit-command nil
+      utop-prompt
+      '(lambda ()
+         (let ((prompt "λ "))
+           (add-text-properties 0 (length prompt) '(face utop-prompt) prompt)
+           prompt)))
+
+(custom-set-faces
+ `(utop-prompt
+   ((t (:background "black" :foreground "blue" :weight bold)))))
+
+(with-eval-after-load 'utop
+  ;; Disable `utop' next-phrase to evaluate phrase in place. Also, it is broken.
+  (fset 'utop-tuareg-next-phrase '(lambda () (interactive)))
+
+  ;; Define C-c prefix for all interactive eval commands.
+  ;; It is not clear why `utop' uses C-x for phrase/region and C-c for buffer.
+  (define-key utop-minor-mode-map (kbd "C-c C-e") 'utop-eval-phrase)
+  (define-key utop-minor-mode-map (kbd "C-c C-r") 'utop-eval-region)
+  (define-key utop-minor-mode-map (kbd "C-c C-b") 'utop-eval-buffer))
 
 (add-to-list 'auto-mode-alist '("^\\.ocamlinit$" . tuareg-mode))
 (add-to-list 'auto-mode-alist '("dune-project$" . dune-mode))
+
+(defun run-repl-ocaml ()
+  "Run an Emacs-integrated REPL with OCaml (utop)."
+  (utop))
 
 ;;; PHP
 (feature 'php-mode)

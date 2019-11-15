@@ -1,0 +1,54 @@
+# Key bindings for lambda-term applications, i.e. OCaml `utop`.
+#
+# Run `lambda-term-actions` to list available actions.
+# Call `#utop_bindings;;` within `utop` to view current bindings.
+
+[edit]
+C-a: goto-bol
+C-b: prev-char
+C-e: goto-eol
+C-f: next-char
+C-k: kill-next-line
+C-u: kill-prev-line
+C-w: kill # region
+C-x (: start-macro
+C-x ): stop-macro
+C-x e: play-macro
+C-y: yank
+
+# Use ASCII hex value 20 to represent `space`.
+# C-space: set-mark
+C-U+20: set-mark
+
+M-b: prev-word
+M-c: capitalize-word
+M-d: kill-next-word
+M-f: next-word
+M-l: lowercase-word
+M-u: uppercase-word
+M-w: copy
+
+backspace: delete-prev-char
+delete: delete-next-char
+end: goto-eot
+home: goto-bot
+insert: switch-erase-mode
+
+
+[read-line]
+enter: accept # C-m
+escape: cancel-search
+tab: complete-bar # C-i
+
+C-g: cancel-search
+C-l: clear-screen
+C-n: complete-bar-next
+C-p: complete-bar-prev
+
+M-n: history-next
+M-p: history-prev
+
+up: history-prev
+down: history-next
+left: prev-char
+right: next-char

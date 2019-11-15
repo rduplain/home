@@ -40,14 +40,16 @@ After patching, calls to `function-to-wrap` will instead call
 The :original symbol is only set if it is not previously bound,
 as to make the patch idempotent (allowing for repeat calls)."
   (let ((fn-symbol (plist-get args :fn))
-        (prefer-symbol (plist-get args :prefer))
+        (prefer-symbol-or-function (plist-get args :prefer))
         (original-symbol (plist-get args :original)))
 
-    (unless (and fn-symbol prefer-symbol original-symbol)
+    (unless (and fn-symbol prefer-symbol-or-function original-symbol)
       (signal 'wrong-type-argument
               (cons "Call with :fn, :prefer, :original:" args)))
 
     (unless (fboundp original-symbol)
       (fset original-symbol (symbol-function fn-symbol)))
 
-    (fset fn-symbol (symbol-function prefer-symbol))))
+    (if (functionp prefer-symbol-or-function)
+        (fset fn-symbol prefer-symbol-or-function)
+      (fset fn-symbol (symbol-function prefer-symbol-or-function)))))

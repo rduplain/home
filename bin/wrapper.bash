@@ -71,3 +71,39 @@ set_aside_this_and_find_that() {
         fi
     )
 }
+
+walkback() {
+    # Walk the directory tree upward until the given function returns zero.
+    #
+    # Pass stdio through. The given function can write a value to stdout.
+
+    # Return now if incorrect number of arguments.
+    [ $# -ne 1 ] && return 2
+
+    local arrived dir fn oldpwd
+
+    fn="$1"
+    shift
+
+    oldpwd="$PWD"
+    dir="$PWD"
+
+    while [ -n "$dir" ]; do
+        cd "$dir"
+
+        if "$fn"; then
+            cd "$oldpwd"
+            return
+        fi
+
+        dir="${dir%/*}"
+
+        if [ -z "$dir" ] && [ -z "$arrived" ]; then
+            arrived=true
+            dir=/
+        fi
+    done
+
+    cd "$oldpwd"
+    return 1
+}
