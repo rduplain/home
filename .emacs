@@ -868,6 +868,11 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 (defun run-repl-ocaml ()
   "Run an Emacs-integrated REPL with OCaml (utop)."
+  (unless (fboundp 'utop)
+    (message "Installing utop ...")
+    (shell-command "opam install --yes utop")
+    (opam-auto-tools-setup)
+    (require 'utop))
   (utop))
 
 ;;; PHP
