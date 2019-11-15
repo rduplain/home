@@ -868,12 +868,47 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 (defun run-repl-ocaml ()
   "Run an Emacs-integrated REPL with OCaml (utop)."
-  (unless (fboundp 'utop)
-    (message "Installing utop ...")
-    (shell-command "opam install --yes utop")
-    (opam-auto-tools-setup)
-    (require 'utop))
-  (utop))
+  (if (not (fboundp 'utop))
+      (progn
+        (message "Installing utop ...")
+        (opam-install 'utop
+                      '(lambda (&rest _)
+                         (opam-auto-tools-setup)
+                         (require 'utop)
+                         (mapcar '(lambda (buffer)
+                                    (with-current-buffer buffer
+                                      (when (eq major-mode 'tuareg-mode)
+                                        (utop-minor-mode t))))
+                                 (buffer-list))
+                         (message "Ready!")
+                         (utop))))
+    (utop)))
+
+(defun opam-install (target &optional callback)
+  "Install packages with `opam`, async. Callback takes (process signal)."
+  (interactive "sPackage(s): ")
+  (let* ((command (concat "opam install --yes "
+                          (cond
+                           ((stringp target) target)
+                           ((symbolp target) (symbol-name target))
+                           ((listp target) (string-join
+                                            (if (symbolp (first target))
+                                                (mapcar 'symbol-name target)
+                                              target)
+                                            " "))
+                           (t (signal 'wrong-type-argument target)))))
+         (output-buffer (generate-new-buffer "*opam install*"))
+         (process (progn
+                    (async-shell-command command output-buffer)
+                    (get-buffer-process output-buffer))))
+    (unless (process-live-p process)
+      (error "Unable to start process for `opam install` ..."))
+    (when callback
+      (set-process-sentinel process
+                            (if (functionp callback)
+                                callback
+                              (symbol-function callback))))
+    output-buffer))
 
 ;;; PHP
 (feature 'php-mode)
