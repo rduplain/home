@@ -317,7 +317,7 @@ export GZIP="-9"
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
 # Stylize `less`.
-# In effect: add bold white to `man`, remove $PAGER inverse color status line.
+# In effect: add bold white to `man`, replace $PAGER inverse with bold blue.
 #
 #         Foreground  Background
 #
@@ -335,7 +335,7 @@ export LESS_TERMCAP_mb=$(printf "\e[1;37m")     # mode blink start
 export LESS_TERMCAP_md=$(printf "\e[1;37m")     # mode bold start
 export LESS_TERMCAP_me=$(printf "\e[0m")        # mode end
 export LESS_TERMCAP_se=$(printf "\e[0m")        # mode standout end
-export LESS_TERMCAP_so=$(printf "\e[1;37m")     # mode standout start
+export LESS_TERMCAP_so=$(printf "\e[1;34m")     # mode standout start
 export LESS_TERMCAP_ue=$(printf "\e[0m")        # mode underline end
 export LESS_TERMCAP_us=$(printf "\e[1;37m")     # mode underline start
 
