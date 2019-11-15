@@ -872,16 +872,17 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
       (progn
         (message "Installing utop ...")
         (opam-install 'utop
-                      '(lambda (&rest _)
-                         (opam-auto-tools-setup)
-                         (require 'utop)
-                         (mapcar '(lambda (buffer)
-                                    (with-current-buffer buffer
-                                      (when (eq major-mode 'tuareg-mode)
-                                        (utop-minor-mode t))))
-                                 (buffer-list))
-                         (message "Ready!")
-                         (utop))))
+                      '(lambda (_ signal)
+                         (when (string-equal (string-trim signal) "finished")
+                           (opam-auto-tools-setup)
+                           (require 'utop)
+                           (mapcar '(lambda (buffer)
+                                      (with-current-buffer buffer
+                                        (when (eq major-mode 'tuareg-mode)
+                                          (utop-minor-mode t))))
+                                   (buffer-list))
+                           (message "Ready!")
+                           (utop)))))
     (utop)))
 
 (defun opam-install (target &optional callback)
