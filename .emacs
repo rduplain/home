@@ -1005,6 +1005,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 
 ;;;; Finalize
+
+;;; Set up features declared with `feature'.
 (feature-setup)
 
 
