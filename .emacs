@@ -1009,6 +1009,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;; Set up features declared with `feature'.
 (feature-setup)
 
+;;; Visit current directory. This generally runs before any other buffers open.
+(find-file ".")
+
 
 ;;;; Desktop - Save & Restore Sessions
 
