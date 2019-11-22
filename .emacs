@@ -612,10 +612,6 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (feature 'less-mode)
 (feature 'sass-mode)
 
-;;; Conf
-(add-hook 'conf-mode-hook 'flyspell-prog-mode)
-(add-to-list 'auto-mode-alist '("inputrc$" . conf-mode))
-
 ;;; Clojure
 (feature 'clojure-mode)
 (feature 'inf-clojure)
@@ -733,6 +729,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 (add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$"
                    "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
+
+;;; Conf
+(add-hook 'conf-mode-hook 'flyspell-prog-mode)
+(add-to-list 'auto-mode-alist '("inputrc$" . conf-mode))
 
 ;;; Crontab
 (feature 'crontab-mode)
