@@ -733,6 +733,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 (add-to-list 'auto-mode-alist '("inputrc$" . conf-mode))
+(add-to-list 'auto-mode-alist '("/?inventory$" . conf-mode))
 
 ;;; Crontab
 (feature 'crontab-mode)
