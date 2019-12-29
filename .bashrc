@@ -283,6 +283,9 @@ dedupe_path PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
 export PATH LD_LIBRARY_PATH PKG_CONFIG_PATH MANPATH
 
+# Disable symlink creation in Vagrant share folders on VirtualBox.
+export VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
+
 # Put snagged files from ~/bin/snag in an obvious place: $HOME.
 export SNAG_HOME="$HOME"
 
