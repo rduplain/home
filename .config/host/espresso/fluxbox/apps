@@ -7,3 +7,9 @@
   [Position]	(UPPERLEFT)	{0% 0%}
   [Fullscreen]	{yes}
 [end]
+[app] (name=streaming_client) (class=streaming_client)
+  [Head]	{2}
+  [Position]	(UPPERLEFT)	{0% 1%}
+  [Fullscreen]	{no}
+  [Close]	{yes}
+[end]
