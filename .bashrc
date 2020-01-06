@@ -262,11 +262,8 @@ append PATH "$HOME"/.*-dist/bin
 prepend PATH \
         "$PWD"/.reqd/usr/bin \
         "$PWD"/.reqd/bin \
-        "$PWD"/.reqd/opt/janet/bin \
-        "$PWD"/.reqd/opt/python/bin \
-        "$PWD"/.reqd/opt/ruby/bin \
-        "$PWD"/node_modules/.bin \
-        "$PWD"/.reqd/opt/bats/bin
+        "$PWD"/.reqd/opt/*/bin \
+        "$PWD"/node_modules/.bin
 
 ship GEM_HOME="$PWD"/.reqd/opt/ruby
 
