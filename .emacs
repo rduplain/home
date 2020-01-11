@@ -812,6 +812,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;; Lua
 (feature 'lua-mode)
 
+(setq lua-indent-level 2)
+
 ;;; Markdown
 (feature 'markdown-mode)
 (feature 'markdown-toc)
