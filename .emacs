@@ -959,6 +959,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.env$" . sh-mode))
 (add-to-list 'auto-mode-alist '("/?env$" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.qwertyrc$" . sh-mode))
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
 (add-hook 'sh-mode-hook '(lambda ()
                            (setq-local company-minimum-prefix-length 2)))
