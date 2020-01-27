@@ -825,16 +825,18 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (feature 'meson-mode)
 
 ;;; OCaml / ReasonML
+
 ;; `opam user-setup install` installs opam-user-setup.el, which loads
 ;; `utop' and `dune' if these are installed into the opam environment.
 (require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
 
 (feature 'tuareg
   (patch-function
+   ;; Called by `utop-eval-phrase'.
    :fn 'tuareg-discover-phrase
    :prefer '(lambda ()
-              "Fix `tuareg-discover-phrase' to return triple as expected."
-              ;; Called by `utop-eval-phrase'.
+              "Ensure `tuareg-discover-phrase' returns triple as expected."
+              ;; Past versions of tuareg returned a double (two-item tuple).
               (let ((phrase (tuareg-discover-phrase-original)))
                 (if (not (numberp (cdr phrase)))
                     phrase
