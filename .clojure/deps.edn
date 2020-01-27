@@ -10,7 +10,7 @@
              :main-opts ["-m" "depot.outdated.main"
                          "-a" "cljs,outdated,new,repl-node"]}
 
-  :new {:extra-deps {seancorfield/clj-new {:mvn/version "0.8.5"}}
+  :new {:extra-deps {seancorfield/clj-new {:mvn/version "0.8.6"}}
         :main-opts ["-m" "clj-new.create"]}
 
   :repl-node {:extra-deps {org.clojure/clojurescript {:mvn/version "1.10.597"}}
