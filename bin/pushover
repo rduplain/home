@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Send all arguments as a message to the Pushover push notification service.
+
+PUSHOVER_URL=${PUSHOVER_URL-https://api.pushover.net/1/messages.json}
+PUSHOVER_ENV=${PUSHOVER_ENV-$HOME/.pushover}
+
+source_env() {
+    # Source a .env style file containing shell variables.
+
+    local env="$1"
+
+    if [ -e "$env" ]; then
+        source "$env"
+    fi
+}
+
+main() {
+    # Send all arguments to Pushover.
+
+    if [ $# -eq 0 ]; then
+        echo "usage: pushover MESSAGE..." >&2
+        return 2
+    fi
+
+    source_env "$PUSHOVER_ENV"
+
+    if [ -z "$PUSHOVER_TOKEN" ] || [ -z "$PUSHOVER_USER" ]; then
+        echo "pushover: Set PUSHOVER_TOKEN and PUSHOVER_USER in $PUSHOVER_ENV."
+        return 2
+    fi
+
+    echo "Sending message to Pushover ..." >&2
+    curl -s \
+      --form-string "token=${PUSHOVER_TOKEN}" \
+      --form-string "user=${PUSHOVER_USER}" \
+      --form-string "message=$@" \
+      "$PUSHOVER_URL" >&2
+    echo >&2
+}
+
+main "$@"
