@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 # Send all arguments as a message to the Pushover push notification service.
 
+# Exit immediately if a command error or non-zero return occurs.
+set -e
+
 PUSHOVER_URL=${PUSHOVER_URL-https://api.pushover.net/1/messages.json}
 PUSHOVER_ENV=${PUSHOVER_ENV-$HOME/.pushover}
+
+INDEX=               # Number of arguments to shift after parsing arguments.
+TITLE=               # Title of Pushover message.
+
+usage() {
+    echo "usage: pushover [-t TITLE] MESSAGE..." >&2
+    return 2
+}
 
 source_env() {
     # Source a .env style file containing shell variables.
@@ -14,11 +25,31 @@ source_env() {
     fi
 }
 
+parse_arguments() {
+    # Parse command-line arguments.
+
+    while getopts ":t:" opt; do
+        case $opt in
+            t)
+                TITLE="$OPTARG"
+                ;;
+            \?|:)
+                usage
+                ;;
+        esac
+    done
+
+    INDEX=$((OPTIND - 1))
+}
+
 main() {
     # Send all arguments to Pushover.
 
+    parse_arguments "$@"
+    shift $INDEX
+
     if [ $# -eq 0 ]; then
-        echo "usage: pushover MESSAGE..." >&2
+        usage
         return 2
     fi
 
@@ -29,13 +60,21 @@ main() {
         return 2
     fi
 
-    echo "Sending message to Pushover ..." >&2
-    curl -s \
-      --form-string "token=${PUSHOVER_TOKEN}" \
-      --form-string "user=${PUSHOVER_USER}" \
-      --form-string "message=$@" \
-      "$PUSHOVER_URL" >&2
-    echo >&2
+    arg=(
+        --form-string "token=${PUSHOVER_TOKEN}"
+        --form-string "user=${PUSHOVER_USER}"
+        --form-string "message=$@"
+    )
+
+    if [ -n "$TITLE" ]; then
+        arg+=(--form-string "title=$TITLE")
+    fi
+
+    {
+        echo "Sending message to Pushover ..."
+        curl -s "${arg[@]}" "$PUSHOVER_URL"
+        echo
+    } >&2
 }
 
 main "$@"
