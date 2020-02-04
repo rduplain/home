@@ -8,7 +8,7 @@ PUSHOVER_URL=${PUSHOVER_URL-https://api.pushover.net/1/messages.json}
 PUSHOVER_ENV=${PUSHOVER_ENV-$HOME/.pushover}
 
 INDEX=               # Number of arguments to shift after parsing arguments.
-TITLE=               # Title of Pushover message.
+TITLE=$HOSTNAME      # Title of Pushover message.
 
 usage() {
     echo "usage: pushover [-t TITLE] MESSAGE..." >&2
