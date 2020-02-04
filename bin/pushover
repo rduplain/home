@@ -10,6 +10,8 @@ PUSHOVER_ENV=${PUSHOVER_ENV-$HOME/.pushover}
 INDEX=               # Number of arguments to shift after parsing arguments.
 TITLE=$HOSTNAME      # Title of Pushover message.
 
+TITLE=${PUSHOVER_TITLE-$TITLE}
+
 usage() {
     echo "usage: pushover [-t TITLE] MESSAGE..." >&2
     return 2
