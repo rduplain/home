@@ -19,6 +19,30 @@ SCREEN=
 SCREENRC="${SCREENRC:-.screenrc}"
 SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
 
+project_directory() {
+    # Print session directory to stdout, assuming the session names a project.
+
+    sessionname="$1"
+    shift
+
+    if [ -d "$HOME/src/$sessionname" ]; then
+        echo "$HOME/src/$sessionname"
+        return
+    fi
+
+    # Support grouped/nested projects when directory contains shell init files.
+    for dir in "$HOME"/src/*/"$sessionname"; do
+        up="$(dirname "$dir")"
+
+        if [ -e "$up"/.bashrc ] || [ -e "$up"/.env ]; then
+            echo "$dir"
+            return
+        fi
+    done
+
+    echo "$HOME/src/$sessionname"
+}
+
 screen_running() {
     # Check whether a screen session is running with given name.
     #
@@ -102,7 +126,7 @@ main() {
 
     # Screen is not running. If request to attach, start screen automatically.
     if [ -n "$(sessionname_attach "$@")" ]; then
-        project="$HOME/src/$sessionname"
+        project="$(project_directory "$sessionname")"
         if [ ! -d "$project" ]; then
             echo "There is no screen to be resumed matching $sessionname." >&2
             return 1
