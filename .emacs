@@ -482,7 +482,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   Run the Emacs `compile` command with `make` against the nearest
   Makefile using the recipe interactively set with `C-x M-a`."
   (interactive)
-  (let ((command (format "make -C %s %s"
+  (let ((command (format "make --no-print-directory -C %s %s"
                          (dominating-directory "Makefile")
                          (or compile-command-recipe ""))))
     (compile command)))
