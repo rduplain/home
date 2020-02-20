@@ -9,7 +9,7 @@
 # Configure with environment variables (ALL_CAPS below).
 # The timezone is the default used by the date command.
 #
-# Author: R. DuPlain <ron.duplain@gmail.com>
+# Author: R. DuPlain <r@duplain.io>
 
 BAK_RSYNC_FLAGS="${BAK_RSYNC_FLAGS--av}"
 BAK_HOME="${BAK_HOME-$HOME/.bak}"
