@@ -4,6 +4,9 @@
 # This program replaces itself with `exec bash` to drop into a configured
 # shell. Regardless of $SHELL, bash is the configured shell in ~/.homegit.
 
+# Ensure execution continues if variables are unset.
+set +u
+
 PROG=.bootstrap.bash
 
 HOME_URL=${HOME_URL:-git@github.com:rduplain/home.git}
