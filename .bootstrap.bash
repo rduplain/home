@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Bootstrap ~/.homegit git repository of $HOME files.
 #
 # This program replaces itself with `exec bash` to drop into a configured
