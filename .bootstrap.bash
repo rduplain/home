@@ -15,6 +15,31 @@ HOME_REV=${HOME_REV:-master}
 
 HOMEGIT_DIR=${HOMEGIT_DIR:-"$HOME"/.homegit}
 
+# Configure initial .box/bin/reqd & .box/bin/qwerty.sh to bootstrap `box`.
+# These need not be latest, but "recent enough" for `box` to initialize.
+: ${REQD_GIT:=https://github.com/rduplain/reqd.git}
+: ${REQD_REV:=v2.2}
+
+: ${QWERTY_SH_GIT:=https://github.com/rduplain/qwerty.sh.git}
+: ${QWERTY_SH_REV:=v0.7}
+
+# Configure qwerty.sh for initial download of .box/bin/ files.
+: ${RAW_URL:=https://raw.githubusercontent.com}
+: ${QWERTY_SH_URL:=$RAW_URL/rduplain/qwerty.sh/$QWERTY_SH_REV/qwerty.sh}
+: ${QWERTY_SH:="curl --proto '=https' --tlsv1.2 -sSf $QWERTY_SH_URL | sh -s -"}
+
+bootstrap_box_bin() {
+    # Download executables to .box/bin/.
+
+    cd "$HOME"
+
+    eval "$QWERTY_SH" -b "$QWERTY_SH_REV" --chmod=a+x \
+         "$QWERTY_SH_GIT" qwerty.sh:.box/bin/qwerty.sh
+
+    eval "$QWERTY_SH" -b "$REQD_REV" --chmod=a+x \
+         "$REQD_GIT" bin/reqd:.box/bin/reqd
+}
+
 clear_trap() {
     # Clear shell trap.
 
@@ -88,6 +113,8 @@ main() {
     GIT_DIR="$HOMEGIT_DIR" git config --add status.showUntrackedFiles no
 
     set_host_config
+
+    bootstrap_box_bin
 
     exec_shell
 }
