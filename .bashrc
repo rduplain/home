@@ -249,7 +249,7 @@ prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin
 #
 #     npm config set prefix '~/.npm-global'
 #
-prepend_paths "$HOME"/.opt/* "$HOME" "$HOME"/.npm-global
+prepend_paths "$HOME"/.npm-global
 
 walk_root_to_curdir call_nvm_use
 
@@ -257,6 +257,8 @@ append PATH "$HOME"/src/android/sdk/platform-tools
 append PATH "$HOME"/src/android/sdk/tools
 
 append PATH "$HOME"/.*-dist/bin
+
+prepend_paths "$HOME"/.opt/* "$HOME"
 
 # Add Makefile.d paths here to maintain priority within .bashrc PATH settings.
 prepend PATH \
