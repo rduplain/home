@@ -16,6 +16,7 @@ reqd="$bin"/reqd
 
 source "$lib"/env.bash
 
+export BOX_HOME="$( cd -P "$bin/.." && pwd )"
 export BOX_PRIVATE=home
 export QWERTY_SH="$bin"/qwerty.sh
 
