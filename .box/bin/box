@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# box: configure Unix host at user level.
+#
+# Require no `sudo` but assume system-level tools are in place.
+# Assume that `.bootstrap.bash` has provided initial setup.
+
+# Exit immediately if a command error or non-zero return occurs.
+set -e
+
+bin="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+etc="$( cd -P "$bin/../etc" && pwd )"
+lib="$( cd -P "$bin/../lib" && pwd )"
+sbin="$( cd -P "$bin/../sbin" && pwd )"
+
+reqd="$bin"/reqd
+
+source "$lib"/env.bash
+
+export BOX_PRIVATE=home
+export QWERTY_SH="$bin"/qwerty.sh
+
+[[ -e "$etc"/env ]] && eval "$(sourceable "$etc"/env)"
+
+main() {
+    # Configure system.
+
+    echo "user-level '${BOX:-(unset)}' purpose \`box\` (\$BOX)"
+
+    "$reqd" install qwerty.sh-rev
+    "$reqd" install reqd-rev
+
+    [[ -x "$sbin"/private ]] && "$reqd" install private
+    [[ -x "$bin"/rc.local ]] && "$bin"/rc.local
+
+    [[ -x /opt/setup/box/bin/box ]] && sudo /opt/setup/box/bin/box
+
+    if [ "$BOX"  = "appliance" ]; then return; fi
+    if [ "$BOX" != "development" ] && [ "$BOX" != "full" ]; then return; fi
+    if [ "$BOX" != "full" ]; then return; fi
+}
+
+main "$@"

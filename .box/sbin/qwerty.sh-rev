@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Ensure an exact version of $HOME/.box/bin/qwerty.sh.
+
+QWERTY_SH_REV=v0.7
+QWERTY_SH_256=eb65c60c6fba7e0e2048790bcbd8eefc70ca5b712fd1dbfec7d24915531d4ac2
+
+QWERTY_SH_OWNER=rduplain
+RAW_URL=https://raw.githubusercontent.com
+
+check() {
+    reqd_run_once
+}
+
+install() {
+    eval "$QWERTY_SH" \
+      --chmod=a+x --output="$REQD_BIN"/qwerty.sh \
+      --sha256="$QWERTY_SH_256" \
+      $RAW_URL/$QWERTY_SH_OWNER/qwerty.sh/$QWERTY_SH_REV/qwerty.sh
+}
+
+reqd_main "$@"

@@ -116,6 +116,8 @@ main() {
 
     bootstrap_box_bin
 
+    bash -l -c "$HOME/.box/bin/box"
+
     exec_shell
 }
 

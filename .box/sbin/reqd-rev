@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Ensure an exact version of $HOME/.box/bin/reqd.
+
+REQD_REV=v2.2
+REQD_256=2c10078193685919b7f0e15ff98a78236dbc179fcd509f885ff700d953a48ba8
+
+REQD_OWNER=rduplain
+RAW_URL=https://raw.githubusercontent.com
+
+check() {
+    reqd_run_once
+}
+
+install() {
+    eval "$QWERTY_SH" \
+      --chmod=a+x --output="$REQD_BIN"/reqd \
+      --sha256="$REQD_256" \
+      $RAW_URL/$REQD_OWNER/reqd/$REQD_REV/bin/reqd
+}
+
+reqd_main "$@"

@@ -258,7 +258,10 @@ append PATH "$HOME"/src/android/sdk/tools
 
 append PATH "$HOME"/.*-dist/bin
 
-prepend_paths "$HOME"/.opt/* "$HOME"
+prepend_paths \
+    "$HOME"/.box/opt/* "$HOME"/.box/usr "$HOME"/.box \
+    "$HOME"/.opt/* \
+    "$HOME"
 
 # Add Makefile.d paths here to maintain priority within .bashrc PATH settings.
 prepend PATH \
