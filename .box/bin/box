@@ -7,13 +7,15 @@
 # Exit immediately if a command error or non-zero return occurs.
 set -e
 
-bin="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+box="${BASH_SOURCE[0]}"
+bin="$( cd -P "$( dirname "$box" )" && pwd )"
 etc="$( cd -P "$bin/../etc" && pwd )"
 lib="$( cd -P "$bin/../lib" && pwd )"
 sbin="$( cd -P "$bin/../sbin" && pwd )"
 
 reqd="$bin"/reqd
 
+source "$lib"/core.bash
 source "$lib"/env.bash
 
 export BOX_HOME="$( cd -P "$bin/.." && pwd )"
@@ -22,12 +24,24 @@ export QWERTY_SH="$bin"/qwerty.sh
 
 [[ -e "$etc"/env ]] && eval "$(sourceable "$etc"/env)"
 
+home-rev() {
+    # Report $HOME git HEAD revision.
+
+    with_cd "$HOME" git rev-parse --short HEAD
+}
+
 main() {
     # Configure system.
 
     echo "user-level '${BOX:-(unset)}' purpose \`box\` (\$BOX)"
 
+    rev="$(home-rev)"
     "$reqd" install update
+    if [ "$rev" != "$(home-rev)" ]; then
+        echo 'Restarting `box` with update ...' >&2
+        exec "$box"
+    fi
+
     "$reqd" install qwerty.sh-rev
     "$reqd" install reqd-rev
 
