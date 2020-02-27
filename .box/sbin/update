@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Update $HOME repository.
+
+check() {
+    return 1
+}
+
+install() {
+    cd "$HOME"; "$HOME"/bin/git sync
+}
+
+reqd_main "$@"

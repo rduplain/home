@@ -27,6 +27,7 @@ main() {
 
     echo "user-level '${BOX:-(unset)}' purpose \`box\` (\$BOX)"
 
+    "$reqd" install update
     "$reqd" install qwerty.sh-rev
     "$reqd" install reqd-rev
 
