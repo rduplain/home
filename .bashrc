@@ -204,6 +204,12 @@ function prepend_paths() {
         fi
 
         path+=("$dir"/bin)
+
+        if [ -e "$dir"/bin/reqd ]; then
+            # Skip reqd repositories, especially as sbin is unique to setup.
+            continue
+        fi
+
         path+=("$dir"/sbin)
 
         lib+=("$dir"/lib)
