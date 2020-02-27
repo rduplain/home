@@ -8,17 +8,18 @@
 set -e
 
 box="${BASH_SOURCE[0]}"
-bin="$( cd -P "$( dirname "$box" )" && pwd )"
-etc="$( cd -P "$bin/../etc" && pwd )"
-lib="$( cd -P "$bin/../lib" && pwd )"
-sbin="$( cd -P "$bin/../sbin" && pwd )"
+export BOX_HOME="$( cd -P "$(dirname "$box")"/.. && pwd )"
+
+bin="$BOX_HOME"/bin
+etc="$BOX_HOME"/etc
+lib="$BOX_HOME"/lib
+sbin="$BOX_HOME"/sbin
 
 reqd="$bin"/reqd
 
 source "$lib"/core.bash
 source "$lib"/env.bash
 
-export BOX_HOME="$( cd -P "$bin/.." && pwd )"
 export BOX_PRIVATE=home
 export QWERTY_SH="$bin"/qwerty.sh
 
