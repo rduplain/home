@@ -36,8 +36,23 @@ main() {
     [[ -x /opt/setup/box/bin/box ]] && sudo /opt/setup/box/bin/box
 
     if [ "$BOX"  = "appliance" ]; then return; fi
+    standard
     if [ "$BOX" != "development" ] && [ "$BOX" != "full" ]; then return; fi
+    development
     if [ "$BOX" != "full" ]; then return; fi
+    full
+}
+
+standard() {
+    :
+}
+
+development() {
+    :
+}
+
+full() {
+    :
 }
 
 main "$@"
