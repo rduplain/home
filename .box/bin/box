@@ -34,6 +34,11 @@ home-rev() {
 main() {
     # Configure system.
 
+    if [ ! -x "$reqd" ]; then
+        echo "Uninitialized. Run \`~/.bootstrap.bash\`." >&2
+        return 2
+    fi
+
     echo "user-level '${BOX:-(unset)}' purpose \`box\` (\$BOX)"
 
     rev="$(home-rev)"
