@@ -17,6 +17,7 @@ sbin="$BOX_HOME"/sbin
 
 reqd="$bin"/reqd
 
+source "$lib"/box.bash
 source "$lib"/core.bash
 source "$lib"/env.bash
 
@@ -24,12 +25,6 @@ export BOX_PRIVATE=home
 export QWERTY_SH="$bin"/qwerty.sh
 
 [[ -e "$etc"/env ]] && eval "$(sourceable "$etc"/env)"
-
-home-rev() {
-    # Report $HOME git HEAD revision.
-
-    with_cd "$HOME" git rev-parse --short HEAD
-}
 
 main() {
     # Configure system.
