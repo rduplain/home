@@ -50,6 +50,7 @@ main() {
 
     [[ -x /opt/setup/box/bin/box ]] && sudo /opt/setup/box/bin/box
     [[ -x "$sbin"/private ]] && "$reqd" install private
+    [[ -x "$sbin"/user ]] && "$reqd" install user
 
     appliance
     if [ "$BOX"  = "appliance" ]; then return; fi
