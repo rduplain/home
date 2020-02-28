@@ -1,12 +1,24 @@
 #!/usr/bin/env bash
 # Update $HOME repository.
 
+source "$REQD_LIB"/box.bash
+source "$REQD_LIB"/core.bash
+
 check() {
     return 1
 }
 
 install() {
-    cd "$HOME"; "$HOME"/bin/homegit sync
+    cd "$HOME"
+
+    upstream="$(home-upstream)"
+    rev="$(home-ref "$upstream")"
+
+    "$HOME"/bin/homegit remote update
+
+    if [ "$rev" != "$(home-ref "$upstream")" ]; then
+        "$HOME"/bin/homegit sync
+    fi
 }
 
 reqd_main "$@"

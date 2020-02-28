@@ -36,9 +36,9 @@ main() {
 
     echo "user-level '${BOX:-(unset)}' purpose \`box\` (\$BOX)"
 
-    rev="$(home-rev)"
+    rev="$(home-head)"
     "$reqd" install update
-    if [ "$rev" != "$(home-rev)" ]; then
+    if [ "$rev" != "$(home-head)" ]; then
         echo 'Restarting `box` with update ...' >&2
         exec "$box"
     fi
