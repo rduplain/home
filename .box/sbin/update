@@ -6,7 +6,7 @@ check() {
 }
 
 install() {
-    cd "$HOME"; "$HOME"/bin/git sync
+    cd "$HOME"; "$HOME"/bin/homegit sync
 }
 
 reqd_main "$@"
