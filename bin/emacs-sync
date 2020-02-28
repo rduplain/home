@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# Sync ~/.emacs.d files with a remote host.
+
+# Exit immediately if a command error or non-zero return occurs.
+set -e
+
+PROG=emacs-sync
+
+usage() {
+    # Print program usage to stderr and return 2.
+
+    exec >&2 # Redirect all further stdout to stderr.
+
+    if [ $# -gt 0 ]; then
+        # Print message argument, if given.
+        echo "$@"
+        echo
+    fi
+
+    remote="$(remote)"
+
+    echo "usage: $PROG get|put [UPSTREAM]"
+    echo
+    echo "Provide upstream as rsync location, e.g. example.com:.emacs.d/"
+    echo "Default (in order): ~/.emacs.d/upstream, \$UPSTREAM_EMACS_D."
+    echo
+    echo "Default UPSTREAM: ${remote:-(unset)}"
+
+    return 2
+}
+
+remote() {
+    # Resolve remote and print it to stdout.
+
+    if [ $# -gt 0 ]; then
+        echo "$@"
+        return
+    fi
+
+    if [ -e "$HOME"/.emacs.d/upstream ]; then
+        upstream=$(< "$HOME"/.emacs.d/upstream)
+    fi
+
+    echo "${UPSTREAM_EMACS_D:-$upstream}"
+}
+
+get() {
+    # Get .emacs.d files from remote, replacing/deleting local files.
+
+    remote="$1"
+    shift
+
+    rsync -rlptDv --delete "$remote" "$HOME"/.emacs.d
+}
+
+put() {
+    # Put local .emacs.d files to remote, replacing/deleting remote files.
+
+    remote="$1"
+    shift
+
+    rsync -rlptDv --delete "$HOME"/.emacs.d/ "$remote"
+}
+
+main() {
+    if [ $# -lt 1 ]; then
+        usage
+    fi
+
+    operation="$1"
+    shift
+
+    case "$operation" in
+        get|put)
+            :;;
+        *)
+            usage "$PROG: unknown operation: $operation"
+            ;;
+    esac
+
+    remote="$(remote "$@")"
+
+    if [ -z "$remote" ]; then
+        usage "$PROG: upstream server unset, provide UPSTREAM on command line."
+    fi
+
+    $operation "$remote"
+}
+
+main "$@"

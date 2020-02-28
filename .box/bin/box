@@ -69,7 +69,7 @@ standard() {
 }
 
 development() {
-    :
+    "$reqd" install emacs.d
 }
 
 full() {
