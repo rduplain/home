@@ -5,5 +5,5 @@
 home-rev() {
     # Report $HOME git HEAD revision.
 
-    with_cd "$HOME" git rev-parse --short HEAD
+    with_cd "$HOME" "$HOME"/bin/homegit rev-parse --short HEAD
 }
