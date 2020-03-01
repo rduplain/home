@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Install `opam` for OCaml development.
+
+OPAM="$REQD_OPT"/ocaml/bin/opam
+OPAM_URL=https://github.com/ocaml/opam
+
+check() {
+    reqd_ls "$OPAM"
+    reqd_run_once
+}
+
+install() {
+    qwertyrc > opam.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc opam.qwertyrc
+    "$OPAM" --version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux 64-bit
+  --sys=linux --arch=x86_64 \\
+  --sha256=7b2ee87b73a01a870883e990f342f6a7688fe8f1564ae4acf60e572c013cb061 \\
+  --output="$OPAM" --chmod=755 \\
+  $OPAM_URL/releases/download/2.0.6/opam-2.0.6-x86_64-linux
+
+# GNU/Linux on ARM
+  --sys=linux --arch=arm --all-sub-arch \\
+  --sha256=928e089e36467ab1e0a315e6e28592a533490c2b1be8c95082bdd46e8a25791b \\
+  --output="$OPAM" --chmod=755 \\
+  $OPAM_URL/releases/download/2.0.6/opam-2.0.6-armhf-linux
+
+# Mac OS X, 64-bit
+  --sys=darwin --arch=x86_64 \\
+  --sha256=a5be024ff962f4f677d6999fa0893830e1769ad478102eef9bb6d0d5191ee80f \\
+  --output="$OPAM" --chmod=755 \\
+  $OPAM_URL/releases/download/2.0.6/opam-2.0.6-x86_64-darwin
+EOF
+}
+
+reqd_main "$@"

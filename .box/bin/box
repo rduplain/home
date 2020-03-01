@@ -71,6 +71,9 @@ standard() {
 
 development() {
     "$reqd" install emacs.d
+
+    "$reqd" install \
+            ocaml
 }
 
 full() {
