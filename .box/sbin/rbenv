@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Install rbenv for Ruby.
+#
+# Note: Cleaning up old versions installed by rbenv is left as a manual task.
 
 RBENV_ROOT="$HOME/.rbenv"
 RBENV_URL=https://github.com/rbenv/rbenv.git

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Install pyenv for Python.
+#
+# Note: Cleaning up old versions installed by pyenv is left as a manual task.
 
 PYENV_ROOT="$HOME/.pyenv"
 PYENV_URL=https://github.com/pyenv/pyenv.git
