@@ -73,6 +73,7 @@ development() {
     "$reqd" install emacs.d
 
     "$reqd" install \
+            clojure \
             ocaml
 }
 

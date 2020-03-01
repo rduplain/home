@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Install Clojure.
+
+PREFIX="$REQD_OPT"/clojure
+INSTALL_URL=https://download.clojure.org/install/linux-install-1.10.1.536.sh
+SHA256=83b824091723afe8e0f4e958bf74a2f7cd4c4caddd34e31af6ef1a4323c45ff1
+
+check() {
+    reqd_ls "$PREFIX"/bin/clj
+    reqd_run_once
+}
+
+pretest() {
+    java -version
+}
+
+install() {
+    rm -fr "$PREFIX"
+    "$REQD_BIN"/qwerty.sh --sha256=$SHA256 $INSTALL_URL | bash -s - -p $PREFIX
+    PATH="$PREFIX"/bin:"$PATH" clj -e "(print *clojure-version*)"
+}
+
+reqd_main "$@"
