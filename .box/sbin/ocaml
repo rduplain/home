@@ -13,6 +13,8 @@ install() {
     qwertyrc > opam.qwertyrc
     "$REQD_BIN"/qwerty.sh --rc opam.qwertyrc
     "$OPAM" --version
+
+    "$OPAM" init --auto-setup --disable-shell-hook --reinit
 }
 
 qwertyrc() {
