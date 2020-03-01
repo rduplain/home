@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Install pyenv for Python.
+
+PYENV_ROOT="$HOME/.pyenv"
+PYENV_URL=https://github.com/pyenv/pyenv.git
+
+check() {
+    reqd_run_once
+}
+
+install() {
+    if [ ! -e "$PYENV_ROOT" ]; then
+        git clone "$PYENV_URL" "$PYENV_ROOT"
+    else
+        cd "$PYENV_ROOT"; git pull
+    fi
+
+    export PATH="$PYENV_ROOT"/bin:"$PYENV_ROOT"/shims:"$PATH"
+
+    pyenv install --skip-existing 2.7.17
+    pyenv install --skip-existing 3.8.2
+
+    pyenv global 3.8.2 2.7.17
+
+    pip2 install --upgrade pip
+    pip3 install --upgrade pip
+}
+
+reqd_main "$@"

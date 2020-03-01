@@ -8,6 +8,7 @@ if [ -z "$PS1" ] && [ -n "$GDMSESSION" ]; then
 fi
 
 export ENVTOOLS="pyenv rbenv" # python, ruby
+export PYENV_ROOT="$HOME/.pyenv"
 
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
