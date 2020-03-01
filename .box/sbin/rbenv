@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Install rbenv for Ruby.
+
+RBENV_ROOT="$HOME/.rbenv"
+RBENV_URL=https://github.com/rbenv/rbenv.git
+RUBY_BUILD_URL=https://github.com/rbenv/ruby-build.git
+
+check() {
+    reqd_run_once
+}
+
+install() {
+    if [ ! -e "$RBENV_ROOT" ]; then
+        git clone "$RBENV_URL" "$RBENV_ROOT"
+        git clone "$RUBY_BUILD_URL" "$RBENV_ROOT"/plugins/ruby-build
+    else
+        cd "$RBENV_ROOT"; git pull
+        cd "$RBENV_ROOT"/plugins/ruby-build; git pull
+    fi
+
+    # Optionally, try to compile dynamic bash extension to speed up rbenv.
+    ( cd "$RBENV_ROOT" && src/configure && make -C src ) || true
+
+    export PATH="$RBENV_ROOT"/bin:"$RBENV_ROOT"/shims:"$PATH"
+
+    rbenv install --skip-existing 2.7.0
+    rbenv global 2.7.0
+    gem install -v 2.1.4 bundler
+}
+
+reqd_main "$@"

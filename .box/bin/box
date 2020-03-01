@@ -75,7 +75,8 @@ development() {
     "$reqd" install \
             clojure \
             ocaml \
-            pyenv
+            pyenv \
+            rbenv
 }
 
 full() {
