@@ -75,6 +75,7 @@ development() {
     "$reqd" install \
             clojure \
             ocaml \
+            node-config \
             pyenv \
             rbenv
 }

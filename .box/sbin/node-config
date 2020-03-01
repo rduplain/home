@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Configure Node.js.
+
+check() {
+    reqd_run_once
+}
+
+pretest() {
+    reqd_echo 'Checking for `node` ...'
+
+    which node > /dev/null 2>&1
+    which npm > /dev/null 2>&1
+
+    reqd_echo "node $(node --version)"
+    reqd_echo "npm $(npm --version)"
+}
+
+install() {
+    npm config set prefix '~/.npm-global'
+
+    npm install -g npm yarn
+}
+
+reqd_main "$@"
