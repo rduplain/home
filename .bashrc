@@ -481,7 +481,7 @@ PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~}"'
 case "$TERM" in
 xterm*|rxvt*)
     ;;
-screen)
+screen*)
     # STY holds name of screen session, in format of:
     # PID.NAME (PID: screen pid, NAME, sessionname)
     #
