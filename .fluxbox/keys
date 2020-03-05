@@ -165,6 +165,7 @@ Mod4 x :ExecCommand rxvt-unicode
 # Mod4 y
 # Mod4 z
 Mod4 comma :ExecCommand mate-display-properties
+# Mod4 period
 # Mod4 slash
 
 
