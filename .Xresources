@@ -121,9 +121,9 @@ URxvt*color14:                 COLOR_TERM_LIGHT_CYAN
 URxvt*color15:                 COLOR_TERM_WHITE
 #endif
 
-URxvt.perl-ext-common: default,font-size,matcher,-searchable-scrollback
-URxvt.urlLauncher: sensible-browser
-URxvt.matcher.button: 1
+URxvt.perl-ext-common: default,font-size,-searchable-scrollback
+URxvt.urlLauncher: /dev/null
+URxvt.matcher.button: 0
 
 yeahconsole*toggleKey: Win+t
 yeahconsole*consoleHeight: 20
