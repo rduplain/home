@@ -1,5 +1,5 @@
 # Build with `generate_menu` in same directory.
-[begin] (   espresso   )
+[begin] ()
 	[exec] (Terminal) {rxvt-unicode}
 	[exec] (Chrome) {google-chrome --disable-features=SendMouseLeaveEvents}
 	[exec] (Shotwell) {shotwell}
