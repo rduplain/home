@@ -16,7 +16,7 @@ XTerm*saveLines: 9999
 XTerm*fullscreen: never
 
 *faceName: Inconsolata
-*faceSize: 16
+*faceSize: 13
 
 *fontMenu*font1*Label: Small
 *faceSize1: 11
@@ -71,7 +71,7 @@ XTerm*color15:                 COLOR_TERM_WHITE
 URxvt*termName: rxvt
 URxvt*saveLines: 9999
 
-URxvt*font: xft:Inconsolata:size=16, \
+URxvt*font: xft:Inconsolata:size=13, \
     xft:DejaVu Sans:pixelsize=14,xft:Symbola,xft:Noto Emoji:minspace=False
 URxvt*letterSpace: -1
 
