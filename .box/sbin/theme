@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Configure personalized desktop environment theme.
+
+THEME_URL=https://github.com/rduplain/MyAdwaita.git
+THEME_NAME=MyAdwaita
+
+ICONS_URL=https://github.com/daniruiz/flat-remix.git
+ICONS_REV=20200116
+
+ICONS_CLONE_NAME=flat-remix
+ICONS_PATH=Flat-Remix-Blue-Dark
+ICONS_NAME=$ICONS_PATH
+
+check() {
+    reqd_run_once
+}
+
+install() {
+    if [ ! -e "$HOME"/.themes/"$THEME_NAME" ]; then
+        cd "$HOME"/.themes; git clone --depth 1 --single-branch "$THEME_URL"
+    fi
+
+    if [ ! -e "$HOME"/.icons/"$ICONS_NAME" ]; then
+        cd "$HOME"/.icons
+        if [ ! -e "$ICONS_CLONE_NAME" ]; then
+            git clone --depth 1 --single-branch -b "$ICONS_REV" "$ICONS_URL"
+        fi
+
+        ln -sf "$ICONS_CLONE_NAME/$ICONS_PATH" "$ICONS_NAME"
+    fi
+}
+
+reqd_main "$@"
