@@ -20,3 +20,5 @@
 #define COLOR_TERM_LIGHT_MAGENTA  #ec93d3
 #define COLOR_TERM_LIGHT_CYAN     #93e0e3
 #define COLOR_TERM_WHITE          COLOR_FG
+
+#define COLOR_TERM_TRUE_WHITE     #ffffff

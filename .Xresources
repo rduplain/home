@@ -98,6 +98,8 @@ URxvt*foreground:              COLOR_FG
 URxvt*cursorColor:             COLOR_FG
 URxvt*pointerColorBackground:  COLOR_BG
 URxvt*pointerColor:            COLOR_FG
+URxvt*highlightColor:          COLOR_TERM_DARK_BLUE
+URxvt*highlightTextColor:      COLOR_TERM_TRUE_WHITE
 #endif
 
 #ifdef COLOR_TERM_BLACK
