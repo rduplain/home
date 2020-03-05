@@ -25,8 +25,6 @@ screens &
 killall gnome-screensaver; xscreensaver &
 "$HOME"/bin/xscreensaver-watch &
 
-gnome-do -q &
-
 notice `uname -n` fluxbox is starting
 trap 'notice `uname -n` fluxbox is stopping' 0 INT TERM QUIT EXIT
 
