@@ -26,7 +26,7 @@ session.screen0.toolbar.maxOver: false
 session.screen0.toolbar.visible: true
 session.screen0.toolbar.placement: BottomCenter
 session.screen0.toolbar.tools: workspacename, iconbar, systemtray, clock
-session.screen0.toolbar.widthPercent: 75
+session.screen0.toolbar.widthPercent: 100
 session.screen0.toolbar.layer: Desktop
 session.screen0.toolbar.onhead: 1
 session.screen0.toolbar.alpha: 255
