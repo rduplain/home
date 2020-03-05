@@ -99,6 +99,6 @@ session.tabPadding: 0
 session.forcePseudoTransparency: false
 session.appsFile: ~/.fluxbox/apps
 session.tabsAttachArea: Window
-session.styleFile: ~/.fluxbox/styles/bora_dark
+session.styleFile: ~/.fluxbox/styles/muted
 session.ignoreBorder: false
 session.cacheLife: 5
