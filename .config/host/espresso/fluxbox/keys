@@ -205,11 +205,11 @@ Control Mod4 Down      :MoveDown 8
 # c: 800x600
 # d: Size of the main content window, using remaining 1920x1080 space.
 #
-# Note: Leave room for the title bar, which itself is 24 px.
+# Note: Leave room for the Fluxbox system toolbar, which itself is 24 px.
 #
 Control Mod4 a       :ResizeTo 724 484
 Control Mod4 b       :ResizeTo 724 570
-Control Mod1 Mod4 b  :ResizeTo 724 592
+Control Mod1 Mod4 b  :ResizeTo 724 712
 Control Mod4 c       :ResizeTo 800 600
 Control Mod4 d       :ResizeTo 1193 1055
 
