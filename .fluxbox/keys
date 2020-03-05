@@ -139,7 +139,7 @@ Mod4 F1  :ExecCommand ~/bin/suspend
 ## Application Launchers ##
 Mod4 a :ArrangeWindows
 Mod4 b :ExecCommand VirtualBox
-Mod4 c :ExecCommand gnome-control-center
+Mod4 c :ExecCommand mate-control-center
 Mod4 d :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
 Mod4 e :ExecCommand thunar
 # Mod4 f
@@ -155,15 +155,16 @@ Mod4 l :ExecCommand xscreensaver-command -lock
 # Mod4 p is prev workspace
 # Mod4 q
 # Mod4 r is gnome-do
-# Mod4 s
+Mod4 s :ExecCommand mate-color-select
 Mod4 t :ExecCommand gedit
-Mod4 u :ExecCommand gnome-dictionary
+Mod4 u :ExecCommand mate-dictionary
 Mod4 v :ExecCommand ~/bin/vncdefault
 Mod4 w :ExecCommand google-chrome --disable-features=SendMouseLeaveEvents --disable-gpu
 Mod4 Mod1 w :ExecCommand google-chrome --incognito --disable-features=SendMouseLeaveEvents --disable-gpu
 Mod4 x :ExecCommand rxvt-unicode
 # Mod4 y
 # Mod4 z
+Mod4 comma :ExecCommand mate-display-properties
 # Mod4 slash
 
 
