@@ -168,6 +168,9 @@ Mod4 comma :ExecCommand mate-display-properties
 # Mod4 period
 # Mod4 slash
 
+# Set special key to increase rxvt-unicode font size and set it fullscreen.
+Mod4 backslash :MacroCmd {ExecCommand xdotool getactivewindow key --clearmodifiers ctrl+equal} {FullScreen}
+
 
 ## Position Presets ##
 Control Mod4 KP_End    :MoveTo    0    0 LowerLeft
