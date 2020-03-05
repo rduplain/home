@@ -215,7 +215,7 @@ Control Mod4 d       :ResizeTo 1193 1055
 
 
 ## Multimedia Keys ##
-148                  :ExecCommand gnome-calculator
+XF86Calculator       :ExecCommand gnome-calculator
 
 
 ## Print Screen ##
