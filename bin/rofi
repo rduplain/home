@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Wrap `rofi` application launcher with config, using only its "run" mode.
+
+main() {
+    DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    . "$DIR"/wrapper.bash
+
+    rofi="$(set_aside_this_and_find_that "$DIR" rofi)"
+
+    if [ -z "$rofi" ]; then
+        # No other `rofi` found.
+        # Expect set-aside function to write a not-found message to stderr.
+        return 2
+    fi
+
+    exec "$rofi" \
+         -font "inconsolata 13" \
+         -matching fuzzy \
+         -show run \
+         -terminal rxvt-unicode \
+         -theme ~/.config/rofi/theme.rasi \
+         -width 25 -lines 5 \
+         "$@"
+}
+
+main "$@"
