@@ -1,6 +1,0 @@
-# Build with `generate_menu` in same directory.
-[begin] (   mocha   )
-	[exec] (Terminal) {xterm}
-        [exec] (Chrome) {google-chrome --disable-features=SendMouseLeaveEvents}
-        [exec] (Shotwell) {shotwell}
-	[separator]

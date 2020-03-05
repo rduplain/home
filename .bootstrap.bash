@@ -54,23 +54,6 @@ exec_shell() {
     exec bash -l
 }
 
-set_host_config() {
-    # Set host configuration files.
-
-    host_dir=.config/host/${HOSTNAME:-default}
-
-    # Use a subshell to isolate PWD change.
-    (
-        cd "$HOME"
-        for config in "$host_dir"/{Xresources,xsession,fluxbox}; do
-            if [ -e "$config" ]; then
-                filename="$(basename "$config")"
-                ln -s "$config" ".${filename}"
-            fi
-        done
-    )
-}
-
 set_trap() {
     # Set shell trap in order to do the right thing on program exit.
 
@@ -111,8 +94,6 @@ main() {
     GIT_DIR="$HOMEGIT_DIR" git checkout $HOME_REV >/dev/null
     GIT_DIR="$HOMEGIT_DIR" git checkout .
     GIT_DIR="$HOMEGIT_DIR" git config --add status.showUntrackedFiles no
-
-    set_host_config
 
     bootstrap_box_bin
 
