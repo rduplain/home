@@ -14,7 +14,7 @@ main() {
     fi
 
     exec "$rofi" \
-         -font "inconsolata 13" \
+         -font "inconsolata 16" \
          -matching fuzzy \
          -show run \
          -terminal rxvt-unicode \
