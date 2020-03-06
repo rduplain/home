@@ -22,13 +22,11 @@ pnmixer &
 
 screens &
 
-killall update-notifier;
+bash -c "sleep 30; killall update-notifier;" &
 
-killall gnome-screensaver; killall mate-screensaver;
+bash -c "sleep 5; killall gnome-screensaver; killall mate-screensaver;" &
 xscreensaver &
 "$HOME"/bin/xscreensaver-watch &
-
-killall gsd-clipboard gsd-screensaver-proxy
 
 notice `uname -n` fluxbox is starting
 trap 'notice `uname -n` fluxbox is stopping' 0 INT TERM QUIT EXIT
