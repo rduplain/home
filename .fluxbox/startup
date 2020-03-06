@@ -22,11 +22,15 @@ pnmixer &
 
 screens &
 
-bash -c "sleep 30; killall update-notifier;" &
-
-bash -c "sleep 5; killall gnome-screensaver; killall mate-screensaver;" &
+bash -s - <<EOF &
+sleep 5
+killall gnome-screensaver mate-screensaver > /dev/null 2>&1
 xscreensaver &
 "$HOME"/bin/xscreensaver-watch &
+
+sleep 25
+killall update-notifier
+EOF
 
 notice `uname -n` fluxbox is starting &
 trap 'notice `uname -n` fluxbox is stopping &' 0 INT TERM QUIT EXIT
