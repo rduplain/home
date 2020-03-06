@@ -13,3 +13,12 @@
   [Fullscreen]	{no}
   [Close]	{yes}
 [end]
+[app] (name=gimp) (class=Gimp) (role=gimp-toolbox)
+  [Position]	(UPPERLEFT)	{0% 0%}
+[end]
+[app] (name=gimp) (class=Gimp) (role=gimp-dock)
+  [Position]	(UPPERLEFT)	{89% 0%}
+[end]
+[app] (name=gimp) (class=Gimp) (role=gimp-image-window)
+  [Position]	(UPPERLEFT)	{9% 0%}
+[end]
