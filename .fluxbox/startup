@@ -30,6 +30,8 @@ xscreensaver &
 
 sleep 25
 killall update-notifier
+
+xset r rate 250 30 # Set again.
 EOF
 
 notice `uname -n` fluxbox is starting &
