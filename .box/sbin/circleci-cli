@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Install `circleci-cli` executable for a local CircleCI runtime.
+
+CIRCLECI="$REQD_OPT"/circleci/bin/circleci
+CIRCLECI_REV=v0.1.6893
+CIRCLECI_256=d4bc8d1a9d7d07862caa5e060cb4accc742205cab651067278e584d1ac727247
+CIRCLECI_URL=https://github.com/CircleCI-Public/circleci-cli
+
+check() {
+    reqd_ls "$CIRCLECI"
+    reqd_run_once
+}
+
+pretest() {
+    reqd_echo 'Checking for `docker` ...'
+    which docker
+}
+
+install() {
+    qwertyrc > circleci.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc circleci.qwertyrc
+    "$CIRCLECI" --help
+}
+
+qwertyrc() {
+    url="$CIRCLECI_URL/releases/download/${CIRCLECI_REV}"
+
+    cat - <<EOF
+# GNU/Linux 64-bit
+  --sys=linux --arch=x86_64 \\
+  --when='! test -e $CIRCLECI' \\
+  --sha256="$CIRCLECI_256" \\
+  --output="$CIRCLECI" --chmod=755 \\
+  --on-download='tar -xf \$DOWNLOAD && mv circleci-cli*/circleci \$DOWNLOAD' \\
+  "$url"/circleci-cli_${CIRCLECI_REV##v}_linux_amd64.tar.gz
+EOF
+}
+
+reqd_main "$@"

@@ -79,6 +79,9 @@ development() {
             node-config \
             pyenv \
             rbenv
+
+    "$reqd" install \
+            circleci-cli
 }
 
 full() {
