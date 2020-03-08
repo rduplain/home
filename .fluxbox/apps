@@ -21,3 +21,10 @@
 [app] (name=gimp) (class=Gimp) (role=gimp-image-window)
   [Position]	(UPPERLEFT)	{9% 0%}
 [end]
+[app] (name=thunar) (class=Thunar)
+  [Dimensions]	{724 712}
+  [Position]	(UPPERRIGHT)	{0 0}
+[end]
+[app] (role=browser)
+  [Position]	(UPPERLEFT)	{0 0}
+[end]
