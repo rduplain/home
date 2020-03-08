@@ -67,7 +67,8 @@ appliance() {
 
 standard() {
     "$reqd" install \
-            theme
+            theme \
+            fc-cache
 }
 
 development() {

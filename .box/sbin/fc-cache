@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Rebuild font information cache files.
+
+check() {
+    reqd_run_once
+}
+
+install() {
+    fc-cache -f
+}
+
+reqd_main "$@"
