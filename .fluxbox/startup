@@ -10,6 +10,9 @@
 # Set a solid black background.
 fbsetroot -solid black
 
+xset +fp "$HOME"/.local/share/fonts
+xset fp rehash
+
 xrdb -merge "$HOME"/.Xresources
 xset r rate 250 30
 
