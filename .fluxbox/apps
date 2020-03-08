@@ -4,20 +4,19 @@
 [end]
 [app] (name=VNC: mocha) (class=Vncviewer)
   [Head]	{2}
-  [Position]	(UPPERLEFT)	{0% 0%}
+  [Position]	(UPPERLEFT)	{0 0}
   [Fullscreen]	{yes}
 [end]
-[app] (name=streaming_client) (class=streaming_client)
+[app] (name=streaming_client)
   [Head]	{2}
-  [Position]	(UPPERLEFT)	{0% 1%}
+  [Position]	(UPPERLEFT)	{0 0}
   [Fullscreen]	{no}
-  [Close]	{yes}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-toolbox)
-  [Position]	(UPPERLEFT)	{0% 0%}
+  [Position]	(UPPERLEFT)	{0 0}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-dock)
-  [Position]	(UPPERLEFT)	{89% 0%}
+  [Position]	(UPPERRIGHT)	{0 0}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-image-window)
   [Position]	(UPPERLEFT)	{9% 0%}
