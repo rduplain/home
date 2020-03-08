@@ -49,7 +49,7 @@ xscreensaver.passwd.thermometer.background: #000000
 xscreensaver.passwd.thermometer.width:      8
 
 ! Date
-xscreensaver.dateFormat: %Y-%m-%d %H:%M
+xscreensaver.dateFormat:
 
 ! New Login
 xscreensaver.newLoginCommand:
