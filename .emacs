@@ -833,19 +833,6 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;; `utop' and `dune' if these are installed into the opam environment.
 (require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
 
-(feature 'tuareg
-  (patch-function
-   ;; Called by `utop-eval-phrase'.
-   :fn 'tuareg-discover-phrase
-   :prefer '(lambda ()
-              "Ensure `tuareg-discover-phrase' returns triple as expected."
-              ;; Past versions of tuareg returned a double (two-item tuple).
-              (let ((phrase (tuareg-discover-phrase-original)))
-                (if (not (numberp (cdr phrase)))
-                    phrase
-                  (list (car phrase) (cdr phrase) (cdr phrase)))))
-   :original 'tuareg-discover-phrase-original))
-
 (setq tuareg-opam-insinuate t
       utop-command (concat (expand-file-name "~") "/bin/utop -emacs")
       utop-edit-command nil
