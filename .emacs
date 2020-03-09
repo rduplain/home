@@ -826,6 +826,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 ;;; OCaml / ReasonML
 
+(feature 'tuareg)
+
 ;; `opam user-setup install` installs opam-user-setup.el, which loads
 ;; `utop' and `dune' if these are installed into the opam environment.
 (require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
