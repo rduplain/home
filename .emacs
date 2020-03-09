@@ -827,6 +827,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;; OCaml / ReasonML
 
 (feature 'tuareg)
+(feature 'reason-mode)
 
 ;; `opam user-setup install` installs opam-user-setup.el, which loads
 ;; `utop' and `dune' if these are installed into the opam environment.
@@ -844,8 +845,6 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                     phrase
                   (list (car phrase) (cdr phrase) (cdr phrase)))))
    :original 'tuareg-discover-phrase-original))
-
-(feature 'reason-mode)
 
 (setq tuareg-opam-insinuate t
       utop-command (concat (expand-file-name "~") "/bin/utop -emacs")
