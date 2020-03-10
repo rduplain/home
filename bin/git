@@ -49,6 +49,12 @@ main() {
         "$git" "${arg[@]}" fetch &&
             "$git" "${arg[@]}" rebase \
                 --committer-date-is-author-date "$upstream"
+    elif requested_only set-url "$@"; then
+        # Assume running from within project root.
+        url=git@github.com:$(id -un)/${PWD##*/}.git
+        echo "Setting remote origin to $(id -un)'s GitHub ..."
+        "$git" "${arg[@]}" remote set-url origin "$url"
+        "$git" "${arg[@]}" remote get-url origin
     elif requested_only tiglike "$@"; then
         exec env PAGER="less -S" "$git" "${arg[@]}" log \
              --pretty=format:"$TIGLIKE" \
