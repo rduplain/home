@@ -70,6 +70,14 @@ main() {
 
     if [ -n "$TITLE" ]; then
         arg+=(--form-string "title=$TITLE")
+        notification="$TITLE - $@"
+    else
+        notification="$@"
+    fi
+
+    if which notify-send > /dev/null 2>&1; then
+        # Send as a local notification as well.
+        notify-send "$notification" || true
     fi
 
     {
