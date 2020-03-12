@@ -904,6 +904,11 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                               (symbol-function callback))))
     output-buffer))
 
+;;; Pascal
+(setq pascal-indent-level 3
+      pascal-case-indent 3
+      pascal-auto-lineup nil)
+
 ;;; PHP
 (feature 'php-mode)
 
