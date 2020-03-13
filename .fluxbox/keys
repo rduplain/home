@@ -230,7 +230,7 @@ XF86Calculator       :ExecCommand gnome-calculator
 
 
 ## Print Screen ##
-Print :ExecCommand import /tmp/screenshot.png && display /tmp/screenshot.png
+Print :ExecCommand import ~/download/screenshot.png && display ~/download/screenshot.png
 
 
 ## Menu Shortcut ##
