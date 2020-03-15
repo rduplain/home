@@ -598,6 +598,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
 
 (add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
+(add-hook 'adoc-mode-hook '(lambda ()
+                             (font-lock-mode 0)))
 
 ;;; Batch / Windows Batch
 (add-hook 'bat-mode-hook '(lambda ()
