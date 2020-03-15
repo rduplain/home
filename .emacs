@@ -204,14 +204,20 @@
           (lambda ()
             (dired-omit-mode 1)))
 
-;; Simplify declaration of patterns to omit in dired.
+;; Simplify declaration of patterns to omit in dired & ido.
 (defmacro omit-files (&rest expressions)
   "Append to dired-x regular expression for dired-omit-mode"
-  `(with-eval-after-load 'dired-x
-     (setq dired-omit-files
-           (concat ,'dired-omit-files
-                   "\\|"
-                   (mapconcat 'identity ',expressions "\\|")))))
+  `(progn
+     (with-eval-after-load 'dired-x
+       (setq dired-omit-files
+             (concat ,'dired-omit-files
+                     "\\|"
+                     (mapconcat 'identity ',expressions "\\|"))))
+
+     (with-eval-after-load 'ido
+       (mapcar #'(lambda (expression)
+                   (add-to-list 'ido-ignore-files expression))
+               ',expressions))))
 
 ;; Omit uninteresting files in dired.
 ;;                 ;; Archive files.
