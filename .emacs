@@ -909,6 +909,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
       pascal-case-indent 3
       pascal-auto-lineup nil)
 
+(add-to-dired-omit "\\.o$" "\\.ppu$")
+
 ;;; PHP
 (feature 'php-mode)
 
