@@ -220,7 +220,7 @@
                ',expressions))))
 
 ;; Omit uninteresting files in dired.
-;;                 ;; Archive files.
+;;          ;; Archive files.
 (omit-files "\\.zip$"
             "\\.tar\\.gz$" "\\.tgz$"
             "\\.tar\\.bz$" "\\.tar\\.bz2$" "\\.tbz$" "\\.tbz2$"
