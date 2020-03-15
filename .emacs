@@ -205,7 +205,7 @@
             (dired-omit-mode 1)))
 
 ;; Simplify declaration of patterns to omit in dired.
-(defmacro add-to-dired-omit (&rest expressions)
+(defmacro omit-files (&rest expressions)
   "Append to dired-x regular expression for dired-omit-mode"
   `(with-eval-after-load 'dired-x
      (setq dired-omit-files
@@ -215,37 +215,37 @@
 
 ;; Omit uninteresting files in dired.
 ;;                 ;; Archive files.
-(add-to-dired-omit "\\.zip$"
-                   "\\.tar\\.gz$" "\\.tgz$"
-                   "\\.tar\\.bz$" "\\.tar\\.bz2$" "\\.tbz$" "\\.tbz2$"
+(omit-files "\\.zip$"
+            "\\.tar\\.gz$" "\\.tgz$"
+            "\\.tar\\.bz$" "\\.tar\\.bz2$" "\\.tbz$" "\\.tbz2$"
 
-                   ;; Swap files from vi/vim.
-                   "\\.sw[op]$"
+            ;; Swap files from vi/vim.
+            "\\.sw[op]$"
 
-                   ;; Build output directories.
-                   "^dist$" "^out$" "^target$"
+            ;; Build output directories.
+            "^dist$" "^out$" "^target$"
 
-                   ;; Data and database files.
-                   "\\.dat$" "\\.sqlite3?$"
-                   "\\.db$" "\\.db-journal$"
+            ;; Data and database files.
+            "\\.dat$" "\\.sqlite3?$"
+            "\\.db$" "\\.db-journal$"
 
-                   ;; Jupyter/IPython Notebook checkpoints.
-                   "^\\.ipynb_checkpoints$"
+            ;; Jupyter/IPython Notebook checkpoints.
+            "^\\.ipynb_checkpoints$"
 
-                   ;; Mac OS X clutter.
-                   "^\\.DS_Store$" "^__MACOSX$"
+            ;; Mac OS X clutter.
+            "^\\.DS_Store$" "^__MACOSX$"
 
-                   ;; Emacs desktop files.
-                   "^\\.emacs\\.desktop.*$"
+            ;; Emacs desktop files.
+            "^\\.emacs\\.desktop.*$"
 
-                   ;; Empty target files from make (to record events).
-                   "^\\.ts-.*$" "^\\..*-install"
+            ;; Empty target files from make (to record events).
+            "^\\.ts-.*$" "^\\..*-install"
 
-                   ;; Log files.
-                   "\\.log$"
+            ;; Log files.
+            "\\.log$"
 
-                   ;; Version control databases.
-                   "^\\.bzr$" "^_darcs$" "^\\.git$" "^\\.hg$")
+            ;; Version control databases.
+            "^\\.bzr$" "^_darcs$" "^\\.git$" "^\\.hg$")
 
 
 ;;; Use an Emacs-native paste bin.
@@ -727,8 +727,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                (kbd "C-c l")
                'cider-repl-clear-buffer)))
 
-(add-to-dired-omit "^\\.cpcache$" "^\\.nrepl-port$"
-                   "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
+(omit-files "^\\.cpcache$" "^\\.nrepl-port$"
+            "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
 
 ;;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
@@ -797,7 +797,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-hook 'js-mode-hook 'javascript-settings)
 (add-hook 'json-mode-hook 'javascript-settings)
 
-(add-to-dired-omit "^node_modules$" "^package-lock\\.json$")
+(omit-files "^node_modules$" "^package-lock\\.json$")
 
 (feature 'coffee-mode)
 (feature 'json-mode)
@@ -909,16 +909,16 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
       pascal-case-indent 3
       pascal-auto-lineup nil)
 
-(add-to-dired-omit "\\.o$" "\\.ppu$")
+(omit-files "\\.o$" "\\.ppu$")
 
 ;;; PHP
 (feature 'php-mode)
 
 ;;; Python
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
-(add-to-dired-omit "\\.egg$" "\\.egg-info$"
-                   "^\\.coverage$" "^\\.tox$"
-                   "\\.pyc$" "^__pycache__$")
+(omit-files "\\.egg$" "\\.egg-info$"
+            "^\\.coverage$" "^\\.tox$"
+            "\\.pyc$" "^__pycache__$")
 
 (feature 'hy-mode)
 (feature 'pydoc)
