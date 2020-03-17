@@ -266,15 +266,15 @@ append PATH "$HOME"/src/android/sdk/tools
 append PATH "$HOME"/.*-dist/bin
 
 prepend_paths \
+    "$HOME" \
     "$HOME"/.box/opt/* "$HOME"/.box/usr "$HOME"/.box \
-    "$HOME"/.opt/* \
-    "$HOME"
+    "$HOME"/.opt/*
 
 # Add Makefile.d paths here to maintain priority within .bashrc PATH settings.
 prepend PATH \
+        "$PWD"/.reqd/opt/*/bin \
         "$PWD"/.reqd/usr/bin \
         "$PWD"/.reqd/bin \
-        "$PWD"/.reqd/opt/*/bin \
         "$PWD"/node_modules/.bin
 
 ship GEM_HOME="$PWD"/.reqd/opt/ruby
