@@ -974,6 +974,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("COPYING$" . text-mode))
 (add-to-list 'auto-mode-alist '("LICENSE$" . text-mode))
 (add-to-list 'auto-mode-alist '("README$" . text-mode))
+(add-to-list 'auto-mode-alist '("\\.srt$" . text-mode))
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook
           '(lambda ()
