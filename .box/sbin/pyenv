@@ -7,7 +7,7 @@ PYENV_ROOT="$HOME/.pyenv"
 PYENV_URL=https://github.com/pyenv/pyenv.git
 
 PACKAGES2="pyflakes"
-PACKAGES3="pyflakes"
+PACKAGES3="pyflakes youtube-dl"
 
 check() {
     reqd_run_once
