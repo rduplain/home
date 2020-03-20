@@ -6,6 +6,9 @@
 PYENV_ROOT="$HOME/.pyenv"
 PYENV_URL=https://github.com/pyenv/pyenv.git
 
+PACKAGES2="pyflakes"
+PACKAGES3="pyflakes"
+
 check() {
     reqd_run_once
 }
@@ -26,6 +29,9 @@ install() {
 
     pip2 install --upgrade pip
     pip3 install --upgrade pip
+
+    pip2 install $PACKAGES2
+    pip3 install $PACKAGES3
 }
 
 reqd_main "$@"
