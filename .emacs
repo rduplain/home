@@ -141,7 +141,10 @@
 (setq truncate-partial-width-windows t)
 
 ;;; Remove trailing whitespace before saving files.
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook
+          '(lambda ()
+             (unless (eq buffer-file-coding-system 'undecided-dos)
+               (delete-trailing-whitespace))))
 
 ;;; Increase large file warning threshold.
 (setq large-file-warning-threshold 50000000)
