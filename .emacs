@@ -603,6 +603,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
 
 (add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
+
 (add-hook 'adoc-mode-hook '(lambda ()
                              (font-lock-mode 0)))
 
@@ -981,6 +982,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("README$" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.srt$" . text-mode))
 (add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'set-text-based-company-minimum-prefix-length)
+
 (add-hook 'text-mode-hook
           '(lambda ()
              ;; Configure git commit message editing.
@@ -990,8 +993,6 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                (setq-local fill-column 72)
                (setq-local goal-column nil)
                (setq-local comment-column 50))))
-
-(add-hook 'text-mode-hook 'set-text-based-company-minimum-prefix-length)
 
 ;;; Thrift
 (feature 'thrift)
