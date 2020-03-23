@@ -603,6 +603,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
 
 (add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
+(add-hook 'adoc-mode-hook 'visual-line-mode)
 
 (add-hook 'adoc-mode-hook '(lambda ()
                              (font-lock-mode 0)))
@@ -834,6 +835,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 (add-hook 'markdown-mode-hook 'set-text-based-company-minimum-prefix-length)
+(add-hook 'markdown-mode-hook 'visual-line-mode)
 
 ;;; Meson
 (feature 'meson-mode)
@@ -950,6 +952,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                             (auto-fill-mode nil)))
 
 (add-hook 'rst-mode-hook 'set-text-based-company-minimum-prefix-length)
+(add-hook 'rst-mode-hook 'visual-line-mode)
 
 ;;; Ruby
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
@@ -983,6 +986,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("\\.srt$" . text-mode))
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'set-text-based-company-minimum-prefix-length)
+(add-hook 'text-mode-hook 'visual-line-mode)
 
 (add-hook 'text-mode-hook
           '(lambda ()
