@@ -226,8 +226,8 @@ Control Mod4 d       :ResizeTo 1193 1055
 
 ## Multimedia Keys ##
 XF86AudioMute        :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ toggle
-XF86AudioLowerVolume :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ -1000
-XF86AudioRaiseVolume :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ +1000
+XF86AudioLowerVolume :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ -2000
+XF86AudioRaiseVolume :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ +2000
 XF86Calculator       :ExecCommand gnome-calculator
 
 
