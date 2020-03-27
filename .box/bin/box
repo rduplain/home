@@ -79,6 +79,7 @@ development() {
             ocaml \
             go \
             node-config \
+            kotlin \
             pyenv \
             rbenv \
             rust \
