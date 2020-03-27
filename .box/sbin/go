@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Install Go (golang).
+
+check() {
+    reqd_ls "$REQD_OPT"/go/bin/go
+    reqd_run_once
+}
+
+install() {
+    qwertyrc > go.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc go.qwertyrc
+
+    cd "$REQD_OPT"
+    tar -xvzf "$REQD_RES"/go.tar.gz
+
+    "$REQD_OPT"/go/bin/go version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux 64-bit
+  --sys=linux --arch=x86_64 \\
+  --output=go.tar.gz \\
+  --sha256=2f49eb17ce8b48c680cdb166ffd7389702c0dec6effa090c324804a5cac8a7f8 \\
+  https://dl.google.com/go/go1.14.1.linux-amd64.tar.gz
+
+# GNU/Linux on ARM
+  --sys=linux --arch=arm --all-sub-arch \\
+  --output=go.tar.gz \\
+  --sha256=04f10e345dae0d7c6c32ffd6356b47f2d4d0e8a0cb757f4ef48ead6c5bef206f \\
+  https://dl.google.com/go/go1.14.1.linux-armv6l.tar.gz
+
+# Mac OS X, 64-bit
+  --sys=darwin --arch=x86_64 \\
+  --sha256=6632f9d53fd95632e431e8c34295349cca3f0a124e3a28b760ae5c42b32816e3 \\
+  --output=go.tar.gz \\
+  https://dl.google.com/go/go1.14.1.darwin-amd64.tar.gz
+EOF
+}
+
+reqd_main "$@"
