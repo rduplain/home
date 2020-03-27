@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Install Terraform.
+
+TERRAFORM="$REQD_OPT"/terraform/bin/terraform
+TERRAFORM_URL=https://releases.hashicorp.com/terraform
+
+check() {
+    reqd_ls "$TERRAFORM"
+    reqd_run_once
+}
+
+install() {
+    qwertyrc > terraform.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc terraform.qwertyrc
+    "$TERRAFORM" --version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux 64-bit
+  --sys=linux --arch=x86_64 \\
+  --when="! test -e '$TERRAFORM'" \\
+  --sha256=602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11 \\
+  --output="$TERRAFORM" --chmod=755 \\
+  --on-download='unzip \$DOWNLOAD && mv terraform \$DOWNLOAD' \\
+  $TERRAFORM_URL/0.12.24/terraform_0.12.24_linux_amd64.zip
+
+# GNU/Linux on ARM
+  --sys=linux --arch=arm --all-sub-arch \\
+  --when="! test -e '$TERRAFORM'" \\
+  --sha256=fb0e6ae5ea4b416dad4ef5b661115b3951f404fd8a58724f10583de786616d23 \\
+  --output="$TERRAFORM" --chmod=755 \\
+  --on-download='unzip \$DOWNLOAD && mv terraform \$DOWNLOAD' \\
+  $TERRAFORM_URL/0.12.24/terraform_0.12.24_linux_arm.zip
+
+# Mac OS X, 64-bit
+  --sys=darwin --arch=x86_64 \\
+  --when="! test -e '$TERRAFORM'" \\
+  --sha256=72482000a5e25c33e88e95d70208304acfd09bf855a7ede110da032089d13b4f \\
+  --output="$TERRAFORM" --chmod=755 \\
+  --on-download='unzip \$DOWNLOAD && mv terraform \$DOWNLOAD' \\
+  $TERRAFORM_URL/0.12.24/terraform_0.12.24_darwin_amd64.zip
+EOF
+}
+
+reqd_main "$@"

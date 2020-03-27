@@ -86,7 +86,8 @@ development() {
             sbt
 
     "$reqd" install \
-            circleci-cli
+            circleci-cli \
+            terraform
 }
 
 full() {
