@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Install Rust.
+
+check() {
+    reqd_ls "$HOME"/.cargo/bin/cargo
+    reqd_run_once
+}
+
+install() {
+    eval "$QWERTY_SH" \
+      -b 1.21.1 \
+      https://github.com/rust-lang/rustup.git rustup-init.sh:- | sh -s - \
+        -y --no-modify-path
+
+    "$HOME"/.cargo/bin/cargo --version
+}
+
+reqd_main "$@"
