@@ -81,7 +81,8 @@ development() {
             node-config \
             pyenv \
             rbenv \
-            rust
+            rust \
+            sbt
 
     "$reqd" install \
             circleci-cli
