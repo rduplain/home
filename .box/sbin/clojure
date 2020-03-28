@@ -17,10 +17,14 @@ pretest() {
 install() {
     rm -fr "$PREFIX"
     "$REQD_BIN"/qwerty.sh --sha256=$SHA256 $INSTALL_URL | bash -s - -p $PREFIX
+
+    reqd_echo 'Proving `clj` ...'
     PATH="$PREFIX"/bin:"$PATH" clj -e "(print *clojure-version*)"
 
     # Bootstrap `lein` & `boot`, already available at $HOME/bin.
+    reqd_echo 'Proving `lein` ...'
     PATH="$PREFIX"/bin:"$PATH" lein repl <<< '(print *clojure-version*)'
+    reqd_echo 'Proving `boot` ...'
     PATH="$PREFIX"/bin:"$PATH" boot call -e "(print *clojure-version*)"; echo
 }
 
