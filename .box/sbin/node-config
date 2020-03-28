@@ -19,6 +19,7 @@ install() {
     npm config set prefix '~/.npm-global'
 
     npm install -g npm yarn
+    npm install -g bs-platform # Reason
 }
 
 reqd_main "$@"
