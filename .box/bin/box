@@ -79,6 +79,7 @@ development() {
             ocaml \
             go \
             haskell \
+            haxelib \
             node-config \
             kotlin \
             pyenv \

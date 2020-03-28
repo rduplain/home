@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Setup `haxelib`.
+
+check() {
+    reqd_ls "$HOME"/.haxe "$HOME"/.haxelib
+}
+
+install() {
+    if which haxelib > /dev/null 2>&1; then
+        mkdir -p "$HOME"/.haxe && haxelib setup "$HOME"/.haxe
+    fi
+}
+
+reqd_main "$@"
