@@ -78,6 +78,7 @@ development() {
             clojure \
             ocaml \
             go \
+            haskell \
             node-config \
             kotlin \
             pyenv \

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Install `stack` default `ghc` (if `stack` is found).
+
+SYSTEM_STACK=/opt/haskell/bin/stack
+
+check() {
+    reqd_ls "$HOME"/.stack
+}
+
+install() {
+    # Download `ghc` automatically.
+    if which stack > /dev/null 2>&1; then
+        stack ghc -- --version
+    elif [ -x "$SYSTEM_STACK" ]; then
+        "$SYSTEM_STACK" ghc -- --version
+    fi
+}
+
+reqd_main "$@"
