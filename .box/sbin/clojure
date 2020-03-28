@@ -18,6 +18,10 @@ install() {
     rm -fr "$PREFIX"
     "$REQD_BIN"/qwerty.sh --sha256=$SHA256 $INSTALL_URL | bash -s - -p $PREFIX
     PATH="$PREFIX"/bin:"$PATH" clj -e "(print *clojure-version*)"
+
+    # Bootstrap `lein` & `boot`, already available at $HOME/bin.
+    PATH="$PREFIX"/bin:"$PATH" lein repl <<< '(print *clojure-version*)'
+    PATH="$PREFIX"/bin:"$PATH" boot call -e "(print *clojure-version*)"; echo
 }
 
 reqd_main "$@"
