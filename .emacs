@@ -772,6 +772,10 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
 (add-hook 'go-mode-hook 'yas/minor-mode)
 
+;;; Groovy
+;; Automatically picks up files with Groovy syntax, incl. Jenkinsfile.
+(feature 'groovy-mode)
+
 ;;; Haskell
 (feature 'haskell-mode)
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
