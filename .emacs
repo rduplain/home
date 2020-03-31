@@ -978,6 +978,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-hook 'sh-mode-hook '(lambda ()
                            (setq-local company-minimum-prefix-length 2)))
 
+;;; Terraform
+(feature 'terraform-mode)
+
 ;;; Text
 (add-to-list 'auto-mode-alist '("ACKNOWLEDGEMENTS$" . text-mode))
 (add-to-list 'auto-mode-alist '("COPYING$" . text-mode))
