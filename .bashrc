@@ -265,6 +265,8 @@ append PATH "$HOME"/src/android/sdk/tools
 
 append PATH "$HOME"/.*-dist/bin
 
+prepend LD_LIBRARY_PATH /usr/lib/libreoffice/program
+
 prepend_paths \
     "$HOME" \
     "$HOME"/.box/opt/* "$HOME"/.box/usr "$HOME"/.box \
