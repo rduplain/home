@@ -1,4 +1,4 @@
-#!/bin/bash -li
+#!/usr/bin/env bash
 # Start a screen session in the background.
 #
 # When given an argument, start a screen session in the given directory.
