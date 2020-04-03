@@ -222,7 +222,7 @@
                    (add-to-list 'ido-ignore-files expression))
                ',expressions))))
 
-;; Omit uninteresting files in dired.
+;; Omit uninteresting files in dired & ido.
 ;;          ;; Archive files.
 (omit-files "\\.zip$"
             "\\.tar\\.gz$" "\\.tgz$"
