@@ -41,7 +41,7 @@
 (load "functions")
 (load "patch")
 
-;;; Clean up earlier byte-compilation.
+;;; Clean up byte-compilation buffer from above.
 (kill-buffer (find-buffer "\\*Compile-Log\\*"))
 
 
