@@ -2,5 +2,8 @@
 [begin] ()
 	[exec] (Terminal) {rxvt-unicode}
 	[exec] (Chrome) {google-chrome --disable-features=SendMouseLeaveEvents}
+	[exec] (Firefox) {firefox}
+	[exec] (FileZilla) {filezilla}
 	[exec] (Shotwell) {shotwell}
+	[exec] (Calibre) {calibre}
 	[separator]
