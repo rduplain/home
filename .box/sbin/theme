@@ -17,7 +17,7 @@ check() {
 
 install() {
     if [ ! -e "$HOME"/.themes/"$THEME_NAME" ]; then
-        cd "$HOME"/.themes; git clone --depth 1 --single-branch "$THEME_URL"
+        cd "$HOME"/.themes; git clone "$THEME_URL"
     fi
 
     if [ ! -e "$HOME"/.icons/"$ICONS_NAME" ]; then
