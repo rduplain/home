@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Wrap `utop` to include local _build and require libraries specified in dune.
+# Wrap OCaml `utop`, include local _build, require dune-specified libraries.
 
 find_dune() {
     # Print current directory if dune file found.
