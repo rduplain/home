@@ -90,6 +90,7 @@ development() {
 
     "$reqd" install \
             circleci-cli \
+            packer \
             terraform
 }
 

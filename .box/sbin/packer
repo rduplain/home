@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Install Packer.
+
+PACKER="$REQD_OPT"/packer/bin/packer
+PACKER_URL=https://releases.hashicorp.com/packer
+
+check() {
+    reqd_ls "$PACKER"
+    reqd_run_once
+}
+
+install() {
+    qwertyrc > packer.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc packer.qwertyrc
+    "$PACKER" --version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux 64-bit
+  --sys=linux --arch=x86_64 \\
+  --when="! test -e '$PACKER'" \\
+  --sha256=07f28a1a033f4bcd378a109ec1df6742ac604e7b122d0316d2cddb3c2f6c24d1 \\
+  --output="$PACKER" --chmod=755 \\
+  --on-download='unzip \$DOWNLOAD && mv packer \$DOWNLOAD' \\
+  $PACKER_URL/1.5.5/packer_1.5.5_linux_amd64.zip
+
+# GNU/Linux on ARM
+  --sys=linux --arch=arm --all-sub-arch \\
+  --when="! test -e '$PACKER'" \\
+  --sha256=dadefd445d8dd1afba953a66c408a4b7d97b4e5168ce3e91d014610872576034 \\
+  --output="$PACKER" --chmod=755 \\
+  --on-download='unzip \$DOWNLOAD && mv packer \$DOWNLOAD' \\
+  $PACKER_URL/1.5.5/packer_1.5.5_linux_arm.zip
+
+# Mac OS X, 64-bit
+  --sys=darwin --arch=x86_64 \\
+  --when="! test -e '$PACKER'" \\
+  --sha256=899213557a79476406f8b6122725b0021d46337ee14e01e87f9f5f7cddce1d63 \\
+  --output="$PACKER" --chmod=755 \\
+  --on-download='unzip \$DOWNLOAD && mv packer \$DOWNLOAD' \\
+  $PACKER_URL/1.5.5/packer_1.5.5_darwin_amd64.zip
+EOF
+}
+
+reqd_main "$@"
