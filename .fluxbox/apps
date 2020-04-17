@@ -28,3 +28,7 @@
 [app] (role=browser)
   [Position]	(UPPERLEFT)	{0 0}
 [end]
+[app] (name=signal) (class=Signal) (role=browser-window)
+  [Dimensions]	{1044 800}
+  [Fullscreen]	{no}
+[end]
