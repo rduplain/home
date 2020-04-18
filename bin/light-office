@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Toggle office light through LIFX.
+
+exec curl -X POST \
+          -H "Authorization: Bearer $(< ~/.lifx)" \
+          "https://api.lifx.com/v1/lights/$(< ~/.lifx-office)/toggle"

@@ -229,6 +229,7 @@ XF86AudioMute        :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ toggle
 XF86AudioLowerVolume :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ -2000
 XF86AudioRaiseVolume :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ +2000
 XF86Calculator       :ExecCommand gnome-calculator
+XF86Launch9          :ExecCommand ~/bin/light-office
 
 
 ## Print Screen ##
