@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Convert all stdin text to lowercase on stdout.
+
+exec tr '[:upper:]' '[:lower:]'
