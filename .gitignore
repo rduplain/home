@@ -3,3 +3,4 @@
 scratch.*
 .screenrc-*
 .*.swp
+.terraform.tfstate.lock.info
