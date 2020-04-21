@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 # Toggle office light through LIFX.
+#
+# Personal access tokens:
+# https://cloud.lifx.com/settings
+#
+# Get all lights to determine IDs:
+#
+#     curl -H "Authorization: Bearer $(< ~/.lifx)" \
+#          "https://api.lifx.com/v1/lights/all"
 
 exec curl -X POST \
           -H "Authorization: Bearer $(< ~/.lifx)" \
