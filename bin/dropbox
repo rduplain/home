@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Wrap `dropbox` to trim PATH to find system Python (and bypass pyenv).
+
+main() {
+    DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    . "$DIR"/wrapper.bash
+
+    dropbox="$(set_aside_this_and_find_that "$DIR" dropbox)"
+
+    if [ -z "$dropbox" ]; then
+        # No other `dropbox` found.
+        # Expect set-aside function to write a not-found message to stderr.
+        return 2
+    fi
+
+    if [ "$(dirname "$dropbox")" != "/usr/bin" ]; then
+        echo 'error: unexpected `dropbox` path. edit $HOME/bin/dropbox ...' >&2
+        return 2
+    fi
+
+    exec env PATH=/usr/bin:/bin "$dropbox" "$@"
+}
+
+main "$@"
