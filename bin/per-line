@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Execute given command once per stdin line, appending stdin to args.
+#
+# Example:
+#
+#     ( echo one; echo two; echo three ) | per-line echo number
+#
+# Output:
+#
+#     number one
+#     number two
+#     number three
+#
+# This program is provided for convenience when a long-running process outputs
+# a line to stdout on a specific event, as a simple command-line hook to
+# dispatch per event.
+#
+#     ( while :; do date; sleep 1; done ) | per-line echo Date:
+
+exec xargs -L 1 "$@"
