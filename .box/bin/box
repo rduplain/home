@@ -91,7 +91,8 @@ development() {
     "$reqd" install \
             circleci-cli \
             packer \
-            terraform
+            terraform \
+            vagrant-config
 }
 
 full() {

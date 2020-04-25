@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Configure Vagrant.
+
+check() {
+    reqd_run_once
+}
+
+pretest() {
+    reqd_echo 'Checking for `vagrant` ...'
+
+    which vagrant > /dev/null 2>&1
+    vagrant --version
+}
+
+install() {
+    vagrant plugin install vagrant-disksize
+}
+
+reqd_main "$@"
