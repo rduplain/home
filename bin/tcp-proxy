@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Proxy TCP port.
+#
+# In general, root access is required in order to bind to a port below 1024.
+
+usage() {
+    echo 'usage: tcp-proxy LOCAL_PORT REMOTE_HOSTNAME REMOTE_PORT' >&2
+}
+
+main() {
+    if [ $# -ne 3 ]; then
+        usage
+        return 2
+    fi
+
+    FIFO=$(mktemp)
+    rm -f "$FIFO"
+
+    trap "rm -f '$FIFO'" EXIT
+
+    mkfifo "$FIFO"
+    while :; do nc -l -p "$1" < "$FIFO" | nc "$2" "$3" > "$FIFO"; done
+}
+
+main "$@"
