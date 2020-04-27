@@ -7,6 +7,12 @@
   [Position]	(UPPERLEFT)	{0 0}
   [Fullscreen]	{yes}
 [end]
+[app] (name=vncviewer) (class=Vncviewer)
+  [Head]	{2}
+  [Position]	(UPPERLEFT)	{0 0}
+  [Maximized]	{yes}
+  [Deco]	{NONE}
+[end]
 [app] (name=streaming_client)
   [Head]	{2}
   [Position]	(UPPERLEFT)	{0 0}
