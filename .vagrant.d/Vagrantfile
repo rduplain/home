@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby
+
+Vagrant.configure(2) do |config|
+  # VirtualBox Guest Additions
+  #
+  # Install:
+  #
+  #     vagrant plugin install vagrant-vbguest
+
+  # Check for up-to-date additions version when booting.
+  config.vbguest.auto_update = true
+
+  # Do NOT download the ISO file from a webserver.
+  config.vbguest.no_remote = true
+end
