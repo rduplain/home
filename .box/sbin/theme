@@ -22,6 +22,7 @@ install() {
     fi
 
     if [ ! -e "$HOME"/.icons/"$ICONS_NAME" ]; then
+        mkdir -p "$HOME"/.icons
         cd "$HOME"/.icons
         if [ ! -e "$ICONS_CLONE_NAME" ]; then
             git clone --depth 1 --single-branch -b "$ICONS_REV" "$ICONS_URL"
