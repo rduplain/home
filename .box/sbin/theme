@@ -17,6 +17,7 @@ check() {
 
 install() {
     if [ ! -e "$HOME"/.themes/"$THEME_NAME" ]; then
+        mkdir -p "$HOME"/.themes
         cd "$HOME"/.themes; git clone "$THEME_URL"
     fi
 
