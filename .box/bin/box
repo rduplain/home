@@ -68,8 +68,13 @@ appliance() {
 
 standard() {
     "$reqd" install \
-            theme \
             fc-cache
+
+    if [ -n "$XAUTHORITY" ]; then
+        # X detected.
+        "$reqd" install \
+                theme
+    fi
 }
 
 development() {
