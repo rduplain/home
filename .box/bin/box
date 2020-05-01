@@ -26,6 +26,9 @@ export QWERTY_SH="$bin"/qwerty.sh
 
 [[ -e "$etc"/env ]] && eval "$(sourceable "$etc"/env)"
 
+# Note: Prefer /opt/setup/box to avoid .bashrc PATH finding /opt/box/bin.
+export BOX_SYSTEM_BOX=${BOX_SYSTEM_BOX:-/opt/setup/box/bin/box}
+
 main() {
     # Configure system.
 
@@ -48,8 +51,7 @@ main() {
 
     [[ -x "$bin"/rc.local ]] && "$bin"/rc.local
 
-    # Note: Prefer /opt/setup/box to avoid .bashrc PATH finding /opt/box/bin.
-    [[ -x /opt/setup/box/bin/box ]] && sudo /opt/setup/box/bin/box
+    [[ -x "$BOX_SYSTEM_BOX" ]] && sudo "$BOX_SYSTEM_BOX"
     [[ -x "$sbin"/private ]] && "$reqd" install private
     [[ -x "$sbin"/user ]] && "$reqd" install user
 
