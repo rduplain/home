@@ -50,6 +50,9 @@ main() {
             recipe)
                 recipe "$@"
                 ;;
+            reset)
+                reset "$@"
+                ;;
             *)
                 echo "box: no such user-level subcommand: $command" >&2
                 return 2
@@ -183,8 +186,31 @@ install() {
 }
 
 reset() {
-    # sudo box reset src, affects all members in sudo
-    :
+    # Reset an aspect of `box` state.
+
+    local command="$1"
+    shift
+
+    case "$command" in
+        src)
+            reset_src "$@"
+            ;;
+        *)
+            echo "box: no such user-level reset: $command" >&2
+            return 2
+            ;;
+    esac
+}
+
+reset_src() {
+    # Reset upstream src reference.
+
+    if [ ! -x "$BOX_SYSTEM_BOX" ]; then
+        echo "error: no system-level box at $BOX_SYSTEM_BOX" >&2
+        return 2
+    fi
+
+    sudo "$BOX_SYSTEM_BOX" reset src
 }
 
 main "$@"
