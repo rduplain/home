@@ -73,11 +73,11 @@ main() {
     "$reqd" install qwerty.sh-rev
     "$reqd" install reqd-rev
 
-    [[ -x "$bin"/rc.local ]] && "$bin"/rc.local
-
     [[ -x "$BOX_SYSTEM_BOX" ]] && sudo "$BOX_SYSTEM_BOX"
     [[ -x "$sbin"/private ]] && "$reqd" install private
     [[ -x "$sbin"/user ]] && "$reqd" install user
+
+    [[ -x "$bin"/rc.local ]] && "$bin"/rc.local
 
     appliance
     if [ "$BOX"  = "appliance" ]; then return; fi
