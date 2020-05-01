@@ -37,6 +37,30 @@ main() {
         return 2
     fi
 
+    if [ $# -gt 0 ]; then
+        # Dispatch a `box` subcommand.
+
+        local command="$1"
+        shift
+
+        case "$command" in
+            install)
+                install "$@"
+                ;;
+            recipe)
+                recipe "$@"
+                ;;
+            *)
+                echo "box: no such user-level subcommand: $command" >&2
+                return 2
+                ;;
+        esac
+
+        return
+    fi
+
+    # Proceed with no-argument, general-purpose `box` invocation.
+
     echo "user-level '${BOX:-(unset)}' purpose \`box\` (\$BOX)"
 
     rev="$(home-head)"
@@ -63,6 +87,9 @@ main() {
     if [ "$BOX" != "full" ]; then return; fi
     full
 }
+
+
+# Dispatch functions for BOX levels 'appliance' through 'full'.
 
 appliance() {
     :
@@ -103,6 +130,59 @@ development() {
 }
 
 full() {
+    :
+}
+
+
+# Dispatch functions for `box` subcommands.
+
+recipe() {
+    # Determine whether `box` has a given recipe.
+
+    local missing_system missing_user
+
+    for recipe in "$@"; do
+        if [ -x "$BOX_SYSTEM_BOX" ]; then
+            if ! sudo "$BOX_SYSTEM_BOX" recipe "$recipe"; then
+                missing_system=true
+            fi
+        fi
+
+        if [ -x "$sbin/$recipe" ]; then
+            echo "$sbin/$recipe"
+        else
+            echo "box: no user-level recipe found: $recipe" >&2
+            missing_user=true
+        fi
+    done
+
+    if [ -n "$missing_system" ] && [ -n "$missing_user" ]; then
+        return 1
+    fi
+}
+
+install() {
+    # Install individual recipe(s) with both system- and user-level `box`.
+
+    for recipe in "$@"; do
+        if [ -x "$BOX_SYSTEM_BOX" ]; then
+            if sudo "$BOX_SYSTEM_BOX" recipe "$recipe" > /dev/null; then
+                sudo "$BOX_SYSTEM_BOX" install "$recipe"
+            fi
+        fi
+    done
+
+    echo "user-level '${BOX:-(unset)}' purpose \`box\` (\$BOX)"
+
+    for recipe in "$@"; do
+        if BOX_SYSTEM_BOX= recipe "$recipe" > /dev/null; then
+            "$reqd" install "$recipe"
+        fi
+    done
+}
+
+reset() {
+    # sudo box reset src, affects all members in sudo
     :
 }
 
