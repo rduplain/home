@@ -76,6 +76,7 @@ main() {
     [[ -x "$BOX_SYSTEM_BOX" ]] && sudo "$BOX_SYSTEM_BOX"
     [[ -x "$sbin"/private ]] && "$reqd" install private
     [[ -x "$sbin"/user ]] && "$reqd" install user
+    [[ -x "$sbin"/user-rc.local ]] && "$reqd" install user-rc.local
 
     [[ -x "$bin"/rc.local ]] && "$bin"/rc.local
 
