@@ -315,7 +315,9 @@ ship BAK_HOME="/media/$USER/bak"
 # Set locale.
 export LC_ALL=en_US.UTF-8
 
-# Do not put duplicate lines in the history. See bash(1) for more options.
+# Ignore commands that start with spaces: ignorespace.
+# Ignore consecutive duplicate commands: ignoredups.
+# Ignore both: ignoreboth.
 export HISTCONTROL=ignoreboth
 export HISTFILESIZE=9999
 export HISTSIZE=20000
