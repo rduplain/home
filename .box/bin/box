@@ -150,6 +150,8 @@ recipe() {
             if ! sudo "$BOX_SYSTEM_BOX" recipe "$recipe"; then
                 missing_system=true
             fi
+        else
+            missing_system=true
         fi
 
         if [ -x "$sbin/$recipe" ]; then
@@ -179,7 +181,7 @@ install() {
     echo "user-level '${BOX:-(unset)}' purpose \`box\` (\$BOX)"
 
     for recipe in "$@"; do
-        if BOX_SYSTEM_BOX= recipe "$recipe" > /dev/null; then
+        if BOX_SYSTEM_BOX= recipe "$recipe" > /dev/null 2>&1; then
             "$reqd" install "$recipe"
         fi
     done
