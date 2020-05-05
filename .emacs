@@ -1018,6 +1018,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;; YAML
 (feature 'yaml-mode)
 
+(add-hook 'yaml-mode-hook '(lambda () (visual-line-mode -1)))
+
 ;;; Zsh
 
 ;; Set sh-mode for zsh when top-line is a #compdef completion definition.
