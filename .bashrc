@@ -308,8 +308,9 @@ ship DEVKITARM=$DEVKITPRO/devkitARM
 
 export WORKSPACES_RESERVED=5
 
-# Set BAK_HOME for ~/bin/bak, using volume labeled "bak" if mounted.
+# Set BAK_HOME for ~/bin/bak, using NFS then volume labeled "bak" if mounted.
 export BAK_HOME="$HOME"/.bak
+ship BAK_HOME="$HOME"/doc/bak # Symlink to NFS location.
 ship BAK_HOME="/media/$USER/bak"
 
 # Set locale.
