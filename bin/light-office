@@ -9,6 +9,42 @@
 #     curl -H "Authorization: Bearer $(< ~/.lifx)" \
 #          "https://api.lifx.com/v1/lights/all"
 
-exec curl -X POST \
-          -H "Authorization: Bearer $(< ~/.lifx)" \
-          "https://api.lifx.com/v1/lights/$(< ~/.lifx-office)/toggle"
+power() {
+    power="$1"
+    shift
+
+    if [ "$power" != "on" ] && [ "$power" != "off" ]; then
+        echo "error: set power to 'on' or 'off'" >&2
+        return 2
+    fi
+
+    exec curl -X PUT \
+              -H "Authorization: Bearer $(< ~/.lifx)" \
+              -d "power=$power" \
+              "https://api.lifx.com/v1/lights/$(< ~/.lifx-office)/state"
+}
+
+toggle() {
+    exec curl -X POST \
+              -H "Authorization: Bearer $(< ~/.lifx)" \
+              "https://api.lifx.com/v1/lights/$(< ~/.lifx-office)/toggle"
+}
+
+main() {
+    arg="$1"
+    shift
+
+    case "$arg" in
+        on|off)
+            power "$arg"
+            ;;
+        toggle|"")
+            toggle
+            ;;
+        *)
+            echo "usage: light-office [on|off]" >&2
+            return 2
+    esac
+}
+
+main "$@"
