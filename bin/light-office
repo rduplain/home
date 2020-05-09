@@ -34,6 +34,16 @@ main() {
     arg="$1"
     shift
 
+    if [ ! -e ~/.lifx ]; then
+        echo "error: ~/.lifx token not found." >&2
+        return 2
+    fi
+
+    if [ ! -e ~/.lifx-office ]; then
+        echo "error: ~/.lifx-office selector not found." >&2
+        return 2
+    fi
+
     case "$arg" in
         on|off)
             power "$arg"
