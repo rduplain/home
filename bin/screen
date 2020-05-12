@@ -15,6 +15,7 @@
 # See: ~/.screenrc-default
 
 SCREEN=
+SCREEN_WRAPPER=
 
 SCREENRC="${SCREENRC:-.screenrc}"
 SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
@@ -110,6 +111,7 @@ main() {
     . "$DIR"/wrapper.bash
 
     SCREEN="$(set_aside_this_and_find_that "$DIR" screen)"
+    SCREEN_WRAPPER="$DIR"/screen
 
     if [ -z "$SCREEN" ]; then
         # No other `screen` found.
@@ -132,7 +134,7 @@ main() {
             return 1
         fi
         # Start screen in background.
-        cd "$project"; screen -fn -dmS "$sessionname"
+        cd "$project"; "$SCREEN_WRAPPER" -fn -dmS "$sessionname"
         # Wait for screen.
         while ! screen -ls "$sessionname"  > /dev/null 2>&1; do
             sleep 0.05
