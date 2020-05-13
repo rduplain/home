@@ -80,6 +80,7 @@ main() {
     [[ -x "$sbin"/private ]] && "$reqd" install private
     [[ -x "$sbin"/user ]] && "$reqd" install user
     [[ -x "$sbin"/user-rc.local ]] && "$reqd" install user-rc.local
+    [[ -x "$sbin"/upkeep ]] && "$reqd" install upkeep
 
     [[ -x "$bin"/rc.local ]] && "$bin"/rc.local
 
