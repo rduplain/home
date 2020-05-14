@@ -12,7 +12,7 @@ pretest() {
     which npm > /dev/null 2>&1
 
     reqd_echo "node $(node --version)"
-    reqd_echo "npm $(npm --version)"
+    reqd_echo "npm v$(npm --version)"
 }
 
 install() {
@@ -20,6 +20,10 @@ install() {
 
     npm install -g npm yarn
     npm install -g bs-platform # Reason / ReasonML (OCaml)
+
+    reqd_echo "npm v$(npm --version)"
+    reqd_echo "yarn v$(yarn --version)"
+    reqd_echo "$(bsc -version)"
 }
 
 reqd_main "$@"
