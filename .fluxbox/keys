@@ -143,7 +143,7 @@ Mod4 c :ExecCommand mate-control-center
 Mod4 Mod1 c :ExecCommand gnome-control-center
 Mod4 d :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
 Mod4 e :ExecCommand thunar
-# Mod4 f
+Mod4 f :ExecCommand openshot-qt
 Mod4 g :ExecCommand gimp
 # Mod4 h
 # Mod4 i
