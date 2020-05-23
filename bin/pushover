@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Send all arguments as a message to the Pushover push notification service.
+# Send argument string as message to Pushover push notification service.
 
 # Exit immediately if a command error or non-zero return occurs.
 set -e
