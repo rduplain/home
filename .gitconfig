@@ -17,3 +17,5 @@
 [user]
     email = rom.duplain@gmail.com
     name = Rom DuPlain
+[advice]
+	ignoredHook = false
