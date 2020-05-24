@@ -52,24 +52,6 @@ function docker-cleanup() {
 
 export -f rehash set_title commands
 
-function workon_walk() {
-    # Walk the directory tree upward until:
-    #
-    # * A virtualenv is found which matches the name of a directory.
-    # * The root directory is reached (no virtualenv found).
-    #
-    # Activate the identified virtualenv with virtualenvwrapper's workon.
-
-    dir="$PWD"
-    while [ -n "$dir" ]; do
-        workon "${dir##*/}" >/dev/null 2>&1
-        if [ $? -eq 0 ]; then
-            break
-        fi
-        dir="${dir%/*}"
-    done
-}
-
 function call_nvm_use() {
     # Use nvm when .nvmrc is present.
     #
@@ -452,18 +434,7 @@ if [ -n "$JPY_PARENT_PID" ]; then
     _completion_loader
 fi
 
-# Load virtualenvwrapper for Python.
-#
-# This expects virtualenvwrapper.sh to be symlinked from the
-# virtualenvwrapper installation. To disable virtualenvwrapper (and
-# therefore speedup shell init), simply remove the symlink.
-ship WORKON_HOME="$HOME"/.virtualenvs
-ship WORKON_HOME="$HOME"/.virtualenvs-$HOSTNAME
-silently receive "$HOME"/bin/virtualenvwrapper.sh
-
 if [ "$USE_VIRTUALENV" != "false" ]; then
-    command_exists workon && workon_walk
-
     receive "$PWD"/.env/bin/activate
     receive "$PWD"/env/bin/activate
 fi
