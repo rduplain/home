@@ -13,6 +13,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
+    hash -r # Forget all remembered locations of `shopt -s checkhash`.
+
     . "$HOME"/.bashrc
     for envtool in $ENVTOOLS; do
         command_exists $envtool && $envtool rehash
@@ -445,6 +447,10 @@ if [ "$TERM" != "dumb" ]; then
         alias ls='ls --color=auto'
     fi
 fi
+
+# Check that a command found in the hash table exists before trying to execute
+# it. If a hashed command no longer exists, a normal path search is performed.
+shopt -s checkhash
 
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
