@@ -456,6 +456,10 @@ shopt -s checkhash
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# Save all lines of a multiple-line command in the same history entry.
+# This allows easy re-editing of multi-line commands.
+shopt -s cmdhist
+
 # Set window title to "user@host dir" if terminal detected.
 PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~}"'
 case "$TERM" in
