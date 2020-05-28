@@ -10,10 +10,10 @@ fi
 export ENVTOOLS="pyenv rbenv" # python, ruby
 export PYENV_ROOT="$HOME/.pyenv"
 
+hash -r # Forget all remembered locations of `shopt -s checkhash`.
+
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
-
-    hash -r # Forget all remembered locations of `shopt -s checkhash`.
 
     . "$HOME"/.bashrc
     for envtool in $ENVTOOLS; do
