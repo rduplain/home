@@ -2,11 +2,6 @@
   [Position]	(CENTER)	{0 0}
   [Layer]	{2}
 [end]
-[app] (name=VNC: mocha) (class=Vncviewer)
-  [Head]	{2}
-  [Position]	(UPPERLEFT)	{0 0}
-  [Fullscreen]	{yes}
-[end]
 [app] (name=vncviewer) (class=Vncviewer)
   [Head]	{2}
   [Position]	(UPPERLEFT)	{0 0}
