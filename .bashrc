@@ -43,6 +43,7 @@ function docker-cleanup() {
 
     docker container prune --force
     docker image prune --force
+    docker volume prune --force
 }
 
 export -f rehash set_title commands
