@@ -42,6 +42,7 @@ function docker-cleanup() {
     fi
 
     for layer in container image volume; do
+        printf "%-10s- " "$layer"
         docker $layer prune --force
     done
 }
