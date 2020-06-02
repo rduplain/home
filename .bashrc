@@ -41,15 +41,8 @@ function docker-cleanup() {
         return 2
     fi
 
-    exited=$(docker ps -a -q -f status=exited)
-    if [ -n "$exited" ]; then
-        docker rm -f -v $exited
-    fi
-
-    dangling=$(docker images -f dangling=true -q)
-    if [ -n "$dangling" ]; then
-        docker rmi -f $dangling
-    fi
+    docker container prune --force
+    docker image prune --force
 }
 
 export -f rehash set_title commands
