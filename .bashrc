@@ -41,9 +41,9 @@ function docker-cleanup() {
         return 2
     fi
 
-    docker container prune --force
-    docker image prune --force
-    docker volume prune --force
+    for layer in container image volume; do
+        docker $layer prune --force
+    done
 }
 
 export -f rehash set_title commands
