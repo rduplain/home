@@ -2,7 +2,7 @@
 # Bootstrap ~/.homegit git repository of $HOME files.
 #
 # This program replaces itself with `exec bash` to drop into a configured
-# shell. Regardless of $SHELL, bash is the configured shell in ~/.homegit.
+# shell. Regardless of $SHELL, bash is the configured shell via ~/.homegit.
 
 # Ensure execution continues if variables are unset.
 set +u
