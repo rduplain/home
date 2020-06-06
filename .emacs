@@ -635,7 +635,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 
-(feature '(cider :version "v0.24.0"))
+(feature '(cider :version "v0.25.0"))
 
 (defun run-repl-boot ()
   "Run an Emacs-integrated REPL with boot-clj."
