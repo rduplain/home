@@ -685,7 +685,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
          (cider-register-cljs-repl-type
           'shadow-cljs-node
           "(do (require '[shadow.cljs.devtools.api])
-                 (shadow.cljs.devtools.api/node-repl :app))")
+               (require '[shadow.cljs.devtools.server])
+               (shadow.cljs.devtools.server/start!)
+               (shadow.cljs.devtools.api/node-repl))")
          (add-hook 'nrepl-connected-hook 'on-shadow-cljs-node-repl)
          (setq repl-hook-added? t))
        (cider-jack-in-cljs '(:cljs-repl-type shadow-cljs-node)))
