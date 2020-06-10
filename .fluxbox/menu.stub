@@ -7,3 +7,6 @@
 	[exec] (Shotwell) {shotwell}
 	[exec] (Calibre) {calibre}
 	[separator]
+	[exec] (Keybase) {run_keybase}
+	[exec] (Signal) {signal-desktop}
+	[separator]
