@@ -8,20 +8,25 @@
 #
 #     xscreensaver-watch &
 
-lock() {
+blank() {
     notice `uname -n` screen is now blank
     # Do other things here, like stop music playback & mute speakers.
 }
 
-unlock() {
+lock() {
+    notice `uname -n` screen is now locked
+}
+
+unblank() {
     notice `uname -n` screen is now unblank
     # Do other things here, like resume music playback & unmute speakers.
 }
 
 main() {
     xscreensaver-command -watch | while read a; do
+        echo "$a" | grep -q '^BLANK' && blank
         echo "$a" | grep -q '^LOCK' && lock
-        echo "$a" | grep -q '^UNBLANK' && unlock
+        echo "$a" | grep -q '^UNBLANK' && unblank
     done
 }
 
