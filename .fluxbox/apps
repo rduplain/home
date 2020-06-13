@@ -5,8 +5,8 @@
 [app] (name=vncviewer) (class=Vncviewer)
   [Head]	{2}
   [Position]	(UPPERLEFT)	{0 0}
-  [Maximized]	{yes}
   [Deco]	{NONE}
+  [Maximized]	{yes}
 [end]
 [app] (name=streaming_client)
   [Head]	{2}
@@ -31,5 +31,9 @@
 [end]
 [app] (name=signal) (class=Signal) (role=browser-window)
   [Dimensions]	{1044 800}
+  [Position]	(UPPERRIGHT)	{0 0}
   [Fullscreen]	{no}
+[end]
+[app] (name=keybase) (class=Keybase) (role=browser-window)
+  [Position]	(UPPERRIGHT)	{0 0}
 [end]
