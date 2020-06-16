@@ -27,7 +27,12 @@ project_directory() {
     shift
 
     if [ -d "$HOME/src/$sessionname" ]; then
-        echo "$HOME/src/$sessionname"
+        sub="$HOME/src/$sessionname/$sessionname"
+        if [ -d "$sub" ] && [ -d "$sub/.git" ]; then
+            echo "$sub"
+        else
+            echo "$HOME/src/$sessionname"
+        fi
         return
     fi
 
