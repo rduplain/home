@@ -10,6 +10,8 @@ check() {
 }
 
 install() {
+    rm -f "$TERRAFORM"
+
     qwertyrc > terraform.qwertyrc
     "$REQD_BIN"/qwerty.sh --rc terraform.qwertyrc
     "$TERRAFORM" --version
