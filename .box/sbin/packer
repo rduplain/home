@@ -10,6 +10,8 @@ check() {
 }
 
 install() {
+    rm -f "$PACKER"
+
     qwertyrc > packer.qwertyrc
     "$REQD_BIN"/qwerty.sh --rc packer.qwertyrc
     "$PACKER" --version
