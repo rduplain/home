@@ -846,6 +846,9 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 ;;; Meson
 (feature 'meson-mode)
 
+;;; Kotlin
+(feature 'kotlin-mode)
+
 ;;; OCaml / ReasonML
 
 (feature 'tuareg)
