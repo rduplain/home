@@ -7,6 +7,8 @@ check() {
 }
 
 install() {
+    rm -f "$REQD_OPT"/go/bin/go
+
     qwertyrc > go.qwertyrc
     "$REQD_BIN"/qwerty.sh --rc go.qwertyrc
 
