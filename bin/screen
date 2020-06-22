@@ -20,6 +20,13 @@ SCREEN_WRAPPER=
 SCREENRC="${SCREENRC:-.screenrc}"
 SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
 
+# Optional sideloaded disambiguating parent directory.
+#
+# When starting a new screen session with `screen -r group/project`, a
+# side-loaded SESSION_PARENT_DIR=group helps ensure disambiguation with any
+# other grouped/nested project directory.
+SESSION_PARENT_DIR=
+
 project_directory() {
     # Print session directory to stdout, assuming the session names a project.
 
@@ -61,10 +68,8 @@ screen_running() {
     "$SCREEN" -ls | grep -q "\.$1\s";
 }
 
-sessionname() {
-    # Print session name for screen to stdout, based on arguments.
-    #
-    # Print nothing, if default does not apply and no session name is found.
+_sessionname() {
+    # Private inner function for `sessionname`.
 
     if [ -n "$(sessionname_attach "$@")" ]; then
         sessionname_attach "$@"
@@ -72,6 +77,21 @@ sessionname() {
         sessionname_start "$@"
     elif [ $# -eq 0 ]; then
         sessionname_default
+    fi
+}
+
+sessionname() {
+    # Print session name for screen to stdout, based on arguments.
+    #
+    # Print nothing, if default does not apply and no session name is found.
+
+    sessionname="$(_sessionname "$@")"
+    if [ "$(dirname "$sessionname")" != "$sessionname" ]; then
+        # Sideload disambiguating parent directory if provided.
+        SESSION_PARENT_DIR="$(dirname "$sessionname")"
+        basename "$sessionname"
+    else
+        printf %s "$sessionname"
     fi
 }
 
