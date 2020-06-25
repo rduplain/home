@@ -6,6 +6,9 @@
 PYENV_ROOT="$HOME/.pyenv"
 PYENV_URL=https://github.com/pyenv/pyenv.git
 
+PYENV_VIRTUALENV_ROOT="$PYENV_ROOT"/plugins/pyenv-virtualenv
+PYENV_VIRTUALENV_URL=https://github.com/pyenv/pyenv-virtualenv.git
+
 PACKAGES2="pyflakes"
 PACKAGES3="pyflakes youtube-dl"
 
@@ -18,6 +21,12 @@ install() {
         git clone "$PYENV_URL" "$PYENV_ROOT"
     else
         cd "$PYENV_ROOT"; git pull
+    fi
+
+    if [ ! -e "$PYENV_VIRTUALENV_ROOT" ]; then
+        git clone "$PYENV_VIRTUALENV_URL" "$PYENV_VIRTUALENV_ROOT"
+    else
+        cd "$PYENV_VIRTUALENV_ROOT"; git pull
     fi
 
     export PATH="$PYENV_ROOT"/bin:"$PYENV_ROOT"/shims:"$PATH"
