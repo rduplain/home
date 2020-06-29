@@ -12,6 +12,8 @@ check() {
 }
 
 install() {
+    rm -fr "$REQD_OPT"/kotlinc
+
     eval "$QWERTY_SH" \
       --output=kotlin.zip \
       --sha256="$KOTLIN_SHA256" \
