@@ -10,6 +10,8 @@ check() {
 }
 
 install() {
+    rm -fr "$REQD_OPT"/sbt
+
     eval "$QWERTY_SH" --output=sbt.tar.gz --sha256="$SBT_SHA256" "$SBT_URL"
 
     cd "$REQD_OPT"
