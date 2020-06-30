@@ -17,6 +17,8 @@ pretest() {
 }
 
 install() {
+    rm -f "$CIRCLECI"
+
     qwertyrc > circleci.qwertyrc
     "$REQD_BIN"/qwerty.sh --rc circleci.qwertyrc
     "$CIRCLECI" --help
