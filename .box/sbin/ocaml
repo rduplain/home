@@ -10,6 +10,8 @@ check() {
 }
 
 install() {
+    rm -f "$OPAM"
+
     qwertyrc > opam.qwertyrc
     "$REQD_BIN"/qwerty.sh --rc opam.qwertyrc
     "$OPAM" --version
