@@ -28,21 +28,21 @@ qwertyrc() {
     cat - <<EOF
 # GNU/Linux 64-bit
   --sys=linux --arch=x86_64 \\
-  --sha256=7b2ee87b73a01a870883e990f342f6a7688fe8f1564ae4acf60e572c013cb061 \\
+  --sha256=d9cf2652212f78087f2eaf9647cefad601f2f1594cf0074c0579d5d21675e49b \\
   --output="$OPAM" --chmod=755 \\
-  $OPAM_URL/releases/download/2.0.6/opam-2.0.6-x86_64-linux
+  $OPAM_URL/releases/download/2.0.7/opam-2.0.7-x86_64-linux
 
 # GNU/Linux on ARM
   --sys=linux --arch=arm --all-sub-arch \\
-  --sha256=928e089e36467ab1e0a315e6e28592a533490c2b1be8c95082bdd46e8a25791b \\
+  --sha256=7646b0c7b8c1d2b4b483104bd5711509e2382e1b0ec74cda3bbb9bf930a5370d \\
   --output="$OPAM" --chmod=755 \\
-  $OPAM_URL/releases/download/2.0.6/opam-2.0.6-armhf-linux
+  $OPAM_URL/releases/download/2.0.7/opam-2.0.7-armhf-linux
 
 # Mac OS X, 64-bit
   --sys=darwin --arch=x86_64 \\
-  --sha256=a5be024ff962f4f677d6999fa0893830e1769ad478102eef9bb6d0d5191ee80f \\
+  --sha256=d559a2d9b6e8cb3b19fbbee8e236113d60999f2db93e59d7f944f7c52af2174e \\
   --output="$OPAM" --chmod=755 \\
-  $OPAM_URL/releases/download/2.0.6/opam-2.0.6-x86_64-darwin
+  $OPAM_URL/releases/download/2.0.7/opam-2.0.7-x86_64-darwin
 EOF
 }
 
