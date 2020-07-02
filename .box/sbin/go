@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # Install Go (golang).
 
+PREFIX="$REQD_OPT"/go
+
 check() {
-    reqd_ls "$REQD_OPT"/go/bin/go
+    reqd_ls "$PREFIX"/bin/go
     reqd_run_once
 }
 
 install() {
-    rm -f "$REQD_OPT"/go/bin/go
+    rm -fr "$PREFIX"
 
     qwertyrc > go.qwertyrc
     "$REQD_BIN"/qwerty.sh --rc go.qwertyrc
@@ -15,7 +17,7 @@ install() {
     cd "$REQD_OPT"
     tar -xvzf "$REQD_RES"/go.tar.gz
 
-    "$REQD_OPT"/go/bin/go version
+    "$PREFIX"/bin/go version
 }
 
 qwertyrc() {
