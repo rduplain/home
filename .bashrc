@@ -155,21 +155,24 @@ export -f source_these walk_root_to_curdir omit_home
 #
 # On each shell invocation, each :-delimited path variable is populated with
 # filepaths of interest, using `prepend`/`append` functions from
-# functions.bash, and later ensuring no duplicates (without losing order) with
-# the `dedupe_paths` function (also from functions.bash). This approach ensures
-# a clean set of PATH variables free of any entries which do not exist (though
-# directories removed prior to invocation of child interactive shell may remain
-# at low priority in the path) and free of any duplicate entries. Perform this
-# on each shell invocation instead of caching results, as to pick up any new
-# paths. Existing shells can update paths with the rehash function.
+# functions.bash. Invoking `dedupe_paths` (also from functions.bash) later
+# ensures that duplicate filepaths drop from each path. This approach ensures a
+# clean set of PATH variables with unique filepath entries that exist on the
+# filesystem. (Note that directories removed prior to invocation of a child
+# interactive shell may remain at low priority in the path.) Path management
+# applies on each shell invocation instead of caching results, as to pick up
+# filesystem changes.
+#
+# Existing shells can update paths with the `rehash` function.
 #
 # Runtime modifications to paths will be overridden when the shell sources this
 # .bashrc. Most of the time, this is the desired behavior. When specific
-# modifications are needed, create a local .bashrc or .env file. Windows in GNU
-# screen or tmux will create shells with working directories inside the
-# project, and this .bashrc will find the project-local configuration files.
+# modifications are needed, create a local .bashrc or .env file. Terminal
+# windows in GNU screen or tmux will create shells with working directories
+# inside the project, and this ~/.bashrc will find the project-local
+# configuration files.
 #
-# See `source_these` in this .bashrc.
+# See `source_these` in this ~/.bashrc.
 
 function prepend_paths() {
     # Given root filepath(s) (LIFO), prepend all path variables of interest.
@@ -223,15 +226,14 @@ done
 
 command_exists opam && file_exists "$HOME"/.opam && eval "$(opam env)" # ocaml
 
-# Load programming environment which only require setting PATH.
+# Load programming environments which only require setting PATH.
 #
 # * cask for emacs
 # * cargo for rust
 #
 prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin
 
-# Path management below sets paths for ~/.npm-global.
-# On permissions errors with `npm install -g`, be sure ~/.npmrc is configured:
+# On `npm install -g` permissions errors, ensure ~/.npmrc is configured:
 #
 #     npm config set prefix '~/.npm-global'
 #
