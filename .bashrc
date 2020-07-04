@@ -374,11 +374,12 @@ function _default_completion_loader() {
     fi
 }
 
+declare -A _xspecs # Prevent completion _xspecs[.] lookup being a syntax error.
+
 function _completion_loader() {
     # Default bash completion handler to load specifications lazily.
 
     if [ -z "$BASH_COMPLETION_LOADED" ]; then
-        declare -A _xspecs # Prevent _xspecs[.] lookup being a syntax error.
         receive /etc/bash_completion
 
         # The default completion loader may have a new definition.
