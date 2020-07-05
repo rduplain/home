@@ -7,7 +7,7 @@
 # Look for a project-local .screenrc file, in order:
 #
 # 1. A local .screenrc-username file, to allow personalization.
-# 2. A local .screenrc file, typically checked in with a project.
+# 2. A local .screenrc file, able to be checked in with a project.
 # 3. The file at $SCREENRC_DEFAULT, as a fallback.
 #
 # By convention, a project-local .screenrc sources $HOME/.screenrc.
