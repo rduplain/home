@@ -992,6 +992,31 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
                                                  (sh-mode)
                                                  (sh-set-shell "zsh"))))
 
+;; Add completion for shell language keywords.
+(defun sh-keywords ()
+  "Build list of shell language keywords for current sh-mode based on shell."
+  (sort
+   (thread-last
+       (list sh-builtins
+             sh-leading-keywords
+             sh-other-keywords)
+     (mapcar 'sh-feature)
+     (apply 'append))
+   'string-lessp))
+
+(add-hook 'sh-mode-hook '(lambda () (setq-local sh-keywords (sh-keywords))))
+
+(defun sh-keywords-completion-at-point ()
+  (when-let ((bounds (bounds-of-thing-at-point 'symbol)))
+    (list (car bounds) (cdr bounds) sh-keywords :exclusive 'no)))
+
+(add-hook 'sh-mode-hook
+          '(lambda ()
+             (add-hook 'completion-at-point-functions
+                       'sh-keywords-completion-at-point
+                       nil
+                       'local)))
+
 ;;; Terraform
 (feature 'terraform-mode)
 
