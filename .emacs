@@ -506,7 +506,8 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
 ;;; Language Server Protocol - lsp-mode
 (feature '(lsp-mode :load t))
-(feature 'company-lsp)
+(feature 'company-lsp
+  (add-to-list 'company-backends 'company-lsp))
 
 ;; Provide API to check whether `lsp' supports the current major mode.
 (defun lsp-mode-supported-p (mode)
