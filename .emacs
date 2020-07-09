@@ -851,7 +851,6 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (feature 'kotlin-mode)
 
 ;;; OCaml / ReasonML
-
 (feature 'tuareg)
 (feature 'reason-mode)
 
