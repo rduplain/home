@@ -987,6 +987,11 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-hook 'sh-mode-hook '(lambda ()
                            (setq-local company-minimum-prefix-length 2)))
 
+;; Set sh-mode for zsh when top-line is a #compdef completion definition.
+(add-to-list 'magic-mode-alist '("#compdef " . (lambda ()
+                                                 (sh-mode)
+                                                 (sh-set-shell "zsh"))))
+
 ;;; Terraform
 (feature 'terraform-mode)
 
@@ -1026,13 +1031,6 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("\\.ya?ml.template$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.ya?ml.j2$" . yaml-mode))
 (add-hook 'yaml-mode-hook '(lambda () (visual-line-mode -1)))
-
-;;; Zsh
-
-;; Set sh-mode for zsh when top-line is a #compdef completion definition.
-(add-to-list 'magic-mode-alist '("#compdef " . (lambda ()
-                                                 (sh-mode)
-                                                 (sh-set-shell "zsh"))))
 
 
 ;;;; M-x customize
