@@ -985,7 +985,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 (add-to-list 'auto-mode-alist '("\\.qwertyrc$" . sh-mode))
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
 (add-hook 'sh-mode-hook '(lambda ()
-                           (setq-local company-minimum-prefix-length 2)))
+                           (setq-local company-minimum-prefix-length 3)))
 
 ;; Set sh-mode for zsh when top-line is a #compdef completion definition.
 (add-to-list 'magic-mode-alist '("#compdef " . (lambda ()
