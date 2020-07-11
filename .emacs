@@ -420,14 +420,14 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   (setq-local company-minimum-prefix-length 3))
 
 
-;;; Configure how many characters are needed before presenting completions.
+;; Configure how many characters are needed before presenting completions.
 (setq company-minimum-prefix-length 1)
 
-;;; Configure margin around completions.
-;;; A margin greater than 0 avoids text appearing next to each other.
+;; Configure margin around completions.
+;; A margin greater than 0 avoids text appearing next to each other.
 (setq company-tooltip-margin 1)
 
-;;; Start completion immediately upon `company-minimum-prefix-length'.
+;; Start completion immediately upon `company-minimum-prefix-length'.
 (setq company-idle-delay 0)
 
 (setq company-selection-wrap-around t)
