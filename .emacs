@@ -442,6 +442,19 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
 
   (load "company-theme" 'noerror))
 
+;;; Simplify completion-at-point function definition.
+(defmacro add-completion-at-point-function (mode fn)
+  "Add completion-at-point function for a major mode.
+
+Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
+  (let ((mode-hook (intern (concat (symbol-name (eval mode)) "-hook"))))
+    `(add-hook ',mode-hook
+               '(lambda ()
+                  (add-hook 'completion-at-point-functions
+                            ,fn
+                            nil
+                            'local)))))
+
 ;;; Narrow
 
 ;; Enable Narrow functions. Widen with `C-x n w`.
@@ -1010,12 +1023,7 @@ suitable minimum prefix as to avoid completing filenames on a single '/'."
   (when-let ((bounds (bounds-of-thing-at-point 'symbol)))
     (list (car bounds) (cdr bounds) sh-keywords :exclusive 'no)))
 
-(add-hook 'sh-mode-hook
-          '(lambda ()
-             (add-hook 'completion-at-point-functions
-                       'sh-keywords-completion-at-point
-                       nil
-                       'local)))
+(add-completion-at-point-function 'sh-mode 'sh-keywords-completion-at-point)
 
 ;;; Terraform
 (feature 'terraform-mode)
