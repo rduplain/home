@@ -455,6 +455,14 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
                             nil
                             'local)))))
 
+(defmacro add-keyword-completion (mode keyword-list)
+  "Add completion-at-point within a major mode to complete keywords in a list."
+  `(add-completion-at-point-function
+    ,mode
+    '(lambda ()
+       (when-let ((bounds (bounds-of-thing-at-point 'symbol)))
+         (list (car bounds) (cdr bounds) ,(eval keyword-list) :exclusive 'no)))))
+
 ;;; Narrow
 
 ;; Enable Narrow functions. Widen with `C-x n w`.
@@ -1019,11 +1027,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 (add-hook 'sh-mode-hook '(lambda () (setq-local sh-keywords (sh-keywords))))
 
-(defun sh-keywords-completion-at-point ()
-  (when-let ((bounds (bounds-of-thing-at-point 'symbol)))
-    (list (car bounds) (cdr bounds) sh-keywords :exclusive 'no)))
-
-(add-completion-at-point-function 'sh-mode 'sh-keywords-completion-at-point)
+(add-keyword-completion 'sh-mode 'sh-keywords)
 
 ;;; Terraform
 (feature 'terraform-mode)
