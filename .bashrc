@@ -258,6 +258,7 @@ prepend PATH \
         "$PWD"/.reqd/opt/*/bin \
         "$PWD"/.reqd/usr/bin \
         "$PWD"/.reqd/bin \
+        "$PWD"/.venv/bin \
         "$PWD"/node_modules/.bin
 
 ship GEM_HOME="$PWD"/.reqd/opt/ruby

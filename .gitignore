@@ -5,3 +5,4 @@ scratch.*
 secret.*
 .*.swp
 .terraform.tfstate.lock.info
+.venv
