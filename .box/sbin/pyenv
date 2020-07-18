@@ -10,7 +10,7 @@ PYENV_VIRTUALENV_ROOT="$PYENV_ROOT"/plugins/pyenv-virtualenv
 PYENV_VIRTUALENV_URL=https://github.com/pyenv/pyenv-virtualenv.git
 
 PACKAGES2="pyflakes"
-PACKAGES3="pre-commit pyflakes youtube-dl"
+PACKAGES3="poetry pre-commit pyflakes youtube-dl"
 
 check() {
     reqd_run_once
