@@ -8,12 +8,21 @@ check() {
 }
 
 install() {
-    # Download `ghc` automatically.
-    if which stack > /dev/null 2>&1; then
-        stack ghc -- --version
-    elif [ -x "$SYSTEM_STACK" ]; then
-        "$SYSTEM_STACK" ghc -- --version
+    local stack
+
+    # Find `stack`, preferring SYSTEM_STACK if available.
+    stack=$(which stack 2>/dev/null)
+    if [ -x "$SYSTEM_STACK" ]; then
+        stack="$SYSTEM_STACK"
     fi
+
+    if [ ! -x "$stack" ]; then
+        reqd_error 'No `stack` found.'
+        return
+    fi
+
+    # Download `ghc` automatically.
+    "$stack" ghc -- --version
 }
 
 reqd_main "$@"
