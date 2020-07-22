@@ -251,7 +251,8 @@ prepend LD_LIBRARY_PATH /usr/lib/libreoffice/program
 prepend_paths \
     "$HOME" \
     "$HOME"/.box/opt/* "$HOME"/.box/usr "$HOME"/.box \
-    "$HOME"/.opt/*
+    "$HOME"/.opt/* \
+    "$HOME"/.local
 
 # Add Makefile.d paths here to maintain priority within .bashrc PATH settings.
 prepend PATH \
