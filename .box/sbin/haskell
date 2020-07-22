@@ -2,9 +2,11 @@
 # Install `stack` default `ghc` (if `stack` is found).
 
 SYSTEM_STACK=/opt/haskell/bin/stack
+PACKAGES="ShellCheck"
 
 check() {
     reqd_ls "$HOME"/.stack
+    reqd_run_once
 }
 
 install() {
@@ -23,6 +25,10 @@ install() {
 
     # Download `ghc` automatically.
     "$stack" ghc -- --version
+
+    for package in $PACKAGES; do
+        "$stack" install "$package"
+    done
 }
 
 reqd_main "$@"
