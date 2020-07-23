@@ -2,6 +2,7 @@
 # Install Go (golang).
 
 PREFIX="$REQD_OPT"/go
+PACKAGES="mvdan.cc/sh/v3/cmd/shfmt"
 
 check() {
     reqd_ls "$PREFIX"/bin/go
@@ -18,6 +19,10 @@ install() {
     tar -xvzf "$REQD_RES"/go.tar.gz
 
     "$PREFIX"/bin/go version
+
+    for package in $PACKAGES; do
+        GO111MODULE=on go get "$package"
+    done
 }
 
 qwertyrc() {
