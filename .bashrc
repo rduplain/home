@@ -259,6 +259,8 @@ prepend PATH \
         "$PWD"/.reqd/opt/*/bin \
         "$PWD"/.reqd/usr/bin \
         "$PWD"/.reqd/bin \
+        "$PWD"/env/bin \
+        "$PWD"/.env/bin \
         "$PWD"/.venv/bin \
         "$PWD"/node_modules/.bin
 
@@ -433,11 +435,6 @@ unset BASH_COMPLETION_LOADED
 if [ -n "$JPY_PARENT_PID" ]; then
     unset HISTFILE
     _completion_loader
-fi
-
-if [ "$USE_VIRTUALENV" != "false" ]; then
-    receive "$PWD"/.env/bin/activate
-    receive "$PWD"/env/bin/activate
 fi
 
 # Enable color support of ls.
