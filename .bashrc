@@ -15,10 +15,11 @@ hash -r # Forget all remembered locations of `shopt -s checkhash`.
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
-    . "$HOME"/.bashrc
     for envtool in $ENVTOOLS; do
         command_exists $envtool && $envtool rehash
     done
+
+    . "$HOME"/.bashrc
 }
 
 function set_title() {
