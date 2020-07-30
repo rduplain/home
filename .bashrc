@@ -176,7 +176,7 @@ export -f source_these walk_root_to_curdir omit_home
 # See `source_these` in this ~/.bashrc.
 
 function prepend_paths() {
-    # Given root filepath(s) (LIFO), prepend all path variables of interest.
+    # Given root filepath(s), LIFO, prepend all path variables of interest.
 
     # Optimization: Build arguments for each path across all filepaths given,
     # then call prepend just once for each path.
