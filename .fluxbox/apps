@@ -38,7 +38,7 @@
   [Position]	(UPPERRIGHT)	{0 0}
 [end]
 [app] (name=guvcview) (class=guvcview)
-  [Deco]	{NONE}
-  [Dimensions]	{640 480}
+  [Dimensions]	{480 360}
   [Position]	(LOWERRIGHT)	{0 0}
+  [Deco]	{NONE}
 [end]
