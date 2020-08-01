@@ -37,3 +37,8 @@
 [app] (name=keybase) (class=Keybase) (role=browser-window)
   [Position]	(UPPERRIGHT)	{0 0}
 [end]
+[app] (name=guvcview) (class=guvcview)
+  [Deco]	{NONE}
+  [Dimensions]	{640 480}
+  [Position]	(LOWERRIGHT)	{0 0}
+[end]
