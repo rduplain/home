@@ -242,9 +242,6 @@ prepend_paths "$HOME"/.npm-global
 
 walk_root_to_curdir call_nvm_use
 
-append PATH "$HOME"/src/android/sdk/platform-tools
-append PATH "$HOME"/src/android/sdk/tools
-
 append PATH "$HOME"/.*-dist/bin
 
 prepend LD_LIBRARY_PATH /usr/lib/libreoffice/program
