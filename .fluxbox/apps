@@ -37,6 +37,8 @@
 [app] (name=keybase) (class=Keybase) (role=browser-window)
   [Position]	(UPPERRIGHT)	{0 0}
 [end]
+# Alt-Middle-Click on window to review layer setting.
+# (This comment syntax is unsupported and will get overwritten by fluxbox.)
 [app] (name=guvcview) (class=guvcview)
   [Dimensions]	{480 360}
   [Position]	(LOWERRIGHT)	{0 0}
