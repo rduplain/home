@@ -1,6 +1,8 @@
 [app] (name=fbrun)
-  [Position]	(CENTER)	{0 0}
-  [Layer]	{2}
+  [Head]	{1}
+  [Position]	(LOWERRIGHT)	{0 -26}
+  [Deco]	{NONE}
+  [Layer]	{6}
 [end]
 [app] (name=vncviewer) (class=Vncviewer)
   [Head]	{2}
