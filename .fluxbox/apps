@@ -11,7 +11,7 @@
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-image-window)
-  [Position]    (UPPERLEFT)     {9% 0%}
+  [Position]    (UPPERLEFT)     {0 0}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-toolbox)
   [Position]    (UPPERLEFT)     {0 0}
