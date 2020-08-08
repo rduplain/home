@@ -1,49 +1,49 @@
+[app] (role=browser)
+  [Position]    (UPPERLEFT)     {0 0}
+[end]
 [app] (name=fbrun)
-  [Head]	{1}
-  [Position]	(LOWERRIGHT)	{0 -26}
-  [Deco]	{NONE}
-  [Layer]	{6}
-[end]
-[app] (name=vncviewer) (class=Vncviewer)
-  [Head]	{2}
-  [Position]	(UPPERLEFT)	{0 0}
-  [Deco]	{NONE}
-  [Maximized]	{yes}
-[end]
-[app] (name=streaming_client)
-  [Head]	{2}
-  [Position]	(UPPERLEFT)	{0 0}
-  [Fullscreen]	{no}
-[end]
-[app] (name=gimp) (class=Gimp) (role=gimp-toolbox)
-  [Position]	(UPPERLEFT)	{0 0}
+  [Deco]        {NONE}
+  [Head]        {1}
+  [Layer]       {6}
+  [Position]    (LOWERRIGHT)    {0 -26}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-dock)
-  [Position]	(UPPERRIGHT)	{0 0}
+  [Position]    (UPPERRIGHT)    {0 0}
 [end]
 [app] (name=gimp) (class=Gimp) (role=gimp-image-window)
-  [Position]	(UPPERLEFT)	{9% 0%}
+  [Position]    (UPPERLEFT)     {9% 0%}
 [end]
-[app] (name=thunar) (class=Thunar)
-  [Dimensions]	{724 712}
-  [Position]	(UPPERRIGHT)	{0 0}
-[end]
-[app] (role=browser)
-  [Position]	(UPPERLEFT)	{0 0}
-[end]
-[app] (name=signal) (class=Signal) (role=browser-window)
-  [Dimensions]	{1044 800}
-  [Position]	(UPPERRIGHT)	{0 0}
-  [Fullscreen]	{no}
-[end]
-[app] (name=keybase) (class=Keybase) (role=browser-window)
-  [Position]	(UPPERRIGHT)	{0 0}
+[app] (name=gimp) (class=Gimp) (role=gimp-toolbox)
+  [Position]    (UPPERLEFT)     {0 0}
 [end]
 # Alt-Middle-Click on window to review layer setting.
 # (This comment syntax is unsupported and will get overwritten by fluxbox.)
 [app] (name=guvcview) (class=guvcview)
-  [Dimensions]	{480 360}
-  [Position]	(LOWERRIGHT)	{0 0}
-  [Deco]	{NONE}
-  [Layer]	{6}
+  [Deco]        {NONE}
+  [Dimensions]  {480 360}
+  [Layer]       {6}
+  [Position]    (LOWERRIGHT)    {0 0}
+[end]
+[app] (name=keybase) (class=Keybase) (role=browser-window)
+  [Position]    (UPPERRIGHT)    {0 0}
+[end]
+[app] (name=signal) (class=Signal) (role=browser-window)
+  [Dimensions]  {1044 800}
+  [Fullscreen]  {no}
+  [Position]    (UPPERRIGHT)    {0 0}
+[end]
+[app] (name=streaming_client)
+  [Fullscreen]  {no}
+  [Head]        {2}
+  [Position]    (UPPERLEFT)     {0 0}
+[end]
+[app] (name=thunar) (class=Thunar)
+  [Dimensions]  {724 712}
+  [Position]    (UPPERRIGHT)    {0 0}
+[end]
+[app] (name=vncviewer) (class=Vncviewer)
+  [Deco]        {NONE}
+  [Head]        {2}
+  [Maximized]   {yes}
+  [Position]    (UPPERLEFT)     {0 0}
 [end]
