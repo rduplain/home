@@ -21,7 +21,7 @@ install() {
     "$PREFIX"/bin/go version
 
     for package in $PACKAGES; do
-        GO111MODULE=on go get "$package"
+        GO111MODULE=on "$PREFIX"/bin/go get "$package"
     done
 }
 
