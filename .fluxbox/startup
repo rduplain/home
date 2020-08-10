@@ -7,6 +7,14 @@
 # * start apps before starting fluxbox
 # * start fluxbox
 
+# Inform GNOME of window manager.
+if [ -n "$DESKTOP_AUTOSTART_ID" ]; then
+    dbus-send --print-reply --session \
+              --dest=org.gnome.SessionManager "/org/gnome/SessionManager" \
+              org.gnome.SessionManager.RegisterClient "string:fluxbox-gnome" \
+              "string:$DESKTOP_AUTOSTART_ID"
+fi
+
 # Set a solid black background.
 fbsetroot -solid black
 
