@@ -160,8 +160,8 @@ Mod4 s :ExecCommand mate-color-select
 Mod4 t :ExecCommand gedit
 Mod4 u :ExecCommand mate-dictionary
 Mod4 v :ExecCommand ~/bin/vncdefault
-Mod4 w :ExecCommand google-chrome --profile-directory=Default --disable-features=SendMouseLeaveEvents --disable-gpu
-Mod4 Mod1 w :ExecCommand google-chrome --incognito --profile-directory=Default --disable-features=SendMouseLeaveEvents --disable-gpu
+Mod4 w :ExecCommand google-chrome --profile-directory=Default
+Mod4 Mod1 w :ExecCommand google-chrome --incognito --profile-directory=Default
 Control Mod4 Mod1 w :ExecCommand firefox
 Mod4 x :ExecCommand rxvt-unicode
 # Mod4 y
