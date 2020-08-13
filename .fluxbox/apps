@@ -41,6 +41,12 @@
   [Dimensions]  {724 712}
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
+[app] (name=TigerVNC Viewer) (class=TigerVNC Viewer)
+  [Deco]        {NONE}
+  [Head]        {2}
+  [Maximized]   {yes}
+  [Position]    (UPPERLEFT)     {0 0}
+[end]
 [app] (name=vncviewer) (class=Vncviewer)
   [Deco]        {NONE}
   [Head]        {2}
