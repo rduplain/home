@@ -1,7 +1,7 @@
 #!/bin/bash
 # I was looking for a way to have screen run program at start then run a shell.
 #
-# Assume $SHELL is /bin/bash.
+# Assume $SHELL is bash.
 
 . "$HOME"/.bashrc
 
@@ -21,4 +21,4 @@ eval "$@"
 [[ -n "$@" ]] && echo "$@" >> "$HOME"/.bash_history
 
 # Now launch shell.
-exec /bin/bash
+exec /usr/bin/env bash
