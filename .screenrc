@@ -1,5 +1,5 @@
 # Set an escape key which is handy but doesn't get in your way.
-# C-] is a really useful key, since it's hardly used elsewhere theses days.
+# C-] is a really useful key, since it's hardly used elsewhere these days.
 escape ^]]
 
 # With C-a free, set `C-] a` to the same as `C-] A`.
