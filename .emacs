@@ -619,7 +619,8 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;;;
 ;;;; Support simple environment variables over arbitrary code in dir-locals.
 (setq mode-indent
-      '())
+      '((python-mode . python-indent-offset)
+        (sh-mode . sh-basic-offset)))
 
 (defun mode-indent-variable-name (mode)
   "Determine name of environment variable as string of given mode (symbol).
