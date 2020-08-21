@@ -615,6 +615,49 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (global-set-key run-repl-reset-kbd 'run-repl-reset)
 
 
+;;;; Modes - Environment Controlled Indentation
+;;;;
+;;;; Support simple environment variables over arbitrary code in dir-locals.
+(setq mode-indent
+      '())
+
+(defun mode-indent-variable-name (mode)
+  "Determine name of environment variable as string of given mode (symbol).
+
+  Mode `sh-mode' has matching environment variable name `SH_INDENT`."
+  (thread-last
+      mode
+    (symbol-name)
+    (string-remove-suffix "-mode")
+    (replace-regexp-in-string "-" "_")
+    (upcase)
+    ((lambda (mode-name)
+       (concat mode-name "_" "INDENT")))))
+
+(defun mode-indent-environment-value (mode)
+  "Parse positive numeric value for indent from environment for given mode."
+  (when-let ((string-value (getenv (mode-indent-variable-name mode))))
+    (let ((numeric-value (string-to-number string-value)))
+      (when (< 0 numeric-value)
+        numeric-value))))
+
+(defun mode-indent-set-local (mode)
+  "Set local buffer with environment value for indent for given mode."
+  (when-let ((env-indent (mode-indent-environment-value mode)))
+    (setq-local standard-indent env-indent)
+    (setq-local tab-width env-indent)
+    (when-let ((mode-variable (alist-get mode mode-indent)))
+      (set (make-local-variable mode-variable) env-indent))
+    t))
+
+(defun mode-indent-hook ()
+  "Set buffer indentation for `major-mode' based on environment."
+  (interactive)
+  (mode-indent-set-local major-mode))
+
+(add-hook 'after-change-major-mode-hook 'mode-indent-hook)
+
+
 ;;;; Modes - Programming Languages, Formats, & Frameworks
 ;;;;
 ;;;; Many language modes just work and are omitted here.
