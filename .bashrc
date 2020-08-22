@@ -376,7 +376,8 @@ function _default_completion_loader() {
     fi
 }
 
-declare -A _xspecs # Prevent completion _xspecs[.] lookup being a syntax error.
+# Prevent completion _xspecs[.] lookup being a syntax error.
+declare -A _xspecs >/dev/null 2>&1 || true
 
 function _completion_loader() {
     # Default bash completion handler to load specifications lazily.
