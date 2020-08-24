@@ -6,7 +6,9 @@ check() {
 }
 
 install() {
-    fc-cache -f
+    if which fc-cache >/dev/null 2>&1; then
+        fc-cache -f
+    fi
 }
 
 reqd_main "$@"
