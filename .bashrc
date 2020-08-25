@@ -457,7 +457,8 @@ shopt -s checkwinsize
 shopt -s cmdhist
 
 # Set window title to "user@host dir" if terminal detected.
-PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~}"'
+TILDE='~'
+PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/$TILDE}"'
 case "$TERM" in
 xterm*|rxvt*)
     ;;
@@ -467,9 +468,9 @@ screen*)
     #
     # ${STY#*.} removes everything up to and including the first '.'.
     if [ -n "$STY" ]; then
-        PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~} [${STY#*.}]"'
+        PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/$TILDE} [${STY#*.}]"'
     else
-        PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/\~} [screen]"'
+        PROMPT_COMMAND='history -a; set_title "${USER}@${HOSTNAME} ${PWD/$HOME/$TILDE} [screen]"'
     fi
     ;;
 *)
