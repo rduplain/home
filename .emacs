@@ -1100,6 +1100,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (feature 'thrift)
 (add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
 
+;;; TypeScript
+(feature 'typescript-mode)
+
 ;;; XML
 (add-hook 'xml-mode-hook 'flyspell-prog-mode)
 
