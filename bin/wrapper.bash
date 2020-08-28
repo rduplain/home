@@ -12,6 +12,33 @@ command_exists() {
     type -t "$command" >/dev/null 2>&1
 }
 
+prompt_yn() {
+    # Prompt given message with [Y/n], returning success/zero on "yes."
+
+    if [ $# -ne 1 ]; then
+        echo "usage: prompt_yn <message>" >&2
+        return 2
+    fi
+
+    local message reply
+    message="$1"
+    shift
+
+    read -e -p "${message} [Y/n] " reply
+
+    case "$reply" in
+        Y | y | "" )
+            return
+            ;;
+        N | n)
+            return 1
+            ;;
+        *)
+            prompt_yn "$message"
+            ;;
+    esac
+}
+
 requested() {
     # Check if first argument is found in remaining arguments.
 
