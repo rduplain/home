@@ -42,6 +42,8 @@ prompt_yn() {
 requested() {
     # Check if first argument is found in remaining arguments.
 
+    local arg that
+
     that="$1"
     shift
 
@@ -57,6 +59,8 @@ requested() {
 requested_only() {
     # Like `requested` but when there's only one argument.
 
+    local that
+
     that="$1"
     shift
 
@@ -71,8 +75,10 @@ set_aside_this_and_find_that() {
         return 2
     fi
 
-    local directory_aside="$1"
-    local command="$2"
+    local command directory_aside
+
+    directory_aside="$1"
+    command="$2"
     shift 2
 
     # Loop in a subshell to isolate `IFS` and `set` changes.
