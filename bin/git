@@ -53,6 +53,7 @@ git_back_to() {
 git_nameit() {
     echo -n "${GIT_NAMEIT_PREFIX:-$GIT_PUSHIT_PREFIX}"
     "$git" "${arg[@]}" log --pretty=format:%s -n 1 |\
+        head -1 |\
         tr '[:upper:]' '[:lower:]' |\
         sed -e 's/[ _]/-/g' |\
         sed -e 's/[^A-Za-z0-9_-]//g'
