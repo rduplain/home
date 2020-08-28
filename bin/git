@@ -4,10 +4,43 @@
 TIGLIKE=${TIGLIKE:-"%C(blue)%ad %C(green)%<(19)%an%C(auto)%h%d %C(reset)%s"}
 TIGLIKE_DATE_FORMAT=${TIGLIKE_DATE_FORMAT:-"%Y-%m-%d %H:%M"}
 
+declare -a arg
+declare git
+
 use_homegit() {
     [ -n "$USE_HOMEGIT" ] || \
         ( [ -d .homegit ] && ! [ -d .git ] ) || \
         [ "$PWD" = "$HOME/bin" ]
+}
+
+git_set_url() {
+    # Assume running from within project root.
+    url=git@github.com:$(id -un)/${PWD##*/}.git
+    echo "Setting remote origin to $(id -un)'s GitHub ..."
+    "$git" "${arg[@]}" remote set-url origin "$url"
+    "$git" "${arg[@]}" remote get-url origin
+}
+
+git_sync() {
+    upstream=$(
+        "$git" "${arg[@]}" \
+               for-each-ref --format='%(upstream:short)' \
+               "$("$git" "${arg[@]}" symbolic-ref -q HEAD)" 2>/dev/null)
+
+    if [ -z "$upstream" ]; then
+        echo "fatal: no tracking branch to sync" >&2
+        return 2
+    fi
+
+    "$git" "${arg[@]}" fetch &&
+        "$git" "${arg[@]}" rebase \
+            --committer-date-is-author-date "$upstream"
+}
+
+git_tiglike() {
+    exec env PAGER="less -S" "$git" "${arg[@]}" log \
+         --pretty=format:"$TIGLIKE" \
+         --date=format:"$TIGLIKE_DATE_FORMAT"
 }
 
 main() {
@@ -36,29 +69,11 @@ main() {
     fi
 
     if requested_only set-url "$@"; then
-        # Assume running from within project root.
-        url=git@github.com:$(id -un)/${PWD##*/}.git
-        echo "Setting remote origin to $(id -un)'s GitHub ..."
-        "$git" "${arg[@]}" remote set-url origin "$url"
-        "$git" "${arg[@]}" remote get-url origin
+        git_set_url "$@"
     elif requested_only sync "$@"; then
-        upstream=$(
-            "$git" "${arg[@]}" \
-                   for-each-ref --format='%(upstream:short)' \
-                   "$("$git" "${arg[@]}" symbolic-ref -q HEAD)" 2>/dev/null)
-
-        if [ -z "$upstream" ]; then
-            echo "fatal: no tracking branch to sync" >&2
-            return 2
-        fi
-
-        "$git" "${arg[@]}" fetch &&
-            "$git" "${arg[@]}" rebase \
-                --committer-date-is-author-date "$upstream"
+        git_sync "$@"
     elif requested_only tiglike "$@"; then
-        exec env PAGER="less -S" "$git" "${arg[@]}" log \
-             --pretty=format:"$TIGLIKE" \
-             --date=format:"$TIGLIKE_DATE_FORMAT"
+        git_tiglike "$@"
     else
         exec "$git" "${arg[@]}" "$@"
     fi
