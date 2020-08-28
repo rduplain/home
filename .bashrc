@@ -418,6 +418,10 @@ function _completion_loader() {
         complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
         complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
 
+        function _git_back_to() {
+            __git_complete_refs
+        }
+
         export BASH_COMPLETION_LOADED=$(date +%s)
 
         # Restart completion process.
