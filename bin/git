@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # Wrap `git` to use .homegit.
 
-declare -a arg
-declare git
-
 use_homegit() {
     [ -n "$USE_HOMEGIT" ] || \
         ( [ -d .homegit ] && ! [ -d .git ] ) || \
