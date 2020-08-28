@@ -106,14 +106,14 @@ main() {
         arg=( )
     fi
 
-    if requested back-to "$@"; then
+    if requested back-to "$1"; then
         shift
         git_back_to "$@"
     elif requested_only set-url "$@"; then
         git_set_url "$@"
     elif requested_only sync "$@"; then
         git_sync "$@"
-    elif requested tiglike "$@"; then
+    elif requested tiglike "$1"; then
         shift
         git_tiglike "$@"
     else
