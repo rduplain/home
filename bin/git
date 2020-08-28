@@ -50,8 +50,8 @@ git_back_to() {
     "$git" "${arg[@]}" branch -D "$tmp" >/dev/null 2>&1
 }
 
-git_nameit() {
-    echo -n "${GIT_NAMEIT_PREFIX:-$GIT_PUSHIT_PREFIX}"
+git_quick_name() {
+    echo -n "${GIT_QUICK_PREFIX}"
     "$git" "${arg[@]}" log --pretty=format:%s -n 1 |\
         head -1 |\
         tr '[:upper:]' '[:lower:]' |\
@@ -60,9 +60,9 @@ git_nameit() {
     echo
 }
 
-git_pushit() {
+git_quick_push() {
     local current remote
-    remote="${GIT_PUSHIT_REMOTE:-origin}"
+    remote="${GIT_QUICK_REMOTE:-origin}"
 
     current=$("$git" "${arg[@]}" symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-)
     if [ -z "$current" ]; then
@@ -70,8 +70,7 @@ git_pushit() {
         return 1
     fi
 
-    export GIT_NAMEIT_PREFIX="${GIT_PUSHIT_PREFIX:-$GIT_NAMEIT_PREFIX}"
-    "$git" "${arg[@]}" push "$remote" "$current":"$(git_nameit)"
+    "$git" "${arg[@]}" push "$remote" "$current":"$(git_quick_name)"
 }
 
 git_set_url() {
@@ -133,10 +132,10 @@ main() {
     if requested back-to "$1"; then
         shift
         git_back_to "$@"
-    elif requested_only nameit "$@"; then
-        git_nameit "$@"
-    elif requested_only pushit "$@"; then
-        git_pushit "$@"
+    elif requested_only quick-name "$@"; then
+        git_quick_name "$@"
+    elif requested_only quick-push "$@"; then
+        git_quick_push "$@"
     elif requested_only set-url "$@"; then
         git_set_url "$@"
     elif requested_only sync "$@"; then
