@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Use `git log` with tig-like formatting.
+
+TIGLIKE=${TIGLIKE:-"%C(blue)%ad %C(green)%<(19)%an%C(auto)%h%d %C(reset)%s"}
+TIGLIKE_DATE_FORMAT=${TIGLIKE_DATE_FORMAT:-"%Y-%m-%d %H:%M"}
+
+main() {
+    exec env PAGER="less -S" git log \
+         --pretty=format:"$TIGLIKE" \
+         --date=format:"$TIGLIKE_DATE_FORMAT" \
+         -- "$@"
+}
+
+main "$@"

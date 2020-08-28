@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # Wrap `git` to use .homegit.
 
-TIGLIKE=${TIGLIKE:-"%C(blue)%ad %C(green)%<(19)%an%C(auto)%h%d %C(reset)%s"}
-TIGLIKE_DATE_FORMAT=${TIGLIKE_DATE_FORMAT:-"%Y-%m-%d %H:%M"}
-
 declare -a arg
 declare git
 
@@ -19,13 +16,6 @@ git_set_url() {
     echo "Setting remote origin to $(id -un)'s GitHub ..."
     "$git" "${arg[@]}" remote set-url origin "$url"
     "$git" "${arg[@]}" remote get-url origin
-}
-
-git_tiglike() {
-    exec env PAGER="less -S" "$git" "${arg[@]}" log \
-         --pretty=format:"$TIGLIKE" \
-         --date=format:"$TIGLIKE_DATE_FORMAT" \
-         -- "$@"
 }
 
 main() {
@@ -55,9 +45,6 @@ main() {
 
     if requested_only set-url "$@"; then
         git_set_url "$@"
-    elif requested tiglike "$1"; then
-        shift
-        git_tiglike "$@"
     else
         exec "$git" "${arg[@]}" "$@"
     fi
