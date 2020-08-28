@@ -50,6 +50,24 @@ git_back_to() {
     "$git" "${arg[@]}" branch -D "$tmp" >/dev/null 2>&1
 }
 
+git_nameit() {
+    echo -n "${GIT_NAMEIT_PREFIX:-$GIT_PUSHIT_PREFIX}"
+    "$git" "${arg[@]}" log --pretty=format:%s -n 1 |\
+        tr '[:upper:]' '[:lower:]' |\
+        sed -e 's/[ _]/-/g' |\
+        sed -e 's/[^A-Za-z0-9_-]//g'
+    echo
+}
+
+git_pushit() {
+    local mainline remote
+    mainline="${GIT_PUSHIT_MAINLINE:-master}"
+    remote="${GIT_PUSHIT_REMOTE:-origin}"
+
+    export GIT_NAMEIT_PREFIX="${GIT_PUSHIT_PREFIX:-$GIT_NAMEIT_PREFIX}"
+    "$git" "${arg[@]}" push "$remote" "$mainline":"$(git_nameit)"
+}
+
 git_set_url() {
     # Assume running from within project root.
     url=git@github.com:$(id -un)/${PWD##*/}.git
@@ -109,6 +127,10 @@ main() {
     if requested back-to "$1"; then
         shift
         git_back_to "$@"
+    elif requested_only nameit "$@"; then
+        git_nameit "$@"
+    elif requested_only pushit "$@"; then
+        git_pushit "$@"
     elif requested_only set-url "$@"; then
         git_set_url "$@"
     elif requested_only sync "$@"; then
