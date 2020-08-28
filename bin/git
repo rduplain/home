@@ -10,14 +10,6 @@ use_homegit() {
         [ "$PWD" = "$HOME/bin" ]
 }
 
-git_set_url() {
-    # Assume running from within project root.
-    url=git@github.com:$(id -un)/${PWD##*/}.git
-    echo "Setting remote origin to $(id -un)'s GitHub ..."
-    "$git" "${arg[@]}" remote set-url origin "$url"
-    "$git" "${arg[@]}" remote get-url origin
-}
-
 main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     . "$DIR"/wrapper.bash
@@ -43,11 +35,7 @@ main() {
         arg=( )
     fi
 
-    if requested_only set-url "$@"; then
-        git_set_url "$@"
-    else
-        exec "$git" "${arg[@]}" "$@"
-    fi
+    exec "$git" "${arg[@]}" "$@"
 }
 
 main "$@"

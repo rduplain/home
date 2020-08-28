@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Reinitialize origin with default URL convention.
+
+main() {
+    project_root="$(git rev-parse --show-toplevel)"
+    url=git@github.com:$(id -un)/${project_root##*/}.git
+    echo "Setting remote origin to $(id -un)'s GitHub ..."
+    git remote set-url origin "$url"
+    git remote get-url origin
+}
+
+main "$@"
