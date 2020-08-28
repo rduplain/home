@@ -24,7 +24,7 @@ git_back_to() {
     target="$1"
     shift
 
-    if ! prompt_yn "Delete all local branches & checkout $target?"; then
+    if ! prompt_yn "Delete all local branches & re-checkout $target?"; then
         return 1
     fi
 
