@@ -13,43 +13,6 @@ use_homegit() {
         [ "$PWD" = "$HOME/bin" ]
 }
 
-git_back_to() {
-    local b target tmp
-
-    if [ $# -ne 1 ]; then
-        echo "usage: git back-to BRANCH" >&2
-        return 2
-    fi
-
-    target="$1"
-    shift
-
-    if ! prompt_yn "Delete all local branches & re-checkout $target?"; then
-        return 1
-    fi
-
-    echo 'Proceeding. Take a look at `git reflog` in case of problems.' >&2
-    echo
-
-    set -e
-
-    tmp="git-back-to-$(date +%s)"
-    "$git" "${arg[@]}" checkout -b "$tmp" >/dev/null 2>&1
-
-    for b in $("$git" "${arg[@]}" for-each-ref refs/heads | cut -d/ -f3-); do
-        if [ "$b" = "$tmp" ]; then
-            continue
-        fi
-
-        "$git" "${arg[@]}" branch -D "$b"
-    done
-
-    echo
-
-    "$git" "${arg[@]}" checkout "$target"
-    "$git" "${arg[@]}" branch -D "$tmp" >/dev/null 2>&1
-}
-
 git_set_url() {
     # Assume running from within project root.
     url=git@github.com:$(id -un)/${PWD##*/}.git
@@ -90,10 +53,7 @@ main() {
         arg=( )
     fi
 
-    if requested back-to "$1"; then
-        shift
-        git_back_to "$@"
-    elif requested_only set-url "$@"; then
+    if requested_only set-url "$@"; then
         git_set_url "$@"
     elif requested tiglike "$1"; then
         shift

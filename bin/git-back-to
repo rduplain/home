@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Fast-action destructive workflow.
+
+main() {
+    DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    . "$DIR"/wrapper.bash
+
+    local branch target tmp
+
+    if [ $# -ne 1 ]; then
+        echo "usage: git back-to BRANCH" >&2
+        return 2
+    fi
+
+    target="$1"
+    shift
+
+    if ! prompt_yn "Delete all local branches & re-checkout $target?"; then
+        return 1
+    fi
+
+    echo 'Proceeding. Take a look at `git reflog` in case of problems.' >&2
+    echo
+
+    set -e
+
+    tmp="git-back-to-$(date +%s)"
+    git checkout -b "$tmp" >/dev/null 2>&1
+
+    for branch in $(git for-each-ref refs/heads | cut -d/ -f3-); do
+        if [ "$branch" = "$tmp" ]; then
+            continue
+        fi
+
+        git branch -D "$branch"
+    done
+
+    echo
+
+    git checkout "$target"
+    git branch -D "$tmp" >/dev/null 2>&1
+}
+
+main "$@"
