@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Push remote-only branch using top-line summary of most recent commit.
+
+git_quick_push_name() {
+    echo -n "${GIT_QUICK_PREFIX}"
+    git log --pretty=format:%s -n 1 |\
+        head -1 |\
+        tr '[:upper:]' '[:lower:]' |\
+        sed -e 's/[ _]/-/g' |\
+        sed -e 's/[^A-Za-z0-9_-]//g'
+    echo
+}
+
+git_quick_push() {
+    local current remote
+    remote="${GIT_QUICK_REMOTE:-origin}"
+
+    current=$(git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-)
+    if [ -z "$current" ]; then
+        echo "error: not on any branch." >&2
+        return 1
+    fi
+
+    git push "$remote" "$current":"$(git_quick_push_name)"
+}
+
+main() {
+    if [ "$1" = "--name" ]; then
+        shift
+        git_quick_push_name "$@"
+    else
+        git_quick_push "$@"
+    fi
+}
+
+main "$@"

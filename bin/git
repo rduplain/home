@@ -50,29 +50,6 @@ git_back_to() {
     "$git" "${arg[@]}" branch -D "$tmp" >/dev/null 2>&1
 }
 
-git_quick_name() {
-    echo -n "${GIT_QUICK_PREFIX}"
-    "$git" "${arg[@]}" log --pretty=format:%s -n 1 |\
-        head -1 |\
-        tr '[:upper:]' '[:lower:]' |\
-        sed -e 's/[ _]/-/g' |\
-        sed -e 's/[^A-Za-z0-9_-]//g'
-    echo
-}
-
-git_quick_push() {
-    local current remote
-    remote="${GIT_QUICK_REMOTE:-origin}"
-
-    current=$("$git" "${arg[@]}" symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-)
-    if [ -z "$current" ]; then
-        echo "error: not on any branch." >&2
-        return 1
-    fi
-
-    "$git" "${arg[@]}" push "$remote" "$current":"$(git_quick_name)"
-}
-
 git_set_url() {
     # Assume running from within project root.
     url=git@github.com:$(id -un)/${PWD##*/}.git
@@ -132,10 +109,6 @@ main() {
     if requested back-to "$1"; then
         shift
         git_back_to "$@"
-    elif requested_only quick-name "$@"; then
-        git_quick_name "$@"
-    elif requested_only quick-push "$@"; then
-        git_quick_push "$@"
     elif requested_only set-url "$@"; then
         git_set_url "$@"
     elif requested_only sync "$@"; then
