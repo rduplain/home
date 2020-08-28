@@ -58,22 +58,6 @@ git_set_url() {
     "$git" "${arg[@]}" remote get-url origin
 }
 
-git_sync() {
-    upstream=$(
-        "$git" "${arg[@]}" \
-               for-each-ref --format='%(upstream:short)' \
-               "$("$git" "${arg[@]}" symbolic-ref -q HEAD)" 2>/dev/null)
-
-    if [ -z "$upstream" ]; then
-        echo "fatal: no tracking branch to sync" >&2
-        return 2
-    fi
-
-    "$git" "${arg[@]}" fetch &&
-        "$git" "${arg[@]}" rebase \
-            --committer-date-is-author-date "$upstream"
-}
-
 git_tiglike() {
     exec env PAGER="less -S" "$git" "${arg[@]}" log \
          --pretty=format:"$TIGLIKE" \
@@ -111,8 +95,6 @@ main() {
         git_back_to "$@"
     elif requested_only set-url "$@"; then
         git_set_url "$@"
-    elif requested_only sync "$@"; then
-        git_sync "$@"
     elif requested tiglike "$1"; then
         shift
         git_tiglike "$@"
