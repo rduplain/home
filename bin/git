@@ -40,7 +40,8 @@ git_sync() {
 git_tiglike() {
     exec env PAGER="less -S" "$git" "${arg[@]}" log \
          --pretty=format:"$TIGLIKE" \
-         --date=format:"$TIGLIKE_DATE_FORMAT"
+         --date=format:"$TIGLIKE_DATE_FORMAT" \
+         -- "$@"
 }
 
 main() {
@@ -72,7 +73,8 @@ main() {
         git_set_url "$@"
     elif requested_only sync "$@"; then
         git_sync "$@"
-    elif requested_only tiglike "$@"; then
+    elif requested tiglike "$@"; then
+        shift
         git_tiglike "$@"
     else
         exec "$git" "${arg[@]}" "$@"

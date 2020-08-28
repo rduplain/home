@@ -9,7 +9,7 @@ main() {
 
     if [ -z "$tig" ]; then
         # No `tig`; fallback to `git log`.
-        exec "$HOME"/bin/git tiglike
+        exec "$HOME"/bin/git tiglike "$@"
     fi
 
     if use_homegit; then
