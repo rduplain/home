@@ -2,6 +2,8 @@
 # Push remote-only branch using top-line summary of most recent commit.
 
 git_quick_push_name() {
+    # Print name of new branch using top-line summary of most recent commit.
+
     echo -n "${GIT_QUICK_PREFIX}"
     git log --pretty=format:%s -n 1 |\
         head -1 |\
@@ -12,6 +14,8 @@ git_quick_push_name() {
 }
 
 git_quick_push() {
+    # Push remote-only branch.
+
     local current remote
     remote="${GIT_QUICK_REMOTE:-origin}"
 
