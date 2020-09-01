@@ -240,6 +240,10 @@ Print :ExecCommand import ~/download/screenshot.png && display ~/download/screen
 Control Escape :RootMenu
 
 
+## Keyboard Macros ##
+Mod4 Shift 8     :ExecCommand xdotool type --clearmodifiers "•"
+
+
 ## Reconfigure/Restart Fluxbox ##
 Control Mod4 Delete        :Reconfigure
 Control Mod4 Shift Delete  :Restart
