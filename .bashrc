@@ -359,7 +359,7 @@ fi
 #
 # ... but override `hub sync` for bin/git-sync vs bin/git-sync-github.
 function _hub() {
-    if [ "$@" = "sync" ] && command_exists git-sync; then
+    if [ "$*" = "sync" ] && command_exists git-sync; then
         git-sync
     else
         hub "$@"
