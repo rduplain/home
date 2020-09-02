@@ -348,7 +348,17 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 # Use github/hub `hub` wrapper around `git`.
-command_exists hub && alias git=hub
+#
+# ... but override `hub sync` for bin/git-sync vs bin/git-sync-github.
+function _hub() {
+    if [ "$@" = "sync" ] && command_exists git-sync; then
+        git-sync
+    else
+        hub "$@"
+    fi
+}
+
+command_exists hub && alias git=_hub
 
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
