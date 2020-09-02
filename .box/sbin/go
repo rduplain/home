@@ -2,7 +2,9 @@
 # Install Go (golang).
 
 PREFIX="$REQD_OPT"/go
-PACKAGES="mvdan.cc/sh/v3/cmd/shfmt"
+
+PACKAGES=""
+PACKAGES="$PACKAGES mvdan.cc/sh/v3/cmd/shfmt"
 
 check() {
     reqd_ls "$PREFIX"/bin/go
