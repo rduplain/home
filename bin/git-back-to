@@ -15,6 +15,9 @@ main() {
     target="$1"
     shift
 
+    # Display branches.
+    git branch
+
     if ! prompt_yn "Delete all local branches & re-checkout $target?"; then
         return 1
     fi
