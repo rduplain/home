@@ -3,7 +3,7 @@
 [color]
     ui = auto
 [core]
-    excludesfile = /home/rduplain/.gitignore
+    excludesfile = ~/.gitignore
 [fetch]
     prune = true
 [gc]
