@@ -196,6 +196,17 @@ function prepend_paths() {
 
         path+=("$dir"/sbin)
 
+        man+=("$dir"/man)
+        man+=("$dir"/share/man)
+
+        if [ -e "$dir"/.skip-lib ]; then
+            # Skip lib installations marked with this special .skip-lib file.
+            #
+            # This is especially useful for installations with lib directories
+            # entirely for the benefit of respective bin executables.
+            continue
+        fi
+
         lib+=("$dir"/lib)
         lib+=("$dir"/lib/x86_64-linux-gnu)
         lib+=("$dir"/lib64)
@@ -207,9 +218,6 @@ function prepend_paths() {
         pkg+=("$dir"/lib64/pkgconfig)
         pkg+=("$dir"/lib/i386-linux-gnu/pkgconfig)
         pkg+=("$dir"/lib32/pkgconfig)
-
-        man+=("$dir"/man)
-        man+=("$dir"/share/man)
     done
 
     prepend PATH "${path[@]}"
