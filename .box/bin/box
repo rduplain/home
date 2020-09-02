@@ -130,7 +130,7 @@ development() {
     "$reqd" install \
             circleci-cli \
             packer \
-            terraform \
+            terraform tflint \
             vagrant-config
 
     "$reqd" install \
