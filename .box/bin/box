@@ -132,6 +132,9 @@ development() {
             packer \
             terraform \
             vagrant-config
+
+    "$reqd" install \
+            conda
 }
 
 full() {

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# Install miniconda for minimal Conda installation of Python tools.
+
+PREFIX="$REQD_OPT"/conda
+INSTALLER="$PREFIX"/bin/install-miniconda.sh
+
+source "$REQD_LIB"/core.bash
+
+check() {
+    reqd_ls "$PREFIX"/bin/conda
+    reqd_run_once
+}
+
+install() {
+    # ARM architecture is unsupported by Conda (as of Sep 2020).
+    if startswith "arm" "$(uname -m)"; then
+        reqd_error "Skipping installation on ARM architecture ..."
+        return
+    fi
+
+    if contains " " "$PREFIX"; then
+        reqd_error "Conda does not support installation with spaces: $PREFIX"
+        return 1
+    fi
+
+    rm -fr "$PREFIX"
+
+    qwertyrc > miniconda.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc miniconda.qwertyrc
+
+    # Miniconda installer does not respect its own shebang.
+    sh "$INSTALLER" -p "$PREFIX" -b -u
+
+    "$PREFIX"/bin/conda --version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux 64-bit
+  --sys=linux --arch=x86_64 \\
+  --output="$INSTALLER" \\
+  --chmod=644 \\
+  --sha256=879457af6a0bf5b34b48c12de31d4df0ee2f06a8e68768e5758c3293b2daf688 \\
+  https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.3-Linux-x86_64.sh
+
+# Mac OS X, 64-bit
+  --sys=darwin --arch=x86_64 \\
+  --output="$INSTALLER" \\
+  --chmod=644 \\
+  --sha256=9b9a353fadab6aa82ac0337c367c23ef842f97868dcbb2ff25ec3aa463afc871 \\
+  https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.3-MacOSX-x86_64.sh
+EOF
+}
+
+reqd_main "$@"
