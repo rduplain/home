@@ -12,6 +12,8 @@
     reflogexpireunreachable = 0
     rerereresolved = 0
     rerereunresolved = 0
+[hub]
+    protocol = ssh
 [push]
     default = matching
 [rebase]
