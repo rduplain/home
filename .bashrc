@@ -404,6 +404,10 @@ function _completion_loader() {
 
         receive "$HOME"/.nvm/bash_completion
 
+        for file in .box/opt/conda/etc/bash_completion.d/*; do
+            receive "$file"
+        done
+
         receive /usr/share/bash-completion/completions/git
 
         function _homegit() {
