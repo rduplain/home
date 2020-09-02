@@ -31,6 +31,15 @@ install() {
     # Miniconda installer does not respect its own shebang.
     sh "$INSTALLER" -p "$PREFIX" -b -u
 
+    # Work around library packaging issue in conda:
+    #
+    #   lib/libtinfo.so.6: no version information available (required by bash)
+    #
+    # This message shows up in bash tab completion otherwise!
+    if [ -e /lib/x86_64-linux-gnu/libtinfo.so.6 ]; then
+        cd "$PREFIX"/lib; ln -sf /lib/x86_64-linux-gnu/libtinfo.so.6 .
+    fi
+
     "$PREFIX"/bin/conda --version
 }
 
