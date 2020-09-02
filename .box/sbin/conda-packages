@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Install packages with Conda if `conda` is installed.
+
+CONDA_PREFIX="$REQD_OPT"/conda
+CONDA="$CONDA_PREFIX"/bin/conda
+
+check() {
+    if reqd_ls "$CONDA"; then
+        reqd_newer_than "$CONDA"
+        check_smoke
+    fi
+    reqd_run_once
+}
+
+check_smoke() {
+    reqd_ls "$CONDA_PREFIX"/bin/hub
+}
+
+install() {
+    if ! reqd_ls "$CONDA"; then
+        reqd_error "conda not installed. skipping ..."
+        return
+    fi
+
+    # https://github.com/github/hub
+    "$CONDA" install -y -c conda-forge hub
+}
+
+reqd_main "$@"

@@ -134,7 +134,8 @@ development() {
             vagrant-config
 
     "$reqd" install \
-            conda
+            conda \
+            conda-packages
 }
 
 full() {
