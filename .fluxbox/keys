@@ -242,6 +242,7 @@ Control Escape :RootMenu
 
 ## Keyboard Macros ##
 Mod4 Shift 8     :ExecCommand xdotool type --clearmodifiers "•"
+Mod4 Shift minus :ExecCommand xdotool type --clearmodifiers "—"
 Mod4 Shift Left  :ExecCommand xdotool type --clearmodifiers "←"
 Mod4 Shift Right :ExecCommand xdotool type --clearmodifiers "→"
 Mod4 Shift Up    :ExecCommand xdotool type --clearmodifiers "↑"
