@@ -1,3 +1,5 @@
+[advice]
+    ignoredhook = false
 [color]
     ui = auto
 [core]
@@ -17,5 +19,3 @@
 [user]
     email = rom.duplain@gmail.com
     name = Rom DuPlain
-[advice]
-    ignoredhook = false
