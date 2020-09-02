@@ -347,6 +347,9 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
     receive "$HOME"/.ssh/agent.bash
 fi
 
+# Use github/hub `hub` wrapper around `git`.
+command_exists hub && alias git=hub
+
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
     return
