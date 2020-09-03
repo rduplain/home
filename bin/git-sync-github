@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-# Call `hub sync` by way of `git sync-github`.
-#
-# When using `alias git=hub`, `git sync` calls `hub sync`.
-# This `git sync-github` wrapper allows alternative `git sync` implementation.
-
-hub sync "$@"

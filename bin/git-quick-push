@@ -2,25 +2,34 @@
 # Push remote-only branch using top-line summary of most recent commit.
 #
 # Relevant details are inferred based on current remote tracking branch.
-# Assume that the pull request is on the same remote as upstream.
+# When GitHub, assume that the pull request is on the same remote as upstream.
 #
 # Projects with trunk-based development and code review on each merge end up
 # with short incremental changes as the project becomes stable. In this state,
 # work is done in the trunk/mainline branch, but instead of pushing directly,
 # push to a branch to serve as source to a pull request or code review.
 #
-# If github/hub `hub` is installed, create a pull-request automatically.
-# Delete the content and close the $EDITOR to stop the pull request.
+# Create a pull request automatically using `curl`, if remote is GitHub, Python
+# is installed (for JSON encoding), and a GITHUB TOKEN exists.
+# See GITHUB TOKEN.
 #
 # Generally, after issuing `git quick-push`, with the new branch safely pushed
 # to the remote, issue a `git reset --hard` on the upstream branch to continue
 # development.
 
+# GITHUB TOKEN
+#
+# Create a new token with full `repo` access, written to ~/.github-token.
+# https://github.com/settings/tokens
+
 # Exit immediately if a command error or non-zero return occurs.
 set -e
 
-# Set default.
-: ${GIT_QUICK_BACKOFF:=2}
+# Set defaults.
+: "${GIT_QUICK_BACKOFF:=2}"
+: "${GITHUB_API_URL:=https://api.github.com}"
+: "${GITHUB_USERNAME:=$(id -un)}"
+: "${GITHUB_TOKEN_PATH:=$HOME/.github-token}"
 
 git_quick_push_name() {
     # Print name of new branch using top-line summary of most recent commit.
@@ -45,21 +54,29 @@ git_quick_push() {
     git push "$(remote)" "$(local_branch)":"$(git_quick_push_name)"
 }
 
-hub_pull_request() {
+github_pull_request() {
     # Create a pull request on upstream using sensible defaults.
 
-    arg=(
-        # Skip check for unpushed commits.
-        --force
+    local owner repo
+    eval "$(owner_repo)"
 
-        # Use newly created remote branch as head/source of pull request.
-        --head "$(git_quick_push_name)"
+    curl "$GITHUB_API_URL"/repos/"$owner"/"$repo"/pulls \
+         --user "$GITHUB_USERNAME:$(github_token)" \
+         --data "$(cat <<EOF
+{"title": $(git show -s --format=%s HEAD | tr -d '\n' | json_encode),
+ "body": $(git show -s --format=%B HEAD | tail -n+2 | json_encode),
+ "head": $(git_quick_push_name | tr -d '\n' | json_encode),
+ "base": $(remote_branch | tr -d '\n' | json_encode)}
+EOF
+)"
+}
 
-        # Use remote-tracked branch as base/destination of pull request.
-        --base "$(remote_branch)"
-    )
+github_token() {
+    # Print ~/.github-token or nothing if token does not exist.
 
-    hub pull-request "${arg[@]}"
+    if [ -e "$GITHUB_TOKEN_PATH" ]; then
+        cat "$GITHUB_TOKEN_PATH"
+    fi
 }
 
 is_github() {
@@ -70,6 +87,23 @@ local_branch() {
     # Print name of current local branch, or nothing if not on a branch.
 
     git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-
+}
+
+json_encode() {
+    # JSON-encode stdin to stdout.
+
+    python -c 'import json,sys; print(json.dumps(sys.stdin.read()))'
+}
+
+owner_repo() {
+    # Print owner=OWNER repo=REPO parsed from GitHub URL of remote.
+
+    local owner_repo
+    owner_repo="$(git remote get-url "$(remote)" |
+                  sed -e 's/.*github\.com.//g' -e 's/\.git$//g')"
+
+    echo owner="$(echo "$owner_repo" | cut -d/ -f1)"
+    echo repo="$(echo "$owner_repo" | cut -d/ -f2)"
 }
 
 remote() {
@@ -111,11 +145,15 @@ main() {
         shift
         git_quick_push_name "$@"
     else
-        git_quick_push "$@"
-        if is_github && which hub >/dev/null 2>&1; then
+        git_quick_push
+
+        if is_github && \
+                [ -n "$(github_token)" ] && \
+                which python >/dev/null 2>&1;
+        then
             echo "Opening pull request ..." >&2
             sleep "$GIT_QUICK_BACKOFF"
-            hub_pull_request
+            github_pull_request
         fi
     fi
 }

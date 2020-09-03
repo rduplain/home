@@ -13,7 +13,11 @@ check() {
 }
 
 check_smoke() {
-    reqd_ls "$CONDA_PREFIX"/bin/hub
+    # Smoke test with e.g.:
+    #
+    #     reqd_ls "$CONDA_PREFIX"/bin/program
+
+    return
 }
 
 install() {
@@ -22,8 +26,7 @@ install() {
         return
     fi
 
-    # https://github.com/github/hub
-    "$CONDA" install -y -c conda-forge hub
+    # Add `conda install` lines here.
 }
 
 reqd_main "$@"
