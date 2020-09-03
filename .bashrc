@@ -228,6 +228,12 @@ function prepend_paths() {
 
 prepend_paths /opt/local /opt/* /usr/local /usr /
 
+prepend_paths \
+    "$HOME" \
+    "$HOME"/.box/opt/* "$HOME"/.box/usr "$HOME"/.box \
+    "$HOME"/.opt/* \
+    "$HOME"/.local
+
 for envtool in $ENVTOOLS; do
     prepend_paths "$HOME/.${envtool}"
     command_exists $envtool && prepend PATH "$HOME/.$envtool/shims"
@@ -253,12 +259,6 @@ walk_root_to_curdir call_nvm_use
 append PATH "$HOME"/.*-dist/bin
 
 prepend LD_LIBRARY_PATH /usr/lib/libreoffice/program
-
-prepend_paths \
-    "$HOME" \
-    "$HOME"/.box/opt/* "$HOME"/.box/usr "$HOME"/.box \
-    "$HOME"/.opt/* \
-    "$HOME"/.local
 
 # Add Makefile.d paths here to maintain priority within .bashrc PATH settings.
 prepend PATH \
