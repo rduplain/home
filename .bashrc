@@ -444,7 +444,7 @@ function _completion_loader() {
         complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
 
         function _git_back_to() {
-            __git_complete_refs
+            _git_checkout
         }
 
         export BASH_COMPLETION_LOADED=$(date +%s)
