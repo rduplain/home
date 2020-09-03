@@ -63,7 +63,7 @@ hub_pull_request() {
 }
 
 is_github() {
-    git remote get-url origin | grep -iqw 'github\.com'
+    git remote get-url "$(remote)" | grep -iqw 'github\.com'
 }
 
 local_branch() {
