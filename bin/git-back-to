@@ -22,7 +22,6 @@ main() {
         return 1
     fi
 
-    echo 'Proceeding. Take a look at `git reflog` in case of problems.' >&2
     echo
 
     set -e
