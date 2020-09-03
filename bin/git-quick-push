@@ -1,14 +1,23 @@
 #!/usr/bin/env bash
 # Push remote-only branch using top-line summary of most recent commit.
 #
+# Relevant details are inferred based on current remote tracking branch.
+# Assume that the pull request is on the same remote as upstream.
+#
 # Projects with trunk-based development and code review on each merge end up
 # with short incremental changes as the project becomes stable. In this state,
 # work is done in the trunk/mainline branch, but instead of pushing directly,
 # push to a branch to serve as source to a pull request or code review.
 #
+# If github/hub `hub` is installed, create a pull-request automatically.
+# Delete the content and close the $EDITOR to stop the pull request.
+#
 # Generally, after issuing `git quick-push`, with the new branch safely pushed
 # to the remote, issue a `git reset --hard` on the upstream branch to continue
 # development.
+
+# Exit immediately if a command error or non-zero return occurs.
+set -e
 
 git_quick_push_name() {
     # Print name of new branch using top-line summary of most recent commit.
@@ -25,24 +34,84 @@ git_quick_push_name() {
 git_quick_push() {
     # Push remote-only branch.
 
-    local current remote
-    remote="${GIT_QUICK_REMOTE:-origin}"
-
-    current=$(git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-)
-    if [ -z "$current" ]; then
+    if [ -z "$(local_branch)" ]; then
         echo "error: not on any branch." >&2
-        return 1
+        return 5
     fi
 
-    git push "$remote" "$current":"$(git_quick_push_name)"
+    git push "$(remote)" "$(local_branch)":"$(git_quick_push_name)"
+}
+
+hub_pull_request() {
+    # Create a pull request on upstream using sensible defaults.
+
+    arg=(
+        # Skip check for unpushed commits.
+        --force
+
+        # Use newly created remote branch as head/source of pull request.
+        --head "$(git_quick_push_name)"
+
+        # Use remote-tracked branch as base/destination of pull request.
+        --base "$(remote_branch)"
+    )
+
+    hub pull-request "${arg[@]}"
+}
+
+is_github() {
+    git remote get-url origin | grep -iqw 'github\.com'
+}
+
+local_branch() {
+    # Print name of current local branch, or nothing if not on a branch.
+
+    git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3-
+}
+
+remote() {
+    # Print name of remote in remote-tracked branch.
+
+    upstream | cut -d/ -f1
+}
+
+remote_branch() {
+    # Print name of branch only in remote-tracked branch.
+
+    upstream | cut -d/ -f2-
+}
+
+unpushed_commits() {
+    # List commit hash of unpushed commits, one per line.
+
+    git log --oneline "$(upstream)"..HEAD --pretty=format:"%H"
+}
+
+upstream() {
+    # Report upstream ref, e.g. 'origin/master' (without quotes), to stdout.
+
+    git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null
 }
 
 main() {
+    if [ -z "$(upstream)" ]; then
+        echo "error: not tracking a remote branch." >&2
+        return 3
+    fi
+
+    if [ -z "$(unpushed_commits)" ]; then
+        echo "error: no unpushed commits." >&2
+        return 4
+    fi
+
     if [ "$1" = "--name" ]; then
         shift
         git_quick_push_name "$@"
     else
         git_quick_push "$@"
+        if is_github && which hub >/dev/null 2>&1; then
+            hub_pull_request
+        fi
     fi
 }
 
