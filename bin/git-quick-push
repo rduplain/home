@@ -60,8 +60,8 @@ github_pull_request() {
     curl -s "$GITHUB_API_URL"/repos/"$owner"/"$repo"/pulls \
          --user "$GITHUB_USERNAME:$(github_token)" \
          --data "$(cat <<EOF
-{"title": $(git show -s --format=%s HEAD | tr -d '\n' | json_encode),
- "body": $(git show -s --format=%B HEAD | tail -n+2 | json_encode),
+{"title": $(pull_request_title | json_encode),
+ "body": $(pull_request_body | json_encode),
  "head": $(git_quick_push_name | tr -d '\n' | json_encode),
  "base": $(remote_branch | tr -d '\n' | json_encode)}
 EOF
@@ -110,6 +110,18 @@ owner_repo() {
 
     echo owner="$(echo "$owner_repo" | cut -d/ -f1)"
     echo repo="$(echo "$owner_repo" | cut -d/ -f2)"
+}
+
+pull_request_body() {
+    # Print body of most recent commit as body of pull request.
+
+    git show -s --format=%B HEAD | tail -n+2
+}
+
+pull_request_title() {
+    # Print top-line summary of most recent commit as title of pull request.
+
+    git show -s --format=%s HEAD | tr -d '\n'
 }
 
 remote() {
