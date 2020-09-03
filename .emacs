@@ -1141,6 +1141,10 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
       desktop-path '(".")
       desktop-save 'if-exists)
 
+;;; Always start a new desktop session when running in a git clone.
+(when (dominating-file ".git")
+  (setq desktop-save t))
+
 ;;; Add hook to restore frameset within tty (not supported by default).
 (setq desktop-restore-forces-onscreen nil)
 (add-hook 'desktop-after-read-hook
