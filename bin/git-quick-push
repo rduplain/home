@@ -19,6 +19,9 @@
 # Exit immediately if a command error or non-zero return occurs.
 set -e
 
+# Set default.
+: ${GIT_QUICK_BACKOFF:=2}
+
 git_quick_push_name() {
     # Print name of new branch using top-line summary of most recent commit.
 
@@ -111,6 +114,7 @@ main() {
         git_quick_push "$@"
         if is_github && which hub >/dev/null 2>&1; then
             echo "Opening pull request ..." >&2
+            sleep "$GIT_QUICK_BACKOFF"
             hub_pull_request
         fi
     fi
