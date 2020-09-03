@@ -153,7 +153,7 @@ main() {
         shift
         git_quick_push_name "$@"
     else
-        git_quick_push
+        git_quick_push >&2
 
         if is_github && \
                 [ -n "$(github_token)" ] && \
