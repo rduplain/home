@@ -114,8 +114,17 @@ owner_repo() {
 
 pull_request_body() {
     # Print body of most recent commit as body of pull request.
+    #
+    # If pandoc installed, launder body content to reflow newlines as spaces.
+    # (GitHub Flavored Markdown treats newlines literally in paragraphs.)
 
-    git show -s --format=%B HEAD | tail -n+2
+    if which pandoc >/dev/null 2>&1; then
+        git show -s --format=%B HEAD | \
+            tail -n+2 | \
+            pandoc -f markdown - -t markdown -o -
+    else
+        git show -s --format=%B HEAD | tail -n+2
+    fi
 }
 
 pull_request_title() {
