@@ -22,9 +22,6 @@
 # Create a new token with full `repo` access, written to ~/.github-token.
 # https://github.com/settings/tokens
 
-# Exit immediately if a command error or non-zero return occurs.
-set -e
-
 # Set defaults.
 : "${GIT_QUICK_BACKOFF:=2}"
 : "${GITHUB_API_URL:=https://api.github.com}"
@@ -60,7 +57,7 @@ github_pull_request() {
     local owner repo
     eval "$(owner_repo)"
 
-    curl "$GITHUB_API_URL"/repos/"$owner"/"$repo"/pulls \
+    curl -s "$GITHUB_API_URL"/repos/"$owner"/"$repo"/pulls \
          --user "$GITHUB_USERNAME:$(github_token)" \
          --data "$(cat <<EOF
 {"title": $(git show -s --format=%s HEAD | tr -d '\n' | json_encode),
@@ -93,6 +90,15 @@ json_encode() {
     # JSON-encode stdin to stdout.
 
     python -c 'import json,sys; print(json.dumps(sys.stdin.read()))'
+}
+
+json_get_html_url() {
+    # Extract "html_url" key from root of JSON object in stdin.
+
+    key="html_url"
+    python -c \
+     "import json,sys; print(json.loads(sys.stdin.read()).get('$key', ''))" \
+      2>/dev/null
 }
 
 owner_repo() {
@@ -141,6 +147,8 @@ main() {
         return 4
     fi
 
+    local response url
+
     if [ "$1" = "--name" ]; then
         shift
         git_quick_push_name "$@"
@@ -153,7 +161,18 @@ main() {
         then
             echo "Opening pull request ..." >&2
             sleep "$GIT_QUICK_BACKOFF"
-            github_pull_request
+            response="$(github_pull_request)"
+
+            url="$(printf %s "$response" | json_get_html_url)"
+
+            if [ -z "$url" ]; then
+                printf %s "$response"
+                echo
+                echo "Pull request failed." >&2
+                return 1
+            fi
+
+            echo "$url"
         fi
     fi
 }
