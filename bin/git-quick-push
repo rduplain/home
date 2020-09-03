@@ -110,6 +110,7 @@ main() {
     else
         git_quick_push "$@"
         if is_github && which hub >/dev/null 2>&1; then
+            echo "Opening pull request ..." >&2
             hub_pull_request
         fi
     fi
