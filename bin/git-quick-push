@@ -100,7 +100,7 @@ main() {
     fi
 
     if [ -z "$(unpushed_commits)" ]; then
-        echo "error: no unpushed commits." >&2
+        echo "no unpushed commits." >&2
         return 4
     fi
 
