@@ -15,6 +15,12 @@ main() {
     target="$1"
     shift
 
+    if [ ! -t 0 ]; then
+        # stdin is not a tty.
+        echo 'git back-to: error: must run interactively' >&2
+        return 3
+    fi
+
     # Display branches.
     git branch -v -v
 
