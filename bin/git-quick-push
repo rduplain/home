@@ -121,7 +121,7 @@ pull_request_body() {
     if which pandoc >/dev/null 2>&1; then
         git show -s --format=%B HEAD | \
             tail -n+2 | \
-            pandoc -f markdown - -t markdown -o -
+            pandoc --wrap=none -f markdown - -t markdown -o -
     else
         git show -s --format=%B HEAD | tail -n+2
     fi
