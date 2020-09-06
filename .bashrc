@@ -16,7 +16,7 @@ function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
     for envtool in $ENVTOOLS; do
-        command_exists $envtool && $envtool rehash
+        silently $envtool rehash
     done
 
     . "$HOME"/.bashrc
@@ -236,10 +236,10 @@ prepend_paths \
 
 for envtool in $ENVTOOLS; do
     prepend_paths "$HOME/.${envtool}"
-    command_exists $envtool && prepend PATH "$HOME/.$envtool/shims"
+    when_command $envtool prepend PATH "$HOME/.$envtool/shims"
 done
 
-command_exists opam && file_exists "$HOME"/.opam && eval "$(opam env)" # ocaml
+when_command opam when_file "$HOME"/.opam eval "$(opam env)" # ocaml
 
 # Load programming environments which only require setting PATH.
 #
@@ -357,7 +357,7 @@ fi
 
 # Use github/hub `hub` wrapper around `git`.
 #
-# ... but override `hub sync` for bin/git-sync vs bin/git-sync-github.
+# ... but override `hub sync` for bin/git-sync.
 function _hub() {
     if [ "$*" = "sync" ] && command_exists git-sync; then
         git-sync
@@ -366,7 +366,7 @@ function _hub() {
     fi
 }
 
-command_exists hub && alias git=_hub
+when_command hub alias git=_hub
 
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
@@ -420,7 +420,7 @@ function _completion_loader() {
         _default_completion_loader "$@"
 
         for envtool in $ENVTOOLS; do
-            command_exists $envtool && eval "$($envtool init -)"
+            when_command $envtool eval "$($envtool init -)"
         done
 
         receive "$HOME"/.nvm/bash_completion
