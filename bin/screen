@@ -30,6 +30,8 @@ SESSION_PARENT_DIR=
 project_directory() {
     # Print session directory to stdout, assuming the session names a project.
 
+    local dir sessionname sub
+
     sessionname="$1"
     shift
 
@@ -131,6 +133,8 @@ sessionname_start() {
 
 sessions() {
     # Print all possible sessions to stdout.
+
+    local path sub
 
     {
         cd "$HOME"/src
