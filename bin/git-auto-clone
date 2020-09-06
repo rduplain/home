@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Auto-clone project based on metadata in .git-auto-clone file.
+#
+# In .git-auto-clone in current directory or any parent directory:
+#
+#     project1        git@github.com:owner/repo1.git
+#     project2        git@github.com:owner/repo2.git
+#     nested/project3 git@github.com:owner/repo3.git
+#
+# Directories .git-auto-clone are created relative to working directory.
+
+find_git_auto_clone_file() {
+    # Find nearest .git-auto-clone file in directory ancestry, print to stdout.
+
+    local cur="$PWD"
+    local dir="$cur"
+
+    while [ -n "$dir" ]; do
+        if [ -e "$dir"/.git-auto-clone ]; then
+            echo "$dir"/.git-auto-clone
+            return
+        fi
+
+        dir="${dir%/*}"
+    done
+}
+
+main() {
+    if [ $# -ne 1 ]; then
+        echo "usage: git auto-clone PROJECT_NAME" >&2
+        return 2
+    fi
+
+    local auto_clone_file auto_clone_line project_name
+    project_name="$1"
+    shift
+
+    auto_clone_file="$(find_git_auto_clone_file)"
+
+    if [ -z "$auto_clone_file" ]; then
+        echo "git auto-clone: no .git-auto-clone file found." >&2
+        return 1
+    fi
+
+    auto_clone_line="$(grep -wh "$project_name" "$auto_clone_file" | tail -1)"
+    if [ -z "$auto_clone_line" ]; then
+        echo "git auto-clone: no '$project_name' found in $auto_clone_file" >&2
+        return 1
+    fi
+
+    local dir url
+    dir="$(echo "$auto_clone_line" | awk '{ print $1 }')"
+    url="$(echo "$auto_clone_line" | awk '{ print $2 }')"
+
+    mkdir -p "$(dirname "$dir")"
+    git clone "$url" "$dir"
+}
+
+main "$@"
