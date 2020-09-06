@@ -25,22 +25,47 @@ find_git_auto_clone_file() {
     done
 }
 
-main() {
-    if [ $# -ne 1 ]; then
-        echo "usage: git auto-clone PROJECT_NAME" >&2
-        return 2
-    fi
+list_available() {
+    local project
 
-    # Provide hook to find .git-auto-clone file.
-    if [ "$1" = "--find" ]; then
-        find_git_auto_clone_file
-        return 0
-    fi
+    for project in $(list_projects); do
+        if [ ! -e "$project" ]; then
+            echo "$project"
+        fi
+    done
+}
 
-    local auto_clone_file auto_clone_line project_name
+list_projects() {
+    awk '{ print $1 }' "$(find_git_auto_clone_file)" | sort -u
+}
+
+lookup_project() {
+    local project_name
     project_name="$1"
     shift
 
+    if [ -z "$project_name" ]; then
+        return 1
+    fi
+
+    local auto_clone_file auto_clone_line
+
+    auto_clone_file="$(find_git_auto_clone_file)"
+    auto_clone_line="$(grep -wh "$project_name" "$auto_clone_file" | tail -1)"
+
+    if [ -z "$auto_clone_line" ]; then
+        return 1
+    fi
+
+    local dir url
+    dir="$(echo "$auto_clone_line" | awk '{ print $1 }')"
+    url="$(echo "$auto_clone_line" | awk '{ print $2 }')"
+
+    echo "$dir $url"
+}
+
+main() {
+    local auto_clone_file
     auto_clone_file="$(find_git_auto_clone_file)"
 
     if [ -z "$auto_clone_file" ]; then
@@ -48,15 +73,45 @@ main() {
         return 1
     fi
 
-    auto_clone_line="$(grep -wh "$project_name" "$auto_clone_file" | tail -1)"
-    if [ -z "$auto_clone_line" ]; then
+    # Provide hooks for introspection.
+    case "$1" in
+        --available)
+            list_available
+            return
+            ;;
+        --find)
+            find_git_auto_clone_file
+            return
+            ;;
+        --list)
+            list_projects
+            return
+            ;;
+        --lookup)
+            lookup_project "$2"
+            return
+            ;;
+    esac
+
+    if [ $# -ne 1 ]; then
+        echo "usage: git auto-clone PROJECT_NAME" >&2
+        return 2
+    fi
+
+    local project_name
+    project_name="$1"
+    shift
+
+    local dir_url dir url
+    dir_url="$(lookup_project "$project_name")"
+
+    if [ -z "$dir_url" ]; then
         echo "git auto-clone: no '$project_name' found in $auto_clone_file" >&2
         return 1
     fi
 
-    local dir url
-    dir="$(echo "$auto_clone_line" | awk '{ print $1 }')"
-    url="$(echo "$auto_clone_line" | awk '{ print $2 }')"
+    dir="$(echo "$dir_url" | awk '{ print $1 }')"
+    url="$(echo "$dir_url" | awk '{ print $2 }')"
 
     mkdir -p "$(dirname "$dir")"
     git clone "$url" "$dir"
