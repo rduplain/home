@@ -28,11 +28,13 @@ find_git_auto_clone_file() {
 list_available() {
     local project
 
-    for project in $(list_projects); do
-        if [ ! -e "$project" ]; then
-            echo "$project"
-        fi
-    done
+    {
+        for project in $(list_projects); do
+            if [ ! -e "$project" ]; then
+                echo "$project"
+            fi
+        done
+    } | sort -u
 }
 
 list_projects() {
