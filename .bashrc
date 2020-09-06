@@ -476,10 +476,9 @@ function _completion_loader() {
             function _screen_sessions() {
                 _screen_sessions_orig
 
-                local completions word
+                local word
                 word="${COMP_WORDS[COMP_CWORD]}"
-                completions="$(screen --sessions | sort -u)"
-                COMPREPLY+=( $(compgen -W "$completions" -- "$word") )
+                COMPREPLY+=( $(compgen -W "$(screen --sessions)" -- "$word") )
             }
         fi
 

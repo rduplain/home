@@ -132,22 +132,24 @@ sessionname_start() {
 sessions() {
     # Print all possible sessions to stdout.
 
-    cd "$HOME"/src
-    for path in *; do
-        if [ -d "$path" ]; then
-            if [ -d "$path"/.git ]; then
-                echo "$path"
+    {
+        cd "$HOME"/src
+        for path in *; do
+            if [ -d "$path" ]; then
+                if [ -d "$path"/.git ]; then
+                    echo "$path"
+                fi
+                if [ -e "$path"/.bashrc ] || [ -e "$path"/.env ]; then
+                    for sub in "$path"/*; do
+                        if [ -d "$sub" ] && [ -d "$sub/.git" ]; then
+                            echo "$sub"
+                            echo "$(basename "$sub")"
+                        fi
+                    done
+                fi
             fi
-            if [ -e "$path"/.bashrc ] || [ -e "$path"/.env ]; then
-                for sub in "$path"/*; do
-                    if [ -d "$sub" ] && [ -d "$sub/.git" ]; then
-                        echo "$sub"
-                        echo "$(basename "$sub")"
-                    fi
-                done
-            fi
-        fi
-    done
+        done
+    } | sort -u
 }
 
 main() {
