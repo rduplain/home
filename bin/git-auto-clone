@@ -31,6 +31,12 @@ main() {
         return 2
     fi
 
+    # Provide hook to find .git-auto-clone file.
+    if [ "$1" = "--find" ]; then
+        find_git_auto_clone_file
+        return 0
+    fi
+
     local auto_clone_file auto_clone_line project_name
     project_name="$1"
     shift

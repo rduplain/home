@@ -461,6 +461,26 @@ function _completion_loader() {
         complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
         complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
 
+        function _git_auto_clone() {
+            local auto_clone_file completions project word
+
+            auto_clone_file="$(git-auto-clone --find 2>/dev/null)"
+            if [ -z "$file" ]; then
+                return
+            fi
+
+            declare -a completions
+
+            for project in $(awk '{ print $1 }' "$auto_clone_file"); do
+                if [ ! -e "$project" ]; then
+                    completions+=( "$project" )
+                fi
+            done
+
+            word="${COMP_WORDS[COMP_CWORD]}"
+            COMPREPLY=( $(compgen -W "$completions" -- "$word") )
+        }
+
         function _git_back_to() {
             _git_checkout
         }
