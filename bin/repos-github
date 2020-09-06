@@ -1,0 +1,498 @@
+#!/usr/bin/env python3
+# Walk metadata on all GitHub personal, organization, & starred repositories.
+#
+# Use only the Python standard library. Require Python 3.6+.
+
+import sys
+if sys.version_info < (3, 6):
+    sys.stderr.write('repos-github: error: run with Python 3.6+.\n')
+    sys.exit(128)
+
+
+import argparse
+import base64
+import contextlib
+import doctest
+import json
+import os
+import urllib.parse
+import urllib.request
+
+
+HELP = """
+required environment variables (in order to avoid secrets in shell history):
+
+  GITHUB_USERNAME       GitHub username
+  GITHUB_TOKEN          personal access token set with full `repo` access
+                        https://github.com/settings/tokens/new
+
+format:
+
+  Reference any attribute included in the GitHub API response.
+  For example, the format:
+
+      {{ full_name }}  {{ ssh_url }}
+
+  Outputs:
+
+      octocat/Hello-World  git@github.com:octocat/Hello-World.git
+
+  Nested attributes use dot notation.
+  {{ owner.html_url }} outputs: https://github.com/octocat
+
+  Nested lists of strings automatically convert to ,-delimited fields.
+  {{ topics }} outputs: octocat, atom, electron, api
+
+pipeline:
+
+  repos-github --default '{{ full_name }} {{ ssh_url }}' |
+    sort -u -k 2,2 |
+    column -t
+
+reference:
+
+  https://docs.github.com/en/rest/reference/repos#get-a-repository
+"""
+
+GITHUB_BASE_URL = 'https://api.github.com'
+
+
+def main():
+    if '--self-test' in sys.argv:
+        return(test())
+
+    arg_parser = ArgumentParser.build()
+    arg = arg_parser.parse_args(args=sys.argv[1:])
+
+    config = {k: getattr(arg, k) for k in ('username', 'password', 'base_url')}
+
+    affiliation_format = (
+        ('starred',             arg.format_starred      or arg.format),
+        ('collaborator',        arg.format_collaborator or arg.format),
+        ('organization_member', arg.format_organization or arg.format),
+        ('owner',               arg.format_owner        or arg.format),
+    )
+
+    for affiliation, format in affiliation_format:
+        for repo in Visitor(affiliation, format, **config):
+            print(repo)
+
+
+class ArgumentParser(argparse.ArgumentParser):
+    "Parse command-line arguments, mixing in required environment variables."
+
+    PROG = 'repos-github'
+    BASE_URL = GITHUB_BASE_URL
+
+    @classmethod
+    def build(cls):
+        parser = cls(
+            prog=cls.PROG,
+            epilog=HELP,
+            formatter_class=argparse.RawDescriptionHelpFormatter)
+        parser.add_argument(
+            '--default',
+            dest='format',
+            help='output format to use by default',
+            default='{{ ssh_url }}')
+        parser.add_argument(
+            '--owner',
+            dest='format_owner',
+            help='output format to use when user is repo owner')
+        parser.add_argument(
+            '--collaborator',
+            '--collab',
+            dest='format_collaborator',
+            help='output format to use when user is repo collaborator')
+        parser.add_argument(
+            '--organization',
+            '--org',
+            dest='format_organization',
+            help='output format to use when repo has org membership')
+        parser.add_argument(
+            '--starred',
+            dest='format_starred',
+            help='output format to use when repo is starred')
+        parser.add_argument(
+            '--url',
+            dest='base_url',
+            help='base URL for GitHub API',
+            default=cls.BASE_URL)
+        return parser
+
+    def parse_known_args(self, *a, **kw):
+        namespace, argv = super().parse_known_args(*a, **kw)
+        namespace.username = self.env('GITHUB_USERNAME')
+        namespace.password = self.env('GITHUB_TOKEN')
+        return namespace, argv
+
+    def env(self, name):
+        value = os.getenv(name)
+        if value is None:
+            self.error(f'{name} environment variable required')
+        return value
+
+
+class Object:
+    """Dict wrapper for lookup by object attribute access.
+
+    >>> data = json.loads('''{
+    ...  "pull": true,
+    ...  "push": false
+    ... }''')
+    >>> Object(data)
+    Object({'pull': True, 'push': False})
+    >>> Object(data).pull
+    True
+    >>> Object(data).push
+    False
+    >>>
+    """
+
+    def __init__(self, data):
+        self.data = data
+        vars(self).update(data)
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}({repr(self.data)})'
+
+
+class Parser(json.JSONDecoder):
+    """JSON decoder returning `Object` & ', '-delimited lists.
+
+    JSON decoder:
+
+    >>> json.loads(sample, cls=Parser).owner.html_url
+    'https://github.com/octocat'
+    >>> json.loads(sample, cls=Parser).topics
+    'octocat, atom, electron, api'
+    >>>
+
+    Convenience:
+
+    >>> Parser.parse(sample).owner # doctest: +ELLIPSIS
+    Object({'login': 'octocat', ...})
+    >>>
+    """
+
+    object_cls = Object
+
+    def __init__(self, *a, **kw):
+        kw.setdefault('object_hook', self.object)
+        super().__init__(*a, **kw)
+
+    def object(self, data):
+        for k, v in data.items():
+            if isinstance(v, list) and all(isinstance(x, str) for x in v):
+                data[k] = ', '.join(v)
+        return self.object_cls(data)
+
+    @classmethod
+    def parse(cls, *a, **kw):
+        return json.loads(*a, cls=cls, **kw)
+
+
+class Formatter:
+    """Data-to-string formatter using user-provided format.
+
+    >>> Formatter('{{ full_name }} {{ ssh_url }}')
+    Formatter('{{ full_name }} {{ ssh_url }}')
+    >>> Formatter('{{ full_name }} {{ ssh_url }}').format(Parser.parse(sample))
+    'octocat/Hello-World git@github.com:octocat/Hello-World.git'
+    >>>
+    """
+
+    def __init__(self, format):
+        self.raw_format_spec = format
+        self.format_spec = self.convert_format_spec(format)
+
+    def convert_format_spec(self, format):
+        return (format.replace('{{ ', '{')
+                      .replace(' }}', '}'))
+
+    def format(self, data):
+        return str.format(self.format_spec, **vars(data))
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}({repr(self.raw_format_spec)})'
+
+
+class Client:
+    """Connect to GitHub API.
+
+    Client primary entry point is `client.get('/path?q=arg')`.
+
+    >>> client = Client('USERNAME', 'PASSWORD', 'https://api.example.com')
+    >>>
+    """
+
+    request_cls = urllib.request.Request
+
+    def __init__(self, username, password, base_url=GITHUB_BASE_URL):
+        self.base_url = base_url
+        self.username = username
+        self.password = password
+
+    def auth_digest(self):
+        return (base64.b64encode(f'{self.username}:{self.password}'
+                                 .encode('ascii'))
+                .decode('ascii'))
+
+    def request(self, path, *a, headers=None, **kw):
+        if headers is None:
+            headers = {}
+        headers.setdefault('Accept', 'application/vnd.github.v3+json')
+        headers.setdefault('Authorization', f'Basic {self.auth_digest()}')
+        kw['headers'] = headers
+        return self.request_cls(f'{self.base_url}{path}', *a, **kw)
+
+    def urlopen(self, *a, **kw):
+        return urllib.request.urlopen(*a, **kw)
+
+    def get(self, *a, **kw):
+        with self.urlopen(self.request(*a, **kw)) as response:
+            return response.read()
+
+
+class Visitor:
+    """Iterate through repositories, yielding each repo according to format.
+
+    Visitor primary entry point is `for repo in Visitor(...): print(repo)`.
+
+    >>> config = {
+    ...     'username': 'USERNAME',
+    ...     'password': 'PASSWORD',
+    ...     'base_url': 'https://api.example.com',
+    ... }
+    >>> visitor = Visitor('starred', '{{ ssh_url }}', **config)
+    >>> iter(visitor) is visitor # Supports iterator protocol.
+    True
+    >>>
+    """
+
+    client_cls = Client
+    parser_cls = Parser
+    formatter_cls = Formatter
+
+    def __init__(self, affiliation, format, username, *client_a, **client_kw):
+        self.affiliation = affiliation
+        self.client = self.client_cls(username, *client_a, **client_kw)
+        self.parse = self.parser_cls.parse
+        self.formatter = self.formatter_cls(format)
+
+        if self.affiliation == 'starred':
+            self.url_path = f'/users/{username}/starred'
+        else:
+            self.url_path = '/user/repos'
+
+        self.iter = None
+
+    def __iter__(self):
+        self.iter = self.walk()
+        return self
+
+    def __next__(self):
+        if self.iter is None:
+            raise StopIteration
+        return next(self.iter)
+
+    def walk(self):
+        query = {
+            'affiliation': self.affiliation,
+            'visibility': 'all',
+            'sort': 'full_name',
+            'direction': 'asc',
+            'per_page': 100,
+            'page': 0,
+        }
+
+        def url():
+            return f'{self.url_path}?{urllib.parse.urlencode(query)}'
+
+        has_data = True
+        while has_data:
+            query['page'] += 1
+            data = self.parse(self.client.get(url()))
+            if not data:
+                has_data = False
+            for repo in data:
+                yield self.formatter.format(repo)
+
+
+def test():
+    """Run self test.
+
+    >>> config = {
+    ...     'username': 'USERNAME',
+    ...     'password': 'PASSWORD',
+    ...     'base_url': 'https://api.example.com',
+    ... }
+    >>> affiliation_format = (
+    ...     ('owner',   '{{ license.name }}\t{{ topics }}'),
+    ...     ('starred', '{{ ssh_url }}'),
+    ... )
+    >>> for affiliation, format in affiliation_format:
+    ...     for repo in TestVisitor(affiliation, format, **config):
+    ...         # Three pages of 2 copies of `sample` data.
+    ...         print(repo)
+    ...
+    MIT License     octocat, atom, electron, api
+    MIT License     octocat, atom, electron, api
+    MIT License     octocat, atom, electron, api
+    MIT License     octocat, atom, electron, api
+    MIT License     octocat, atom, electron, api
+    MIT License     octocat, atom, electron, api
+    git@github.com:octocat/Hello-World.git
+    git@github.com:octocat/Hello-World.git
+    git@github.com:octocat/Hello-World.git
+    git@github.com:octocat/Hello-World.git
+    git@github.com:octocat/Hello-World.git
+    git@github.com:octocat/Hello-World.git
+    >>>
+    """
+    doctest.testmod()
+
+
+class TestResponse:
+    def __init__(self, body):
+        self.body = body
+
+    def read(self):
+        return self.body
+
+
+class TestClient(Client):
+    @contextlib.contextmanager
+    def urlopen(self, request):
+        assert isinstance(request, urllib.request.Request)
+        if 'page=4' in request.selector:
+            yield TestResponse('[]')
+        else:
+            yield TestResponse(f'[{sample}, {sample}]')
+
+
+class TestVisitor(Visitor):
+    client_cls = TestClient
+
+
+sample = """
+{
+  "id": 1296269,
+  "node_id": "MDEwOlJlcG9zaXRvcnkxMjk2MjY5",
+  "name": "Hello-World",
+  "full_name": "octocat/Hello-World",
+  "owner": {
+    "login": "octocat",
+    "id": 1,
+    "node_id": "MDQ6VXNlcjE=",
+    "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/octocat",
+    "html_url": "https://github.com/octocat",
+    "followers_url": "https://api.github.com/users/octocat/followers",
+    "following_url": "https://api.github.com/users/octocat/following{/other_user}",
+    "gists_url": "https://api.github.com/users/octocat/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/octocat/subscriptions",
+    "organizations_url": "https://api.github.com/users/octocat/orgs",
+    "repos_url": "https://api.github.com/users/octocat/repos",
+    "events_url": "https://api.github.com/users/octocat/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/octocat/received_events",
+    "type": "User",
+    "site_admin": false
+  },
+  "private": false,
+  "html_url": "https://github.com/octocat/Hello-World",
+  "description": "This your first repo!",
+  "fork": false,
+  "url": "https://api.github.com/repos/octocat/Hello-World",
+  "archive_url": "http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}",
+  "assignees_url": "http://api.github.com/repos/octocat/Hello-World/assignees{/user}",
+  "blobs_url": "http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}",
+  "branches_url": "http://api.github.com/repos/octocat/Hello-World/branches{/branch}",
+  "collaborators_url": "http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}",
+  "comments_url": "http://api.github.com/repos/octocat/Hello-World/comments{/number}",
+  "commits_url": "http://api.github.com/repos/octocat/Hello-World/commits{/sha}",
+  "compare_url": "http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}",
+  "contents_url": "http://api.github.com/repos/octocat/Hello-World/contents/{+path}",
+  "contributors_url": "http://api.github.com/repos/octocat/Hello-World/contributors",
+  "deployments_url": "http://api.github.com/repos/octocat/Hello-World/deployments",
+  "downloads_url": "http://api.github.com/repos/octocat/Hello-World/downloads",
+  "events_url": "http://api.github.com/repos/octocat/Hello-World/events",
+  "forks_url": "http://api.github.com/repos/octocat/Hello-World/forks",
+  "git_commits_url": "http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}",
+  "git_refs_url": "http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}",
+  "git_tags_url": "http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}",
+  "git_url": "git:github.com/octocat/Hello-World.git",
+  "issue_comment_url": "http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}",
+  "issue_events_url": "http://api.github.com/repos/octocat/Hello-World/issues/events{/number}",
+  "issues_url": "http://api.github.com/repos/octocat/Hello-World/issues{/number}",
+  "keys_url": "http://api.github.com/repos/octocat/Hello-World/keys{/key_id}",
+  "labels_url": "http://api.github.com/repos/octocat/Hello-World/labels{/name}",
+  "languages_url": "http://api.github.com/repos/octocat/Hello-World/languages",
+  "merges_url": "http://api.github.com/repos/octocat/Hello-World/merges",
+  "milestones_url": "http://api.github.com/repos/octocat/Hello-World/milestones{/number}",
+  "notifications_url": "http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}",
+  "pulls_url": "http://api.github.com/repos/octocat/Hello-World/pulls{/number}",
+  "releases_url": "http://api.github.com/repos/octocat/Hello-World/releases{/id}",
+  "ssh_url": "git@github.com:octocat/Hello-World.git",
+  "stargazers_url": "http://api.github.com/repos/octocat/Hello-World/stargazers",
+  "statuses_url": "http://api.github.com/repos/octocat/Hello-World/statuses/{sha}",
+  "subscribers_url": "http://api.github.com/repos/octocat/Hello-World/subscribers",
+  "subscription_url": "http://api.github.com/repos/octocat/Hello-World/subscription",
+  "tags_url": "http://api.github.com/repos/octocat/Hello-World/tags",
+  "teams_url": "http://api.github.com/repos/octocat/Hello-World/teams",
+  "trees_url": "http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}",
+  "clone_url": "https://github.com/octocat/Hello-World.git",
+  "mirror_url": "git:git.example.com/octocat/Hello-World",
+  "hooks_url": "http://api.github.com/repos/octocat/Hello-World/hooks",
+  "svn_url": "https://svn.github.com/octocat/Hello-World",
+  "homepage": "https://github.com",
+  "language": null,
+  "forks_count": 9,
+  "stargazers_count": 80,
+  "watchers_count": 80,
+  "size": 108,
+  "default_branch": "master",
+  "open_issues_count": 0,
+  "is_template": true,
+  "topics": [
+    "octocat",
+    "atom",
+    "electron",
+    "api"
+  ],
+  "has_issues": true,
+  "has_projects": true,
+  "has_wiki": true,
+  "has_pages": false,
+  "has_downloads": true,
+  "archived": false,
+  "disabled": false,
+  "visibility": "public",
+  "pushed_at": "2011-01-26T19:06:43Z",
+  "created_at": "2011-01-26T19:01:12Z",
+  "updated_at": "2011-01-26T19:14:43Z",
+  "permissions": {
+    "admin": false,
+    "push": false,
+    "pull": true
+  },
+  "template_repository": null,
+  "temp_clone_token": "ABTLWHOULUVAXGTRYU7OC2876QJ2O",
+  "delete_branch_on_merge": true,
+  "subscribers_count": 42,
+  "network_count": 0,
+  "license": {
+    "key": "mit",
+    "name": "MIT License",
+    "spdx_id": "MIT",
+    "url": "https://api.github.com/licenses/mit",
+    "node_id": "MDc6TGljZW5zZW1pdA=="
+  }
+}
+"""
+
+
+if __name__ == '__main__':
+    main()
