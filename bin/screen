@@ -30,7 +30,7 @@ SESSION_PARENT_DIR=
 project_directory() {
     # Print session directory to stdout, assuming the session names a project.
 
-    local dir sessionname sub
+    local auto_clone_file dir sessionname sub
 
     sessionname="$1"
     shift
@@ -54,6 +54,24 @@ project_directory() {
             return
         fi
     done
+
+    if [ -d "$HOME"/src ]; then
+        pushd "$HOME"/src >/dev/null 2>&1
+
+        auto_clone_file="$(git-auto-clone --find 2>/dev/null)"
+
+        if [ -n "$auto_clone_file" ]; then
+            dir="$(grep -w "$sessionname" "$auto_clone_file" |
+                     awk '{ print $1}')"
+            if [ ! -d "$dir" ]; then
+                git auto-clone "$dir"
+                echo "$PWD"/"$dir"
+                return
+            fi
+        fi
+
+        popd >/dev/null 2>&1
+    fi
 
     echo "$HOME/src/$sessionname"
 }
@@ -134,7 +152,7 @@ sessionname_start() {
 sessions() {
     # Print all possible sessions to stdout.
 
-    local path sub
+    local auto_clone_file path sub
 
     {
         cd "$HOME"/src
@@ -153,6 +171,13 @@ sessions() {
                 fi
             fi
         done
+
+        cd "$HOME"/src
+        auto_clone_file="$(git-auto-clone --find 2>/dev/null)"
+        if [ -e "$auto_clone_file" ]; then
+            awk '{ print $1 }' "$auto_clone_file"
+            awk '{ print $1 }' "$auto_clone_file" | awk -F/ '{ print $NF }'
+        fi
     } | sort -u
 }
 
