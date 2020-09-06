@@ -1,12 +1,47 @@
 #!/usr/bin/env bash
-# Reinitialize origin with default URL convention.
+# Reinitialize remote with default URL convention.
+
+# Set defaults.
+: "${GITHUB_USERNAME:=$(id -un)}"
+
+is_github() {
+    git remote get-url "$(remote)" | grep -iqw 'github\.com'
+}
+
+remote() {
+    # Print name of remote in remote-tracked branch.
+
+    upstream | cut -d/ -f1
+}
+
+upstream() {
+    # Report upstream ref, e.g. 'origin/master' (without quotes), to stdout.
+
+    git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null
+}
 
 main() {
+    DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    . "$DIR"/wrapper.bash
+
+    if ! is_github; then
+        echo "git reinit-url: not in a github.com project." >&2
+        return 1
+    fi
+
+    remote="$(remote)"
     project_root="$(git rev-parse --show-toplevel)"
-    url=git@github.com:$(id -un)/${project_root##*/}.git
-    echo "Setting remote origin to $(id -un)'s GitHub ..."
-    git remote set-url origin "$url"
-    git remote get-url origin
+    url="git@github.com:${GITHUB_USERNAME}/${project_root##*/}.git"
+
+    echo "Currently:  $(git remote get-url "$remote")"
+    echo "Rewrite to: $url"
+
+    if ! prompt_yn "Rewrite?"; then
+        return 1
+    fi
+
+    git remote set-url "$remote" "$url"
+    git remote get-url "$remote"
 }
 
 main "$@"
