@@ -376,6 +376,24 @@ fi
 # Set prompt PS1 to "user@host dir$ "
 export PS1='\u@\h \W\$ '
 
+function _copy_function() {
+    # Copy function definition to a new name.
+    #
+    # This is useful for injecting functionality into completion functions.
+
+    if [ $# -ne 2 ]; then
+        echo "usage: _copy_function ORIGINAL_NAME NEW_NAME" >&2
+        return 2
+    fi
+
+    if [ -z "$1" ]; then
+        echo "_copy_function: error: no shell function: $1" >&2
+        return 1
+    fi
+
+    eval "$(echo "${2}()"; declare -f "$1" | tail -n+2)"
+}
+
 function _default_completion_loader() {
     # Find the default completion loader, call it.
 
@@ -446,6 +464,24 @@ function _completion_loader() {
         function _git_back_to() {
             _git_checkout
         }
+
+        receive /usr/share/bash-completion/completions/screen
+
+        # Inject completions from `screen --sessions` if available.
+        if silently screen --sessions-available &&
+           command_exists _screen_sessions &&
+           ! command_exists _screen_sessions_orig;
+        then
+            _copy_function _screen_sessions _screen_sessions_orig
+            function _screen_sessions() {
+                _screen_sessions_orig
+
+                local completions word
+                word="${COMP_WORDS[COMP_CWORD]}"
+                completions="$(screen --sessions | sort -u)"
+                COMPREPLY+=( $(compgen -W "$completions" -- "$word") )
+            }
+        fi
 
         export BASH_COMPLETION_LOADED=$(date +%s)
 

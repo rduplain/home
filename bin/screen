@@ -129,6 +129,27 @@ sessionname_start() {
     done
 }
 
+sessions() {
+    # Print all possible sessions to stdout.
+
+    cd "$HOME"/src
+    for path in *; do
+        if [ -d "$path" ]; then
+            if [ -d "$path"/.git ]; then
+                echo "$path"
+            fi
+            if [ -e "$path"/.bashrc ] || [ -e "$path"/.env ]; then
+                for sub in "$path"/*; do
+                    if [ -d "$sub" ] && [ -d "$sub/.git" ]; then
+                        echo "$sub"
+                        echo "$(basename "$sub")"
+                    fi
+                done
+            fi
+        fi
+    done
+}
+
 main() {
     # Start & attach sessions automatically.
 
@@ -142,6 +163,14 @@ main() {
         # No other `screen` found.
         # Expect set-aside function to write a not-found message to stderr.
         return 2
+    fi
+
+    # Hook to indicate that this variant of `screen` can populate sessions.
+    if requested "--sessions-available" "$@"; then
+        return 0
+    elif requested "--sessions" "$@"; then
+        sessions "$@"
+        return 0
     fi
 
     sessionname="$(sessionname "$@")"
