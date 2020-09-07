@@ -7,6 +7,47 @@ use_homegit() {
         [ "$PWD" = "$HOME/bin" ]
 }
 
+humanish() {
+    # Print "humanish" name of repository to stdout, given its URL.
+    #
+    # For example: git@github.com:owner/project.git is "project".
+
+    url="$1"
+    shift
+
+    echo "$url" | sed -e 's,/$,,' -e 's,:*/*\.git$,,' -e 's,.*[/:],,g'
+}
+
+git_on_clone() {
+    # Determine path to newly cloned git repo and run `git on-clone` inside.
+
+    local -a arg path
+    arg=( )
+
+    # Find non-subcommand, non-flag arguments to determine whether path given.
+    for x; do
+        case "$x" in
+            auto-clone|clone|-*)
+                :;;
+            *)
+                arg+=( "$x" )
+                ;;
+        esac
+    done
+
+    if [ "$1" = "auto-clone" ]; then
+        path="$2"
+    else
+        if [ "${#arg[@]}" -eq 2 ]; then
+            path="${arg[1]}"
+        else
+            path="$(humanish "${arg[0]}")"
+        fi
+    fi
+
+    cd "$path"; git on-clone
+}
+
 main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     . "$DIR"/wrapper.bash
@@ -28,6 +69,11 @@ main() {
 
     if use_homegit && ! requested clone "$@"; then
         arg=( --git-dir="$HOME"/.homegit --work-tree="$HOME" )
+    elif requested clone "$@" || requested auto-clone "$@"; then
+        if "$git" "$@"; then
+            git_on_clone "$@"
+        fi
+        return $?
     elif requested_only "sync"; then
         git-sync
     else

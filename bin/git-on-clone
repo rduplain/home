@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# git on-clone: Run dynamic on-clone hooks, presumed to be run in clone root.
+
+shopt -s nullglob
+
+on_clone_hooks() {
+    # Report all commands on $PATH beginning with `git-on-clone-`.
+
+    local command path
+
+    { for path in ${PATH//:/$'\n'}; do
+          for command in "${path}/git-on-clone-"*; do
+              if [ ! -x "$command" ]; then
+                  continue
+              fi
+              echo "$(basename "$command")"
+          done
+      done
+    } | sort -u
+}
+
+main() {
+    if [ ! -d "${GIT_DIR:-.git}" ]; then
+        echo "git on-clone: error: not at root of a git repository" >&2
+        return 1
+    fi
+
+    local cwd hook
+    cwd="$PWD"
+
+    for hook in $(on_clone_hooks); do
+        if [ "$hook" = "git-on-clone" ]; then
+            continue
+        fi
+
+        echo "Running $hook ..." >&2
+        "$hook"
+        cd "$cwd"
+    done
+}
+
+main "$@"
