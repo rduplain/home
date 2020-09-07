@@ -175,6 +175,9 @@ recipe() {
 install() {
     # Install individual recipe(s) with both system- and user-level `box`.
 
+    # Set BOX_INSTALL to list of recipes when `box install RECIPE...` in use.
+    export BOX_INSTALL="$@"
+
     for recipe in "$@"; do
         if [ -x "$BOX_SYSTEM_BOX" ]; then
             if sudo "$BOX_SYSTEM_BOX" recipe "$recipe" > /dev/null; then
