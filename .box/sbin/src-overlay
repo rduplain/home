@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Sync ~/src/ files with ~/src/.overlay/, assumed to be network mount/symlink.
+
+# Set defaults.
+: "${HOME_SRC:=$HOME/src}"
+: "${HOME_SRC_OVERLAY:=$HOME/src/.overlay}"
+
+check() {
+    return 1
+}
+
+install() {
+    local path
+
+    # Assume host 'espresso' is primary development machine.
+    if [ "$(uname -n)" = "espresso" ]; then
+        rsync -av --prune-empty-dirs \
+              --include-from="$REQD_ETC"/src-overlay.rsync \
+              "$HOME_SRC"/ "$HOME_SRC_OVERLAY"
+    fi
+}
+
+reqd_main "$@"
