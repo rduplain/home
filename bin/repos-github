@@ -49,6 +49,11 @@ pipeline:
     sort -u -k 2,2 |
     column -t
 
+note:
+
+  Formatting aims for maximum flexibility.
+  Only run with trusted command-line input.
+
 reference:
 
   https://docs.github.com/en/rest/reference/repos#get-a-repository
