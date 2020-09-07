@@ -236,7 +236,7 @@ prepend_paths \
 
 for envtool in $ENVTOOLS; do
     prepend_paths "$HOME/.${envtool}"
-    when_command $envtool prepend PATH "$HOME/.$envtool/shims"
+    prepend PATH "$HOME/.$envtool/shims"
 done
 
 command_exists opam && file_exists "$HOME"/.opam && eval "$(opam env)" # ocaml
