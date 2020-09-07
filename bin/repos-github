@@ -5,7 +5,7 @@
 
 import sys
 if sys.version_info < (3, 6):
-    sys.stderr.write('repos-github: error: run with Python 3.6+.\n')
+    sys.stderr.write('repos-github: error: Python 3.6+ required\n')
     sys.exit(128)
 
 
