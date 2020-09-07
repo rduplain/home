@@ -53,7 +53,7 @@ lookup_project() {
     local auto_clone_file auto_clone_line
 
     auto_clone_file="$(find_git_auto_clone_file)"
-    auto_clone_line="$(grep -wh "$project_name" "$auto_clone_file" | tail -1)"
+    auto_clone_line="$(grep -wh "$project_name\s" "$auto_clone_file" | tail -1)"
 
     if [ -z "$auto_clone_line" ]; then
         return 1
