@@ -115,7 +115,6 @@ main() {
     dir="$(echo "$dir_url" | awk '{ print $1 }')"
     url="$(echo "$dir_url" | awk '{ print $2 }')"
 
-    mkdir -p "$(dirname "$dir")"
     git clone "$url" "$dir"
 }
 
