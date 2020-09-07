@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# On-clone hook to install `commit-msg` hook in new repo.
+
+commit_msg() {
+    cat <<EOF
+#!/usr/bin/env bash
+
+count_plus_newline=\$(head -1 \$1 | wc -m | awk '{ print \$1 }')
+let count=\$count_plus_newline-1
+echo "Top line character count: \$count"
+EOF
+}
+
+main() {
+    commit_msg > .git/hooks/commit-msg
+    chmod 755 .git/hooks/commit-msg
+}
+
+main "$@"
