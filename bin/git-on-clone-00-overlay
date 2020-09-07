@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# On-clone hook to set overlay files.
+
+# Set defaults.
+: "${HOME_SRC:=$HOME/src}"
+: "${HOME_SRC_OVERLAY:=$HOME/src/.overlay}"
+
+startswith() {
+    # Check whether first argument exists at the start of remaining arguments.
+
+    local substr
+    substr="$1"
+    shift
+
+    case "$*" in "$substr"*) return 0;; esac; return 1
+}
+
+
+main() {
+    local path
+    path="$(echo "$PWD" | sed "s,$HOME_SRC/,,")"
+
+    if [ ! -d "$HOME_SRC_OVERLAY" ]; then
+        return
+    fi
+
+    if [ -z "$path" ] || startswith "/" "$path"; then
+        return
+    fi
+
+    while [ -n "$path" ] && [ "$path" != "." ]; do
+        if [ -e "$HOME_SRC_OVERLAY"/"$path" ]; then
+            cd "$HOME_SRC_OVERLAY"
+            find "$path" -maxdepth 1 -type f -print0 |
+                xargs -0 -I % cp -uv % "$HOME_SRC"/"$path"/
+        fi
+
+        path="$(dirname "$path")"
+    done
+}
+
+main "$@"
