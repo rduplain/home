@@ -231,6 +231,9 @@ main() {
 
     # Screen is not running. If request to attach, start screen automatically.
     if [ -n "$(sessionname_attach "$@")" ]; then
+        echo "Starting new screen ..."
+        project_directory "$sessionname" # Call in main shell for auto-clone.
+
         project="$(project_directory "$sessionname")"
         if [ ! -d "$project" ]; then
             echo "There is no screen to be resumed matching $sessionname." >&2
