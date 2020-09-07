@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# On-clone hook to run Python tools for pre-commit.
+
+given() {
+    # Check that the given commands exist.
+
+    for command in "$@"; do
+        if ! which "$command" > /dev/null 2>&1; then
+            return 3
+        fi
+    done
+}
+
+main() {
+    if given poetry && [ -e pyproject.toml ]; then
+        poetry install
+
+        if [ -e .pre-commit-config.yaml ]; then
+            poetry run pre-commit install --install-hooks
+        fi
+    elif given pre-commit && [ -e .pre-commit-config.yaml ]; then
+        pre-commit install --install-hooks
+    fi
+}
+
+main "$@"
