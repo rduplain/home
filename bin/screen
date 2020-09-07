@@ -44,6 +44,38 @@ project_directory() {
     sessionname="$1"
     shift
 
+    if [ -d "$HOME"/src ]; then
+        pushd "$HOME"/src >/dev/null 2>&1
+
+        if [ -n "$SESSION_PARENT_DIR" ]; then
+            lookup="$(basename "$SESSION_PARENT_DIR")"/"$sessionname"
+        else
+            lookup="$sessionname"
+        fi
+
+        auto_clone_name="$(git auto-clone --lookup "$lookup" 2>/dev/null |
+                             awk '{ print $1 }')"
+
+        popd >/dev/null 2>&1
+    fi
+
+    if [ -n "$SESSION_PARENT_DIR" ] &&
+           [ -d "$HOME/src/$SESSION_PARENT_DIR/$sessionname" ];
+    then
+        echo "$HOME/src/$SESSION_PARENT_DIR/$sessionname"
+        return
+    fi
+
+    if [ -n "$auto_clone_name" ]; then
+        pushd "$HOME"/src >/dev/null 2>&1
+        if [ ! -d "$HOME"/src/"$auto_clone_name" ]; then
+            git auto-clone "$auto_clone_name"
+        fi
+        echo "$PWD"/"$auto_clone_name"
+        popd >/dev/null 2>&1
+        return
+    fi
+
     if [ -d "$HOME/src/$sessionname" ]; then
         sub="$HOME/src/$sessionname/$sessionname"
         if [ -d "$sub" ] && [ -d "$sub/.git" ]; then
@@ -64,25 +96,12 @@ project_directory() {
         fi
     done
 
-    if [ -d "$HOME"/src ]; then
+    if [ -n "$auto_clone_name" ] && [ ! -d "$auto_clone_name" ]; then
         pushd "$HOME"/src >/dev/null 2>&1
-
-        if [ -n "$SESSION_PARENT_DIR" ]; then
-            lookup="$(basename "$SESSION_PARENT_DIR")"/"$sessionname"
-        else
-            lookup="$sessionname"
-        fi
-
-        auto_clone_name="$(git auto-clone --lookup "$lookup" 2>/dev/null |
-                             awk '{ print $1 }')"
-
-        if [ -n "$auto_clone_name" ] && [ ! -d "$auto_clone_name" ]; then
-            git auto-clone "$auto_clone_name"
-            echo "$PWD"/"$auto_clone_name"
-            return
-        fi
-
+        git auto-clone "$auto_clone_name"
+        echo "$PWD"/"$auto_clone_name"
         popd >/dev/null 2>&1
+        return
     fi
 
     echo "$HOME/src/$sessionname"
