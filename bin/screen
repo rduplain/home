@@ -27,10 +27,19 @@ SCREENRC_DEFAULT="${SCREENRC_DEFAULT:-$HOME/$SCREENRC}"
 # other grouped/nested project directory.
 SESSION_PARENT_DIR=
 
+contains() {
+    # Check whether first argument exists in remaining arguments.
+
+    match="$1"
+    shift
+
+    case "$*" in *"$match"*) return 0;; esac; return 1
+}
+
 project_directory() {
     # Print session directory to stdout, assuming the session names a project.
 
-    local dir sessionname sub
+    local auto_clone_name dir lookup sessionname sub
 
     sessionname="$1"
     shift
@@ -58,12 +67,18 @@ project_directory() {
     if [ -d "$HOME"/src ]; then
         pushd "$HOME"/src >/dev/null 2>&1
 
-        dir="$(git auto-clone --lookup "$sessionname" 2>/dev/null |
-                 awk '{ print $1 }')"
+        if [ -n "$SESSION_PARENT_DIR" ]; then
+            lookup="$(basename "$SESSION_PARENT_DIR")"/"$sessionname"
+        else
+            lookup="$sessionname"
+        fi
 
-        if [ -n "$dir" ] && [ ! -d "$dir" ]; then
-            git auto-clone "$dir"
-            echo "$PWD"/"$dir"
+        auto_clone_name="$(git auto-clone --lookup "$lookup" 2>/dev/null |
+                             awk '{ print $1 }')"
+
+        if [ -n "$auto_clone_name" ] && [ ! -d "$auto_clone_name" ]; then
+            git auto-clone "$auto_clone_name"
+            echo "$PWD"/"$auto_clone_name"
             return
         fi
 
@@ -85,7 +100,7 @@ screen_running() {
     "$SCREEN" -ls | grep -q "\.$1\s";
 }
 
-_sessionname() {
+sessionname() {
     # Private inner function for `sessionname`.
 
     if [ -n "$(sessionname_attach "$@")" ]; then
@@ -94,21 +109,6 @@ _sessionname() {
         sessionname_start "$@"
     elif [ $# -eq 0 ]; then
         sessionname_default
-    fi
-}
-
-sessionname() {
-    # Print session name for screen to stdout, based on arguments.
-    #
-    # Print nothing, if default does not apply and no session name is found.
-
-    sessionname="$(_sessionname "$@")"
-    if [ "$(dirname "$sessionname")" != "$sessionname" ]; then
-        # Sideload disambiguating parent directory if provided.
-        SESSION_PARENT_DIR="$(dirname "$sessionname")"
-        basename "$sessionname"
-    else
-        printf %s "$sessionname"
     fi
 }
 
@@ -199,6 +199,11 @@ main() {
     fi
 
     sessionname="$(sessionname "$@")"
+    if contains "/" "$sessionname"; then
+        # Sideload disambiguating parent directory if provided.
+        SESSION_PARENT_DIR="$(dirname "$sessionname")"
+        sessionname="$(basename "$sessionname")"
+    fi
 
     # Re-attach to screen if already running.
     if screen_running "$sessionname"; then
