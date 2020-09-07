@@ -34,7 +34,7 @@ main() {
         fi
 
         echo "Running $hook ..." >&2
-        "$hook"
+        "${SHELL:-bash}" -l -c "$hook" # Run in shell to pick up rc file(s).
         cd "$cwd"
     done
 }
