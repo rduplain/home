@@ -32,10 +32,10 @@ git_quick_push_name() {
     # Print name of new branch using top-line summary of most recent commit.
 
     echo -n "${GIT_QUICK_PREFIX}"
-    git log --pretty=format:%s -n 1 |\
-        head -1 |\
-        tr '[:upper:]' '[:lower:]' |\
-        sed -e 's/[ _]/-/g' |\
+    git log --pretty=format:%s -n 1  |
+        head -1                      |
+        tr '[:upper:]' '[:lower:]'   |
+        sed -e 's/[ _]/-/g'          |
         sed -e 's/[^A-Za-z0-9_-]//g'
     echo
 }
