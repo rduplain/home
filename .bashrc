@@ -550,6 +550,7 @@ screen*)
 esac
 export PROMPT_COMMAND
 
+export DEBIAN_FRONTEND=noninteractive
 export FCEDIT=$EDITOR
 export FIGNORE='~'
 unset MAILCHECK MAILPATH
