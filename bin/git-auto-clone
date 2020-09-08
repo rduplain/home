@@ -50,19 +50,23 @@ lookup_project() {
         return 1
     fi
 
-    local auto_clone_file auto_clone_line
+    local auto_clone_file line
 
     auto_clone_file="$(find_git_auto_clone_file)"
-    auto_clone_line="$(grep -h "[:/]${project_name}\.git" "$auto_clone_file" |
-                         tail -1)"
 
-    if [ -z "$auto_clone_line" ]; then
+    line="$(grep -h "[:/]${project_name}\.git" "$auto_clone_file" | tail -1)"
+
+    if [ -z "$line" ]; then
+        line="$(grep -h "^${project_name} " "$auto_clone_file" | tail -1)"
+    fi
+
+    if [ -z "$line" ]; then
         return 1
     fi
 
     local dir url
-    dir="$(echo "$auto_clone_line" | awk '{ print $1 }')"
-    url="$(echo "$auto_clone_line" | awk '{ print $2 }')"
+    dir="$(echo "$line" | awk '{ print $1 }')"
+    url="$(echo "$line" | awk '{ print $2 }')"
 
     echo "$dir $url"
 }
