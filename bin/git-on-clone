@@ -21,8 +21,8 @@ on_clone_hooks() {
 
 main() {
     if [ ! -d "${GIT_DIR:-.git}" ]; then
-        echo "git on-clone: error: not at root of a git repository" >&2
-        return 1
+        echo "git on-clone: skipping: not at root of a git repository" >&2
+        return
     fi
 
     local cwd hook
