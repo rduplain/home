@@ -12,6 +12,7 @@ EOF
 }
 
 main() {
+    echo "-> '.git/hooks/commit-msg'"
     commit_msg > .git/hooks/commit-msg
     chmod 755 .git/hooks/commit-msg
 }
