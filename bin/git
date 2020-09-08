@@ -45,7 +45,10 @@ git_on_clone() {
         fi
     fi
 
-    cd "$path"; git on-clone
+    # Some clone CLI invocations are informational.
+    if [ -n "$path" ] && [ -d "$path" ]; then
+        cd "$path"; git on-clone
+    fi
 }
 
 main() {
