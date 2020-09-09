@@ -119,9 +119,12 @@ pull_request_body() {
     # (GitHub Flavored Markdown treats newlines literally in paragraphs.)
 
     if which pandoc >/dev/null 2>&1; then
+        # Reflow content with pandoc, unescaping overly conservative escapes.
         git show -s --format=%B HEAD                              |
             tail -n+2                                             |
-            pandoc --wrap=none -f markdown - -t markdown -o -
+            pandoc --wrap=none -f markdown - -t markdown -o -     |
+            sed -E -e 's,(\S+)\\#(\S+),\1#\2,g'                   \
+                   -e 's,(\S+)\\_(\S+),\1_\2,g'
     else
         git show -s --format=%B HEAD | tail -n+2
     fi
