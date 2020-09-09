@@ -119,8 +119,8 @@ pull_request_body() {
     # (GitHub Flavored Markdown treats newlines literally in paragraphs.)
 
     if which pandoc >/dev/null 2>&1; then
-        git show -s --format=%B HEAD | \
-            tail -n+2 | \
+        git show -s --format=%B HEAD                              |
+            tail -n+2                                             |
             pandoc --wrap=none -f markdown - -t markdown -o -
     else
         git show -s --format=%B HEAD | tail -n+2
