@@ -18,6 +18,13 @@
 ;;; C-h o RET    - View doc for symbol at cursor.
 
 
+;;;; Skip .emacs when insufficient Emacs version.
+(when (version< emacs-version "26.1")
+  (message (concat "Skipping .emacs on Emacs" " " emacs-version))
+  (with-current-buffer " *load*"
+    (goto-char (point-max))))
+
+
 ;;;; User Emacs Directory
 (defun .emacs.d (file)
   "Expand to ~/.emacs.d/FILE."
