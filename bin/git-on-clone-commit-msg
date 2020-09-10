@@ -12,9 +12,11 @@ EOF
 }
 
 main() {
-    echo "-> '.git/hooks/commit-msg'"
-    commit_msg > .git/hooks/commit-msg
-    chmod 755 .git/hooks/commit-msg
+    local commit_msg
+    commit_msg="${GIT_DIR:-.git}"/hooks/commit-msg
+    echo "-> '$commit_msg'"
+    commit_msg > "$commit_msg"
+    chmod 755 "$commit_msg"
 }
 
 main "$@"
