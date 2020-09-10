@@ -16,7 +16,7 @@ function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
 
     for envtool in $ENVTOOLS; do
-        silently $envtool rehash
+        command_exists $envtool && $envtool rehash
     done
 
     . "$HOME"/.bashrc
@@ -236,7 +236,7 @@ prepend_paths \
 
 for envtool in $ENVTOOLS; do
     prepend_paths "$HOME/.${envtool}"
-    prepend PATH "$HOME/.$envtool/shims"
+    when_command $envtool prepend PATH "$HOME/.$envtool/shims"
 done
 
 command_exists opam && file_exists "$HOME"/.opam && eval "$(opam env)" # ocaml
@@ -438,7 +438,7 @@ function _completion_loader() {
         _default_completion_loader "$@"
 
         for envtool in $ENVTOOLS; do
-            when_command $envtool eval "$($envtool init -)"
+            command_exists $envtool && eval "$($envtool init -)"
         done
 
         receive "$HOME"/.nvm/bash_completion
