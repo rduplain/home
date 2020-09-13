@@ -498,13 +498,13 @@ function ___completion_loader() {
 
 complete -D -F ___completion_loader -o bashdefault -o default >/dev/null 2>&1
 
-# Force reload of _completion_loader.
+# Force reload of ___completion_loader.
 unset BASH_COMPLETION_LOADED
 
 # Configure shell if running inside Jupyter notebook.
 if [ -n "$JPY_PARENT_PID" ]; then
     unset HISTFILE
-    _completion_loader
+    ___completion_loader
 fi
 
 # Enable color support of ls.
