@@ -6,7 +6,10 @@
 : "${HOME_SRC_OVERLAY:=$HOME/src/.overlay}"
 
 check() {
-    return 1
+    if [ -e "$HOME_SRC_OVERLAY" ]; then
+        # Resolves to a path (i.e. symlink/mountpoint exists).
+        return 1
+    fi
 }
 
 install() {
