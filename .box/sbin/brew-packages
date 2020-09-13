@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Install packages with Homebrew if `brew` is installed.
+
+check() {
+    if which brew >/dev/null 2>&1; then
+        reqd_run_once
+    fi
+}
+
+install() {
+    brew update || true
+    brew install \
+        bash-completion \
+        emacs \
+        git \
+        ispell \
+        screen \
+        tig
+}
+
+reqd_main "$@"

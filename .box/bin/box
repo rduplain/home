@@ -112,6 +112,8 @@ standard() {
 }
 
 development() {
+    "$reqd" install brew-packages
+
     "$reqd" install emacs.d
 
     "$reqd" install \
