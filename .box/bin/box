@@ -104,7 +104,8 @@ appliance() {
 
 standard() {
     "$reqd" install \
-            fc-cache
+            fc-cache \
+            tig
 
     if [ -n "$XAUTHORITY" ]; then
         # X detected.
