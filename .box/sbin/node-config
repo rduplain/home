@@ -21,6 +21,10 @@ install() {
     npm install -g npm yarn
     npm install -g bs-platform # Reason / ReasonML (OCaml)
 
+    which npm
+    which yarn
+    which bsc
+
     reqd_echo "npm v$(npm --version)"
     reqd_echo "yarn v$(yarn --version)"
     reqd_echo "$(bsc -version)"
