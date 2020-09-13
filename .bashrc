@@ -520,6 +520,11 @@ if [ -n "$JPY_PARENT_PID" ]; then
     ___completion_boot
 fi
 
+if command_exists steam; then
+    # Override pyenv in order for Steam to pick up python3-apt for auto-config.
+    alias steam="PATH=/usr/local/bin:/usr/bin:/bin $(which steam)"
+fi
+
 # Enable color support of ls.
 if [ "$TERM" != "dumb" ]; then
     if command_exists dircolors; then
