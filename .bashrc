@@ -410,7 +410,7 @@ function _default_completion_loader() {
 
     local fn=$line
 
-    if [ -n "$fn" ]; then
+    if [ -n "$fn" ] && [ "$fn" != "___completion_loader" ]; then
         $fn "$@"
     fi
 }
@@ -418,7 +418,7 @@ function _default_completion_loader() {
 # Prevent completion _xspecs[.] lookup being a syntax error.
 declare -A _xspecs >/dev/null 2>&1 || true
 
-function _completion_loader() {
+function ___completion_loader() {
     # Default bash completion handler to load specifications lazily.
 
     if [ -z "$BASH_COMPLETION_LOADED" ]; then
@@ -496,7 +496,7 @@ function _completion_loader() {
     fi
 }
 
-complete -D -F _completion_loader -o bashdefault -o default >/dev/null 2>&1
+complete -D -F ___completion_loader -o bashdefault -o default >/dev/null 2>&1
 
 # Force reload of _completion_loader.
 unset BASH_COMPLETION_LOADED
