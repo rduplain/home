@@ -99,13 +99,13 @@ main() {
 # Dispatch functions for BOX levels 'appliance' through 'full'.
 
 appliance() {
-    :
+    "$reqd" install \
+            tig
 }
 
 standard() {
     "$reqd" install \
-            fc-cache \
-            tig
+            fc-cache
 
     if [ -n "$XAUTHORITY" ]; then
         # X detected.
