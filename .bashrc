@@ -410,7 +410,7 @@ function _default_completion_loader() {
 
     local fn=$line
 
-    if [ -n "$fn" ] && [ "$fn" != "___completion_loader" ]; then
+    if [ -n "$fn" ] && [ "$fn" != "___completion_boot" ]; then
         $fn "$@"
     fi
 }
@@ -418,7 +418,7 @@ function _default_completion_loader() {
 # Prevent completion _xspecs[.] lookup being a syntax error.
 declare -A _xspecs >/dev/null 2>&1 || true
 
-function ___completion_loader() {
+function ___completion_boot() {
     # Default bash completion handler to load specifications lazily.
 
     if [ -z "$BASH_COMPLETION_LOADED" ]; then
@@ -496,15 +496,15 @@ function ___completion_loader() {
     fi
 }
 
-complete -D -F ___completion_loader -o bashdefault -o default >/dev/null 2>&1
+complete -D -F ___completion_boot -o bashdefault -o default >/dev/null 2>&1
 
-# Force reload of ___completion_loader.
+# Force reload of ___completion_boot.
 unset BASH_COMPLETION_LOADED
 
 # Configure shell if running inside Jupyter notebook.
 if [ -n "$JPY_PARENT_PID" ]; then
     unset HISTFILE
-    ___completion_loader
+    ___completion_boot
 fi
 
 # Enable color support of ls.
