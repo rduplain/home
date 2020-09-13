@@ -189,7 +189,7 @@ function prepend_paths() {
 
         path+=("$dir"/bin)
 
-        if [ -e "$dir"/bin/reqd ]; then
+        if [ -e "$dir"/bin/reqd ] || [ -e "$dir"/sbin/reqd-rev ]; then
             # Skip reqd repositories, especially as sbin is unique to setup.
             continue
         fi
