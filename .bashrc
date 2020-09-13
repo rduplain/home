@@ -423,6 +423,7 @@ function ___completion_boot() {
 
     if [ -z "$BASH_COMPLETION_LOADED" ]; then
         receive /etc/bash_completion
+        receive /usr/local/share/bash-completion/bash_completion
 
         # The default completion loader may have a new definition.
         # Call it again to ensure completion is fully initialized.
@@ -496,7 +497,14 @@ function ___completion_boot() {
     fi
 }
 
-complete -D -F ___completion_boot -o bashdefault -o default >/dev/null 2>&1
+if command_exists brew && [ "$BASH_VERSINFO" -eq 3 ]; then
+    # Source completion scripts with brew-installed completions on macOS bash.
+    receive $(brew --prefix)/etc/bash_completion
+    receive $(brew --prefix)/Homebrew/completions/bash/brew
+else
+    # Install default bootstrap function for default completion loader.
+    complete -D -F ___completion_boot -o bashdefault -o default >/dev/null 2>&1
+fi
 
 # Force reload of ___completion_boot.
 unset BASH_COMPLETION_LOADED
