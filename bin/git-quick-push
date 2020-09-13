@@ -35,7 +35,7 @@ git_quick_push_name() {
     git log --pretty=format:%s -n 1  |
         head -1                      |
         tr '[:upper:]' '[:lower:]'   |
-        sed -e 's/[ _]/-/g'          |
+        sed -e 's/[ _\/]/-/g'        |
         sed -e 's/[^A-Za-z0-9_-]//g'
     echo
 }
