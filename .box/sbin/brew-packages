@@ -14,8 +14,7 @@ install() {
         emacs \
         git \
         ispell \
-        screen \
-        tig
+        screen
 }
 
 reqd_main "$@"

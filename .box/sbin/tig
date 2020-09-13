@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Install `tig` text-mode ncurses interface to git.
+
+TIG_PREFIX="$REQD_OPT"/tig
+TIG="$TIG_PREFIX"/bin/tig
+
+TIG_URL=https://github.com/jonas/tig/releases
+
+TIG_SHA256=500d5d34524f6b856edd5cae01f1404d14f3b51a9a53fd7357f4cebb3d4c9e64
+TIG_V=2.5.1
+
+check() {
+    reqd_ls "$TIG"
+    reqd_run_once
+}
+
+resources() {
+    local url=$TIG_URL/download/tig-$TIG_V/tig-$TIG_V.tar.gz
+    echo $url tig-$TIG_V.tar.gz sha256 $TIG_SHA256
+}
+
+install() {
+    tar -xzf tig-$TIG_V.tar.gz
+    cd tig-$TIG_V
+
+    ./configure --prefix="$TIG_PREFIX"
+    make
+    make install
+
+    "$TIG" --version
+}
+
+reqd_main "$@"

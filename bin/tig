@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Wrap `tig` to use .homegit.
+# Wrap `tig` to use .homegit and fallback on `git tiglike`.
+#
+# While `tig` transparently picks up ~/bin/git and .homegit, this wrapper
+# primarily ensures fallback to `git tiglike` when `tig` not installed.
 
 main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
