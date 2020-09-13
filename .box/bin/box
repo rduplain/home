@@ -84,6 +84,8 @@ main() {
 
     [[ -x "$bin"/rc.local ]] && "$bin"/rc.local
 
+    if [ -n "$BOX_EXTRA" ]; then eval "$reqd" install "$BOX_EXTRA"; fi
+
     appliance
     if [ "$BOX"  = "appliance" ]; then return; fi
     standard
