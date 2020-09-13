@@ -418,6 +418,60 @@ function _default_completion_loader() {
 # Prevent completion _xspecs[.] lookup being a syntax error.
 declare -A _xspecs >/dev/null 2>&1 || true
 
+function ___completion_custom() {
+    for envtool in $ENVTOOLS; do
+        command_exists $envtool && eval "$($envtool init -)"
+    done
+
+    receive "$HOME"/.nvm/bash_completion
+
+    for file in "$HOME"/.box/opt/conda/etc/bash_completion.d/*; do
+        receive "$file"
+    done
+
+    receive /usr/share/bash-completion/completions/git
+
+    function _homegit() {
+        # Use git completion for `homegit` with .homegit GIT_DIR.
+        GIT_DIR="$HOME"/.homegit _git "$@"
+    }
+    function _hometig() {
+        # Use tig completion for `hometig` with .homegit GIT_DIR.
+        GIT_DIR="$HOME"/.homegit _tig "$@"
+    }
+    export -f _homegit _hometig
+    complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
+    complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
+
+    function _git_auto_clone() {
+        COMPREPLY=(
+            $(compgen -W "$(git-auto-clone --available 2>/dev/null)" \
+                      -- "${COMP_WORDS[COMP_CWORD]}")
+        )
+    }
+
+    function _git_back_to() {
+        _git_checkout
+    }
+
+    receive /usr/share/bash-completion/completions/screen
+
+    # Inject completions from `screen --sessions` if available.
+    if silently screen --sessions-available &&
+       command_exists _screen_sessions &&
+       ! command_exists _screen_sessions_orig;
+    then
+        _copy_function _screen_sessions _screen_sessions_orig
+        function _screen_sessions() {
+            _screen_sessions_orig
+
+            local word
+            word="${COMP_WORDS[COMP_CWORD]}"
+            COMPREPLY+=( $(compgen -W "$(screen --sessions)" -- "$word") )
+        }
+    fi
+}
+
 function ___completion_boot() {
     # Default bash completion handler to load specifications lazily.
 
@@ -438,57 +492,7 @@ function ___completion_boot() {
         # everything is ready when bash restarts the completion process.
         _default_completion_loader "$@"
 
-        for envtool in $ENVTOOLS; do
-            command_exists $envtool && eval "$($envtool init -)"
-        done
-
-        receive "$HOME"/.nvm/bash_completion
-
-        for file in "$HOME"/.box/opt/conda/etc/bash_completion.d/*; do
-            receive "$file"
-        done
-
-        receive /usr/share/bash-completion/completions/git
-
-        function _homegit() {
-            # Use git completion for `homegit` with .homegit GIT_DIR.
-            GIT_DIR="$HOME"/.homegit _git "$@"
-        }
-        function _hometig() {
-            # Use tig completion for `hometig` with .homegit GIT_DIR.
-            GIT_DIR="$HOME"/.homegit _tig "$@"
-        }
-        export -f _homegit _hometig
-        complete -o default -o nospace -F _homegit homegit >/dev/null 2>&1
-        complete -o default -o nospace -F _hometig hometig >/dev/null 2>&1
-
-        function _git_auto_clone() {
-            COMPREPLY=(
-                $(compgen -W "$(git-auto-clone --available 2>/dev/null)" \
-                          -- "${COMP_WORDS[COMP_CWORD]}")
-            )
-        }
-
-        function _git_back_to() {
-            _git_checkout
-        }
-
-        receive /usr/share/bash-completion/completions/screen
-
-        # Inject completions from `screen --sessions` if available.
-        if silently screen --sessions-available &&
-           command_exists _screen_sessions &&
-           ! command_exists _screen_sessions_orig;
-        then
-            _copy_function _screen_sessions _screen_sessions_orig
-            function _screen_sessions() {
-                _screen_sessions_orig
-
-                local word
-                word="${COMP_WORDS[COMP_CWORD]}"
-                COMPREPLY+=( $(compgen -W "$(screen --sessions)" -- "$word") )
-            }
-        fi
+        ___completion_custom
 
         export BASH_COMPLETION_LOADED=$(date +%s)
 
