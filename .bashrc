@@ -443,7 +443,7 @@ function ___completion_loader() {
 
         receive "$HOME"/.nvm/bash_completion
 
-        for file in .box/opt/conda/etc/bash_completion.d/*; do
+        for file in "$HOME"/.box/opt/conda/etc/bash_completion.d/*; do
             receive "$file"
         done
 
