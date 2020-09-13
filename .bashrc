@@ -505,6 +505,7 @@ if command_exists brew && [ "$BASH_VERSINFO" -eq 3 ]; then
     # Source completion scripts with brew-installed completions on macOS bash.
     receive $(brew --prefix)/etc/bash_completion
     receive $(brew --prefix)/Homebrew/completions/bash/brew
+    ___completion_custom
 else
     # Install default bootstrap function for default completion loader.
     complete -D -F ___completion_boot -o bashdefault -o default >/dev/null 2>&1
