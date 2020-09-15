@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # backup target files, placing them in a date-based directory.
-# usage: archive file1 [file2 [file3] ...]
+# usage: bak file1 [file2 [file3] ...]
 #
 # result: rsync $RSYNC_FLAGS file1 file2 file3 $BAK_HOME/year/month/day/
 # bak accepts all rsync command-line flags beyond given $BAK_RSYNC_FLAGS
