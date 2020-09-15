@@ -33,8 +33,6 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-set -e
-
 # Strip trailing slashes from args, to rsync entire directory, not its files.
 # From rsync manpage:
 #     each of the following commands copies the files in the same way
@@ -60,7 +58,9 @@ mkdir -p "$dest_dir"
 unset PS4
 set -x
 rsync $BAK_RSYNC_FLAGS "$@" "$dest_dir"
+result=$?
 sync
 
 # In case no files in $@, attempt to remove directory, only succeeds if empty.
 rmdir "$dest_dir" >/dev/null 2>&1 || true
+exit $result
