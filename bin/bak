@@ -56,7 +56,7 @@ unset OLDIFS index arg args
 # Run rsync, echoing the rsync command.
 mkdir -p "$dest_dir"
 unset PS4
-set -x
+echo rsync $BAK_RSYNC_FLAGS "$@" "$dest_dir"
 rsync $BAK_RSYNC_FLAGS "$@" "$dest_dir"
 result=$?
 sync
