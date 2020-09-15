@@ -34,3 +34,6 @@ fi
 
 mkdir -p "$dest_dir"
 mv -v "$@" "$dest_dir"
+
+# In case no files in $@, attempt to remove directory, only succeeds if empty.
+rmdir "$dest_dir" >/dev/null 2>&1
