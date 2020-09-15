@@ -61,3 +61,6 @@ unset PS4
 set -x
 rsync $BAK_RSYNC_FLAGS "$@" "$dest_dir"
 sync
+
+# In case no files in $@, attempt to remove directory, only succeeds if empty.
+rmdir "$dest_dir" >/dev/null 2>&1 || true
