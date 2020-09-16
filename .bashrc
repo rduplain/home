@@ -574,6 +574,9 @@ export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
 
+receive "$HOME"/.bashrc-local
+receive "$HOME"/.env
+
 # Source all .bashrc found in directory ancestry, in order.
 # (Keep this at the end of .bashrc to allow overrides.)
-walk_root_to_curdir omit_home source_these .bashrc .env #dir
+walk_root_to_curdir omit_home source_these .bashrc .bashrc-local .env #dir
