@@ -13,6 +13,7 @@ install() {
         bash-completion \
         emacs \
         git \
+        haskell-stack \
         ispell \
         screen
 }
