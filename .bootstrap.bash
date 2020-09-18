@@ -97,6 +97,7 @@ main() {
     fi
 
     GIT_DIR="$HOMEGIT_DIR" git config --add status.showUntrackedFiles no
+    GIT_DIR="$HOMEGIT_DIR" git on-clone
 
     bootstrap_box_bin
 
