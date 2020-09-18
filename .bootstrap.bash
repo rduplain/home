@@ -12,7 +12,7 @@ set +u
 PROG=.bootstrap.bash
 
 # Configure $HOME repository.
-HOME_URL=${HOME_URL:-git@github.com:rduplain/home.git}
+HOME_URL=${HOME_URL:-https://github.com/rduplain/home.git}
 HOME_REV=${HOME_REV:-master}
 
 HOMEGIT_DIR=${HOMEGIT_DIR:-"$HOME"/.homegit}
