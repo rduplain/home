@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Bootstrap ~/.homegit git repository of $HOME files.
 #
+# See ~/.readme.md for instructions.
+#
 # This program replaces itself with `exec bash` to drop into a configured
 # shell. Regardless of $SHELL, bash is the configured shell via ~/.homegit.
 
