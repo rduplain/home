@@ -99,8 +99,7 @@ main() {
 # Dispatch functions for BOX levels 'appliance' through 'full'.
 
 appliance() {
-    "$reqd" install \
-            tig
+    :;
 }
 
 standard() {
@@ -118,6 +117,8 @@ development() {
     "$reqd" install brew-packages
 
     "$reqd" install emacs.d
+
+    "$reqd" install tig
 
     "$reqd" install \
             clojure \
