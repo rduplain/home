@@ -34,9 +34,11 @@ bootstrap_box_bin() {
     cd "$HOME"
 
     eval "$QWERTY_SH" -b "$QWERTY_SH_REV" --chmod=a+x \
+         --when="'! test -x .box/bin/qwerty.sh'" \
          "$QWERTY_SH_GIT" qwerty.sh:.box/bin/qwerty.sh
 
     eval "$QWERTY_SH" -b "$REQD_REV" --chmod=a+x \
+         --when="'! test -x .box/bin/reqd'" \
          "$REQD_GIT" bin/reqd:.box/bin/reqd
 }
 
@@ -80,19 +82,20 @@ main() {
 
     set_trap
 
-    if [ -e "$HOMEGIT_DIR" ]; then
+    if [ ! -e "$HOMEGIT_DIR" ]; then
+        clone_dir="homegit-bootstrap-$(date +%s)"
+
+        cd "$HOME"
+        git clone $HOME_URL "$clone_dir"
+        mv "$clone_dir"/.git "$HOMEGIT_DIR"
+        rm -fr "$clone_dir"
+
+        GIT_DIR="$HOMEGIT_DIR" git checkout $HOME_REV >/dev/null
+        GIT_DIR="$HOMEGIT_DIR" git checkout .
+    else
         echo "$PROG: $HOMEGIT_DIR already exists." >&2
-        exec_shell
     fi
 
-    clone_dir="homegit-bootstrap-$(date +%s)"
-
-    cd "$HOME"
-    git clone $HOME_URL "$clone_dir"
-    mv "$clone_dir"/.git "$HOMEGIT_DIR"
-    rm -fr "$clone_dir"
-    GIT_DIR="$HOMEGIT_DIR" git checkout $HOME_REV >/dev/null
-    GIT_DIR="$HOMEGIT_DIR" git checkout .
     GIT_DIR="$HOMEGIT_DIR" git config --add status.showUntrackedFiles no
 
     bootstrap_box_bin
