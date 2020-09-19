@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Convert video to GIF.
+
+# Exit immediately if a command error or non-zero return occurs.
+set -e
+set -o pipefail
+
+PROG=gif
+WORKSPACE=
+
+cleanup() {
+    rm -fr "$WORKSPACE"
+}
+
+convert_gif() {
+    # Convert given video file to GIF using palette from `generate_palette`.
+
+    ffmpeg -i "$1" -i "$WORKSPACE"/palette.png \
+           -filter_complex "fps=30,scale=640:-1:flags=lanczos [x]; [x][1:v] paletteuse" \
+           "$WORKSPACE"/video.gif
+}
+
+generate_palette() {
+    # Generate palette of video file for better color GIFs.
+
+    ffmpeg -i "$1" \
+           -vf fps=30,scale=640:-1:flags=lanczos,palettegen \
+           "$WORKSPACE"/palette.png
+}
+
+main() {
+    local gif video
+
+    if ! which ffmpeg >/dev/null 2>&1; then
+        echo "$PROG: error: ffmpeg not found." >&2
+        return 3
+    fi
+
+    if [ $# -eq 0 ]; then
+        echo "usage: $PROG VIDEO..." >&2
+        return 2
+    fi
+
+    WORKSPACE="$(mktemp -d /tmp/gif-XXXXXXX)"
+
+    trap cleanup INT TERM EXIT
+
+    for video in "$@"; do
+        gif="${video%.*}.gif" # Replace extension.
+
+        if [ -e "$gif" ]; then
+            echo "$PROG: $gif already exists. skipping ..." >&2
+            continue
+        fi
+
+        mkdir -p "$WORKSPACE"
+
+        generate_palette "$video"
+        convert_gif "$video"
+
+        mv "$WORKSPACE"/video.gif "$gif"
+
+        cleanup
+    done
+}
+
+main "$@"
