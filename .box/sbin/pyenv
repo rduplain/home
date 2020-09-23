@@ -39,8 +39,8 @@ install() {
     pip2 install --upgrade pip setuptools wheel
     pip3 install --upgrade pip setuptools wheel
 
-    pip2 install $PACKAGES2
-    pip3 install $PACKAGES3
+    pip2 install ${PYTHON2_PACKAGES:-$PACKAGES2}
+    pip3 install ${PYTHON3_PACKAGES:-$PACKAGES3}
 }
 
 reqd_main "$@"
