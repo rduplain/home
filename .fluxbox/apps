@@ -53,3 +53,7 @@
   [Maximized]   {yes}
   [Position]    (UPPERLEFT)     {0 0}
 [end]
+[app] (name=update-manager) (class=Update-manager)
+  [Workspace]   {5}
+  [Layer]       {10}
+[end]
