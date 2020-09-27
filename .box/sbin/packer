@@ -22,26 +22,26 @@ qwertyrc() {
 # GNU/Linux 64-bit
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$PACKER'" \\
-  --sha256=089fc9885263bb283f20e3e7917f85bb109d9335f24d59c81e6f3a0d4a96a608 \\
+  --sha256=294ae56dccec9da24120b92c22e4c4d0453f1a9d077799611ead2adacceade3e \\
   --output="$PACKER" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv packer \$DOWNLOAD' \\
-  $PACKER_URL/1.6.2/packer_1.6.2_linux_amd64.zip
+  $PACKER_URL/1.6.3/packer_1.6.3_linux_amd64.zip
 
 # GNU/Linux on ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$PACKER'" \\
-  --sha256=d6c243950e354b3787a7b92bcb7bf64b1777d3328b56d247b401bc8f1f41f912 \\
+  --sha256=75fee256327079418ba386a9f47db56c28e4fe5a1f7b7836a369b4c09bd65121 \\
   --output="$PACKER" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv packer \$DOWNLOAD' \\
-  $PACKER_URL/1.6.2/packer_1.6.2_linux_arm.zip
+  $PACKER_URL/1.6.3/packer_1.6.3_linux_arm.zip
 
 # Mac OS X, 64-bit
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$PACKER'" \\
-  --sha256=2b5e8c76ae280c72fe33b2ac6511c24d2e0c02df9d437d2e4a5efbe988f71e2b \\
+  --sha256=dc476dcc49a36ee8fdd6ed8a5fdd48147b17fdf6f3d69db2d616e19b15915b73 \\
   --output="$PACKER" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv packer \$DOWNLOAD' \\
-  $PACKER_URL/1.6.2/packer_1.6.2_darwin_amd64.zip
+  $PACKER_URL/1.6.3/packer_1.6.3_darwin_amd64.zip
 EOF
 }
 
