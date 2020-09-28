@@ -3,8 +3,8 @@
 
 KOTLIN_URL=https://github.com/JetBrains/kotlin
 
-KOTLIN_V=1.3.71
-KOTLIN_SHA256=7adb77dad99c6d2f7bde9f8bafe4c6244a04587a8e36e62b074d00eda9f8e74a
+KOTLIN_V=1.4.10
+KOTLIN_SHA256=bb1a21d70e521a01ae104e99a082a6e7bb58699b86347049da521d175d0dace7
 
 check() {
     reqd_ls "$REQD_OPT"/kotlinc/bin/kotlinc
