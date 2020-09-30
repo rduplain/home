@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Install `kubectl` for Kubernetes.
+
+KUBECTL="$REQD_OPT"/kubernetes/bin/kubectl
+KUBECTL_URL=https://storage.googleapis.com/kubernetes-release/release
+
+check() {
+    reqd_ls "$KUBECTL"
+    reqd_run_once
+}
+
+install() {
+    rm -f "$KUBECTL"
+
+    qwertyrc > kubectl.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc kubectl.qwertyrc
+    "$KUBECTL" help
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux 64-bit
+  --sys=linux --arch=x86_64 \\
+  --sha256=f51adfe7968ee173dbfb3dabfc10dc774983cbf8a3a7c1c75a1423b91fda6821 \\
+  --output="$KUBECTL" --chmod=755 \\
+  $KUBECTL_URL/v1.19.2/bin/linux/amd64/kubectl
+
+# Mac OS X, 64-bit
+  --sys=darwin --arch=x86_64 \\
+  --sha256=bcce859b6dc7c3dde1a1429b77339c3acf15112d9b77e616b9d969f35a607dee \\
+  --output="$KUBECTL" --chmod=755 \\
+  $KUBECTL_URL/v1.19.2/bin/darwin/amd64/kubectl
+EOF
+}
+
+reqd_main "$@"
