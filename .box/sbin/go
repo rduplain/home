@@ -6,6 +6,7 @@ PREFIX="$REQD_OPT"/go
 PACKAGES=""
 PACKAGES="$PACKAGES github.com/mikefarah/yq/v3"
 PACKAGES="$PACKAGES mvdan.cc/sh/v3/cmd/shfmt"
+PACKAGES="$PACKAGES sigs.k8s.io/kind"
 
 check() {
     reqd_ls "$PREFIX"/bin/go
