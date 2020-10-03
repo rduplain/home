@@ -4,6 +4,7 @@
 PREFIX="$REQD_OPT"/go
 
 PACKAGES=""
+PACKAGES="$PACKAGES github.com/mikefarah/yq/v3"
 PACKAGES="$PACKAGES mvdan.cc/sh/v3/cmd/shfmt"
 
 check() {
