@@ -161,22 +161,22 @@ upstream() {
 }
 
 main() {
-    if [ -z "$(upstream)" ]; then
-        echo "error: not tracking a remote branch." >&2
-        return 3
-    fi
-
-    if [ -z "$(unpushed_commits)" ]; then
-        echo "no unpushed commits." >&2
-        return 4
-    fi
-
     local response url
 
     if [ "$1" = "--name" ]; then
         shift
         git_quick_push_name "$@"
     else
+        if [ -z "$(upstream)" ]; then
+            echo "error: not tracking a remote branch." >&2
+            return 3
+        fi
+
+        if [ -z "$(unpushed_commits)" ]; then
+            echo "no unpushed commits." >&2
+            return 4
+        fi
+
         git_quick_push >&2
 
         if is_github && \
