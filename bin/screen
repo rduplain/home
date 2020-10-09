@@ -177,6 +177,9 @@ sessions() {
                 if [ -d "$path"/.git ]; then
                     echo "$path"
                 fi
+                if [ -e "$path"/Vagrantfile ]; then
+                    echo "$path"
+                fi
                 if [ -e "$path"/.bashrc ] || [ -e "$path"/.env ]; then
                     for sub in "$path"/*; do
                         if [ -d "$sub" ] && [ -d "$sub/.git" ]; then
