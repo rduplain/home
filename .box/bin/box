@@ -136,6 +136,7 @@ development() {
     "$reqd" install \
             circleci-cli \
             packer \
+            pulumi \
             terraform tflint \
             vagrant-config
 
