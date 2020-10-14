@@ -1,6 +1,9 @@
 [app] (role=browser)
   [Position]    (UPPERLEFT)     {0 0}
 [end]
+[app] (name=code) (class=Code) (role=browser-window)
+  [Position]    (UPPERLEFT)     {0 0}
+[end]
 [app] (name=fbrun)
   [Deco]        {NONE}
   [Head]        {1}
