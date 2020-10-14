@@ -1,5 +1,9 @@
 {
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
-    "editor.fontSize": 16
+    "editor.fontSize": 16,
+    "workbench.colorTheme": "GitHub Dark",
+    "editor.fontFamily": "Inconsolata, 'DejaVu Sans', Symbola, 'Noto Emoji'",
+    "githubPullRequests.defaultMergeMethod": "squash",
+    "workbench.startupEditor": "newUntitledFile"
 }
