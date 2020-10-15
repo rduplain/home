@@ -7,7 +7,7 @@ MENU=$HOME/.fluxbox/menu
 MMAKER=/opt/menumaker/bin/mmaker
 
 # Add other modifiers to the pipeline as desired.
-$MMAKER -f FluxBox -c -t Rxvt | \
-    grep -v '\[begin\]' | \
+$MMAKER -f FluxBox -c -t Rxvt            | \
+    grep -v '\[begin\]'                  | \
     sed 's,^\[end\]$,    [nop]\n[end],g' | \
     cat $STUB - > $MENU
