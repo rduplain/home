@@ -6,6 +6,6 @@
 	[exec] (FileZilla) {filezilla}
 	[exec] (Shotwell) {shotwell}
 	[exec] (Calibre) {calibre}
-	[separator]
+	[nop]
 	[exec] (Keybase) {run_keybase}
-	[separator]
+	[nop]

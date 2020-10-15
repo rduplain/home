@@ -10,4 +10,5 @@ MMAKER=/opt/menumaker/bin/mmaker
 $MMAKER -f FluxBox -c -t Rxvt            | \
     grep -v '\[begin\]'                  | \
     sed 's,^\[end\]$,    [nop]\n[end],g' | \
+    sed 's,\[separator\],[nop],g'        | \
     cat $STUB - > $MENU
