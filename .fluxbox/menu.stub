@@ -3,6 +3,8 @@
 	[exec] (Terminal) {rxvt-unicode}
 	[exec] (Chrome) {google-chrome --profile-directory=Default}
 	[exec] (Firefox) {firefox}
+	[nop]
+	[exec] (VS Code) {code}
 	[exec] (FileZilla) {filezilla}
 	[exec] (Shotwell) {shotwell}
 	[exec] (Calibre) {calibre}
