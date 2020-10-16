@@ -267,6 +267,19 @@
 ;;; Use an Emacs-native paste bin.
 (load "htmlize-theme")
 
+(setq htmlize-head-tags
+      ;; Hide scrollbar, because `scpaste' is stylized as rduplain terminal.
+      (string-join
+       '("    <style type=\"text/css\">"
+         "    <!--"
+         "      ::-webkit-scrollbar {"
+         "        display: none;"
+         "      }"
+         "    -->"
+         "    </style>"
+         "")
+       "\n"))
+
 (feature '(scpaste :load t)
   ;; Patch directly, as `advice' appears to have byte-compiled limitations.
   (patch-function :fn 'scpaste-footer
