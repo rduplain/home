@@ -43,7 +43,6 @@ xscreensaver &
 "$HOME"/bin/xscreensaver-watch &
 
 sleep 25
-killall -u $(id -un) update-notifier
 
 xset r rate 250 30 # Set again.
 EOF
