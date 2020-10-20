@@ -1028,7 +1028,8 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (add-hook 'python-mode-hook 'flyspell-prog-mode)
 (omit-files "\\.egg$" "\\.egg-info$"
             "^\\.coverage$" "^\\.tox$"
-            "\\.pyc$" "^__pycache__$")
+            "\\.pyc$" "^__pycache__$"
+            "\\.venv$")
 
 (feature 'hy-mode)
 (feature 'pydoc)
