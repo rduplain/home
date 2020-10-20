@@ -1029,6 +1029,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (omit-files "\\.egg$" "\\.egg-info$"
             "^\\.coverage$" "^\\.tox$"
             "\\.pyc$" "^__pycache__$"
+            "\\.pytest_cache$"
             "\\.venv$")
 
 (feature 'hy-mode)
