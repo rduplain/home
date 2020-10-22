@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Install Pulumi.
 
-PULUMI_URL=https://get.pulumi.com/releases/sdk/pulumi-v2.11.2-linux-x64.tar.gz
-PULUMI_SHA256=1d0a8ab61e9a72a65cb1f07bea2a18a54f3ca2f4a1b327f9ab97a7247126060b
+PULUMI_URL=https://get.pulumi.com/releases/sdk/pulumi-v2.12.0-linux-x64.tar.gz
+PULUMI_SHA256=0ac0e4dff4a3d0cbca1db077c70b01ee8aa0b15e22a1e2b44efd6a1e296ae39e
 
 check() {
     reqd_ls "$REQD_OPT"/pulumi/bin/pulumi
