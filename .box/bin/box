@@ -138,7 +138,8 @@ development() {
             packer \
             pulumi \
             terraform tflint \
-            vagrant-config
+            vagrant-config \
+            waypoint
 
     "$reqd" install \
             conda \
