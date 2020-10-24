@@ -94,6 +94,11 @@
 (setq auto-save-list-file-name nil
       auto-save-list-file-prefix nil)
 
+;;; Save all buffers _visiting files_ on `C-x s' without asking.
+(add-hook 'hack-local-variables-hook
+          '(lambda ()
+             (setq-local buffer-save-without-query t)))
+
 ;;; Disable tramp.
 (setq tramp-mode nil)
 
