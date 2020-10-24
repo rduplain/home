@@ -209,6 +209,10 @@
           (lambda ()
             (require 'dired-x nil 'noerror)))
 
+;; Recursively operate without asking; mark, execute, confirm is enough.
+(setq dired-recursive-copies 'always
+      dired-recursive-deletes 'always)
+
 ;; Ignore uninteresting files.
 (add-hook 'dired-mode-hook
           (lambda ()
