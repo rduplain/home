@@ -102,6 +102,9 @@
 ;;; Disable tramp.
 (setq tramp-mode nil)
 
+;;; Disable dir-locals usage.
+(setq enable-dir-local-variables nil)
+
 ;;; Always use syntax highlighting.
 (global-font-lock-mode 1)
 
