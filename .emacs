@@ -433,6 +433,12 @@
 (setq flyspell-auto-correct-binding [?\M-s])
 
 ;;; Yet Another Snippet system, for code/text snippets.
+
+;; Find snippets at https://github.com/AndreaCrotti/yasnippet-snippets.
+;; Load snippets to ~/.emacs.d/snippets/ under respective mode, then:
+;;
+;; M-x yas-recompile-all
+;; M-x yas-reload-all
 (feature '(yasnippet :load t)
   (yas-global-mode 1))
 
