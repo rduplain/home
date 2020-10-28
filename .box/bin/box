@@ -122,6 +122,7 @@ development() {
 
     "$reqd" install \
             clojure \
+            bb \
             ocaml \
             go \
             haskell \
