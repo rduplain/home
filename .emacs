@@ -1153,9 +1153,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; YAML
 (feature 'yaml-mode)
 
+(add-to-list 'auto-mode-alist '("\\.ya?ml.j2$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.ya?ml.template$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.ya?ml.tpl$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.ya?ml.j2$" . yaml-mode))
 (add-hook 'yaml-mode-hook '(lambda () (visual-line-mode -1)))
 
 
