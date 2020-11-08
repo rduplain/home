@@ -889,6 +889,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 ;;; HTML
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.html.j2$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.html.template$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.html.tpl$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.vue$" . html-mode))
 (add-hook 'html-mode-hook 'flyspell-prog-mode)
 (add-hook 'html-mode-hook '(lambda ()
