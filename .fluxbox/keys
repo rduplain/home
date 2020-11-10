@@ -157,7 +157,7 @@ Mod4 comma :ExecCommand mate-display-properties
 # Mod4 slash
 
 # Set special key to increase rxvt-unicode font size and set it fullscreen.
-Mod4 backslash :MacroCmd {ExecCommand xdotool getactivewindow key --clearmodifiers ctrl+equal} {FullScreen}
+Mod4 backslash :MacroCmd {ExecCommand xdotool getactivewindow key --clearmodifiers ctrl+equal} {FullScreen} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
 
 
 ## Position Presets ##
@@ -227,12 +227,12 @@ Control Escape :RootMenu
 
 
 ## Keyboard Macros ##
-Mod4 Shift 8     :ExecCommand xdotool type --clearmodifiers "•"
-Mod4 Shift minus :ExecCommand xdotool type --clearmodifiers "—"
-Mod4 Shift Left  :ExecCommand xdotool type --clearmodifiers "←"
-Mod4 Shift Right :ExecCommand xdotool type --clearmodifiers "→"
-Mod4 Shift Up    :ExecCommand xdotool type --clearmodifiers "↑"
-Mod4 Shift Down  :ExecCommand xdotool type --clearmodifiers "↓"
+Mod4 Shift 8     :MacroCmd {ExecCommand xdotool type --clearmodifiers "•"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
+Mod4 Shift minus :MacroCmd {ExecCommand xdotool type --clearmodifiers "—"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
+Mod4 Shift Left  :MacroCmd {ExecCommand xdotool type --clearmodifiers "←"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
+Mod4 Shift Right :MacroCmd {ExecCommand xdotool type --clearmodifiers "→"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
+Mod4 Shift Up    :MacroCmd {ExecCommand xdotool type --clearmodifiers "↑"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
+Mod4 Shift Down  :MacroCmd {ExecCommand xdotool type --clearmodifiers "↓"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
 
 
 ## Reconfigure/Restart Fluxbox ##
