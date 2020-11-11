@@ -9,5 +9,6 @@
 	[exec] (Shotwell) {shotwell}
 	[exec] (Calibre) {calibre}
 	[nop]
+	[exec] (Zoom) {zoom}
 	[exec] (Keybase) {run_keybase}
 	[nop]
