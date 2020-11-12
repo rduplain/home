@@ -143,6 +143,10 @@ development() {
             waypoint
 
     "$reqd" install \
+            helm \
+            kubectl
+
+    "$reqd" install \
             conda \
             conda-packages
 }
