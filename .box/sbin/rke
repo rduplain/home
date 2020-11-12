@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Install Rancher Kubernetes Engine (RKE) `rke`.
+
+RKE="$REQD_OPT"/kubernetes/bin/rke
+RKE_URL=https://github.com/rancher/rke/releases
+
+check() {
+    reqd_ls "$RKE"
+    reqd_run_once
+}
+
+install() {
+    rm -f "$RKE"
+
+    qwertyrc > rke.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc rke.qwertyrc
+    "$RKE" --version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux 64-bit
+  --sys=linux --arch=x86_64 \\
+  --sha256=37b26104c0868706bc0c24e47a41c6dcee8e3ab6bc3b41425ade8c58337246f3 \\
+  --output="$RKE" --chmod=755 \\
+  $RKE_URL//download/v1.2.2/rke_linux-amd64
+
+# GNU/Linux on ARM
+  --sys=linux --arch=arm --all-sub-arch \\
+  --sha256=4843a72dd293734d6d8d4972cc829c440ae7166fb16e1ccbef21daf0becbeac1 \\
+  --output="$RKE" --chmod=755 \\
+  $RKE_URL//download/v1.2.2/rke_linux-arm
+
+# Mac OS X, 64-bit
+  --sys=darwin --arch=x86_64 \\
+  --sha256=44e88eadb2979fd57634e253654aacfb8e52bd27f78d589fbb237e0534211881 \\
+  --output="$RKE" --chmod=755 \\
+  $RKE_URL/download/v1.2.2/rke_darwin-amd64
+EOF
+}
+
+reqd_main "$@"

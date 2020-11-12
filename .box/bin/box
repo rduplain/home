@@ -144,7 +144,8 @@ development() {
 
     "$reqd" install \
             helm \
-            kubectl
+            kubectl \
+            rke
 
     "$reqd" install \
             conda \
