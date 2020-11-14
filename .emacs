@@ -150,7 +150,7 @@
 ;;; Disable auto-fill-mode by default.
 (auto-fill-mode -1)
 
-;;; Fill columns at 80 characters.
+;;; Fill columns at 80 characters (0-indexed).
 (setq-default fill-column 79)
 
 ;;; Truncate long lines on partial windows.
@@ -355,7 +355,7 @@
 
 (global-set-key (kbd "<f5>") 'insert-date)
 
-;;; Enlarge windows with ease with Control-6.
+;;; Enlarge windows (vertically) with Control-6.
 (global-set-key (kbd "C-^") 'enlarge-window)
 
 ;;; Change line endings between Unix and DOS.
