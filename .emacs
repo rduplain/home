@@ -337,10 +337,9 @@
 (defun interactive-shell (&optional shell)
   "Run ansi-term with the given shell, default $SHELL, falling back to bash."
   (interactive)
-  (let ((shell (or shell
-                   (getenv "SHELL")
-                   "bash")))
-    (ansi-term shell)))
+  (ansi-term (or shell
+                 (getenv "SHELL")
+                 "bash")))
 
 (global-set-key (kbd "C-z") 'interactive-shell)
 
@@ -490,9 +489,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
     `(add-hook ',mode-hook
                '(lambda ()
                   (add-hook 'completion-at-point-functions
-                            ,fn
-                            nil
-                            'local)))))
+                            ,fn nil 'local)))))
 
 (defmacro add-keyword-completion (mode keyword-list)
   "Add completion-at-point within a major mode to complete keywords in a list."
