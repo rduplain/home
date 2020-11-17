@@ -6,5 +6,6 @@
     "editor.fontFamily": "Inconsolata, 'DejaVu Sans', Symbola, 'Noto Emoji'",
     "githubPullRequests.defaultMergeMethod": "squash",
     "workbench.startupEditor": "newUntitledFile",
-    "extensions.ignoreRecommendations": true
+    "extensions.ignoreRecommendations": true,
+    "git.autofetch": true
 }
