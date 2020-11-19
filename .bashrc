@@ -256,8 +256,6 @@ prepend_paths "$HOME"/.npm-global
 
 walk_root_to_curdir call_nvm_use
 
-append PATH "$HOME"/.*-dist/bin
-
 prepend LD_LIBRARY_PATH /usr/lib/libreoffice/program
 
 # Add Makefile.d paths here to maintain priority within .bashrc PATH settings.
@@ -283,8 +281,6 @@ export VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
 export SNAG_HOME="$HOME"
 
 ship SCREENRC_DEFAULT="$HOME"/.screenrc-default
-
-ship ANDROID_HOME="$HOME"/src/android/sdk
 
 export GOPATH="$HOME"/.go
 append PATH "$GOPATH/bin"
