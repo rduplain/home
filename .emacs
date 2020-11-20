@@ -1114,6 +1114,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 (add-keyword-completion 'sh-mode 'sh-keywords)
 
+;;; systemd
+(feature 'systemd)
+
 ;;; Terraform
 (feature 'terraform-mode)
 
