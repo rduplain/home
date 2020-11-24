@@ -92,7 +92,8 @@ class SyllableCounter:
             return 0, True, word
 
         # Scrub word for markup characters and trim leading/trailing non-alpha.
-        scrubbed = re.sub(r"(^[^0-9a-zA-Z]*|[_\-\*]|[^0-9a-zA-Z]*$)", "", word)
+        scrub_pattern = r"(^[^0-9a-zA-Z]*|[_\-\*\/\\]|[^0-9a-zA-Z]*$)"
+        scrubbed = re.sub(scrub_pattern, "", word)
 
         extra = 0  # Track any "extra" pronunciation syllables.
 
@@ -178,6 +179,8 @@ def test():
     (4, True, 'HTML')
     >>> counter.word("WWW")  # "W W W"
     (9, True, 'WWW')
+    >>> counter.word("CI/CD")  # "C I C D"
+    (4, True, 'CI/CD')
     >>> counter.word("flake8")  # "flake eight"
     (2, True, 'flake8')
     >>> counter.word("nooneknows")  # Estimate.
