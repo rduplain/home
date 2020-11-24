@@ -2,6 +2,7 @@
 \#*#
 .bashrc
 .emacs.*
+*.scratch
 scratch.*
 .screenrc-*
 secret.*

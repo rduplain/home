@@ -550,9 +550,22 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
   Run the Emacs `compile` command with `make` against the nearest
   Makefile using the recipe interactively set with `C-x M-a`."
   (interactive)
-  (let ((command (format "make --no-print-directory -C %s %s"
-                         (dominating-directory "Makefile")
-                         (or compile-command-recipe ""))))
+  (let* ((scratchfile-directory (dominating-directory "Makefile.scratch"))
+         (scratchfile (when scratchfile-directory
+                        (concat (file-name-as-directory scratchfile-directory)
+                                "Makefile.scratch")))
+         (command
+          (if scratchfile
+              ;; Prefer Makefile.scratch over Makefile, when found.
+              ;; Run `make` in directory of Makefile.scratch, calling it.
+              (format "make --no-print-directory -C %s -f %s %s"
+                      scratchfile-directory
+                      scratchfile
+                      (or compile-command-recipe ""))
+            ;; Run `make` in directory of Makefile.
+            (format "make --no-print-directory -C %s %s"
+                    (dominating-directory "Makefile")
+                    (or compile-command-recipe "")))))
     (compile command)))
 
 ;; Set a global key for compilation, in all modes.
@@ -939,6 +952,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (feature 'lua-mode)
 
 (setq lua-indent-level 2)
+
+;;; Makefile
+(add-to-list 'auto-mode-alist '("Makefile\\.scratch$" . makefile-mode))
 
 ;;; Markdown
 (feature 'markdown-mode)
