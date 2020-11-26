@@ -91,8 +91,13 @@ class SyllableCounter:
         if not word.strip():
             return 0, True, word
 
+        # Split /-delimited words, i.e. foo/bar has parts "foo" and "bar".
+        if "/" in word:
+            parts = [self.word(part) for part in word.split("/")]
+            return sum(x[0] for x in parts), all(x[1] for x in parts), word
+
         # Scrub word for markup characters and trim leading/trailing non-alpha.
-        scrub_pattern = r"(^[^0-9a-zA-Z]*|[_\-\*\/\\]|[^0-9a-zA-Z]*$)"
+        scrub_pattern = r"(^[^0-9a-zA-Z]*|[_\-\*\\]|[^0-9a-zA-Z]*$)"
         scrubbed = re.sub(scrub_pattern, "", word)
 
         extra = 0  # Track any "extra" pronunciation syllables.
@@ -183,8 +188,12 @@ def test():
     (4, True, 'CI/CD')
     >>> counter.word("flake8")  # "flake eight"
     (2, True, 'flake8')
+    >>> counter.word("foo/bar/baz")  # "foo bar baz"
+    (3, True, 'foo/bar/baz')
     >>> counter.word("nooneknows")  # Estimate.
     (3, False, 'nooneknows')
+    >>> counter.word("word/nooneknows")  # Estimate.
+    (4, False, 'word/nooneknows')
     >>>
     >>> counter.word("(this)")
     (1, True, '(this)')
