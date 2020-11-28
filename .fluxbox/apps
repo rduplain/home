@@ -10,6 +10,9 @@
   [Layer]       {6}
   [Position]    (LOWERRIGHT)    {0 -26}
 [end]
+[app] (name=dontstarve_steam) (class=dontstarve_steam)
+  [Deco]        {NONE}
+[end]
 [app] (name=gimp) (class=Gimp) (role=gimp-dock)
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
