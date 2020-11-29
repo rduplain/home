@@ -214,6 +214,7 @@ def write_status_line(line, counted, out=sys.stdout, err=sys.stderr):
 
 
 def write_summary(line, counted, out=sys.stdout, err=sys.stderr):
+    "Write line prefixed with total syllable count."
     syllable_count = 0
     for count, confident, word in counted:
         if not confident:
