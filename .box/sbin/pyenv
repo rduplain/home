@@ -10,8 +10,11 @@ PYENV_VIRTUALENV_ROOT="$PYENV_ROOT"/plugins/pyenv-virtualenv
 PYENV_VIRTUALENV_URL=https://github.com/pyenv/pyenv-virtualenv.git
 
 PACKAGES2="pyflakes"
-PACKAGES3="nltk pipenv poetry pre-commit pyflakes syllables youtube-dl"
-PACKAGES3="$PACKAGES3 black flake8 isort"
+
+PACKAGES3="pipenv poetry"
+PACKAGES3="$PACKAGES3 black flake8 isort pre-commit pyflakes "
+PACKAGES3="$PACKAGES3 nltk syllables"
+PACKAGES3="$PACKAGES3 youtube-dl"
 
 check() {
     reqd_run_once
