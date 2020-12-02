@@ -11,5 +11,5 @@ SNAG_DATE_FORMAT="${SNAG_DATE_FORMAT-%Y-%m-%d_%H%M%S}"
 
 mkdir -p "$SNAG_HOME"
 destination="$SNAG_HOME/$(date +"$SNAG_DATE_FORMAT")$1"
-echo snagging stdin to "$destination"
+echo snagging stdin to $(hostname):"$destination"
 cat - > "$destination"
