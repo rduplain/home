@@ -970,6 +970,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; Kotlin
 (feature 'kotlin-mode)
 
+;;; OBX ("Oberon X")
+(feature '(obx-mode :host github :repo "obx-lang/obx-mode"))
+
 ;;; OCaml / ReasonML
 (feature 'tuareg)
 (feature 'reason-mode)
