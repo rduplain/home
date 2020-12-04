@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # Wrap `dropbox` to trim PATH to find system Python (and bypass pyenv).
+#
+# Hard-coded to /usr/bin with an error message pointing here when that's wrong.
+# So far, it has always been right.
 
 main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
