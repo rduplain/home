@@ -4,4 +4,4 @@
 # --
 
 if __name__ == '__main__':
-    ${1:main()}
+    sys.exit(${1:main()} or 0)

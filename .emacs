@@ -439,6 +439,8 @@
 ;;
 ;; M-x yas-recompile-all
 ;; M-x yas-reload-all
+;;
+;; `emacs-sync put` from the command line to run `~/bin/emacs-sync`.
 (feature '(yasnippet :load t)
   (yas-global-mode 1))
 
