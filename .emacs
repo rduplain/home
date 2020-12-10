@@ -83,6 +83,9 @@
 
 ;;; Accept y or n when presented with yes or no.
 (fset 'yes-or-no-p (symbol-function 'y-or-n-p))
+
+;; Ensure that patch.el has the latest "original" reference (the one fset just
+;; above) of the yes-or-no prompt function to use.
 (fset 'yes-or-no-p-original (symbol-function 'yes-or-no-p))
 
 ;;; Disable beeps.
