@@ -556,7 +556,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
   Makefile using the recipe interactively set with `C-x M-a`."
   (interactive)
   (let* ((scratchfile-directory (dominating-directory "Makefile.scratch"))
-         (scratchfile (when scratchfile-directory
+         (scratchfile (when (not (string= scratchfile-directory "."))
                         (concat (file-name-as-directory scratchfile-directory)
                                 "Makefile.scratch")))
          (command
