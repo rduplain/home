@@ -36,9 +36,9 @@ install() {
     export PATH="$PYENV_ROOT"/bin:"$PYENV_ROOT"/shims:"$PATH"
 
     pyenv install --skip-existing 2.7.18
-    pyenv install --skip-existing 3.9.0
+    pyenv install --skip-existing 3.9.1
 
-    pyenv global 3.9.0 2.7.18
+    pyenv global 3.9.1 2.7.18
 
     pip2 install --upgrade pip setuptools wheel
     pip3 install --upgrade pip setuptools wheel
