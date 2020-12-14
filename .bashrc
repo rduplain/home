@@ -289,6 +289,8 @@ ship PYTHONSTARTUP="$HOME"/.pythonrc.py
 
 ship R_LIBS_USER="$HOME"/.r
 
+export PULUMI_SKIP_UPDATE_CHECK=true
+
 export WORKSPACES_RESERVED=5
 
 # Set BAK_HOME for ~/bin/bak, using NFS then volume labeled "bak" if mounted.
