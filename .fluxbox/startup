@@ -1,3 +1,4 @@
+#!/bin/sh
 # fluxbox startup file
 #
 # By this point, X has called startfluxbox.
