@@ -871,6 +871,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 (add-to-list 'auto-mode-alist '("inputrc$" . conf-mode))
 (add-to-list 'auto-mode-alist '("/?inventory$" . conf-mode))
+(add-to-list 'auto-mode-alist '(".fluxbox/keys$" . conf-mode))  ; Well enough.
 
 ;;; Crontab
 (feature 'crontab-mode)
