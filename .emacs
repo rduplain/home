@@ -584,6 +584,8 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (feature 'company-lsp
   (add-to-list 'company-backends 'company-lsp))
 
+(setq lsp-signature-doc-lines 5)
+
 ;; Provide API to check whether `lsp' supports the current major mode.
 (defun lsp-mode-supported-p (mode)
   "Return t if mode is supported by `lsp'; call with `major-mode'."
