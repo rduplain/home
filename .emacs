@@ -583,7 +583,10 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;;; Modes - Language Server Protocol
 
 ;;; Language Server Protocol - lsp-mode
-(feature '(lsp-mode :load t))
+(feature '(lsp-mode :load t)
+  ;; Set key binding prefix for lsp-mode commands (lsp-keymap-prefix).
+  (define-key lsp-mode-map (kbd "C-j") lsp-command-map))
+
 (feature 'company-lsp
   (add-to-list 'company-backends 'company-lsp))
 
