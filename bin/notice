@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # notice - dead simple user logging utility for the command-line user
 #
-# Copyright 2009-2020 R. DuPlain <r@duplain.io>
+# Copyright 2009-2021 R. DuPlain <r@duplain.io>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
