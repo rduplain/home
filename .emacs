@@ -1026,7 +1026,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
   (define-key utop-minor-mode-map (kbd "C-c C-r") 'utop-eval-region)
   (define-key utop-minor-mode-map (kbd "C-c C-b") 'utop-eval-buffer))
 
-(add-to-list 'auto-mode-alist '("^\\.ocamlinit$" . tuareg-mode))
+(add-to-list 'auto-mode-alist '("\\.ocamlinit$" . tuareg-mode))
 (add-to-list 'auto-mode-alist '("dune-project$" . dune-mode))
 
 (defun run-repl-ocaml ()
