@@ -991,9 +991,17 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (feature 'tuareg)
 (feature 'reason-mode)
 
+;; Use default opam share directory (site-lisp) instead of current switch.
+(setq opam-share (expand-file-name "~/.opam/default/share"))
+(setq opam-site-lisp (concat opam-share "/emacs/site-lisp"))
+
+(byte-compile-quietly
+ (byte-recompile-directory-non-recursively opam-site-lisp 0))
+
 ;; `opam user-setup install` installs opam-user-setup.el, which loads
 ;; `utop' and `dune' if these are installed into the opam environment.
 (require 'opam-user-setup (.emacs.d "opam-user-setup.el") 'noerror)
+(require 'dune nil 'noerror)
 
 (setq tuareg-opam-insinuate t
       utop-command (concat (expand-file-name "~") "/bin/utop -emacs")
