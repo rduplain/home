@@ -429,6 +429,9 @@
 (global-unset-key [?\M-s])
 (setq flyspell-auto-correct-binding [?\M-s])
 
+;;; Which Key, display key bindings interactively.
+(feature 'which-key)
+
 ;;; Yet Another Snippet system, for code/text snippets.
 
 ;; Find snippets at https://github.com/AndreaCrotti/yasnippet-snippets.
@@ -585,6 +588,10 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
   (add-to-list 'company-backends 'company-lsp))
 
 (setq lsp-signature-doc-lines 5)
+
+(add-hook 'lsp-mode-hook '(lambda ()
+                            (lsp-enable-which-key-integration)
+                            (which-key-mode t)))
 
 ;; Provide API to check whether `lsp' supports the current major mode.
 (defun lsp-mode-supported-p (mode)
