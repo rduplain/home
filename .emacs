@@ -766,6 +766,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 (feature '(cider :version "v0.25.0"))
 
+(add-hook 'clojure-mode-hook '(lambda ()
+                                (which-key-mode t)))
+
 (defun run-repl-boot ()
   "Run an Emacs-integrated REPL with boot-clj."
   (interactive)
