@@ -735,10 +735,11 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
 
 (add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
-(add-hook 'adoc-mode-hook 'visual-line-mode)
-
 (add-hook 'adoc-mode-hook '(lambda ()
-                             (font-lock-mode 0)))
+                             ;; Disable syntax highlighting.
+                             (font-lock-mode 0)
+                             ;; Enable visual line based editing.
+                             (visual-line-mode 1)))
 
 ;;; Batch / Windows Batch
 (add-hook 'bat-mode-hook '(lambda ()
