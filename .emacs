@@ -378,6 +378,9 @@
 ;;; Highlight matching nested parentheses, brackets, and braces.
 (feature 'rainbow-delimiters)
 
+;; Enable rainbow-delimiters on all programming modes.
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
+
 ;;; Interactively Do Things, with fuzzy matching enabled.
 (setq ido-mode 'both ;; both file and buffer.
       ido-enable-flex-matching t
@@ -764,8 +767,6 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (feature 'clojure-mode)
 (feature 'inf-clojure)
 (add-hook 'clojure-mode-hook 'flyspell-prog-mode)
-(add-hook 'clojure-mode-hook '(lambda ()
-                                (rainbow-delimiters-mode t)))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 
 (feature '(cider :version "v0.25.0"))
@@ -903,8 +904,6 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 ;;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
-(add-hook 'emacs-lisp-mode-hook '(lambda ()
-                                   (rainbow-delimiters-mode t)))
 
 ;;; Go (golang)
 (feature 'go-mode)
