@@ -908,7 +908,6 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; Go (golang)
 (feature 'go-mode)
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
-(add-hook 'go-mode-hook 'yas/minor-mode)
 
 ;;; Groovy
 ;; Automatically picks up files with Groovy syntax, incl. Jenkinsfile.
