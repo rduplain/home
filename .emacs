@@ -936,7 +936,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (feature '(janet-mode :host github :repo "rduplain/janet-mode"))
 (feature '(inf-janet :host github :repo "rduplain/inf-janet"))
 
-(add-hook 'janet-mode-hook 'inf-janet-minor-mode)
+(add-hook 'janet-mode-hook '(lambda ()
+                              (inf-janet-minor-mode 1)))
+
 (setq inf-janet-program "janet"
       inf-janet-project-root-files '(".git"))
 
@@ -982,7 +984,8 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 (add-hook 'markdown-mode-hook 'set-text-based-company-minimum-prefix-length)
-(add-hook 'markdown-mode-hook 'visual-line-mode)
+(add-hook 'markdown-mode-hook '(lambda ()
+                                 (visual-line-mode 1)))
 
 ;;; Meson
 (feature 'meson-mode)
@@ -1115,7 +1118,8 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
                             (auto-fill-mode nil)))
 
 (add-hook 'rst-mode-hook 'set-text-based-company-minimum-prefix-length)
-(add-hook 'rst-mode-hook 'visual-line-mode)
+(add-hook 'rst-mode-hook '(lambda ()
+                            (visual-line-mode 1)))
 
 ;;; Ruby
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
@@ -1176,7 +1180,8 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (add-to-list 'auto-mode-alist '("\\.srt$" . text-mode))
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'set-text-based-company-minimum-prefix-length)
-(add-hook 'text-mode-hook 'visual-line-mode)
+(add-hook 'text-mode-hook '(lambda ()
+                             (visual-line-mode 1)))
 
 (add-hook 'text-mode-hook
           '(lambda ()
@@ -1209,7 +1214,8 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (add-to-list 'auto-mode-alist '("\\.ya?ml.tpl$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("ansible/host_vars/" . yaml-mode))
 (add-to-list 'auto-mode-alist '("ansible/group_vars/" . yaml-mode))
-(add-hook 'yaml-mode-hook '(lambda () (visual-line-mode -1)))
+(add-hook 'yaml-mode-hook '(lambda ()
+                             (visual-line-mode 0)))
 
 
 ;;;; M-x customize
