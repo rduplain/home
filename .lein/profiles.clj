@@ -6,4 +6,4 @@
    [lein-ring "0.12.5"]
    [lein-tach "1.1.0"]
    [lein-try "0.4.3"]]}
- :repl {:plugins [[cider/cider-nrepl "0.25.5"]]}}
+ :repl {:plugins [[cider/cider-nrepl "0.25.6"]]}}
