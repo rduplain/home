@@ -11,4 +11,5 @@
 	[nop]
 	[exec] (Zoom) {zoom}
 	[exec] (Keybase) {run_keybase}
+	[exec] (Element) {element-desktop}
 	[nop]
