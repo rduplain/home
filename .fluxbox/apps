@@ -13,6 +13,11 @@
 [app] (name=dontstarve_steam) (class=dontstarve_steam)
   [Deco]        {NONE}
 [end]
+[app] (name=element) (class=Element) (role=browser-window)
+  [Dimensions]  {1074 800}
+  [Fullscreen]  {no}
+  [Position]    (UPPERRIGHT)    {0 0}
+[end]
 [app] (name=gimp) (class=Gimp) (role=gimp-dock)
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
