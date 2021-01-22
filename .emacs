@@ -539,9 +539,6 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;; Always kill a running compilation process before starting a new one.
 (setq compilation-always-kill t)
 
-;; Automatically jump to the first error during compilation.
-(setq compilation-auto-jump-to-first-error t)
-
 ;; Support a configurable `make` recipe, global for all buffers.
 (defvar compile-command-recipe nil "make recipe")
 
