@@ -7,6 +7,6 @@ scratch.*
 .screenrc-*
 secret.*
 .*.swp
-.terraform.tfstate.lock.info
+.terraform.tfstate.*
 .venv
 .vscode/
