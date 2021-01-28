@@ -649,14 +649,14 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
    ((eq major-mode 'tuareg-mode)
     (run-repl-ocaml))
 
+   ((eq major-mode 'janet-mode)
+    (inf-janet inf-janet-program))
+
    ((lsp-mode-supported-p major-mode)
     (call-interactively 'lsp))
 
    ((eglot-supported-p major-mode)
     (call-interactively 'eglot))
-
-   ((eq major-mode 'janet-mode)
-    (inf-janet inf-janet-program))
 
    (t (error "No REPL. Update ~/.emacs to support this project."))))
 
