@@ -1,7 +1,7 @@
 {:aliases
  {:1.8 {:override-deps {org.clojure/clojure {:mvn/version "1.8.0"}}}
   :1.9 {:override-deps {org.clojure/clojure {:mvn/version "1.9.0"}}}
-  :1.10 {:override-deps {org.clojure/clojure {:mvn/version "1.10.1"}}}
+  :1.10 {:override-deps {org.clojure/clojure {:mvn/version "1.10.2"}}}
 
   :cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.10.773"}}
          :main-opts ["-m" "cljs.main"]}
