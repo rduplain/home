@@ -106,7 +106,7 @@
 ;;; Always use syntax highlighting.
 (global-font-lock-mode 1)
 
-;;; Always show parentheses, in every mode.
+;;; Always show matching parentheses at cursor, in every mode.
 (show-paren-mode t)
 (setq show-paren-delay 0)
 
