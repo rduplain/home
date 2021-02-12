@@ -148,6 +148,9 @@ development() {
             rke
 
     "$reqd" install \
+            teleport
+
+    "$reqd" install \
             conda \
             conda-packages
 }
