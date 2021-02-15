@@ -979,6 +979,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (feature 'markdown-mode)
 (feature 'markdown-toc)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md.txt$" . markdown-mode))
 
 (add-hook 'markdown-mode-hook 'set-text-based-company-minimum-prefix-length)
 (add-hook 'markdown-mode-hook '(lambda ()
