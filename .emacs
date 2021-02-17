@@ -732,7 +732,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; AsciiDoc
 (feature 'adoc-mode)
 (add-to-list 'auto-mode-alist '("\\.asciidoc$" . adoc-mode))
+(add-to-list 'auto-mode-alist '("\\.asciidoc.txt$" . adoc-mode))
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
+(add-to-list 'auto-mode-alist '("\\.adoc.txt$" . adoc-mode))
 
 (add-hook 'adoc-mode-hook 'set-text-based-company-minimum-prefix-length)
 (add-hook 'adoc-mode-hook '(lambda ()
