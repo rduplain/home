@@ -1112,6 +1112,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 ;;; ReStructuredText (rst)
 (add-to-list 'auto-mode-alist '("\\.rst.in$" . rst-mode))
+(add-to-list 'auto-mode-alist '("\\.rst.txt$" . rst-mode))
 (add-hook 'rst-mode-hook '(lambda ()
                             (auto-fill-mode nil)))
 
