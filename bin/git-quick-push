@@ -166,6 +166,9 @@ main() {
     if [ "$1" = "--name" ]; then
         shift
         git_quick_push_name "$@"
+    elif [ $# -ne 0 ]; then
+        echo "usage: git quick-push [--name]" >&2
+        return 2
     else
         if [ -z "$(upstream)" ]; then
             echo "error: not tracking a remote branch." >&2
