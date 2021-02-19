@@ -684,6 +684,11 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;;; Modes - Environment Controlled Indentation
 ;;;;
 ;;;; Support simple environment variables over arbitrary code in dir-locals.
+
+;;; Example:
+;;;
+;;; SH_INDENT=2  # Use 2 spaces to indent sh-mode when this env is set.
+
 (setq mode-indent
       '((python-mode . python-indent-offset)
         (sh-mode . sh-basic-offset)))
