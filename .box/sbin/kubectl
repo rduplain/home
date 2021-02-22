@@ -21,15 +21,15 @@ qwertyrc() {
     cat - <<EOF
 # GNU/Linux 64-bit
   --sys=linux --arch=x86_64 \\
-  --sha256=f51adfe7968ee173dbfb3dabfc10dc774983cbf8a3a7c1c75a1423b91fda6821 \\
+  --sha256=98e8aea149b00f653beeb53d4bd27edda9e73b48fed156c4a0aa1dabe4b1794c \\
   --output="$KUBECTL" --chmod=755 \\
-  $KUBECTL_URL/v1.19.2/bin/linux/amd64/kubectl
+  $KUBECTL_URL/v1.20.4/bin/linux/amd64/kubectl
 
 # Mac OS X, 64-bit
   --sys=darwin --arch=x86_64 \\
-  --sha256=bcce859b6dc7c3dde1a1429b77339c3acf15112d9b77e616b9d969f35a607dee \\
+  --sha256=37f593731b8c9913bf2a3bfa36dacb3058dc176c7aeae2930c783822ea03a573 \\
   --output="$KUBECTL" --chmod=755 \\
-  $KUBECTL_URL/v1.19.2/bin/darwin/amd64/kubectl
+  $KUBECTL_URL/v1.20.4/bin/darwin/amd64/kubectl
 EOF
 }
 
