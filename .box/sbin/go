@@ -43,7 +43,7 @@ qwertyrc() {
   --sha256=40ba9a57764e374195018ef37c38a5fbac9bbce908eab436370631a84bfc5788 \\
   https://dl.google.com/go/go1.15.6.linux-armv6l.tar.gz
 
-# Mac OS X, 64-bit
+# macOS 64-bit
   --sys=darwin --arch=x86_64 \\
   --sha256=940a73b45993a3bae5792cf324140dded34af97c548af4864d22fd6d49f3bd9f \\
   --output=go.tar.gz \\

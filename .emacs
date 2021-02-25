@@ -258,7 +258,7 @@
             ;; Jupyter/IPython Notebook checkpoints.
             "^\\.ipynb_checkpoints$"
 
-            ;; Mac OS X clutter.
+            ;; macOS clutter.
             "^\\.DS_Store$" "^__MACOSX$"
 
             ;; Emacs desktop files.

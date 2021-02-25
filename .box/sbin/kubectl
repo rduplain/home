@@ -25,7 +25,7 @@ qwertyrc() {
   --output="$KUBECTL" --chmod=755 \\
   $KUBECTL_URL/v1.20.4/bin/linux/amd64/kubectl
 
-# Mac OS X, 64-bit
+# macOS 64-bit
   --sys=darwin --arch=x86_64 \\
   --sha256=37f593731b8c9913bf2a3bfa36dacb3058dc176c7aeae2930c783822ea03a573 \\
   --output="$KUBECTL" --chmod=755 \\

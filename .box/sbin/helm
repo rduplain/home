@@ -35,7 +35,7 @@ qwertyrc() {
   --on-download='tar -xf \$DOWNLOAD && mv linux-arm/helm \$DOWNLOAD' \\
   $HELM_URL/helm-v3.5.2-linux-arm.tar.gz
 
-# Mac OS X, 64-bit
+# macOS 64-bit
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$HELM'" \\
   --sha256=68040e9a2f147a92c2f66ce009069826df11f9d1e1c6b78c7457066080ad3229 \\

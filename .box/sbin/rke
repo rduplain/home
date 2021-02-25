@@ -31,7 +31,7 @@ qwertyrc() {
   --output="$RKE" --chmod=755 \\
   $RKE_URL//download/v1.2.3/rke_linux-arm
 
-# Mac OS X, 64-bit
+# macOS 64-bit
   --sys=darwin --arch=x86_64 \\
   --sha256=eb07c7775ce47ba199ec266b6a0aaa3a24d32d6370e799386981a9dceb6f2836 \\
   --output="$RKE" --chmod=755 \\

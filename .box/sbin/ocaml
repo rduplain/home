@@ -38,7 +38,7 @@ qwertyrc() {
   --output="$OPAM" --chmod=755 \\
   $OPAM_URL/releases/download/2.0.7/opam-2.0.7-armhf-linux
 
-# Mac OS X, 64-bit
+# macOS 64-bit
   --sys=darwin --arch=x86_64 \\
   --sha256=d559a2d9b6e8cb3b19fbbee8e236113d60999f2db93e59d7f944f7c52af2174e \\
   --output="$OPAM" --chmod=755 \\

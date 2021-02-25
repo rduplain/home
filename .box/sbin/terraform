@@ -35,7 +35,7 @@ qwertyrc() {
   --on-download='unzip \$DOWNLOAD && mv terraform \$DOWNLOAD' \\
   $TERRAFORM_URL/0.12.29/terraform_0.12.29_linux_arm.zip
 
-# Mac OS X, 64-bit
+# macOS 64-bit
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$TERRAFORM'" \\
   --sha256=fdcda98ff7b7e65832248f64ef6c2922e05036de25d40c5cdcd732c5117150aa \\
