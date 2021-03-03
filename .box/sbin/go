@@ -34,20 +34,20 @@ qwertyrc() {
 # GNU/Linux 64-bit
   --sys=linux --arch=x86_64 \\
   --output=go.tar.gz \\
-  --sha256=3918e6cc85e7eaaa6f859f1bdbaac772e7a825b0eb423c63d3ae68b21f84b844 \\
-  https://dl.google.com/go/go1.15.6.linux-amd64.tar.gz
+  --sha256=013a489ebb3e24ef3d915abe5b94c3286c070dfe0818d5bca8108f1d6e8440d2 \\
+  https://dl.google.com/go/go1.16.linux-amd64.tar.gz
 
 # GNU/Linux on ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --output=go.tar.gz \\
-  --sha256=40ba9a57764e374195018ef37c38a5fbac9bbce908eab436370631a84bfc5788 \\
-  https://dl.google.com/go/go1.15.6.linux-armv6l.tar.gz
+  --sha256=d1d9404b1dbd77afa2bdc70934e10fbfcf7d785c372efc29462bb7d83d0a32fd \\
+  https://dl.google.com/go/go1.16.linux-armv6l.tar.gz
 
 # macOS 64-bit
   --sys=darwin --arch=x86_64 \\
-  --sha256=940a73b45993a3bae5792cf324140dded34af97c548af4864d22fd6d49f3bd9f \\
+  --sha256=6000a9522975d116bf76044967d7e69e04e982e9625330d9a539a8b45395f9a8 \\
   --output=go.tar.gz \\
-  https://dl.google.com/go/go1.15.6.darwin-amd64.tar.gz
+  https://dl.google.com/go/go1.16.darwin-amd64.tar.gz
 EOF
 }
 
