@@ -39,14 +39,14 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --output="$INSTALLER" \\
   --chmod=644 \\
   --sha256=879457af6a0bf5b34b48c12de31d4df0ee2f06a8e68768e5758c3293b2daf688 \\
   https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.3-Linux-x86_64.sh
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --output="$INSTALLER" \\
   --chmod=644 \\

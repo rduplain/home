@@ -19,13 +19,13 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --sha256=98e8aea149b00f653beeb53d4bd27edda9e73b48fed156c4a0aa1dabe4b1794c \\
   --output="$KUBECTL" --chmod=755 \\
   $KUBECTL_URL/v1.20.4/bin/linux/amd64/kubectl
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --sha256=37f593731b8c9913bf2a3bfa36dacb3058dc176c7aeae2930c783822ea03a573 \\
   --output="$KUBECTL" --chmod=755 \\

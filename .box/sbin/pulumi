@@ -26,13 +26,13 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --sha256=43156e5062f680d3ad9b1df3f3ab053b6895fc648c22a5a14773be9c5d9e57ff \\
   --output=pulumi.tar.gz \\
   $PULUMI_URL/releases/download/v2.21.2/pulumi-v2.21.2-linux-x64.tar.gz
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --sha256=4b903a6105d39b32a3d67d773676689d84181e8f02cce3b2b055da08696f3272 \\
   --output=pulumi.tar.gz \\

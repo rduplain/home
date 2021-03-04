@@ -20,7 +20,7 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$TFLINT'" \\
   --sha256=9d0c2a6da320e55018c1ae3df9d5f4e4fe0f34274a609b29f306f407db9e6a2e \\
@@ -36,7 +36,7 @@ qwertyrc() {
   --on-download='unzip \$DOWNLOAD && mv tflint \$DOWNLOAD' \\
   $TFLINT_URL/download/v0.20.2/tflint_linux_arm.zip
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$TFLINT'" \\
   --sha256=96f0b689746603d4acb071610425dc6be26b2e0db65eb4023e4f8475fe79775c \\

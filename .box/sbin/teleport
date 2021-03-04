@@ -20,7 +20,7 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$TELEPORT_TSH'" \\
   --sha256=4407060fe157014a4b244655029e3c67867988f8b8e4177bc991c7e434212de1 \\
@@ -36,7 +36,7 @@ qwertyrc() {
   --on-download='tar -xf \$DOWNLOAD && mv teleport/tsh \$DOWNLOAD' \\
   $TELEPORT_URL/teleport-v5.1.2-linux-arm-bin.tar.gz
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$TELEPORT_TSH'" \\
   --sha256=fd4769fea993ab032f09cedbce2cbfd1ed43ebeb0eb2befaac293f0130dc925a \\

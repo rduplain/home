@@ -28,7 +28,7 @@ qwertyrc() {
     url="$CIRCLECI_URL/releases/download/${CIRCLECI_REV}"
 
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when='! test -e $CIRCLECI' \\
   --sha256="$CIRCLECI_256" \\

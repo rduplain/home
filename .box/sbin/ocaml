@@ -26,7 +26,7 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --sha256=95365a873d9e3ae6fb48e6109b5fc5df3b4e526c9d65d20652a78e263f745a35 \\
   --output="$OPAM" --chmod=755 \\
@@ -38,7 +38,7 @@ qwertyrc() {
   --output="$OPAM" --chmod=755 \\
   $OPAM_URL/releases/download/2.0.8/opam-2.0.8-armhf-linux
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --sha256=5ced41c6c9600479ded32c36b4b44d67bd7da4eadbefdebfa17838e857abef97 \\
   --output="$OPAM" --chmod=755 \\

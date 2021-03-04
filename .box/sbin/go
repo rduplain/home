@@ -31,7 +31,7 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --output=go.tar.gz \\
   --sha256=013a489ebb3e24ef3d915abe5b94c3286c070dfe0818d5bca8108f1d6e8440d2 \\
@@ -43,7 +43,7 @@ qwertyrc() {
   --sha256=d1d9404b1dbd77afa2bdc70934e10fbfcf7d785c372efc29462bb7d83d0a32fd \\
   https://dl.google.com/go/go1.16.linux-armv6l.tar.gz
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --sha256=6000a9522975d116bf76044967d7e69e04e982e9625330d9a539a8b45395f9a8 \\
   --output=go.tar.gz \\

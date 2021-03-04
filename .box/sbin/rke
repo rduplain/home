@@ -19,7 +19,7 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --sha256=77d2dc6af0d9388cba7dddea9ce3339d8e99618a32da68d043018ef63840bc6f \\
   --output="$RKE" --chmod=755 \\
@@ -31,7 +31,7 @@ qwertyrc() {
   --output="$RKE" --chmod=755 \\
   $RKE_URL//download/v1.2.5/rke_linux-arm
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --sha256=773c08845f2c094e1116e7aa321e0113658b97335488ac83490406cf43062901 \\
   --output="$RKE" --chmod=755 \\

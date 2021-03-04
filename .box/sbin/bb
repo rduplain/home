@@ -20,7 +20,7 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$BB'" \\
   --sha256=a89af730bc5d65c1e25541942f8961b783e023823582d3c981c878261e91ef96 \\
@@ -28,7 +28,7 @@ qwertyrc() {
   --on-download='unzip \$DOWNLOAD && mv bb \$DOWNLOAD' \\
   $BB_URL/download/v0.2.4/babashka-0.2.4-linux-static-amd64.zip
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$BB'" \\
   --sha256=65933e5b598e8b82762f856b8e942ee459db482ad73f704185b2706ccf8b0818 \\

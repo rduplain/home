@@ -19,7 +19,7 @@ install() {
 
 qwertyrc() {
     cat - <<EOF
-# GNU/Linux 64-bit
+# GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$WAYPOINT'" \\
   --sha256=93d242e424c98ddcdfc1994057c043ecc756d0e49dd8c0e7d160cb511f9c741a \\
@@ -35,7 +35,7 @@ qwertyrc() {
   --on-download='unzip \$DOWNLOAD && mv waypoint \$DOWNLOAD' \\
   $WAYPOINT_URL/0.2.3/waypoint_0.2.3_linux_arm.zip
 
-# macOS 64-bit
+# macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$WAYPOINT'" \\
   --sha256=1a61ce508ed8d234ea32dae5a8a6fb97147db205921e76880fc3be1ee4762358 \\
