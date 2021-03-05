@@ -32,7 +32,7 @@ qwertyrc() {
   --output="$OPAM" --chmod=755 \\
   $OPAM_URL/releases/download/2.0.8/opam-2.0.8-x86_64-linux
 
-# GNU/Linux on ARM
+# GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --sha256=7b7042fa19f1fe867c96bc7d42bdf392d8c099f484d3a2e93a39e55fd576d789 \\
   --output="$OPAM" --chmod=755 \\

@@ -28,7 +28,7 @@ qwertyrc() {
   --on-download='unzip \$DOWNLOAD && mv tflint \$DOWNLOAD' \\
   $TFLINT_URL/download/v0.20.2/tflint_linux_amd64.zip
 
-# GNU/Linux on ARM
+# GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$TFLINT'" \\
   --sha256=7382042c018ea1b0732ede3dcd0b6556ddbbb8453bfd4a657e69564d7d8045b3 \\

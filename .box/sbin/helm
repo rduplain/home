@@ -27,7 +27,7 @@ qwertyrc() {
   --on-download='tar -xf \$DOWNLOAD && mv linux-amd64/helm \$DOWNLOAD' \\
   $HELM_URL/helm-v3.5.2-linux-amd64.tar.gz
 
-# GNU/Linux on ARM
+# GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$HELM'" \\
   --sha256=98d090fc1769f5bf7451c15f6ed5a173a1ce5175eca32070ac19064d36470f1b \\

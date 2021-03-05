@@ -27,7 +27,7 @@ qwertyrc() {
   --on-download='unzip \$DOWNLOAD && mv packer \$DOWNLOAD' \\
   $PACKER_URL/1.6.5/packer_1.6.5_linux_amd64.zip
 
-# GNU/Linux on ARM
+# GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$PACKER'" \\
   --sha256=198c0d324653b2a1c96bd4d819769c97454266e138d97bbf5cd31d9ceee96615 \\

@@ -37,7 +37,7 @@ qwertyrc() {
   --sha256=013a489ebb3e24ef3d915abe5b94c3286c070dfe0818d5bca8108f1d6e8440d2 \\
   https://dl.google.com/go/go1.16.linux-amd64.tar.gz
 
-# GNU/Linux on ARM
+# GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --output=go.tar.gz \\
   --sha256=d1d9404b1dbd77afa2bdc70934e10fbfcf7d785c372efc29462bb7d83d0a32fd \\

@@ -28,7 +28,7 @@ qwertyrc() {
   --on-download='tar -xf \$DOWNLOAD && mv teleport/tsh \$DOWNLOAD' \\
   $TELEPORT_URL/teleport-v5.1.2-linux-amd64-bin.tar.gz
 
-# GNU/Linux on ARM
+# GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$TELEPORT_TSH'" \\
   --sha256=03e54bb0faa933934491292e4cdc4c60e689a126c2748f22b2c6e435c9ba54d3 \\
