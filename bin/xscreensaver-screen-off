@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Force screen off when xscreensaver is locked locked and monitor is on.
+#
+# An accidental keypress or mouse event will wake the screen and prompt for
+# password. When no password is given, the screen might stay on. This polls X
+# and xscreensaver state to ensure that the screen shuts offs after a short
+# time.
+
+while :; do
+    sleep 15  # Polling interval.
+    monitor="$(xset q | grep -i 'monitor is on')"
+    blank="$(xscreensaver-command -time | grep -i 'screen locked')"
+    if [ -n "$monitor" ] && [ -n "$blank" ]; then
+        sleep 60  # Give time for user input.
+        xset dpms force off
+    fi
+done
