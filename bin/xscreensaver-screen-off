@@ -12,6 +12,9 @@ while :; do
     blank="$(xscreensaver-command -time | grep -i 'screen locked')"
     if [ -n "$monitor" ] && [ -n "$blank" ]; then
         sleep 60  # Give time for user input.
-        xset dpms force off
+        blank="$(xscreensaver-command -time | grep -i 'screen locked')"
+        if [ -n "$blank" ]; then
+            xset dpms force off
+        fi
     fi
 done
