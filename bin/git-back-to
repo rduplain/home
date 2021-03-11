@@ -32,6 +32,10 @@ main() {
 
     set -e
 
+    for operation in am merge rebase; do
+        git $operation --abort 2>/dev/null || true
+    done
+
     tmp="git-back-to-$(date +%s)"
     git checkout -b "$tmp" >/dev/null 2>&1
 
