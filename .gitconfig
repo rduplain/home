@@ -1,4 +1,5 @@
 [advice]
+    detachedhead = false
     ignoredhook = false
 [color]
     ui = auto
