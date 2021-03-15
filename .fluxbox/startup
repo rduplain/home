@@ -49,6 +49,10 @@ sleep 25
 xset r rate 250 30 # Set again.
 EOF
 
+if [ -x "$HOME"/.fluxbox/startup.local ]; then
+    "$HOME"/.fluxbox/startup.local
+fi
+
 notice `uname -n` fluxbox is starting &
 trap 'notice `uname -n` fluxbox is stopping &' 0 INT TERM QUIT EXIT
 
