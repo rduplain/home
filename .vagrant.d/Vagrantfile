@@ -8,8 +8,8 @@ Vagrant.configure(2) do |config|
   #
   #     vagrant plugin install vagrant-vbguest
 
-  # Check for up-to-date additions version when booting.
-  config.vbguest.auto_update = true
+  # Do not check for up-to-date additions version when booting.
+  config.vbguest.auto_update = false
 
   # Do NOT download the ISO file from a webserver.
   config.vbguest.no_remote = true
