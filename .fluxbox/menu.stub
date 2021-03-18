@@ -1,7 +1,7 @@
 # Build with `generate_menu` in same directory.
 [begin] ()
 	[exec] (Terminal) {rxvt-unicode}
-	[exec] (Chrome) {google-chrome --profile-directory=Default}
+	[exec] (Chrome) {google-chrome --disable-features=SendMouseLeaveEvents --profile-directory=Default}
 	[exec] (Firefox) {firefox}
 	[nop]
 	[exec] (VS Code) {code}
