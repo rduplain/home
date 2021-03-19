@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# Install `k9s` for Kubernetes.
+
+K9S="$REQD_OPT"/kubernetes/bin/k9s
+K9S_URL=https://github.com/derailed/k9s/releases
+
+check() {
+    reqd_ls "$K9S"
+    reqd_run_once
+}
+
+install() {
+    rm -f "$K9S"
+
+    qwertyrc > k9s.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc k9s.qwertyrc
+    "$K9S" version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux x86_64
+  --sys=linux --arch=x86_64 \\
+  --when="! test -e '$K9S'" \\
+  --sha256=238b754da8469c1e25a2699d2994a59b16308b2abee671cbf9c476a0b8d9bd67 \\
+  --output="$K9S" --chmod=755 \\
+  --on-download='tar -xf \$DOWNLOAD && mv k9s \$DOWNLOAD' \\
+  $K9S_URL/download/v0.24.2/k9s_Linux_x86_64.tar.gz
+
+# GNU/Linux ARM
+  --sys=linux --arch=arm --all-sub-arch \\
+  --when="! test -e '$K9S'" \\
+  --sha256=ffa071e68bd264bc14e5aa38fa8f63aa92d41ba315ece4060095b75a629b6242 \\
+  --output="$K9S" --chmod=755 \\
+  --on-download='tar -xf \$DOWNLOAD && mv k9s \$DOWNLOAD' \\
+  $K9S_URL/download/v0.24.2/k9s_Linux_arm.tar.gz
+
+# macOS x86_64
+  --sys=darwin --arch=x86_64 \\
+  --when="! test -e '$K9S'" \\
+  --sha256=46ca852ac11b6749dbf0be77a7500c65e20ee67f101726e396b523bf201e0da0 \\
+  --output="$K9S" --chmod=755 \\
+  --on-download='tar -xf \$DOWNLOAD && mv k9s \$DOWNLOAD' \\
+  $K9S_URL/download/v0.24.2/k9s_Darwin_x86_64.tar.gz
+EOF
+}
+
+reqd_main "$@"
