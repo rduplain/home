@@ -6,8 +6,8 @@ check() {
 }
 
 install() {
-    # Assume host 'espresso' is primary development machine.
-    if [ "$(uname -n)" = "espresso" ] && [ -d "$HOME/.emacs.d/straight" ]; then
+    # Assume host 'redeye' is primary development machine.
+    if [ "$(uname -n)" = "redeye" ] && [ -d "$HOME/.emacs.d/straight" ]; then
         reqd_echo 'put latest to default upstream with `emacs-sync` ...'
         "$HOME"/bin/emacs-sync put
     else
