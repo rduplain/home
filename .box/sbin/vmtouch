@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Install `vmtouch` to inspect filesystem caches.
+#
+# https://hoytech.com/vmtouch/
+
+VMTOUCH_PREFIX="$REQD_OPT"/vmtouch
+VMTOUCH="$VMTOUCH_PREFIX"/bin/vmtouch
+
+VMTOUCH_URL=https://github.com/hoytech/vmtouch.git
+VMTOUCH_V=v1.3.1
+
+check() {
+    reqd_ls "$VMTOUCH"
+    reqd_run_once
+}
+
+install() {
+    rm -fr vmtouch
+    "$REQD_BIN"/qwerty.sh -o vmtouch --tag $VMTOUCH_V $VMTOUCH_URL
+    cd vmtouch
+    export PREFIX=$VMTOUCH_PREFIX
+    make install
+}
+
+reqd_main "$@"
