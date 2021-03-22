@@ -1,0 +1,200 @@
+#!/usr/bin/env bash
+# Interactively rebase, deeply; rewrite commit dates when no interaction.
+
+# Exit immediately on command error.
+set -eo pipefail
+
+# Set defaults.
+: "${GIT_FULL_REBASE_ALL:=}"
+: "${GIT_FULL_REBASE_MAX:=20}"
+: "${GIT_FULL_REBASE_NON_INTERACTIVE:=}"
+: "${GIT_FULL_REBASE_BAD_IDEA_COMMIT_META_DIFFERS:=5}"
+: "${GIT_FULL_REBASE_BAD_IDEA_MERGES:=2}"
+
+PROG="git full-rebase"
+
+usage() {
+    [ -n "$*" ] && echo "$PROG: error: $@"
+    echo "usage: $PROG [--all] [--max N] [--non-interactive]" >&2
+}
+
+commit_count() {
+    # Print number of commits since given revision.
+
+    git rev-list ${1}..HEAD | wc -l
+}
+
+is_natural_number() {
+    # Check whether each argument is a natural number.
+
+    local i
+    for i; do
+        case "$i" in ''|*[!0-9]*) return 1;; esac
+    done
+
+    return 0
+}
+
+root_commit() {
+    # Print revision of oldest commit (initial commit).
+
+    git rev-list --max-parents=0 HEAD
+}
+
+upstream() {
+    # Report upstream ref, e.g. 'origin/master' (without quotes), to stdout.
+
+    git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null
+}
+
+validate() {
+    # Return non-zero with stderr message if bad idea to run `git full-rebase`.
+
+    local base
+    base="$1"
+
+    if [ "$(git rev-parse HEAD)" == "$base" ]; then
+        # Detected that HEAD is the same as base.
+        echo "$PROG: Nothing to do." >&2
+        return 1
+    fi
+
+    if [ -n "$GIT_FULL_REBASE_ALWAYS_A_GOOD_IDEA" ]; then
+        return
+    fi
+
+    local bad_idea_commit_meta_differs bad_idea_merges
+    bad_idea_commit_meta_differs=$GIT_FULL_REBASE_BAD_IDEA_COMMIT_META_DIFFERS
+    bad_idea_merges=$GIT_FULL_REBASE_BAD_IDEA_MERGES
+
+    local commit_meta_differs merges
+    local author committer commit_date date format
+    local detected
+
+    format="author='%an' committer='%cn' commit_date='%cd' date='%ad'"
+
+    # Iterate all commits since base.
+    for rev in $(git rev-list ${base}..HEAD); do
+        if [ $(git cat-file -p $rev | grep -E '^parent ' | wc -l) -gt 1 ]; then
+            # Detected merge commit.
+            let merges=merges+1
+
+            if [ $merges -gt $bad_idea_merges ]; then
+                detected="more then $bad_idea_merges merges"
+                echo "$PROG: Bad idea. Detected $detected." >&2
+                return 1
+            fi
+        fi
+
+        # Parse author, committer, commit_date, date.
+        eval "$(git show --no-patch --format="$format" $rev)"
+
+        if [ "$author" != "$committer" ] || [ "$commit_date" != "$date" ]; then
+            # Detected that author and committer metadata differ.
+            let commit_meta_differs=commit_meta_differs+1
+
+            if [ $commit_meta_differs -gt $bad_idea_commit_meta_differs ]; then
+                detected="more than $bad_idea_commit_meta_differs commits"
+                detected="$detected have differing author/committer metadata"
+                echo "$PROG: Bad idea. Detected $detected." >&2
+                return 1
+            fi
+        fi
+    done
+}
+
+main() {
+    local base # base git SHA to use in `git rebase`.
+    local all  # non-empty when --all provided on command line.
+    local max  # integer value N when --max=N provided on command line.
+
+    local non_interactive # non-empty means skip `-i` in `git rebase`.
+
+    # Parse arguments.
+    local key value
+
+    while [ "$1" != "" ]; do
+        key=$(printf %s "$1" | awk -F= '{ print $1 }')
+        value=$(printf %s "$1" | awk -F= '{ print $2 }')
+        shift
+        case "$key" in
+            --all)
+                all=true
+                [ -n "$value" ] && usage "$key takes no arguments" && return 2
+                ;;
+            --max)
+                [ -z "$value" ] && value="$1" && shift
+                [ -z "$value" ] && usage "$key requires a number" && return 2
+                if ! is_natural_number "$value"; then
+                    usage "$key requires a number and '$value' isn't one"
+                    return 2
+                fi
+                max=$value
+                ;;
+            --non-interactive)
+                non_interactive=true
+                [ -n "$value" ] && usage "$key takes no arguments" && return 2
+                ;;
+            *)
+                usage "unrecognized option '$key'" && return 2
+                ;;
+        esac
+    done
+
+    # Validate command-line flag combination.
+    if [ -n "$all" ] && [ -n "$max" ]; then
+        echo "$PROG: use either --all or --max, not both"
+        usage
+        return 2
+    fi
+
+    # Use environment variables if not overridden.
+    if [ -z "$max" ]; then
+        all=${all-$GIT_FULL_REBASE_ALL}
+    fi
+    max=${max-$GIT_FULL_REBASE_MAX}
+    non_interactive=${non_interactive-$GIT_FULL_REBASE_NON_INTERACTIVE}
+
+    # If upstream exists and HEAD is a fast-forward, use the merge base.
+    if git merge-base --is-ancestor "$(upstream)" HEAD >/dev/null 2>&1; then
+        base=$(git merge-base $(upstream) HEAD)
+
+        # Treat being in sync as preferring to rebase further back.
+        if [ "$(git rev-parse HEAD)" == "$base" ]; then
+            base=""
+        fi
+    fi
+
+    # Else, use oldest commit as base.
+    if [ -z "$base" ]; then
+        base=$(root_commit)
+    fi
+
+    # Use --all to disregard $GIT_FULL_REBASE_MAX and merge-base.
+    if [ -n "$all" ]; then
+        base=$(root_commit)
+    elif [ -n "$max" ]; then
+        # Use --max or $GIT_FULL_REBASE_MAX (has default) to limit history.
+        if [ $(commit_count $base) -gt $max ]; then
+            base=HEAD~$max
+        fi
+    fi
+
+    validate "$base"
+
+    if [ -z "$non_interactive" ]; then
+        git rebase -i $base
+    else
+        git rebase $base
+    fi
+
+    if git rebase --show-current-patch >/dev/null 2>&1; then
+        # Detected rebase (or merge, or ...) in progress.
+        echo "Interactive rebase in progress ..." >&2
+    else
+        echo "Rewriting commit dates with author dates." >&2
+        git rebase --committer-date-is-author-date $base
+    fi
+}
+
+main "$@"

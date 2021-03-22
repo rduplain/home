@@ -448,6 +448,14 @@ function ___completion_custom() {
         _git_checkout
     }
 
+    function _git_full_rebase() {
+        # Add `git full-rebase` command-line flags to tab-completion.
+        local flags word
+        flags=(--all --max= --non-interactive)
+        word="${COMP_WORDS[COMP_CWORD]}"
+        COMPREPLY+=( $(compgen -W "$(echo "${flags[@]}")" -- "$word") )
+    }
+
     receive /usr/share/bash-completion/completions/screen
 
     # Inject completions from `screen --sessions` if available.
