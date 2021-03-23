@@ -21,6 +21,7 @@
     default = matching
 [rebase]
     autosquash = true
+    autostash = true
 [user]
     email = rom.duplain@gmail.com
     name = Rom DuPlain
