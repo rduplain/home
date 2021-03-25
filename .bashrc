@@ -14,6 +14,8 @@ hash -r # Forget all remembered locations of `shopt -s checkhash`.
 
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
+    #
+    # Limitation: loaded completion functions are not rehashed.
 
     for envtool in $ENVTOOLS; do
         command_exists $envtool && $envtool rehash
