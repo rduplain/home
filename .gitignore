@@ -1,5 +1,6 @@
 .\#*
 \#*#
+.attach_pid*
 .bashrc
 .emacs.*
 *.scratch
