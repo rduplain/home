@@ -49,6 +49,10 @@ sleep 25
 xset r rate 250 30 # Set again.
 EOF
 
+cat > ~/.ssh/agent.bash <<EOF
+export SSH_AUTH_SOCK=/run/user/$(id -u)/keyring/ssh
+EOF
+
 if [ -x "$HOME"/.fluxbox/startup.local ]; then
     "$HOME"/.fluxbox/startup.local
 fi

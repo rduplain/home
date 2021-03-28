@@ -348,10 +348,7 @@ alias pydoc='python3 -m pydoc'
 alias emacs='emacs -nw'
 
 receive "$HOME"/.config/host/${HOSTNAME:-default}/bashrc
-
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    receive "$HOME"/.ssh/agent.bash
-fi
+receive "$HOME"/.ssh/agent.bash
 
 # Use github/hub `hub` wrapper around `git`.
 #
