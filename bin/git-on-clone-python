@@ -12,13 +12,18 @@ given() {
 }
 
 main() {
-    if given poetry && [ -e pyproject.toml ]; then
+    if given poetry &&
+       [ -e pyproject.toml ] &&
+       grep -q tool.poetry pyproject.toml
+    then
         poetry install
 
         if [ -e .pre-commit-config.yaml ]; then
             poetry run pre-commit install --install-hooks
         fi
-    elif given pre-commit && [ -e .pre-commit-config.yaml ]; then
+    elif given pre-commit &&
+         [ -e .pre-commit-config.yaml ]
+    then
         pre-commit install --install-hooks
     fi
 }
