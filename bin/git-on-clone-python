@@ -21,6 +21,15 @@ main() {
         if [ -e .pre-commit-config.yaml ]; then
             poetry run pre-commit install --install-hooks
         fi
+    elif given pdm &&
+       [ -e pyproject.toml ] &&
+       grep -q pdm pyproject.toml
+    then
+        pdm install
+
+        if [ -e .pre-commit-config.yaml ]; then
+            pdm run pre-commit install --install-hooks
+        fi
     elif given pre-commit &&
          [ -e .pre-commit-config.yaml ]
     then
