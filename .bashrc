@@ -416,7 +416,7 @@ declare -A _xspecs >/dev/null 2>&1 || true
 
 function ___completion_custom() {
     for envtool in $ENVTOOLS; do
-        command_exists $envtool && eval "$($envtool init -)"
+        receive "$HOME/.${envtool}/completions/${envtool}.bash"
     done
 
     receive "$HOME"/.nvm/bash_completion
