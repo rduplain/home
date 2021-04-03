@@ -516,6 +516,8 @@ else
 fi
 
 # Force reload of ___completion_boot.
+#
+# Note: This does not affect loaded completions, only the default completer.
 unset BASH_COMPLETION_LOADED
 
 # Configure shell if running inside Jupyter notebook.
