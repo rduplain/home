@@ -348,6 +348,38 @@ export LESS_TERMCAP_us=$(printf "\e[1;37m")     # mode underline start
 alias pydoc='python3 -m pydoc'
 alias emacs='emacs -nw'
 
+detect() {
+    # Report success if any given file detected on filesystem.
+
+    for file in "$@"; do
+        # Use `ls` in case of globs.
+        if ls $file >/dev/null 2>&1; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+if detect *.py Pipfile pyproject.toml requirements.txt; then
+    CODE=python
+elif detect *.rb *.gemspec Gemfile; then
+    CODE=ruby
+fi
+
+# Set commands based on programming language when shell starts in project root.
+case "$CODE" in
+    python)
+        alias doc=pydoc
+        ;;
+    ruby)
+        alias doc=ri
+        ;;
+    *)
+        alias doc='echo "doc: unknown environment. (see ~/.bashrc)"'
+        ;;
+esac
+
 receive "$HOME"/.config/host/${HOSTNAME:-default}/bashrc
 receive "$HOME"/.ssh/agent.bash
 
