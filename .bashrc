@@ -612,6 +612,11 @@ export FIGNORE='~'
 unset MAILCHECK MAILPATH
 unset CDPATH
 
+export QWERTY_SH_URL=https://raw.githubusercontent.com/rduplain/qwerty.sh/v0.7/qwerty.sh
+
+alias qwerty.sh="curl --proto '=https' --tlsv1.2 -sSf $QWERTY_SH_URL | \
+                   QWERTY_SH_PROG=qwerty.sh sh -s -"
+
 receive "$HOME"/.bashrc-local
 receive "$HOME"/.env
 
