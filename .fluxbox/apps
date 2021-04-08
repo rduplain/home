@@ -54,7 +54,7 @@
   [Position]    (UPPERLEFT)     {0 0}
 [end]
 [app] (name=thunar) (class=Thunar)
-  [Dimensions]  {724 712}
+  [Dimensions]  {724 594}
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
 [app] (name=TigerVNC Viewer) (class=TigerVNC Viewer)
