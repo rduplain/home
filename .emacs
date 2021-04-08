@@ -219,6 +219,10 @@
 (setq dired-recursive-copies 'always
       dired-recursive-deletes 'always)
 
+;; Always kill buffer of deleted file.
+(with-eval-after-load 'dired
+  (always-yes 'dired-clean-up-after-deletion))
+
 ;; Ignore uninteresting files.
 (add-hook 'dired-mode-hook
           (lambda ()
