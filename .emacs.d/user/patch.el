@@ -4,15 +4,21 @@
 (unless (fboundp 'yes-or-no-p-original)
   (fset 'yes-or-no-p-original (symbol-function 'yes-or-no-p)))
 
+(unless (fboundp 'y-or-n-p-original)
+  (fset 'y-or-n-p-original (symbol-function 'y-or-n-p)))
+
 (defmacro -apply-using-yes-or-no-as (default)
   "Because resulting function is anonymous, it cannot be `advice-remove'd."
   `(lambda (fn &rest args)
-     "Patched to skip all invocations of `yes-or-no-p'."
+     "Patched to skip all invocations of `yes-or-no-p' and `y-or-n-p'."
      (unwind-protect
          (progn
            (fset 'yes-or-no-p '(lambda (&rest args) ,default))
+           (fset 'y-or-n-p '(lambda (&rest args) ,default))
            (apply fn args))
-       (fset 'yes-or-no-p (symbol-function 'yes-or-no-p-original)))))
+       (progn
+         (fset 'yes-or-no-p (symbol-function 'yes-or-no-p-original))
+         (fset 'y-or-n-p (symbol-function 'y-or-n-p-original))))))
 
 (defmacro always-yes (fn)
   `(advice-add ,fn :around (-apply-using-yes-or-no-as t)))
