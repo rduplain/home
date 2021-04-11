@@ -41,7 +41,7 @@ install() {
     pyenv install --skip-existing 3.9.4
     pyenv install --skip-existing 3.10.0a6
 
-    pyenv global 3.9.4 2.7.18
+    pyenv global 3.9.4 2.7.18 3.10.0a6
 
     pip2 install --upgrade pip setuptools wheel
     pip3 install --upgrade pip setuptools wheel
