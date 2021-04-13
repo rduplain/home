@@ -27,7 +27,6 @@ install() {
 
     rbenv install --skip-existing 3.0.1
     rbenv global 3.0.1
-    gem install -v 2.2.3 bundler
 }
 
 reqd_main "$@"
