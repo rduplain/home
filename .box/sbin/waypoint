@@ -22,26 +22,26 @@ qwertyrc() {
 # GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$WAYPOINT'" \\
-  --sha256=93d242e424c98ddcdfc1994057c043ecc756d0e49dd8c0e7d160cb511f9c741a \\
+  --sha256=80fa965a4c9f0c7b4e8fffa255a1823ff8df350523b336433debb17d79ad8d6d \\
   --output="$WAYPOINT" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv waypoint \$DOWNLOAD' \\
-  $WAYPOINT_URL/0.2.3/waypoint_0.2.3_linux_amd64.zip
+  $WAYPOINT_URL/0.3.0/waypoint_0.3.0_linux_amd64.zip
 
 # GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$WAYPOINT'" \\
-  --sha256=26cfd509f9df444890622e03d37fd499b5d6f9d202fd3657d38efd74a28900c6 \\
+  --sha256=010f75266d99f164dc33c087aa71612d638f2ef15d389c6d1d854657dab30816 \\
   --output="$WAYPOINT" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv waypoint \$DOWNLOAD' \\
-  $WAYPOINT_URL/0.2.3/waypoint_0.2.3_linux_arm.zip
+  $WAYPOINT_URL/0.3.0/waypoint_0.3.0_linux_arm.zip
 
 # macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$WAYPOINT'" \\
-  --sha256=1a61ce508ed8d234ea32dae5a8a6fb97147db205921e76880fc3be1ee4762358 \\
+  --sha256=f8d245d1ef7cd3e6d4d8c03e3a8e863e6a8162648ef946a8834afb92d9651436 \\
   --output="$WAYPOINT" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv waypoint \$DOWNLOAD' \\
-  $WAYPOINT_URL/0.2.3/waypoint_0.2.3_darwin_amd64.zip
+  $WAYPOINT_URL/0.3.0/waypoint_0.3.0_darwin_amd64.zip
 EOF
 }
 
