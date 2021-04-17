@@ -380,6 +380,10 @@ case "$CODE" in
         ;;
 esac
 
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    ship SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"
+fi
+
 receive "$HOME"/.config/host/${HOSTNAME:-default}/bashrc
 receive "$HOME"/.ssh/agent.bash
 
