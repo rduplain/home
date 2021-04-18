@@ -314,7 +314,7 @@ export HISTFILESIZE=9999
 export HISTSIZE=20000
 
 # Set editor and essential program defaults.
-export EDITOR='emacs -nw'
+export EDITOR=emacs
 export VISUAL=vi
 export TEXEDIT=$EDITOR
 export PAGER=less
