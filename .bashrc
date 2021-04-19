@@ -310,8 +310,8 @@ export LC_ALL=en_US.UTF-8
 # Ignore consecutive duplicate commands: ignoredups.
 # Ignore both: ignoreboth.
 export HISTCONTROL=ignoreboth
-export HISTFILESIZE=9999
-export HISTSIZE=20000
+export HISTFILESIZE=1000000
+export HISTSIZE=$HISTFILESIZE
 
 # Set editor and essential program defaults.
 export EDITOR=emacs
