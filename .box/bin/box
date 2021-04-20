@@ -149,6 +149,9 @@ development() {
             rke
 
     "$reqd" install \
+            pack
+
+    "$reqd" install \
             teleport
 
     "$reqd" install \

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Install `pack` for Cloud Native Buildpacks.
+#
+# https://buildpacks.io/
+
+PACK="$REQD_OPT"/pack/bin/pack
+PACK_URL=https://github.com/buildpacks/pack/releases
+
+check() {
+    reqd_ls "$PACK"
+    reqd_run_once
+}
+
+install() {
+    rm -f "$PACK"
+
+    qwertyrc > pack.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc pack.qwertyrc
+    "$PACK" version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux x86_64
+  --sys=linux --arch=x86_64 \\
+  --when="! test -e '$PACK'" \\
+  --sha256=665c231da35146679702c062ee6e45a7c25361e2b939174fae73a10339609338 \\
+  --output="$PACK" --chmod=755 \\
+  --on-download='tar -xf \$DOWNLOAD && mv pack \$DOWNLOAD' \\
+  $PACK_URL/download/v0.18.1/pack-v0.18.1-linux.tgz
+
+# macOS x86_64
+  --sys=darwin --arch=x86_64 \\
+  --when="! test -e '$PACK'" \\
+  --sha256=e9938a7c9469f5fcfdc96d6707c328c1c13d3e7acece366532c3a358f6faf71b \\
+  --output="$PACK" --chmod=755 \\
+  --on-download='tar -xf \$DOWNLOAD && mv pack \$DOWNLOAD' \\
+  $PACK_URL/download/v0.18.1/pack-v0.18.1-macos.tgz
+EOF
+}
+
+reqd_main "$@"
