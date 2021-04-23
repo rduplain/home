@@ -2,8 +2,8 @@
 # Install Clojure.
 
 PREFIX="$REQD_OPT"/clojure
-INSTALL_URL=https://download.clojure.org/install/linux-install-1.10.2.774.sh
-SHA256=6d39603e84ad2622e5ae601436f02a1ee4a57e4e35dc49098b01a7d142a13d4a
+INSTALL_URL=https://download.clojure.org/install/linux-install-1.10.3.822.sh
+SHA256=ebc820fe0e74de4bd77e6d5bd7db4a262ec1902efdf4d0553309485afcd75abf
 
 check() {
     reqd_ls "$PREFIX"/bin/clj
