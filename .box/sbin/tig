@@ -6,8 +6,8 @@ TIG="$TIG_PREFIX"/bin/tig
 
 TIG_URL=https://github.com/jonas/tig/releases
 
-TIG_SHA256=500d5d34524f6b856edd5cae01f1404d14f3b51a9a53fd7357f4cebb3d4c9e64
-TIG_V=2.5.1
+TIG_SHA256=e528068499d558beb99a0a8bca30f59171e71f046d76ee5d945d35027d3925dc
+TIG_V=2.5.3
 
 check() {
     reqd_ls "$TIG"
