@@ -486,6 +486,10 @@ function ___completion_custom() {
         _git_checkout
     }
 
+    function _git_diff_base() {
+        _git_checkout
+    }
+
     function _git_full_rebase() {
         # Add `git full-rebase` command-line flags to tab-completion.
         local flags word

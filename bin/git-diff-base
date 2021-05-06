@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Diff current branch with merge-base of target ref (default to upstream).
+
+upstream() {
+    # Report upstream ref, e.g. 'origin/master' (without quotes), to stdout.
+
+    git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null
+}
+
+main() {
+    local ref
+
+    ref="$1"
+    shift
+
+    if [ -z "$ref" ]; then
+        if [ -z "$(upstream)" ]; then
+            echo "error: not tracking a remote branch." >&2
+            return 3
+        fi
+
+        ref="$(upstream)"
+    fi
+
+    git diff "$(git merge-base "$ref" HEAD)"
+}
+
+main "$@"
