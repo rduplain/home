@@ -43,15 +43,16 @@ qwertyrc() {
   --sys=linux --arch=x86_64 \\
   --output="$INSTALLER" \\
   --chmod=644 \\
-  --sha256=879457af6a0bf5b34b48c12de31d4df0ee2f06a8e68768e5758c3293b2daf688 \\
-  https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.3-Linux-x86_64.sh
+  --sha256=536817d1b14cb1ada88900f5be51ce0a5e042bae178b5550e62f61e223deae7c \\
+  https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
 
 # macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --output="$INSTALLER" \\
   --chmod=644 \\
-  --sha256=9b9a353fadab6aa82ac0337c367c23ef842f97868dcbb2ff25ec3aa463afc871 \\
-  https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.3-MacOSX-x86_64.sh
+  --sha256=b3bf77cbb81ee235ec6858146a2a84d20f8ecdeb614678030c39baacb5acbed1 \\
+  https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-MacOSX-x86_64.sh
+
 EOF
 }
 
