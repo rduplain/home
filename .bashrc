@@ -387,19 +387,6 @@ fi
 receive "$HOME"/.config/host/${HOSTNAME:-default}/bashrc
 receive "$HOME"/.ssh/agent.bash
 
-# Use github/hub `hub` wrapper around `git`.
-#
-# ... but override `hub sync` for bin/git-sync.
-function _hub() {
-    if [ "$*" = "sync" ] && command_exists git-sync; then
-        git-sync
-    else
-        hub "$@"
-    fi
-}
-
-when_command hub alias git=_hub
-
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
     return
@@ -563,7 +550,6 @@ unset BASH_COMPLETION_LOADED
 # Configure shell if running inside Jupyter notebook.
 if [ -n "$JPY_PARENT_PID" ]; then
     unset HISTFILE
-    ___completion_boot
 fi
 
 if command_exists steam; then

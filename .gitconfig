@@ -13,8 +13,6 @@
     reflogexpireunreachable = now
     rerereresolved = now
     rerereunresolved = now
-[hub]
-    protocol = ssh
 [pull]
     ff = only
 [push]
