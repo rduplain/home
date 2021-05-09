@@ -10,6 +10,7 @@ upstream() {
 main() {
     local ref
 
+    # Accept an optional git ref to use in place of tracked upstream branch.
     ref="$1"
     shift
 
