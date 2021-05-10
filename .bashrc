@@ -550,6 +550,7 @@ unset BASH_COMPLETION_LOADED
 # Configure shell if running inside Jupyter notebook.
 if [ -n "$JPY_PARENT_PID" ]; then
     unset HISTFILE
+    ___completion_boot  # Support in-notebook completion, should it exist.
 fi
 
 if command_exists steam; then
