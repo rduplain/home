@@ -20,6 +20,10 @@ install() {
         rsync -av --prune-empty-dirs \
               --include-from="$REQD_ETC"/src-overlay.rsync \
               "$HOME_SRC"/ "$HOME_SRC_OVERLAY"
+    else
+        rsync -av --existing --omit-dir-times \
+              --include-from="$REQD_ETC"/src-overlay.rsync \
+              "$HOME_SRC_OVERLAY"/ "$HOME_SRC"
     fi
 }
 
