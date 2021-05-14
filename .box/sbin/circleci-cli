@@ -2,8 +2,8 @@
 # Install `circleci-cli` executable for a local CircleCI runtime.
 
 CIRCLECI="$REQD_OPT"/circleci/bin/circleci
-CIRCLECI_REV=v0.1.11458
-CIRCLECI_256=c94f15da54d69ea4d783d93213faf339d9ddec70a419b1f671bfd6f7a07bf252
+CIRCLECI_REV=v0.1.15224
+CIRCLECI_256=e8836bd24beda664f0842498af56a0de961e3e4af791210cee6718a18a8ad55c
 CIRCLECI_URL=https://github.com/CircleCI-Public/circleci-cli
 
 check() {
