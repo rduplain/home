@@ -26,7 +26,9 @@ install() {
         return
     fi
 
-    # Add `conda install` lines here.
+    # Add `conda install` lines here, e.g.:
+    #
+    #     conda install --yes tensorflow
 }
 
 reqd_main "$@"
