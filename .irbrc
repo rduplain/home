@@ -7,7 +7,7 @@ require 'irb/completion'
 require 'irb/ext/save-history'
 IRB.conf[:SAVE_HISTORY] = 1000000
 
-# Set prompt to simple '>>'.
+# Set prompt to simple '>> '.
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 
 # Print a blank line at exit, to give shell prompt its own line.
