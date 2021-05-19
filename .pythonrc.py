@@ -33,7 +33,7 @@ else:
 
     import atexit
     # Set number of lines to save. Negative values mean infinite.
-    readline.set_history_length(100000)
+    readline.set_history_length(1000000)
     atexit.register(readline.write_history_file, history_file)
 
     del history_file
