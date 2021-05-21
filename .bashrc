@@ -482,7 +482,7 @@ function ___completion_custom() {
         local flags word
         flags=(--all --max= --non-interactive)
         word="${COMP_WORDS[COMP_CWORD]}"
-        COMPREPLY+=( $(compgen -W "$(echo "${flags[@]}")" -- "$word") )
+        COMPREPLY+=($(compgen -W "$(echo "${flags[@]}")" -- "$word"))
     }
 
     receive /usr/share/bash-completion/completions/screen
@@ -498,7 +498,7 @@ function ___completion_custom() {
 
             local word
             word="${COMP_WORDS[COMP_CWORD]}"
-            COMPREPLY+=( $(compgen -W "$(screen --sessions)" -- "$word") )
+            COMPREPLY+=($(compgen -W "$(screen --sessions)" -- "$word"))
         }
     fi
 }
