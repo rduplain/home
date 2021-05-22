@@ -434,7 +434,7 @@ function _default_completion_loader() {
     fi
 }
 
-# Prevent completion _xspecs[.] lookup being a syntax error.
+# Prevent completion _xspecs[.] lookup being a syntax error in bash-completion.
 declare -A _xspecs >/dev/null 2>&1 || true
 
 function ___completion_custom() {
