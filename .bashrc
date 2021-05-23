@@ -424,7 +424,7 @@ function _default_completion_loader() {
     local line=$(complete -p -D 2>/dev/null)
 
     # Parse name of completion function.
-    line=${line##*-F} # Remove everything up to and including -F.
+    line=${line##*-F}                  # Remove everything up-to/including -F.
     line=$(echo $line | cut -f1 -d' ') # Remove first space & everything after.
 
     local fn=$line
