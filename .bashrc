@@ -162,18 +162,18 @@ export -f source_these walk_root_to_curdir omit_home
 # ensures that duplicate filepaths drop from each path. This approach ensures a
 # clean set of PATH variables with unique filepath entries that exist on the
 # filesystem. (Note that directories removed prior to invocation of a child
-# interactive shell may remain at low priority in the path.) Path management
-# applies on each shell invocation instead of caching results, as to pick up
-# filesystem changes.
+# interactive shell may remain at low priority in the path.)
 #
-# Existing shells can update paths with the `rehash` function.
+# Path management applies on each shell invocation instead of caching results,
+# as to pick up filesystem changes. Existing shells can update paths with the
+# `rehash` function.
 #
 # Runtime modifications to paths will be overridden when the shell sources this
 # .bashrc. Most of the time, this is the desired behavior. When specific
-# modifications are needed, create a local .bashrc or .env file. Terminal
-# windows in GNU screen or tmux will create shells with working directories
-# inside the project, and this ~/.bashrc will find the project-local
-# configuration files.
+# modifications are needed, create a local .bashrc or .env file in the project
+# or parent directory. Terminal windows in GNU screen or tmux will create
+# shells with working directories inside the project, and this ~/.bashrc will
+# find the project-local configuration files.
 #
 # See `source_these` in this ~/.bashrc.
 
