@@ -323,7 +323,6 @@ export PAGER=less
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
 # Stylize `less`.
-# In effect: add bold white to `man`, replace $PAGER inverse with bold blue.
 #
 #         Foreground  Background
 #
@@ -337,6 +336,9 @@ export PAGER=less
 # white           37          47
 #
 # Each double-digit number is ANSI color code, outlined above. 1 is bold.
+#
+# In effect: add bold white to `man`, replace $PAGER inverse with bold blue.
+#
 export LESS_TERMCAP_mb=$(printf "\e[1;37m")     # mode blink start
 export LESS_TERMCAP_md=$(printf "\e[1;37m")     # mode bold start
 export LESS_TERMCAP_me=$(printf "\e[0m")        # mode end
