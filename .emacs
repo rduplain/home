@@ -904,7 +904,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; CSV
 (feature 'csv-mode)
 
-;;; Cucumber
+;;; Cucumber (BDD)
 (feature 'feature-mode)
 
 ;;; Docker
