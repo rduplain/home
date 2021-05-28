@@ -700,7 +700,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (defun mode-indent-variable-name (mode)
   "Determine name of environment variable as string of given mode (symbol).
 
-  Mode `sh-mode' has matching environment variable name `SH_INDENT`."
+  Example: `sh-mode' has matching environment variable name `SH_INDENT`."
   (thread-last
       mode
     (symbol-name)
