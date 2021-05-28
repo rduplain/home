@@ -687,7 +687,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 ;;;; Modes - Environment Controlled Indentation
 ;;;;
-;;;; Support simple environment variables over arbitrary code in dir-locals.
+;;;; Support simple environment variables, avoid arbitrary code in dir-locals.
 
 ;;; Example:
 ;;;
