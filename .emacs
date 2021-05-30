@@ -984,7 +984,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (setq lua-indent-level 2)
 
 ;;; Makefile
-(add-to-list 'auto-mode-alist '("Makefile\\.scratch$" . makefile-mode))
+(add-to-list 'auto-mode-alist '("Makefile\\." . makefile-mode))
 
 ;;; Markdown
 (feature 'markdown-mode)
