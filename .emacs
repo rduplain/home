@@ -549,7 +549,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;; Define a function to interactively configure `make` recipe.
 (defun compile-set-command-recipe (recipe)
   "Interactively set the value of compile-command-recipe for all buffers."
-  (interactive "smake recipe: ")
+  (interactive (list (read-string "make recipe: " compile-command-recipe)))
   (setq compile-command-recipe recipe))
 
 ;; Set a global key to set `make` recipe.
