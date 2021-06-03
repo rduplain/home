@@ -295,7 +295,7 @@
        "\n"))
 
 (feature '(scpaste :load t)
-  ;; Patch directly, as `advice' appears to have byte-compiled limitations.
+  ;; Patch function instead of `advice' (which has byte-compiled limitations).
   (patch-function :fn 'scpaste-footer
                   :prefer 'scpaste-footer-custom
                   :original 'scpaste-footer-original))
