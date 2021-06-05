@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Install CFSSL: Cloudflare's PKI and TLS toolkit.
+
+CFSSL="$REQD_OPT"/cfssl/bin/cfssl
+CFSSL_URL=https://github.com/cloudflare/cfssl/releases
+
+check() {
+    reqd_ls "$CFSSL"
+    reqd_run_once
+}
+
+install() {
+    rm -f "$CFSSL"
+
+    qwertyrc > cfssl.qwertyrc
+    "$REQD_BIN"/qwerty.sh --rc cfssl.qwertyrc
+    "$CFSSL" version
+}
+
+qwertyrc() {
+    cat - <<EOF
+# GNU/Linux x86_64
+  --sys=linux --arch=x86_64 \\
+  --sha256=b830b0faf606cb2ae8b45c783edf4776eedb3728efd515e7f1ce63b3a475d667 \\
+  --output="$CFSSL" --chmod=755 \\
+  $CFSSL_URL/download/v1.6.0/cfssl_1.6.0_linux_amd64
+
+# macOS x86_64
+  --sys=darwin --arch=x86_64 \\
+  --sha256=d61c99d0da39a33b2a8d9214f4cf518aaee412dced56579829e4dc7c9529ff92 \\
+  --output="$CFSSL" --chmod=755 \\
+  $CFSSL_URL/download/v1.6.0/cfssl_1.6.0_darwin_amd64
+EOF
+}
+
+reqd_main "$@"
