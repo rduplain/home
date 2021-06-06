@@ -896,7 +896,10 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 (add-to-list 'auto-mode-alist '("inputrc$" . conf-mode))
 (add-to-list 'auto-mode-alist '("/?inventory$" . conf-mode))
-(add-to-list 'auto-mode-alist '(".fluxbox/keys$" . conf-mode))  ; Well enough.
+
+;; Use conf-mode on similar files, even if they are not conf format.
+(add-to-list 'auto-mode-alist '("\\.rc$" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.fluxbox/keys$" . conf-mode))
 
 ;;; Crontab
 (feature 'crontab-mode)
