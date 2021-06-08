@@ -27,6 +27,11 @@ function rehash() {
 function set_title() {
     # Set window title of xterm-like terminal emulators.
 
+    # xterm accepts ESC]0;<title>BEL to set icon name and window title.
+    # \033 and \007 are ASCII escape and bell characters, respectively.
+    #
+    # These escape codes are called "OSC" for "Operating System Command".
+    # See `man 4 console_codes`.
     echo -ne "\033]0;$@\007"
 }
 
