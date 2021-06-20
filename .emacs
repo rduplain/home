@@ -920,6 +920,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (feature 'go-mode)
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
 
+;;; Graphviz
+(feature 'graphviz-dot-mode)
+
 ;;; Groovy
 ;; Automatically picks up files with Groovy syntax, incl. Jenkinsfile.
 (feature 'groovy-mode)
