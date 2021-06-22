@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Install `sbt` for Scala.
 
-SBT_URL=https://github.com/sbt/sbt/releases/download/v1.5.0/sbt-1.5.0.tgz
-SBT_SHA256=aadf110a48ea77c02ce63a9cc033d9fcd02b634e89e8f22dfe13ed21592042b6
+SBT_URL=https://github.com/sbt/sbt/releases/download/v1.5.4/sbt-1.5.4.tgz
+SBT_SHA256=8e173aba17690be9b60f941990bb54b6755eb09e8b1cf445a03da6fe19a1b20c
 
 check() {
     reqd_ls "$REQD_OPT"/sbt/bin/sbt
