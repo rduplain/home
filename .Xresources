@@ -11,7 +11,7 @@ Xft.lcdfilter: lcddefault
 Xft*rbga: rgb
 
 XTerm*termName: xterm
-XTerm*saveLines: 9999
+XTerm*saveLines: 999999
 
 ! Disable XTerm fullscreen option, to allow Alt-Return use in terminal.
 XTerm*fullscreen: never
@@ -70,7 +70,7 @@ XTerm*color15:                 COLOR_TERM_WHITE
 #endif
 
 URxvt*termName: rxvt
-URxvt*saveLines: 9999
+URxvt*saveLines: 999999
 
 URxvt*font: xft:Inconsolata:size=13, \
     xft:DejaVu Sans:pixelsize=14,xft:Symbola,xft:Noto Emoji:minspace=False
