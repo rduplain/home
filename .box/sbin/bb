@@ -23,18 +23,18 @@ qwertyrc() {
 # GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$BB'" \\
-  --sha256=1424bfd6f947dd3086ffa065197d531bda779ef7daf1a7f4790ed8be85ac4293 \\
+  --sha256=aac1be5a441945ebcc6042d2283ac26399895da090437f84123a3124b72fb25a \\
   --output="$BB" --chmod=755 \\
   --on-download='tar -xf \$DOWNLOAD && mv bb \$DOWNLOAD' \\
-  $BB_URL/download/v0.4.0/babashka-0.4.0-linux-amd64-static.tar.gz
+  $BB_URL/download/v0.4.6/babashka-0.4.6-linux-amd64-static.tar.gz
 
 # macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$BB'" \\
-  --sha256=36303b55f980226587110919327a295b3c8bf13962e8b941a9d31b26bbc93d58 \\
+  --sha256=8fd778592b0f821b69096fbbb9838f7b24c0f9090e68d0296098facab79d7c5a \\
   --output="$BB" --chmod=755 \\
   --on-download='tar -xf \$DOWNLOAD && mv bb \$DOWNLOAD' \\
-  $BB_URL/download/v0.4.0/babashka-0.4.0-macos-amd64.tar.gz
+  $BB_URL/download/v0.4.6/babashka-0.4.6-macos-amd64.tar.gz
 EOF
 }
 
