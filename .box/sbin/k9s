@@ -22,26 +22,26 @@ qwertyrc() {
 # GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$K9S'" \\
-  --sha256=bf1fbcf145b8e021b675bae009183e7028afbce52fc44c37f6a0dd2982152c21 \\
+  --sha256=72b109d2e0f7388551e8035f7440d8b4b90a982b64a414d82a0357baea0d8db0 \\
   --output="$K9S" --chmod=755 \\
   --on-download='tar -xf \$DOWNLOAD && mv k9s \$DOWNLOAD' \\
-  $K9S_URL/download/v0.24.10/k9s_v0.24.10_Linux_x86_64.tar.gz
+  $K9S_URL/download/v0.24.12/k9s_Linux_x86_64.tar.gz
 
 # GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$K9S'" \\
-  --sha256=589e03334de58c6bb4062818bb9801a7565864a2207376580d3630e61128e569 \\
+  --sha256=bc9b67cc6e44d4d84c1e3000ae9129a3a31745c7941caad8b7585e4a76945fb9 \\
   --output="$K9S" --chmod=755 \\
   --on-download='tar -xf \$DOWNLOAD && mv k9s \$DOWNLOAD' \\
-  $K9S_URL/download/v0.24.10/k9s_v0.24.10_Linux_arm.tar.gz
+  $K9S_URL/download/v0.24.12/k9s_Linux_arm.tar.gz
 
 # macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$K9S'" \\
-  --sha256=742fdc53d7e2f3b9bbd78de45b7dc9e453f84f5d3f6e594c057d4d823d8dda42 \\
+  --sha256=30595d33ab34dcdb5756e120823277fe86585bde0f338ccbe7bf6d1f8d872163 \\
   --output="$K9S" --chmod=755 \\
   --on-download='tar -xf \$DOWNLOAD && mv k9s \$DOWNLOAD' \\
-  $K9S_URL/download/v0.24.10/k9s_v0.24.10_Darwin_x86_64.tar.gz
+  $K9S_URL/download/v0.24.12/k9s_Darwin_x86_64.tar.gz
 EOF
 }
 
