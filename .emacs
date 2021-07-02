@@ -215,7 +215,8 @@
           (lambda ()
             (require 'dired-x nil 'noerror)))
 
-;; Recursively operate without asking; mark, execute, confirm is enough.
+;; Do recursive operations without an additional prompt.
+;; Applying these operations already has a workflow of mark, execute, confirm.
 (setq dired-recursive-copies 'always
       dired-recursive-deletes 'always)
 
