@@ -355,7 +355,7 @@ export LESS_TERMCAP_us=$(printf "\e[1;37m")     # mode underline start
 alias pydoc='python3 -m pydoc'
 alias emacs='emacs -nw'
 
-detect() {
+function detect() {
     # Report success if any given file detected on filesystem.
 
     for file in "$@"; do
