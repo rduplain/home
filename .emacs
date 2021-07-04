@@ -386,7 +386,7 @@
 ;; Enable rainbow-delimiters on all programming modes.
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
 
-;;; Interactively Do Things, with fuzzy matching enabled.
+;;; Interactive Do, with fuzzy matching enabled.
 (setq ido-mode 'both ;; both file and buffer.
       ido-enable-flex-matching t
       ido-enable-last-directory-history nil
