@@ -464,10 +464,10 @@
   (delete 'company-dabbrev-code company-backends))
 
 (defun set-text-based-company-minimum-prefix-length ()
-  "Reusable function to set company-mode minimum prefix length.
+  "Set a sensible default minimum prefix length for `company-mode'.
 
-In the event that `company-mode' is applied to a text-based mode, set a
-suitable minimum prefix as to avoid completing filenames on a single '/'."
+Set the minimum to at least a few characters, in order to avoid
+completing filenames on a single '/' in text-based (sub)modes."
   (setq-local company-minimum-prefix-length 3))
 
 
