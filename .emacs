@@ -1250,7 +1250,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; Visit current directory. This generally runs before any other buffers open.
 (find-file ".")
 
-;;; Save all buffers _visiting files_ on `C-x s' without asking.
+;;; Save buffers visiting files on `C-x s' `save-some-buffers' without asking.
 (add-hook 'hack-local-variables-hook
           '(lambda ()
              (when (buffer-file-name)
