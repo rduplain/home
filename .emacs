@@ -601,7 +601,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
                             (lsp-enable-which-key-integration)
                             (which-key-mode t)))
 
-;; Provide API to check whether `lsp' supports the current major mode.
+;; Define predicate for whether `lsp' supports the current major mode.
 (defun lsp-mode-supported-p (mode)
   "Return t if mode is supported by `lsp'; call with `major-mode'."
   ;; Assume that mode is set based on the filename, as this lookup does not
@@ -612,7 +612,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; Language Server Protocol - eglot mode
 (feature '(eglot :load t))
 
-;; Provide API to check whether eglot supports the current major mode.
+;; Define predicate for whether `eglot' supports the current major mode.
 (defun eglot-supported-p (mode)
   "Return t if mode is supported by `eglot'; call with `major-mode'."
   (when (assoc mode eglot-server-programs
