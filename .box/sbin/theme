@@ -19,6 +19,15 @@ install() {
     if [ ! -e "$HOME"/.themes/"$THEME_NAME" ]; then
         mkdir -p "$HOME"/.themes
         cd "$HOME"/.themes; git clone "$THEME_URL"
+    else
+        cd "$HOME"/.themes/"$THEME_NAME"; git pull
+    fi
+
+    if [ -e "$HOME"/.icons/"$ICONS_CLONE_NAME" ]; then
+        cd "$HOME"/.icons/"$ICONS_CLONE_NAME"
+        if [ "$(git describe --tags)" != "$ICONS_REV" ]; then
+            cd "$HOME"/.icons; rm -fr "$ICONS_CLONE_NAME"
+        fi
     fi
 
     if [ ! -e "$HOME"/.icons/"$ICONS_NAME" ]; then
