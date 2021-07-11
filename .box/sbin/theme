@@ -17,20 +17,25 @@ check() {
 
 install() {
     if [ ! -e "$HOME"/.themes/"$THEME_NAME" ]; then
+        reqd_echo "Installing $THEME_NAME ..."
         mkdir -p "$HOME"/.themes
         cd "$HOME"/.themes; git clone "$THEME_URL"
     else
+        reqd_echo "Updating $THEME_NAME ..."
         cd "$HOME"/.themes/"$THEME_NAME"; git pull
     fi
 
     if [ -e "$HOME"/.icons/"$ICONS_CLONE_NAME" ]; then
+        reqd_echo "Checking $ICONS_CLONE_NAME revision ..."
         cd "$HOME"/.icons/"$ICONS_CLONE_NAME"
         if [ "$(git describe --tags)" != "$ICONS_REV" ]; then
+            reqd_echo "Removing $ICONS_CLONE_NAME $(git describe --tags) ..."
             cd "$HOME"/.icons; rm -fr "$ICONS_CLONE_NAME"
         fi
     fi
 
     if [ ! -e "$HOME"/.icons/"$ICONS_NAME" ]; then
+        reqd_echo "Installing $ICONS_CLONE_NAME $ICONS_REV ..."
         mkdir -p "$HOME"/.icons
         cd "$HOME"/.icons
         if [ ! -e "$ICONS_CLONE_NAME" ]; then
