@@ -5,7 +5,7 @@ THEME_URL=https://github.com/rduplain/MyAdwaita.git
 THEME_NAME=MyAdwaita
 
 ICONS_URL=https://github.com/daniruiz/flat-remix.git
-ICONS_REV=20210518
+ICONS_REV=20210620
 
 ICONS_CLONE_NAME=flat-remix
 ICONS_PATH=Flat-Remix-Blue-Dark
