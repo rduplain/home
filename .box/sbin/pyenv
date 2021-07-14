@@ -43,11 +43,13 @@ install() {
 
     pyenv global 3.9.6 2.7.18 3.10-dev
 
-    pip2 install --upgrade pip setuptools wheel
-    pip3 install --upgrade pip setuptools wheel
+    python2.7  -m pip install --upgrade pip setuptools wheel
+    python3.9  -m pip install --upgrade pip setuptools wheel
+    python3.10 -m pip install --upgrade pip setuptools wheel
 
-    pip2 install ${PYTHON2_PACKAGES:-$PACKAGES2}
-    pip3 install ${PYTHON3_PACKAGES:-$PACKAGES3}
+    python2.7  -m pip install ${PYTHON2_PACKAGES:-$PACKAGES2}
+    python3.9  -m pip install ${PYTHON3_PACKAGES:-$PACKAGES3}
+    python3.10 -m pip install ${PYTHON3_PACKAGES:-$PACKAGES3}
 }
 
 reqd_main "$@"
