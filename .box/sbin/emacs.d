@@ -7,7 +7,7 @@ check() {
 
 install() {
     # Assume host 'redeye' is primary development machine.
-    if [ "$(uname -n)" = "redeye" ] && [ -d "$HOME/.emacs.d/straight" ]; then
+    if [ "$(< /etc/hostname)" = "redeye" ] && [ -d "$HOME/.emacs.d/straight" ]; then
         reqd_echo 'put latest to default upstream with `emacs-sync` ...'
         "$HOME"/bin/emacs-sync put
     else

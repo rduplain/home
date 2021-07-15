@@ -16,7 +16,7 @@ install() {
     local path
 
     # Assume host 'redeye' is primary development machine.
-    if [ "$(uname -n)" = "redeye" ]; then
+    if [ "$(< /etc/hostname)" = "redeye" ]; then
         rsync -av --prune-empty-dirs \
               --include-from="$REQD_ETC"/src-overlay.rsync \
               "$HOME_SRC"/ "$HOME_SRC_OVERLAY"
