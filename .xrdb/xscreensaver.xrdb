@@ -1,5 +1,7 @@
 ! xscreensaver: black and minimal
 
+! See:  /etc/X11/app-defaults/XScreenSaver
+
 ! Note: With shadow color set to the same as the background, the input fields
 !       may appear to render slightly "off". Set shadow colors to a temporary
 !       color when editing/tweaking settings, which will make the rendering
