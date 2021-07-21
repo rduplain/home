@@ -14,11 +14,16 @@ xscreensaver.splash: False
 xscreensaver.Dialog.bodyFont:    -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
 xscreensaver.Dialog.buttonFont:  -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
 xscreensaver.Dialog.dateFont:    -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
+xscreensaver.Dialog.errorFont:   -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
 xscreensaver.Dialog.font:        -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
 xscreensaver.Dialog.headingFont: -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
 xscreensaver.Dialog.labelFont:   -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
 xscreensaver.Dialog.unameFont:   -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
 xscreensaver.passwd.passwdFont:  -*-inconsolata-medium-r-*-*-16-*-*-*-*-*-*-*
+
+! Base
+xscreensaver.passwd.foreground:                   #dcdcdc
+xscreensaver.passwd.background:                   #000000
 
 ! Hostname
 xscreensaver.passwd.uname: True
