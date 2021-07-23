@@ -40,8 +40,8 @@ xscreensaver.passwd.login.label:                  Switch User
 xscreensaver.passwd.unlock.label:                 OK
 
 ! Dialog Box
-xscreensaver.Dialog.Button.background:            #dcdcdc
-xscreensaver.Dialog.Button.foreground:            #000000
+xscreensaver.Dialog.Button.background:            #000000
+xscreensaver.Dialog.Button.foreground:            #dcdcdc
 xscreensaver.Dialog.background:                   #000000
 xscreensaver.Dialog.bottomShadowColor:            #000000
 xscreensaver.Dialog.foreground:                   #dcdcdc
