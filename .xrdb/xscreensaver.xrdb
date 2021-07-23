@@ -26,7 +26,7 @@ xscreensaver.passwd.foreground:                   #dcdcdc
 xscreensaver.passwd.background:                   #000000
 
 ! Overlay
-xscreensaver.overlayTextForeground:               #a06060
+xscreensaver.overlayTextForeground:               #7080a0
 xscreensaver.overlayTextBackground:               #000000
 xscreensaver.overlayStderr:                       True
 
