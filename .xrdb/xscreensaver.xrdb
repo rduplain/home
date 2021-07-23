@@ -36,7 +36,7 @@ xscreensaver.passwd.uname: True
 ! Labels
 xscreensaver.passwd.body.label:
 xscreensaver.passwd.heading.label:
-xscreensaver.passwd.login.label:                  New Login
+xscreensaver.passwd.login.label:                  Switch User
 xscreensaver.passwd.unlock.label:                 OK
 
 ! Dialog Box
@@ -62,5 +62,5 @@ xscreensaver.passwd.thermometer.width:            8
 ! Date
 xscreensaver.dateFormat:
 
-! New Login
-xscreensaver.newLoginCommand:
+! New Login / Switch User
+xscreensaver.newLoginCommand:                     xdotool key ctrl+alt+F1
