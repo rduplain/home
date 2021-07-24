@@ -1,4 +1,6 @@
 set history-size                = 0
+set mouse                       = yes
+set mouse-scroll                = 5
 set show-untracked              = no
 set status-show-untracked-dirs  = no
 set status-show-untracked-files = no
