@@ -400,7 +400,12 @@ if [ -z "$PS1" ]; then
 fi
 
 # Set prompt PS1 to "user@host dir$ "
-export PS1='\u@\h \W\$ '
+if [ -r /etc/hostname ]; then
+    # Use documented hostname, especially in case of chroot.
+    export PS1="\u@$(< /etc/hostname) \W\$ "
+else
+    export PS1='\u@\h \W\$ '
+fi
 
 function _copy_function() {
     # Copy function definition to a new name.
