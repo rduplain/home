@@ -12,6 +12,8 @@ check() {
 install() {
     local stack
 
+    rehash >/dev/null 2>&1 || true
+
     # Find `stack`, preferring SYSTEM_STACK if available.
     stack=$(which stack 2>/dev/null)
     if [ -x "$SYSTEM_STACK" ]; then

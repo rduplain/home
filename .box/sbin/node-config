@@ -21,6 +21,8 @@ install() {
     npm install -g npm yarn
     npm install -g bs-platform # Reason / ReasonML (OCaml)
 
+    rehash >/dev/null 2>&1 || true
+
     which npm
     which yarn
     which bsc
