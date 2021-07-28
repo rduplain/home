@@ -59,14 +59,12 @@
 [end]
 [app] (name=TigerVNC Viewer) (class=TigerVNC Viewer)
   [Deco]        {NONE}
-  [Head]        {2}
-  [Maximized]   {yes}
+  [Head]        {1}
   [Position]    (UPPERLEFT)     {0 0}
 [end]
 [app] (name=vncviewer) (class=Vncviewer)
   [Deco]        {NONE}
-  [Head]        {2}
-  [Maximized]   {yes}
+  [Head]        {1}
   [Position]    (UPPERLEFT)     {0 0}
 [end]
 [app] (name=update-manager) (class=Update-manager)
