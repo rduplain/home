@@ -41,7 +41,7 @@ main() {
             start_screen "$path"
         done
     else
-        for path in `cat $conf`; do
+        for path in $(< $conf); do
             start_screen "$path"
         done
     fi
