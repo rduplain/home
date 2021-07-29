@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # vncdefault: run vncviewer with configured password and host.
 #
 # Configure password, which sets a ~/.vnc/passwd file:
@@ -15,7 +15,7 @@ main() {
         return 1
     fi
 
-    exec vncviewer -passwd ~/.vnc/passwd $(cat ~/.vnc/default)
+    exec vncviewer -passwd ~/.vnc/passwd $(< ~/.vnc/default)
 }
 
 main "$@"
