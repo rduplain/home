@@ -16,7 +16,7 @@ install() {
     "$REQD_BIN"/qwerty.sh --rc opam.qwertyrc
     "$OPAM" --version
 
-    "$OPAM" init --auto-setup --disable-shell-hook --reinit
+    "$OPAM" init --yes --auto-setup --disable-shell-hook --reinit
 
     # $HOME git (.homegit) tracks opam setup files.
     # When user-setup is needed, use the following.
