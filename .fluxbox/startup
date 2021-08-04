@@ -25,6 +25,10 @@ xset fp rehash
 xrdb -merge "$HOME"/.Xresources
 xset r rate 250 30
 
+if [ -e "$HOME"/.config/host/"$HOSTNAME"/Xresources ]; then
+    xrdb -merge "$HOME"/.config/host/"$HOSTNAME"/Xresources
+fi
+
 thunar --daemon &
 xfce4-power-manager &
 killall -u $(id -un) parcellite; parcellite &

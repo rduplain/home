@@ -36,7 +36,6 @@ xscreensaver.passwd.uname: True
 ! Labels
 xscreensaver.passwd.body.label:
 xscreensaver.passwd.heading.label:
-xscreensaver.passwd.login.label:                  Switch User
 xscreensaver.passwd.unlock.label:                 OK
 
 ! Dialog Box
