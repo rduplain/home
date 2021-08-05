@@ -51,7 +51,7 @@ clear_trap() {
 }
 
 exec_shell() {
-    # Print a message to stdout and `exec bash`, replacing current process.
+    # Print a message to stdout then `exec bash`, replacing current process.
 
     echo "Executing configured shell."
     clear_trap
