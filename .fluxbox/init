@@ -25,7 +25,7 @@ session.screen0.toolbar.autoHide: false
 session.screen0.toolbar.maxOver: false
 session.screen0.toolbar.visible: true
 session.screen0.toolbar.placement: BottomCenter
-session.screen0.toolbar.tools: workspacename, iconbar, systemtray, clock
+session.screen0.toolbar.tools: clock, iconbar, systemtray, workspacename
 session.screen0.toolbar.widthPercent: 100
 session.screen0.toolbar.layer: Desktop
 session.screen0.toolbar.onhead: 1
@@ -49,7 +49,7 @@ session.screen0.tabFocusModel: ClickToTabFocus
 session.screen0.maxDisableResize: false
 session.screen0.windowPlacement: RowSmartPlacement
 session.screen0.resizeMode: Bottom
-session.screen0.strftimeFormat: %a - %Y-%m-%d - %k:%M
+session.screen0.strftimeFormat: %Y-%m-%d  %k:%M  %a
 session.screen0.tooltipDelay: 500
 session.screen0.demandsAttentionTimeout: 500
 session.screen0.windowScrollReverse: True
