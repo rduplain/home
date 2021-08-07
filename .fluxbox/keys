@@ -190,8 +190,8 @@ Control Mod4 Left      :MoveLeft 8
 Control Mod4 Up        :MoveUp 8
 Control Mod4 Down      :MoveDown 8
 
-Mod4 bracketleft :SetHead 2
-Mod4 bracketright :SetHead 0
+Mod4 bracketleft       :SetHead 0
+Mod4 bracketright      :SetHead 2
 
 
 ## Size Presets ##
