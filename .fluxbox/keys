@@ -114,14 +114,6 @@ Control Mod4 z             :Lower
 Control Mod4 BackSpace     :Close
 
 
-## Backlight Control ##
-Mod4 F4  :ExecCommand xbacklight -set 5
-Mod4 F5  :ExecCommand xbacklight -dec 10
-Mod4 F6  :ExecCommand xbacklight -inc 10
-Mod4 F7  :ExecCommand xbacklight -set 0
-Mod4 F1  :ExecCommand ~/bin/suspend
-
-
 ## Application Launchers ##
 Mod4 a :ArrangeWindows
 Mod4 b :ExecCommand VirtualBox
