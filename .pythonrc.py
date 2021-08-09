@@ -3,10 +3,13 @@
 import os
 import sys
 
+
 def _print_debug(message):
     "Print debug information to stderr."
     sys.stderr.write(message)
     sys.stderr.write(os.linesep)
+    sys.stderr.flush()
+
 
 # Enable tab completion.
 try:
@@ -19,7 +22,8 @@ else:
     del rlcompleter
     del readline
 
-# Enable cross-session history.
+
+# Enable cross-session history, write to ~/.python_history at exit.
 try:
     import readline
 except ImportError:
@@ -32,6 +36,7 @@ else:
         _print_debug('History file not available.')
 
     import atexit
+
     # Set number of lines to save. Negative values mean infinite.
     readline.set_history_length(1000000)
     atexit.register(readline.write_history_file, history_file)
@@ -40,12 +45,12 @@ else:
     del atexit
     del readline
 
+
 # Clean up the evidence.
 del _print_debug
 del sys
 del os
 
-# Reset __vars__ to default, to make rc file invisible.
 try:
     del __file__
     __doc__ = None
