@@ -5,7 +5,8 @@ escape ^]]
 # With C-a free, set `C-] a` to the same as `C-] A`.
 bind  a title
 
-# Unbind key bindings which are best avoided, especially on typos.
+# Unbind key bindings that are best avoided, to avoid punitive typos.
+#
 # Type these commands out when needed, using `C-] :`.
 bind  _ # silence
 bind  . # dumptermcap
