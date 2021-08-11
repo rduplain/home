@@ -29,9 +29,13 @@ bind  z # suspend
 bind ^z # suspend
 
 # Having overridden the paste key binding, bind a new one.
-# Enter copy mode with `C-] C-[`
-# Use vi-like keybindings to move about, C-s or C-r to search.
-# <spacebar> to mark the region, `C-] .` to paste.
+#
+# Usage:
+#
+# * Enter copy mode with `C-] C-[`
+# * Use vi-like keybindings to move about, C-s or C-r to search.
+# * <spacebar> to mark the region, <spacebar> again to copy, `C-] .` to paste.
+#
 bind  . paste .
 
 # Keep scrollback. By default, this value is very low.
