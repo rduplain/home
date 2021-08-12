@@ -51,7 +51,7 @@ vbell_msg ""
 rendition bell ""
 bind ^g # vbell
 
-# Disable the startup message.
+# Disable the startup message, which is primarily about copyright and license.
 startup_message off
 
 # Enable non-blocking mode to better cope with low-fidelity remote connections.
