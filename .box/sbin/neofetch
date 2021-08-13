@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Install neofetch: a command-line system information tool written in bash 3.2.
+
+PREFIX="$REQD_OPT"/neofetch
+GIT_URL=https://github.com/dylanaraps/neofetch.git
+
+check() {
+    reqd_ls "$PREFIX"/bin/neofetch
+    reqd_run_once
+}
+
+install() {
+    rm -fr "$PREFIX"
+    rm -fr neofetch
+
+    eval "$QWERTY_SH" --tag 7.1.0 $GIT_URL
+    cd neofetch
+    make PREFIX="$PREFIX" install
+
+    rehash >/dev/null 2>&1 || true
+
+    # `neofetch --version` has a non-zero exit.
+    neofetch --version || true
+    neofetch --version 2>&1 | grep -q Neofetch
+}
+
+reqd_main "$@"
