@@ -99,7 +99,8 @@ main() {
 # Dispatch functions for BOX levels 'appliance' through 'full'.
 
 appliance() {
-    :;
+    "$reqd" install \
+            neofetch
 }
 
 standard() {
