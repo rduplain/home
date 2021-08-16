@@ -122,14 +122,14 @@ development() {
     "$reqd" install tig
 
     "$reqd" install \
-            clojure \
             bb \
-            ocaml \
+            clojure \
             go \
             haskell \
             haxelib \
-            node-config \
             kotlin \
+            node-config \
+            ocaml \
             pyenv \
             rbenv \
             rust \
