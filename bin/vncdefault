@@ -15,7 +15,7 @@ main() {
         return 1
     fi
 
-    exec vncviewer -passwd ~/.vnc/passwd $(< ~/.vnc/default)
+    exec vncviewer -passwd ~/.vnc/passwd.default $(< ~/.vnc/default)
 }
 
 main "$@"
