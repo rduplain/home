@@ -17,6 +17,7 @@ PACKAGES3="$PACKAGES3 black flake8 isort pre-commit pyflakes"
 PACKAGES3="$PACKAGES3 nltk syllables"
 PACKAGES3="$PACKAGES3 httpie"
 PACKAGES3="$PACKAGES3 youtube-dl"
+PACKAGES3="$PACKAGES3 speedtest-cli"
 
 check() {
     reqd_run_once
