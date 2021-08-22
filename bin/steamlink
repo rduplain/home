@@ -1,0 +1,10 @@
+#!/bin/sh
+# Run steamlink client.
+#
+# apt install flatpak
+# flatpak remote-add flathub https://flathub.org/repo/flathub.flatpakrepo
+# flatpak install flathub com.valvesoftware.SteamLink
+#
+# https://flathub.org/apps/details/com.valvesoftware.SteamLink
+
+exec flatpak run com.valvesoftware.SteamLink
