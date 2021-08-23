@@ -1,0 +1,10 @@
+#!/bin/sh
+# Run Steam (in Flatpak, to avoid 32-bit dpkg collisions.).
+#
+# apt install flatpak
+# flatpak remote-add flathub https://flathub.org/repo/flathub.flatpakrepo
+# flatpak install flathub com.valvesoftware.Steam
+#
+# https://flathub.org/apps/details/com.valvesoftware.Steam
+
+exec flatpak run com.valvesoftware.Steam
