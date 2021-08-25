@@ -12,6 +12,19 @@
 [end]
 [app] (name=dontstarve_steam) (class=dontstarve_steam)
   [Deco]        {NONE}
+  [Dimensions]  {1920 1080}
+  [Fullscreen]  {no}
+  [Head]        {1}
+  [Position]    (UPPERLEFT)     {0 0}
+  [Workspace]   {0}
+[end]
+[app] (name=dontstarve_steam_x64) (class=dontstarve_steam_x64)
+  [Deco]        {NONE}
+  [Dimensions]  {1920 1080}
+  [Fullscreen]  {no}
+  [Head]        {1}
+  [Position]    (UPPERLEFT)     {0 0}
+  [Workspace]   {0}
 [end]
 [app] (name=element) (class=Element) (role=browser-window)
   [Dimensions]  {1074 800}
