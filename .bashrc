@@ -249,11 +249,7 @@ done
 command_exists opam && file_exists "$HOME"/.opam && eval "$(opam env)" # ocaml
 
 # Load programming environments which only require setting PATH.
-#
-# * cask for emacs
-# * cargo for rust
-#
-prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin
+prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin # emacs, rust
 
 # On `npm install -g` permissions errors, ensure ~/.npmrc is configured:
 #
