@@ -57,7 +57,7 @@ function docker-cleanup() {
 
 export -f rehash set_title commands
 
-function call_nvm_use() {
+function nvm_use() {
     # Use nvm when .nvmrc is present.
     #
     # Argument $1 is a directory path, as in `walk_root_to_curdir`.
@@ -261,7 +261,7 @@ prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin
 #
 prepend_paths "$HOME"/.npm-global
 
-walk_root_to_curdir call_nvm_use
+walk_root_to_curdir nvm_use
 
 prepend LD_LIBRARY_PATH /usr/lib/libreoffice/program
 
