@@ -55,6 +55,11 @@ main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     . "$DIR"/wrapper.bash
 
+
+    ## Find system `git`.
+
+    local git
+
     if requested_only _source "$@"; then
         # Make `. git _source` available to pull in functions.
         return 0
@@ -68,12 +73,15 @@ main() {
         return 2
     fi
 
-    declare -a arg
+
+    ## Build wrapper options array.
+
+    local -a opt
 
     if use_homegit && ! requested clone "$@"; then
         # Make GIT_DIR available to custom git commands.
         export GIT_DIR="$HOME"/.homegit
-        arg=( --git-dir="$GIT_DIR" --work-tree="$HOME" )
+        opt=( --git-dir="$GIT_DIR" --work-tree="$HOME" )
     elif requested clone "$@" || requested auto-clone "$@"; then
         if "$git" "$@"; then
             git_on_clone "$@"
@@ -82,10 +90,53 @@ main() {
     elif requested_only "sync"; then
         git-sync
     else
-        arg=( )
+        opt=( )
     fi
 
-    exec "$git" "${arg[@]}" "$@"
+
+    ## Build argument array.
+
+    # Add a special argument `-`.
+    #
+    # When `-` (hyphen) is present, replace it with the filenames of modified
+    # files, preferring cached files if the git index is non-empty. To ensure
+    # that git detects these arguments as filenames, insert `--` (double
+    # hyphen) into the argument array before the file names.
+    #
+    # This is useful for `git log -` and `git blame -` for fast access to
+    # metadata on modified files. For example, if `bin/git` is modified, `git
+    # log -` will show the commit log for `bin/git` only.
+    #
+    # Note that other commands wrap `git`, such that `tig -` works as expected.
+
+    local -a arg cmd
+    local double_hyphen name x
+
+    for x in "$@"; do
+        if [ "$x" == "--" ]; then
+            double_hyphen=true
+        fi
+
+        if [ "$x" = "-" ]; then
+            if [ -n "$(git diff --cached --name-only 2>/dev/null)" ]; then
+                cmd=( $git diff --cached --name-only )
+            else
+                cmd=( $git diff --name-only )
+            fi
+
+            if [ -z "$double_hyphen" ]; then
+                arg+=( -- )
+            fi
+
+            for name in $("${cmd[@]}"); do
+                arg+=( "$name" )
+            done
+        else
+            arg+=( "$x" )
+        fi
+    done
+
+    exec "$git" "${opt[@]}" "${arg[@]}"
 }
 
 main "$@"
