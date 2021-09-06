@@ -28,15 +28,15 @@ qwertyrc() {
     cat - <<EOF
 # GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
-  --sha256=6a30d95eb31e9c7e2b8904fa00977f5a0f1b43fd55da80b7d4753cd1d0414f86 \\
+  --sha256=eeb37dbd25378707521d19a322e4b907c6dc20d3fb08827bb02ec30e0e4f74d6 \\
   --output=pulumi.tar.gz \\
-  $PULUMI_URL/releases/download/v3.7.0/pulumi-v3.7.0-linux-x64.tar.gz
+  $PULUMI_URL/releases/download/v3.11.0/pulumi-v3.11.0-linux-x64.tar.gz
 
 # macOS x86_64
   --sys=darwin --arch=x86_64 \\
-  --sha256=ef6bbee97f4b9ae811f8f17bccd8fae9c347efb98cf1d98790955e2e925cb1d1 \\
+  --sha256=ba3a4ba9a8b79d4927c5c0c18ceac98ba8a9aa1f8d874d64b6be673deba97392 \\
   --output=pulumi.tar.gz \\
-  $PULUMI_URL/releases/download/v3.7.0/pulumi-v3.7.0-darwin-x64.tar.gz
+  $PULUMI_URL/releases/download/v3.11.0/pulumi-v3.11.0-darwin-x64.tar.gz
 EOF
 }
 
