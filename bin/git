@@ -2,6 +2,8 @@
 # Wrap `git` to use .homegit.
 
 use_homegit() {
+    # Determine whether to use ~/.homegit instead of default .git directory.
+
     [ -n "$USE_HOMEGIT" ] || \
         ( [ -d .homegit ] && ! [ -d .git ] ) || \
         [ "$PWD" = "$HOME/bin" ]
