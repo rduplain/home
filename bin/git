@@ -38,11 +38,14 @@ git_on_clone() {
     done
 
     if [ "$1" = "auto-clone" ]; then
+        # Path provided by auto-clone data file.
         path="$2"
     else
         if [ "${#arg[@]}" -eq 2 ]; then
+            # Path provided on command-line.
             path="${arg[1]}"
         else
+            # Path determined based on clone URL (git default).
             path="$(humanish "${arg[0]}")"
         fi
     fi
