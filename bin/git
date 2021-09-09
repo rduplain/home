@@ -119,6 +119,7 @@ main() {
 
     for x in "$@"; do
         if [ "$x" == "--" ]; then
+            # Track that `--` is already present in the argument array.
             double_hyphen=true
         fi
 
