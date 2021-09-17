@@ -72,11 +72,13 @@
 [end]
 [app] (name=TigerVNC Viewer) (class=TigerVNC Viewer)
   [Deco]        {NONE}
+  [Dimensions]  {1920 1080}
   [Head]        {1}
   [Position]    (UPPERLEFT)     {0 0}
 [end]
 [app] (name=vncviewer) (class=Vncviewer)
   [Deco]        {NONE}
+  [Dimensions]  {1920 1080}
   [Head]        {1}
   [Position]    (UPPERLEFT)     {0 0}
 [end]
