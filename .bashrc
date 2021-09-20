@@ -395,7 +395,7 @@ if [ -z "$PS1" ]; then
     return
 fi
 
-# Set prompt PS1 to "user@host dir$ "
+# Set prompt PS1 to `user@host dir$ `.
 if [ -r /etc/hostname ]; then
     # Use documented hostname, especially in case of chroot.
     export PS1="\u@$(< /etc/hostname) \W\$ "
