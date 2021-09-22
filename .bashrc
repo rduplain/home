@@ -388,7 +388,15 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 receive "$HOME"/.config/host/${HOSTNAME:-default}/bashrc
-receive "$HOME"/.ssh/agent.bash
+
+if [ -e "$HOME"/.ssh/agent.bash ]; then
+    PREVIOUS_SSH_AUTH_SOCK="$SSH_AUTH_SOCK"
+    CONFIG_SSH_AUTH_SOCK=$(grep SSH_AUTH_SOCK "$HOME"/.ssh/agent.bash |
+                               awk -F= '{ print $2 }')
+    if [ -S "$CONFIG_SSH_AUTH_SOCK" ]; then
+        . "$HOME"/.ssh/agent.bash
+    fi
+fi
 
 # If not running interactively, don't do anything further.
 if [ -z "$PS1" ]; then
