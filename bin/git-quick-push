@@ -4,8 +4,9 @@
 # Relevant details are inferred based on current remote tracking branch.
 # When GitHub, assume that the pull request is on the same remote as upstream.
 #
-# Projects with trunk-based development and code review on each merge end up
-# with short incremental changes as the project becomes stable. In this state,
+# Projects with trunk-based development (i.e. keep branches short-lived and
+# prioritize merging to mainline) and code review on each merge end up with
+# many short incremental changes as the project becomes stable. In this state,
 # work is done in the trunk/mainline branch, but instead of pushing directly,
 # push to a branch to serve as source to a pull request or code review.
 #
