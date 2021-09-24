@@ -12,11 +12,11 @@
 #
 # Create a pull request automatically using `curl`, if remote is GitHub, Python
 # is installed (for JSON encoding), and a GITHUB TOKEN exists.
-# See GITHUB TOKEN.
+# See GITHUB TOKEN below.
 #
 # Generally, after issuing `git quick-push`, with the new branch safely pushed
 # to the remote, issue a `git reset --hard` on the upstream branch to continue
-# development.
+# development. (See `git back-to` in `~/bin/git-back-to`.)
 
 # GITHUB TOKEN
 #
