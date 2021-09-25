@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Wrap `git` to use .homegit.
 
+set +u
+
 use_homegit() {
     # Determine whether to use ~/.homegit instead of default .git directory.
 
@@ -130,6 +132,7 @@ main() {
                 cmd=( $git diff --name-only )
             fi
 
+            # Append `--` to disambiguate but only if not already present.
             if [ -z "$double_hyphen" ]; then
                 arg+=( -- )
             fi
