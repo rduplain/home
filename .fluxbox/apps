@@ -1,3 +1,7 @@
+[app] (role=browser) (google-chrome.*)
+  [Deco]        {NORMAL}
+  [Position]    (UPPERLEFT)     {0 0}
+[end]
 [app] (role=browser)
   [Position]    (UPPERLEFT)     {0 0}
 [end]
