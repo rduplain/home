@@ -31,7 +31,8 @@
   [Workspace]   {0}
 [end]
 [app] (name=element) (class=Element) (role=browser-window)
-  [Dimensions]  {1074 800}
+  [Dimensions]  {1140 768}
+  [Head]        {1}
   [Fullscreen]  {no}
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
