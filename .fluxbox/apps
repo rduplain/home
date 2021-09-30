@@ -36,6 +36,13 @@
   [Fullscreen]  {no}
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
+[app] (title=freakshake.*)
+  [Deco]        {NONE}
+  [Dimensions]  {1024 768}
+  [Fullscreen]  {no}
+  [Head]        {2}
+  [Position]    (UPPERLEFT)     {0 0}
+[end]
 [app] (name=gimp) (class=Gimp) (role=gimp-dock)
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
@@ -74,13 +81,6 @@
 [app] (name=thunar) (class=Thunar)
   [Dimensions]  {724 594}
   [Position]    (UPPERRIGHT)    {0 0}
-[end]
-[app] (title=freakshake.*)
-  [Deco]        {NONE}
-  [Dimensions]  {1024 768}
-  [Fullscreen]  {no}
-  [Head]        {2}
-  [Position]    (UPPERLEFT)     {0 0}
 [end]
 [app] (name=TigerVNC Viewer) (class=TigerVNC Viewer)
   [Deco]        {NONE}
