@@ -63,6 +63,9 @@
 [app] (name=keybase) (class=Keybase) (role=browser-window)
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
+[app] (class=love)
+  [Deco]        {NONE}
+[end]
 [app] (name=Polytopia.x86_64) (class=Polytopia.x86_64)
   [Deco]        {NONE}
   [Head]        {2}
