@@ -20,16 +20,19 @@ install() {
 
     npm install -g npm yarn
     npm install -g bs-platform # Reason / ReasonML (OCaml)
+    npm install -g nbb # Node.js variant of `bb` for Clojure scripting.
 
     rehash >/dev/null 2>&1 || true
 
     which npm
     which yarn
     which bsc
+    which nbb
 
     reqd_echo "npm v$(npm --version)"
     reqd_echo "yarn v$(yarn --version)"
     reqd_echo "$(bsc -version)"
+    reqd_echo "$(nbb -e '(print "nbb answer:" (* 6 7))')"
 }
 
 reqd_main "$@"
