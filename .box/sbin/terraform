@@ -22,26 +22,26 @@ qwertyrc() {
 # GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$TERRAFORM'" \\
-  --sha256=bc79e47649e2529049a356f9e60e06b47462bf6743534a10a4c16594f443be7b \\
+  --sha256=a73459d406067ce40a46f026dce610740d368c3b4a3d96591b10c7a577984c2e \\
   --output="$TERRAFORM" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv terraform \$DOWNLOAD' \\
-  $TERRAFORM_URL/1.0.7/terraform_1.0.7_linux_amd64.zip
+  $TERRAFORM_URL/1.0.8/terraform_1.0.8_linux_amd64.zip
 
 # GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$TERRAFORM'" \\
-  --sha256=be8d9de8c34e3e843ff8cbc713b41ce0c2bd97b0020c80e934443976b4429ae2 \\
+  --sha256=627f677397413d46e65f5f15e59af272ce1140abe34c8f193dd3ba7221c39b62 \\
   --output="$TERRAFORM" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv terraform \$DOWNLOAD' \\
-  $TERRAFORM_URL/1.0.7/terraform_1.0.7_linux_arm.zip
+  $TERRAFORM_URL/1.0.8/terraform_1.0.8_linux_arm.zip
 
 # macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$TERRAFORM'" \\
-  --sha256=80ae021d6143c7f7cbf4571f65595d154561a2a25fd934b7a8ccc1ebf3014b9b \\
+  --sha256=e2493c7ae12597d4a1e6437f6805b0a8bcaf01fc4e991d1f52f2773af3317342 \\
   --output="$TERRAFORM" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv terraform \$DOWNLOAD' \\
-  $TERRAFORM_URL/1.0.7/terraform_1.0.7_darwin_amd64.zip
+  $TERRAFORM_URL/1.0.8/terraform_1.0.8_darwin_amd64.zip
 EOF
 }
 
