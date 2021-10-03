@@ -23,26 +23,26 @@ qwertyrc() {
 # GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
   --when="! test -e '$TFLINT'" \\
-  --sha256=852be06f9eb9f4c1f7517c5fba61c2931e34ee09d4f3b1f4002f44ab34cc97e9 \\
+  --sha256=161a32da55672df11ac8eee94ef5eaecd9909ed817ee894f15f5aad4184c454a \\
   --output="$TFLINT" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv tflint \$DOWNLOAD' \\
-  $TFLINT_URL/download/v0.28.0/tflint_linux_amd64.zip
+  $TFLINT_URL/download/v0.32.1/tflint_linux_amd64.zip
 
 # GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
   --when="! test -e '$TFLINT'" \\
-  --sha256=c0bb5ce765aceba0f89784f5ae780feb22843052d685a6903271b06b39b98229 \\
+  --sha256=589fd924a5d16108e367a52a4f098f7a51868eb00f77c72cdfccf9b4702fbbec \\
   --output="$TFLINT" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv tflint \$DOWNLOAD' \\
-  $TFLINT_URL/download/v0.28.0/tflint_linux_arm.zip
+  $TFLINT_URL/download/v0.32.1/tflint_linux_arm.zip
 
 # macOS x86_64
   --sys=darwin --arch=x86_64 \\
   --when="! test -e '$TFLINT'" \\
-  --sha256=6beb5eb249f0844aadb3788b62a8134702a272e6bf63022fa2093732e87cbbc3 \\
+  --sha256=078d00f0efcac6c2827cc80ce5952ed0dc01d830c175181daa03144937d60efc \\
   --output="$TFLINT" --chmod=755 \\
   --on-download='unzip \$DOWNLOAD && mv tflint \$DOWNLOAD' \\
-  $TFLINT_URL/download/v0.28.0/tflint_darwin_amd64.zip
+  $TFLINT_URL/download/v0.32.1/tflint_darwin_amd64.zip
 EOF
 }
 
