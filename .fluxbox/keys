@@ -127,7 +127,7 @@ Mod4 g :ExecCommand gimp
 # Mod4 i
 # Mod4 j
 Mod4 k :ExecCommand xkill
-Mod4 l :ExecCommand xscreensaver-command -lock
+Mod4 l :MacroCmd {ExecCommand ~/bin/light office off} {ExecCommand xscreensaver-command -lock}
 Mod4 Mod1 l :MacroCmd {ExecCommand xscreensaver-command -activate}
 # Mod4 m
 # Mod4 n is next workspace
@@ -209,7 +209,7 @@ XF86AudioMute        :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ toggle
 XF86AudioLowerVolume :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ -2000
 XF86AudioRaiseVolume :ExecCommand pactl set-sink-mute @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ +2000
 XF86Calculator       :ExecCommand gnome-calculator
-XF86Launch9          :ExecCommand ~/bin/light-office
+XF86Launch9          :ExecCommand ~/bin/light office toggle
 
 
 ## Print Screen ##
