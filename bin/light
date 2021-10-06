@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# Toggle light through Home Assistant.
+#
+# Long-Lived Access Token:
+# https://developers.home-assistant.io/docs/auth_api#long-lived-access-token
+#
+# View all Home Assistant states:
+#
+#     curl -s -H "Authorization: Bearer $(< ~/.homeassistant)" \
+#                "$(< ~/.homeassistant-url)"/api/states | jq | less
+#
+# For an entity called `light.kitchen`, call:
+#
+#     light kitchen toggle
+
+usage() {
+    echo "usage: light LIGHT [on|off|toggle]" >&2
+}
+
+power() {
+    light="$1"
+    state="$2"
+    shift 2
+
+    case "$state" in
+        on|off)
+            action=turn_$state
+            ;;
+        toggle)
+            action=$state
+            ;;
+    esac
+
+    curl -X POST -s \
+         -H "Authorization: Bearer $(< ~/.homeassistant)"       \
+         -H "Content-Type: application/json"                    \
+         -d "{\"entity_id\": \"light.$light\"}"                 \
+         "$(< ~/.homeassistant-url)"/api/services/light/"$action"
+
+    echo
+}
+
+main() {
+    light="$1"
+    cmd="$2"
+    shift 2
+
+    if [ -z "$light" ] || [ -z "$cmd" ]; then
+        usage
+        return 2
+    fi
+
+    # Verify $HOME file with long-lived homeassistant token.
+    if [ ! -e ~/.homeassistant ]; then
+        echo "error: ~/.homeassistant token not found." >&2
+        return 2
+    fi
+
+    # Verify $HOME file with URL of Home Assistant installation.
+    if [ ! -e ~/.homeassistant-url ]; then
+        echo "error: ~/.homeassistant-url base URL not found." >&2
+        return 2
+    fi
+
+    case "$cmd" in
+        on|off|toggle)
+            power "$light" "$cmd"
+            ;;
+        *)
+            usage
+            return 2
+    esac
+}
+
+main "$@"
