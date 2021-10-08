@@ -127,7 +127,7 @@ Mod4 g :ExecCommand gimp
 # Mod4 i
 # Mod4 j
 Mod4 k :ExecCommand xkill
-Mod4 l :MacroCmd {ExecCommand ~/bin/light office off} {ExecCommand xscreensaver-command -lock}
+Mod4 l :ExecCommand xscreensaver-command -lock
 Mod4 Mod1 l :MacroCmd {ExecCommand xscreensaver-command -activate}
 # Mod4 m
 # Mod4 n is next workspace
