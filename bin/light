@@ -13,8 +13,65 @@
 #
 #     light kitchen toggle
 
+set -e
+
 usage() {
-    echo "usage: light LIGHT [on|off|toggle]" >&2
+    echo "usage: light LIGHT <on|off|toggle|brightness> [VALUE]" >&2
+}
+
+given() {
+    # Check that the given commands exist.
+
+    for command in "$@"; do
+        if ! which "$command" > /dev/null 2>&1; then
+            return 3
+        fi
+    done
+}
+
+brightness() {
+    # Print brightness to stdout, a value from 0 (off) to 255 (fully bright).
+
+    local brightness data light
+
+    light="$1"
+    shift
+
+    if [ $# -gt 0 ]; then
+        brightness="$1"
+        shift
+
+        curl -X POST -s \
+             -H "Authorization: Bearer $(< ~/.homeassistant)"     \
+             -H "Content-Type: application/json"                  \
+             -d "{\"entity_id\": \"light.$light\",
+                  \"brightness\": \"$brightness\"}"               \
+             "$(< ~/.homeassistant-url)"/api/services/light/turn_on
+    else
+        if ! given jq; then
+            echo 'error: `light` requires `jq` program' >&2
+            return 3
+        fi
+
+        data=$(
+            curl -X GET -s \
+                 -H "Authorization: Bearer $(< ~/.homeassistant)"     \
+                 -H "Accept: application/json"                        \
+                 "$(< ~/.homeassistant-url)"/api/states/light."$light")
+
+        brightness=$(echo "$data" | jq .attributes.brightness)
+
+        if [ -z "$brightness" ] || [ "$brightness" = "null" ]; then
+            if [ "$(echo "$data" | jq .state)" = '"off"' ]; then
+                echo 0
+            else
+                echo "error: light $light brightness not available" >&2
+                return 1
+            fi
+        else
+            echo "$brightness"
+        fi
+    fi
 }
 
 power() {
@@ -41,14 +98,13 @@ power() {
 }
 
 main() {
+    if [ $# -ne 2 ]; then
+        usage
+    fi
+
     light="$1"
     cmd="$2"
     shift 2
-
-    if [ -z "$light" ] || [ -z "$cmd" ]; then
-        usage
-        return 2
-    fi
 
     # Verify $HOME file with long-lived homeassistant token.
     if [ ! -e ~/.homeassistant ]; then
@@ -65,6 +121,9 @@ main() {
     case "$cmd" in
         on|off|toggle)
             power "$light" "$cmd"
+            ;;
+        brightness)
+            brightness "$light" "$@"
             ;;
         *)
             usage
