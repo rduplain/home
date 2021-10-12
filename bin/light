@@ -15,8 +15,10 @@
 
 set -e
 
+PROG=light
+
 usage() {
-    echo "usage: light LIGHT <on|off|toggle|brightness> [VALUE]" >&2
+    echo "usage: $PROG LIGHT <on|off|toggle|brightness> [VALUE]" >&2
 }
 
 
@@ -57,7 +59,7 @@ brightness() {
              "$(< ~/.homeassistant-url)"/api/services/light/turn_on
     else
         if ! given jq; then
-            echo 'error: `light` requires `jq` program' >&2
+            echo "$PROG: error: requires \`jq\` program" >&2
             return 3
         fi
 
@@ -73,7 +75,7 @@ brightness() {
             if [ "$(echo "$data" | jq .state)" = '"off"' ]; then
                 echo 0
             else
-                echo "error: light $light brightness not available" >&2
+                echo "$PROG: error: $light brightness not available" >&2
                 return 1
             fi
         else
