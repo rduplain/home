@@ -87,11 +87,21 @@ brightness() {
 power() {
     # Set light power state to one of "on", "off", or "toggle".
 
-    local action light state
+    local action brightness light setpoint state
 
     light="$1"
     state="$2"
     shift 2
+
+    # Support toggling if brightness is already set.
+    if [ "$state" = "toggle" ] && [ $# -gt 0 ]; then
+        setpoint="$1"
+        brightness=$(brightness "$light")
+        if [ "$brightness" -ne "$setpoint" ]; then
+            brightness "$light" "$setpoint"
+            return
+        fi
+    fi
 
     case "$state" in
         on|off)
@@ -136,7 +146,7 @@ main() {
 
     case "$cmd" in
         on|off|toggle)
-            power "$light" "$cmd"
+            power "$light" "$cmd" "$@"
             ;;
         brightness)
             brightness "$light" "$@"
