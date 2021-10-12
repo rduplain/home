@@ -19,8 +19,13 @@ usage() {
     echo "usage: light LIGHT <on|off|toggle|brightness> [VALUE]" >&2
 }
 
+
+### Utilities ###
+
 given() {
     # Check that the given commands exist.
+
+    local command
 
     for command in "$@"; do
         if ! which "$command" > /dev/null 2>&1; then
@@ -28,6 +33,9 @@ given() {
         fi
     done
 }
+
+
+### Command-Line Interface Subcommands ###
 
 brightness() {
     # Print brightness to stdout, a value from 0 (off) to 255 (fully bright).
@@ -75,6 +83,10 @@ brightness() {
 }
 
 power() {
+    # Set light power state to one of "on", "off", or "toggle".
+
+    local action light state
+
     light="$1"
     state="$2"
     shift 2
@@ -98,6 +110,8 @@ power() {
 }
 
 main() {
+    local cmd light
+
     if [ $# -ne 2 ]; then
         usage
     fi
