@@ -9,7 +9,7 @@
 #     curl -s -H "Authorization: Bearer $(< ~/.homeassistant)" \
 #                "$(< ~/.homeassistant-url)"/api/states | jq | less
 #
-# For an entity called `light.kitchen`, call:
+# For a simple usage example, with an entity called `light.kitchen`, call:
 #
 #     light kitchen toggle
 
