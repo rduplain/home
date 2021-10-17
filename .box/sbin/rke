@@ -21,21 +21,21 @@ qwertyrc() {
     cat - <<EOF
 # GNU/Linux x86_64
   --sys=linux --arch=x86_64 \\
-  --sha256=b2f45abe7bab2f78d11ef38d3957636f7799bcd79d476a8620f9c220477c8365 \\
+  --sha256=154d55b3a587edc2da497f621f2b302a393cf70e332001fcd2aad612dd479a41 \\
   --output="$RKE" --chmod=755 \\
-  $RKE_URL//download/v1.2.8/rke_linux-amd64
+  $RKE_URL//download/v1.3.1/rke_linux-amd64
 
 # GNU/Linux ARM
   --sys=linux --arch=arm --all-sub-arch \\
-  --sha256=28914237fdb8c0245f0fc236aa3981b0905fa9ae03d72d30401efa1d2d799c5b \\
+  --sha256=e9ae183289775bc262fdf8ed35189f1aa902b61f5af0b05ca0de40cb19e9ef38 \\
   --output="$RKE" --chmod=755 \\
-  $RKE_URL//download/v1.2.8/rke_linux-arm
+  $RKE_URL//download/v1.3.1/rke_linux-arm
 
 # macOS x86_64
   --sys=darwin --arch=x86_64 \\
-  --sha256=9c38dfa9e95b1e44d13a7039edea33dd2e46ceabd20dde0e9f50b1d8516e0dae \\
+  --sha256=c89a5b70ffc0dfdac49032ee4d2689bdb8219c3b270d5114c005a0584124c750 \\
   --output="$RKE" --chmod=755 \\
-  $RKE_URL/download/v1.2.8/rke_darwin-amd64
+  $RKE_URL/download/v1.3.1/rke_darwin-amd64
 EOF
 }
 
