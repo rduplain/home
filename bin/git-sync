@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fetch & rebase on tracked upstream branch.
+# Fetch upstream branch, rebase on it.
 
 main() {
     upstream=$(git for-each-ref --format='%(upstream:short)' \
