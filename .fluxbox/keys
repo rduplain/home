@@ -223,6 +223,7 @@ Control Escape :RootMenu
 ## Keyboard Macros ##
 Mod4 Shift 8     :MacroCmd {ExecCommand xdotool type --clearmodifiers "•"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
 Mod4 Shift minus :MacroCmd {ExecCommand xdotool type --clearmodifiers "—"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
+Mod4 Shift period :MacroCmd {ExecCommand xdotool type --clearmodifiers "≥"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
 Mod4 Shift Left  :MacroCmd {ExecCommand xdotool type --clearmodifiers "←"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
 Mod4 Shift Right :MacroCmd {ExecCommand xdotool type --clearmodifiers "→"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
 Mod4 Shift Up    :MacroCmd {ExecCommand xdotool type --clearmodifiers "↑"} {ExecCommand xdotool keyup Super_L} {ExecCommand xdotool keyup Shift_L}
