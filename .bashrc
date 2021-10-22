@@ -574,6 +574,11 @@ if command_exists steam; then
     alias steam="PATH=/usr/local/bin:/usr/bin:/bin $(which steam)"
 fi
 
+if command_exists gnucash; then
+    # Skip pyenv when running `gnucash`.
+    alias gnucash="PATH=/usr/local/bin:/usr/bin:/bin $(which gnucash)"
+fi
+
 # Enable color support of ls.
 if [ "$TERM" != "dumb" ]; then
     if command_exists dircolors; then
