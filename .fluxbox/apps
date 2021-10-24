@@ -76,6 +76,14 @@
   [Fullscreen]  {no}
   [Position]    (UPPERRIGHT)    {0 0}
 [end]
+[app] (class=StardewValley.*)
+  [Deco]        {NONE}
+  [Dimensions]  {1920 1080}
+  [Fullscreen]  {no}
+  [Head]        {1}
+  [Position]    (UPPERLEFT)     {0 0}
+  [Workspace]   {0}
+[end]
 [app] (name=streaming_client)
   [Fullscreen]  {no}
   [Head]        {2}
