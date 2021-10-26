@@ -2,6 +2,13 @@
 # Proxy TCP port.
 #
 # In general, root access is required in order to bind to a port below 1024.
+#
+# This is not for industrial use, but a makeshift contraption for development.
+# Demo:
+#
+#     python -m http.server 8000     # in one terminal session
+#     tcp-proxy 8001 localhost 8000  # in another
+#     curl localhost:8001            # in yet another
 
 usage() {
     echo 'usage: tcp-proxy LOCAL_PORT REMOTE_HOSTNAME REMOTE_PORT' >&2
