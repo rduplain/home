@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Wrap `rofi` application launcher with config, using only its "run" mode.
+# Run a configured `rofi` application launcher (using only its "run" feature).
 
 main() {
     DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
