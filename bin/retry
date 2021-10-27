@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Run given command, retrying indefinitely on failure.
 
-SLEEP=60
+RETRY_INTERVAL=${RETRY_INTERVAL:-60}
 
 current_time() {
     # Provide current time in seconds to stdout.
@@ -24,11 +24,11 @@ main() {
         start_time=`current_time`
         $command
         let delta=`current_time`-start_time
-        if [ $delta -lt $SLEEP ]; then
+        if [ $delta -lt $RETRY_INTERVAL ]; then
             # If command has been running longer than sleep threshold, then
             # retry immediately to preserve whatever it is that we are
             # preserving; otherwise, back off by sleeping.
-            sleep $SLEEP
+            sleep $RETRY_INTERVAL
         fi
         let count=count+1
     done
