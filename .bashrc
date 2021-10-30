@@ -569,15 +569,17 @@ if [ -n "$JPY_PARENT_PID" ]; then
     ___completion_boot  # Support in-notebook completion.
 fi
 
-if command_exists steam; then
-    # Override pyenv in order for Steam to pick up python3-apt for auto-config.
-    alias steam="PATH=/usr/local/bin:/usr/bin:/bin $(which steam)"
-fi
+# Support commands that expect system interpreter with dpkg-installed packages.
+USE_SYSTEM_PATH=(
+    gnucash
+    steam
+)
 
-if command_exists gnucash; then
-    # Skip pyenv when running `gnucash`.
-    alias gnucash="PATH=/usr/local/bin:/usr/bin:/bin $(which gnucash)"
-fi
+for cmd in $USE_SYSTEM_PATH; do
+    if command_exists $cmd; then
+        eval "alias $cmd='PATH=/usr/local/bin:/usr/bin:/bin $(which $cmd)'"
+    fi
+done
 
 # Enable color support of ls.
 if [ "$TERM" != "dumb" ]; then
