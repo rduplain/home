@@ -571,6 +571,7 @@ fi
 
 # Support commands that expect system interpreter with dpkg-installed packages.
 USE_SYSTEM_PATH=(
+    dropbox
     gnucash
     steam
 )
