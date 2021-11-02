@@ -11,5 +11,6 @@
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter.notebook.ipynb"
     },
-    "python.showStartPage": false
+    "python.showStartPage": false,
+    "workbench.editor.untitled.hint": "hidden"
 }
