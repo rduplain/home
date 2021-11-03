@@ -269,6 +269,7 @@ prepend PATH \
         "$PWD"/.reqd/bin \
         "$PWD"/env/bin \
         "$PWD"/.env/bin \
+        "$PWD"/venv/bin \
         "$PWD"/.venv/bin \
         "$PWD"/node_modules/.bin
 
