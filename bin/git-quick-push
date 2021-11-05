@@ -2,7 +2,8 @@
 # Push remote-only branch using top-line summary of most recent commit.
 #
 # Relevant details are inferred based on current remote tracking branch.
-# When GitHub, assume that the pull request is on the same remote as upstream.
+# When GitHub, open a pull request, assuming that it is on the same remote
+# as upstream.
 #
 # Projects with trunk-based development (i.e. keep branches short-lived and
 # prioritize merging to mainline) and code review on each merge end up with
