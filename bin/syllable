@@ -60,7 +60,7 @@ if nltk_data:
 try:
     CMUDICT = cmudict.dict()
 except LookupError:
-    nltk.download("cmudict", download_dir=nltk_data)  # nltk_data can be None
+    nltk.download("cmudict", download_dir=nltk_data)  # nltk_data can be None.
     CMUDICT = cmudict.dict()
     print("Ready!", file=sys.stderr)
 
@@ -133,13 +133,13 @@ class SyllableCounter:
 
     def _count_cmudict(self, word):
         "Count the word's syllables, as known by cmudict, None if unknown."
-        # cmudict maps
-        # lowercase word to [<pronunciation 1>, ..., <pronunciation N>].
+        # Count the syllables of the shortest pronunciation alternative.
+        #
+        # cmudict maps lowercase word to
+        # [<pronunciation 1>, ..., <pronunciation N>].
         #
         # <pronunciation> is a list of phoneme with vowels marked for stress,
         # 1=primary, 2=secondary, 0=no stress.
-        #
-        # Count the syllables of the shortest pronunciation alternative.
         try:
             pronunciations = self.pronunciation_dict[word.lower()]
         except KeyError:
