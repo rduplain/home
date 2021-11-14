@@ -914,6 +914,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; Docker
 (feature 'dockerfile-mode)
 
+;;; Elixir
+(feature 'elixir-mode)
+
 ;;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 
