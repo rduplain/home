@@ -920,6 +920,16 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 
+;;; Erlang
+(let ((erlang-site-lisp "/usr/share/emacs/site-lisp/erlang"))
+  (when (file-exists-p erlang-site-lisp)
+    (add-to-list 'load-path erlang-site-lisp)
+    (defun erlang-mode-boot ()
+      (unless (boundp 'erlang)
+        (require 'erlang)
+        (erlang-mode)))
+    (add-to-list 'auto-mode-alist '("\\.erl$" . erlang-mode-boot))))
+
 ;;; Go (golang)
 (feature 'go-mode)
 (add-hook 'go-mode-hook 'flyspell-prog-mode)
