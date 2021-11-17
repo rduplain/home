@@ -117,6 +117,7 @@ Control Mod4 BackSpace     :Close
 ## Application Launchers ##
 Mod4 a :ArrangeWindows
 Mod4 b :ExecCommand VirtualBox
+Mod4 Mod1 b :ExecCommand virt-manager
 Mod4 c :ExecCommand gnome-control-center
 Mod4 Mod1 c :ExecCommand mate-control-center
 Mod4 d :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
