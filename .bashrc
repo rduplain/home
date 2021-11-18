@@ -570,6 +570,11 @@ if [ -n "$JPY_PARENT_PID" ]; then
     ___completion_boot  # Support in-notebook completion.
 fi
 
+if [ -e "$HOME"/.android/sdk ]; then
+    export ANDROID_SDK_ROOT="$HOME"/.android/sdk
+    alias adb="$ANDROID_SDK_ROOT"/platform-tools/adb
+fi
+
 # Support commands that expect system interpreter with dpkg-installed packages.
 USE_SYSTEM_PATH=(
     dropbox
