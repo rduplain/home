@@ -20,6 +20,7 @@ PACKAGES3="$PACKAGES3 nltk syllables"
 PACKAGES3="$PACKAGES3 httpie"
 PACKAGES3="$PACKAGES3 youtube-dl"
 PACKAGES3="$PACKAGES3 speedtest-cli"
+PACKAGES3="$PACKAGES3 mendel-development-tool"
 
 check() {
     reqd_run_once
