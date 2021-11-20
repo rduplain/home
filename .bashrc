@@ -573,6 +573,7 @@ fi
 if [ -e "$HOME"/.android/sdk ]; then
     export ANDROID_SDK_ROOT="$HOME"/.android/sdk
     alias adb="$ANDROID_SDK_ROOT"/platform-tools/adb
+    alias fastboot="$ANDROID_SDK_ROOT"/platform-tools/fastboot
 fi
 
 # Support commands that expect system interpreter with dpkg-installed packages.
