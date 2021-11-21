@@ -583,7 +583,7 @@ USE_SYSTEM_PATH=(
     steam
 )
 
-for cmd in $USE_SYSTEM_PATH; do
+for cmd in "${USE_SYSTEM_PATH[@]}"; do
     if command_exists $cmd; then
         eval "alias $cmd='PATH=/usr/local/bin:/usr/bin:/bin $(which $cmd)'"
     fi
