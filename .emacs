@@ -925,6 +925,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
   (when (file-exists-p erlang-site-lisp)
     (add-to-list 'load-path erlang-site-lisp)
     (defun erlang-mode-boot ()
+      "Lazy load `erlang-mode' and its supporting modules."
       (unless (boundp 'erlang)
         (require 'erlang)
         (erlang-mode)))
