@@ -672,13 +672,15 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 ;;; Set a global key for REPL, in all modes.
 (defun run-repl-rebind-default ()
+  "Rebind keybinding to default `run-repl' implementation."
   (global-set-key run-repl-kbd 'run-repl))
 
+;; Call to set default keybinding for `run-repl'.
 (run-repl-rebind-default)
 
 ;;; Provide an alternate key binding to restore default `run-repl` key binding.
 (defun run-repl-reset ()
-  "Reset 'run-repl key binding (since it rebinds itself to the new REPL)."
+  "Reset `run-repl' key binding (since it rebinds itself to the new REPL)."
   (interactive)
   (run-repl-rebind-default)
   (message "Reset 'run-repl key binding: %s" run-repl-kbd-str))
