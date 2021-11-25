@@ -194,6 +194,7 @@
   (setq homegit-magit-hook? nil))
 
 (defun homegit-magit-hook ()
+  "Teach `magit' how to use `homegit`."
   (unless homegit-magit-hook?
     (let ((homegit-path (expand-file-name ".homegit")))
       (when (and (file-exists-p homegit-path)
