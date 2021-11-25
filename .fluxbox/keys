@@ -24,11 +24,6 @@ OnDesktop Mouse3               :RootMenu
 Mod1 Tab        :NextWindow (workspace=[current])
 Mod1 Shift Tab  :PrevWindow (workspace=[current])
 
-Mod4 Tab        :NextWindow (workspace=[current])
-Mod4 Shift Tab  :PrevWindow (workspace=[current])
-
-Mod4 space      :NextWindow (workspace=[current])
-
 
 ## Workspace ##
 Mod4 Mod1 n              :NextWorkspace
