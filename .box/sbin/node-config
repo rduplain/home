@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Configure Node.js.
 
+NPM_PACKAGES="@zwave-js/zwlf-parser"
+
 check() {
     reqd_run_once
 }
@@ -33,6 +35,9 @@ install() {
     reqd_echo "yarn v$(yarn --version)"
     reqd_echo "$(bsc -version)"
     reqd_echo "$(nbb -e '(print "nbb answer:" (* 6 7))')"
+
+    reqd_echo "Installing $NPM_PACKAGES ..."
+    npm install -g "$NPM_PACKAGES"
 }
 
 reqd_main "$@"
