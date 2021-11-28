@@ -25,8 +25,8 @@ install() {
 
     export PATH="$RBENV_ROOT"/bin:"$RBENV_ROOT"/shims:"$PATH"
 
-    rbenv install --skip-existing 3.0.2
-    rbenv global 3.0.2
+    rbenv install --skip-existing 3.0.3
+    rbenv global 3.0.3
 }
 
 reqd_main "$@"
