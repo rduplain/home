@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Configure Node.js.
 
-NPM_PACKAGES="@zwave-js/zwlf-parser"
+NPM_PACKAGES="http-server @zwave-js/zwlf-parser"
 
 check() {
     reqd_run_once
