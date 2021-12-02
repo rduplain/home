@@ -21,6 +21,7 @@ PACKAGES3="$PACKAGES3 httpie"
 PACKAGES3="$PACKAGES3 youtube-dl"
 PACKAGES3="$PACKAGES3 speedtest-cli"
 PACKAGES3="$PACKAGES3 mendel-development-tool"
+PACKAGES3="$PACKAGES3 pdfx"
 
 check() {
     reqd_run_once
