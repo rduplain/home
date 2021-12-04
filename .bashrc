@@ -321,6 +321,9 @@ export VISUAL=vi
 export TEXEDIT=$EDITOR
 export PAGER=less
 
+export BRZ_LOG=/dev/null  # Disable ~/.brz.log file.
+export BZR_LOG=/dev/null  # Disable ~/.bzr.log file.
+
 # Make `less` more friendly for non-text input files; see lesspipe(1).
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
