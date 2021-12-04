@@ -553,7 +553,7 @@ function ___completion_boot() {
 }
 
 if command_exists brew && [ "$BASH_VERSINFO" -eq 3 ]; then
-    # Source completion scripts with brew-installed completions on macOS bash.
+    # Source completion scripts from brew-installed completions on macOS bash.
     receive $(brew --prefix)/etc/bash_completion
     receive $(brew --prefix)/Homebrew/completions/bash/brew
     ___completion_custom
