@@ -37,7 +37,7 @@ install() {
     reqd_echo "$(nbb -e '(print "nbb answer:" (* 6 7))')"
 
     reqd_echo "Installing $NPM_PACKAGES ..."
-    npm install -g "$NPM_PACKAGES"
+    npm install -g $NPM_PACKAGES
 }
 
 reqd_main "$@"
