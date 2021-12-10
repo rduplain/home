@@ -125,11 +125,3 @@ URxvt*color15:                 COLOR_TERM_WHITE
 URxvt.perl-ext-common: default,font-size,-searchable-scrollback
 URxvt.urlLauncher: /dev/null
 URxvt.matcher.button: 0
-
-yeahconsole*toggleKey: Win+t
-yeahconsole*consoleHeight: 20
-yeahconsole*aniDelay: 0
-yeahconsole*stepSize: 50
-yeahconsole*faceSize: 11
-yeahconsole*restart: 1
-yeahconsole*restartHidden: 1
