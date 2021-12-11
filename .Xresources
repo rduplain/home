@@ -50,7 +50,7 @@ XTerm*pointerColorBackground:  COLOR_BG
 XTerm*pointerColor:            COLOR_FG
 #endif
 
-#ifdef COLOR_TERM_BLACK
+#if defined(COLOR_TERM_BLACK)
 XTerm*color0:                  COLOR_TERM_BLACK
 XTerm*color1:                  COLOR_TERM_DARK_RED
 XTerm*color2:                  COLOR_TERM_DARK_GREEN
@@ -103,7 +103,7 @@ URxvt*highlightColor:          COLOR_TERM_DARK_BLUE
 URxvt*highlightTextColor:      COLOR_TERM_TRUE_WHITE
 #endif
 
-#ifdef COLOR_TERM_BLACK
+#if defined(COLOR_TERM_BLACK)
 URxvt*color0:                  COLOR_TERM_BLACK
 URxvt*color1:                  COLOR_TERM_DARK_RED
 URxvt*color2:                  COLOR_TERM_DARK_GREEN
