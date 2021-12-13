@@ -2,7 +2,7 @@
 # box: configure Unix host at user level.
 #
 # Require no `sudo` but assume system-level tools are in place.
-# Assume that `.bootstrap.bash` has provided initial setup.
+# Assume `.bootstrap.bash` has provided initial setup.
 
 # Exit immediately if a command error or non-zero return occurs.
 set -e
