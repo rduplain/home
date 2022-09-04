@@ -5,6 +5,8 @@
     ui = auto
 [core]
     excludesfile = ~/.gitignore
+[init]
+    defaultbranch = main
 [fetch]
     prune = true
 [gc]
