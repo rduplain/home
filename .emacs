@@ -545,6 +545,13 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;; Always kill a running compilation process before starting a new one.
 (setq compilation-always-kill t)
 
+;; Support terminal color output in *compilation* buffer.
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region compilation-filter-start (point)))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
 ;; Support a configurable `make` recipe, global for all buffers.
 (defvar compile-command-recipe nil "make recipe")
 
