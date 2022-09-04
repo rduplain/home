@@ -7,9 +7,11 @@
 #
 # Use only the Python standard library. Require Python 3.6+.
 
+PROG = 'repos-github'
+
 import sys
 if sys.version_info < (3, 6):
-    sys.stderr.write('repos-github: error: Python 3.6+ required\n')
+    sys.stderr.write(f'{PROG}: error: Python 3.6+ required\n')
     sys.exit(128)
 
 
@@ -90,7 +92,7 @@ def main():
 class ArgumentParser(argparse.ArgumentParser):
     "Parse command-line arguments, mixing in required environment variables."
 
-    PROG = 'repos-github'
+    PROG = PROG
     BASE_URL = GITHUB_BASE_URL
 
     @classmethod
