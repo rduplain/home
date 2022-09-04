@@ -361,7 +361,10 @@ def test():
     git@github.com:octocat/Hello-World.git
     >>>
     """
-    doctest.testmod()
+    failure_count, test_count = doctest.testmod()
+    if not failure_count:
+        print(f"{PROG}: self-test: Ran {test_count} tests. All passed.")
+    return failure_count
 
 
 class TestResponse:
@@ -506,4 +509,4 @@ sample = """
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
