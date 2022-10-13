@@ -3,6 +3,8 @@
     ignoredhook = false
 [color]
     ui = auto
+[color "grep"]
+    match = blue bold
 [core]
     excludesfile = ~/.gitignore
 [init]

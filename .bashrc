@@ -352,6 +352,9 @@ export LESS_TERMCAP_so=$(printf "\e[1;34m")     # mode standout start
 export LESS_TERMCAP_ue=$(printf "\e[0m")        # mode underline end
 export LESS_TERMCAP_us=$(printf "\e[1;37m")     # mode underline start
 
+# Set `grep --color` output to blue.
+export GREP_COLOR="01;34"
+
 alias pydoc='python3 -m pydoc'
 alias emacs='emacs -nw'
 
