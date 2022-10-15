@@ -66,6 +66,11 @@
 [app] (class=love)
   [Deco]        {NONE}
 [end]
+[app] (name=PlaydateSimulator)
+  [Deco]        {NONE}
+  [Layer]       {2}
+  [Position]    (UPPERRIGHT)     {0 0}
+[end]
 [app] (name=Polytopia.x86_64) (class=Polytopia.x86_64)
   [Deco]        {NONE}
   [Head]        {2}
