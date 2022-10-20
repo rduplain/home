@@ -113,6 +113,7 @@
 ;;; Inform Emacs of a dark color background.
 ;;; Essential for modes (e.g. rst-mode) which highlight sections & blocks.
 (setq frame-background-mode 'dark)
+(setq background "black")  ; For use within .emacs configuration.
 
 ;;; Show the column number in addition to the line number.
 (setq-default column-number-mode t)
@@ -420,7 +421,7 @@
 
 (custom-set-faces
  `(aw-leading-char-face
-   ((t (:background "black" :foreground "blue" :weight bold))))
+   ((t (:background ,background :foreground "blue" :weight bold))))
  `(aw-minibuffer-leading-char-face
    ((t (:inherit aw-leading-char-face)))))
 
@@ -916,7 +917,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (defmacro color-colorforth-face (color)
   "Create definition for `custom-set-faces' to set color to that of itself."
   `(list (intern (concat "colorforth-" ,color "-face"))
-         (list (list t (list :background "black" :foreground ,color)))))
+         (list (list t (list :background ,background :foreground ,color)))))
 
 (custom-set-faces
  (color-colorforth-face "cyan")
@@ -1086,7 +1087,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 (custom-set-faces
  `(utop-prompt
-   ((t (:background "black" :foreground "blue" :weight bold)))))
+   ((t (:background ,background :foreground "blue" :weight bold)))))
 
 (with-eval-after-load 'utop
   ;; Disable `utop' next-phrase to evaluate phrase in place. Also, it is broken.
