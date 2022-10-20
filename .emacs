@@ -904,6 +904,27 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (omit-files "^\\.cpcache$" "^\\.nrepl-port$"
             "^\\.cljs_node_repl$" "^\\.shadow-cljs$")
 
+;;; colorForth
+(require 'colorforth-mode (.emacs.d "colorforth-mode.el") 'noerror)
+
+(add-hook 'colorforth-mode-hook
+          (lambda ()
+            (set-fill-column 64)
+            (setq-local whitespace-style '(face tabs trailing))
+            (whitespace-mode 1)))
+
+(defmacro color-colorforth-face (color)
+  "Create definition for `custom-set-faces' to set color to that of itself."
+  `(list (intern (concat "colorforth-" ,color "-face"))
+         (list (list t (list :background "black" :foreground ,color)))))
+
+(custom-set-faces
+ (color-colorforth-face "cyan")
+ (color-colorforth-face "green")
+ (color-colorforth-face "red")
+ (color-colorforth-face "white")
+ (color-colorforth-face "yellow"))
+
 ;;; Conf
 (add-hook 'conf-mode-hook 'flyspell-prog-mode)
 (add-to-list 'auto-mode-alist '("inputrc$" . conf-mode))
