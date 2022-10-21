@@ -5,6 +5,7 @@
 .emacs.*
 *.scratch
 scratch.*
+scratch/
 .screenrc-*
 secret.*
 .*.swp
