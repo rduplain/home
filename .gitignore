@@ -9,6 +9,7 @@ scratch/
 .screenrc-*
 secret.*
 .*.swp
+target/
 .terraform.tfstate.*
 .venv
 .vscode/
