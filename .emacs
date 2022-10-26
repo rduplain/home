@@ -272,7 +272,10 @@
             "^\\.emacs\\.desktop.*$"
 
             ;; Empty target files from make (to record events).
-            "^\\.ts-.*$" "^\\..*-install"
+            "^\\.ts-.*$" "^\\..*-install$"
+
+            ;; Additional intermediate build files.
+            "^\\..*\\.cmd$" "^\\..*\\.tmp$"
 
             ;; Log files.
             "\\.log$"
