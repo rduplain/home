@@ -3,6 +3,7 @@
 .attach_pid*
 .bashrc
 .emacs.*
+.*-local
 *.scratch
 scratch.*
 scratch/

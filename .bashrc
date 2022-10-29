@@ -653,6 +653,8 @@ alias qwerty.sh="curl --proto '=https' --tlsv1.2 -sSf $Q | Q=$Q sh -s -"
 receive "$HOME"/.bashrc-local
 receive "$HOME"/.env
 
-# Source all .bashrc found in directory ancestry, in order.
+# Source all .bashrc and .env found in directory ancestry, in order.
 # (Keep this at the end of .bashrc to allow overrides.)
-walk_root_to_curdir omit_home source_these .bashrc .bashrc-local .env #dir
+walk_root_to_curdir omit_home source_these \
+    .env .env-local \
+    .bashrc .bashrc-local
