@@ -1208,6 +1208,7 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 (add-to-list 'auto-mode-alist '("\\.env$" . sh-mode))
 (add-to-list 'auto-mode-alist '("/?env$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.qwertyrc$" . sh-mode))
+(add-to-list 'interpreter-mode-alist '("busybox" . sh-mode))
 (add-hook 'sh-mode-hook 'flyspell-prog-mode)
 (add-hook 'sh-mode-hook '(lambda ()
                            (setq-local company-minimum-prefix-length 3)))
