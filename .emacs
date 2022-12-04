@@ -774,6 +774,8 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 
 ;;; C
 (add-hook 'c-mode-hook 'flyspell-prog-mode)
+(setq-default c-basic-offset 4
+              c-default-style "k&r")
 
 ;;; C++
 (add-hook 'c++-mode-hook 'flyspell-prog-mode)
