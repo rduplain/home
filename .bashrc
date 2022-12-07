@@ -353,7 +353,8 @@ export LESS_TERMCAP_ue=$(printf "\e[0m")        # mode underline end
 export LESS_TERMCAP_us=$(printf "\e[1;37m")     # mode underline start
 
 # Configure to show color without line wrapping (because could break color).
-export LESS="--quit-if-one-screen --raw-control-chars --chop-long-lines"
+LESS="--quit-if-one-screen --raw-control-chars --chop-long-lines --tabs=4"
+export LESS
 
 # Set `grep --color` output to blue.
 export GREP_COLOR="01;34"
