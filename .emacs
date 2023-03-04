@@ -446,6 +446,11 @@
 ;;; Echo Area / Mode Line, display mode line in minibuffer / echo area.
 (feature 'mini-modeline)
 
+;; Remove mini-modeline from electric buffer.
+(add-hook 'electric-buffer-menu-mode-hook
+          '(lambda ()
+             (setq-local mini-modeline-r-format nil)))
+
 ;;; Flyspell, on-the-fly spellcheck.
 
 ;; Keep quiet.
