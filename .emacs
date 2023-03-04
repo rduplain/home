@@ -1321,6 +1321,9 @@ Example: (add-completion-at-point-function 'a-mode 'do-completion-at-point)"
 ;;; Visit current directory. This generally runs before any other buffers open.
 (find-file ".")
 
+;;; Always display mode line in minibuffer / echo area.
+(mini-modeline-mode t)
+
 ;;; Save buffers visiting files on `C-x s' `save-some-buffers' without asking.
 (add-hook 'hack-local-variables-hook
           '(lambda ()
