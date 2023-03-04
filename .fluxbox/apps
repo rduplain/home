@@ -76,6 +76,10 @@
   [Head]        {2}
   [Position]    (UPPERLEFT)     {0 0}
 [end]
+[app] (name=qFlipper) (class=qFlipper)
+  [Position]    (UPPERLEFT)     {0 0}
+  [Head]        {1}
+[end]
 [app] (name=signal) (class=Signal) (role=browser-window)
   [Dimensions]  {1044 800}
   [Fullscreen]  {no}
