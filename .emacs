@@ -426,6 +426,10 @@
 (global-set-key (kbd "C-x /") 'winner-undo)
 (global-set-key (kbd "C-x \\") 'winner-redo)
 
+;;; Golden Radio, use sensible sizing beyond two windows.
+(feature 'golden-ratio
+  (golden-ratio-mode 1))
+
 ;;; Ace Window, jump to windows with M-o and home row keys.
 (feature 'ace-window)
 
