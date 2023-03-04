@@ -126,6 +126,11 @@
 ;;; Don't just show me buffers, interact!
 (global-set-key (kbd "C-x C-b") 'electric-buffer-list)
 
+;; Remove mode line from electric buffer.
+(add-hook 'electric-buffer-menu-mode-hook
+          '(lambda ()
+             (setq-local mode-line-format '())))
+
 ;; Set electric buffer key binding to sort by filename.
 (add-hook 'electric-buffer-menu-mode-hook
           '(lambda ()
