@@ -7,4 +7,4 @@
 #
 # https://flathub.org/apps/details/com.valvesoftware.Steam
 
-exec flatpak run com.valvesoftware.Steam
+exec flatpak run com.valvesoftware.Steam "$@"
