@@ -104,6 +104,9 @@ bindkey -k k8 caption splitonly
 # Use F9 to turn the status bar *on* at the bottom of the screen.
 bindkey -k k9 caption always
 
+# Make window borders invisible.
+rendition so "="
+
 # Set TERM=screen.
 term 'screen'
 

@@ -159,6 +159,11 @@
 ;;; Truncate long lines on partial windows.
 (setq truncate-partial-width-windows t)
 
+;;; Make window borders invisible.
+(custom-set-faces
+ `(vertical-border
+   ((t (:background ,background :foreground ,background)))))
+
 ;;; Remove trailing whitespace before saving files.
 (add-hook 'before-save-hook
           '(lambda ()
@@ -432,6 +437,9 @@
    ((t (:background ,background :foreground "blue" :weight bold))))
  `(aw-minibuffer-leading-char-face
    ((t (:inherit aw-leading-char-face)))))
+
+;;; Echo Area / Mode Line, display mode line in minibuffer / echo area.
+(feature 'mini-modeline)
 
 ;;; Flyspell, on-the-fly spellcheck.
 
