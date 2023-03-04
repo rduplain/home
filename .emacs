@@ -118,6 +118,11 @@
 ;;; Show the column number in addition to the line number.
 (setq-default column-number-mode t)
 
+;;; Remove background color from mode line.
+(custom-set-faces
+ `(mode-line
+   ((t (:background ,background)))))
+
 ;;; Don't just show me buffers, interact!
 (global-set-key (kbd "C-x C-b") 'electric-buffer-list)
 
