@@ -259,8 +259,6 @@ prepend_paths "$HOME"/.npm-global
 
 walk_root_to_curdir nvm_use
 
-prepend LD_LIBRARY_PATH /usr/lib/libreoffice/program
-
 # Add Makefile.d paths here to maintain priority within .bashrc PATH settings.
 prepend PATH \
         "$PWD"/bin \
