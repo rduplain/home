@@ -10,12 +10,16 @@ fi
 export ENVTOOLS="pyenv rbenv" # python, ruby
 export PYENV_ROOT="$HOME/.pyenv"
 
+export BASHRC_CACHE="$HOME"/.bash_cache
+
 hash -r # Forget all remembered locations of `shopt -s checkhash`.
 
 function rehash() {
     # Re-read bashrc and perform relevant rehash routines.
     #
     # Limitation: loaded completion functions are not rehashed.
+
+    rm -f "$BASHRC_CACHE"
 
     for envtool in $ENVTOOLS; do
         command_exists $envtool && $envtool rehash
@@ -233,29 +237,40 @@ function prepend_paths() {
     prepend MANPATH "${man[@]}"
 }
 
-prepend_paths /opt/local /opt/* /usr/local /usr /
+if [ -e "$BASHRC_CACHE" ]; then
+    . "$BASHRC_CACHE"
+else
+    prepend_paths /opt/local /opt/* /usr/local /usr /
 
-prepend_paths \
-    "$HOME" \
-    "$HOME"/.box/opt/* "$HOME"/.box/usr "$HOME"/.box \
-    "$HOME"/.opt/* \
-    "$HOME"/.local
+    prepend_paths \
+        "$HOME" \
+        "$HOME"/.box/opt/* "$HOME"/.box/usr "$HOME"/.box \
+        "$HOME"/.opt/* \
+        "$HOME"/.local
 
-for envtool in $ENVTOOLS; do
-    prepend_paths "$HOME/.${envtool}"
-    when_command $envtool prepend PATH "$HOME/.$envtool/shims"
-done
+    for envtool in $ENVTOOLS; do
+        prepend_paths "$HOME/.${envtool}"
+        when_command $envtool prepend PATH "$HOME/.$envtool/shims"
+    done
 
-command_exists opam && file_exists "$HOME"/.opam && eval "$(opam env)" # ocaml
+    command_exists opam && file_exists "$HOME"/.opam && eval "$(opam env)" # ocaml
 
-# Load programming environments which only require setting PATH.
-prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin # emacs, rust
+    # Load programming environments which only require setting PATH.
+    prepend PATH "$HOME"/.cask/bin "$HOME"/.cargo/bin # emacs, rust
 
-# On `npm install -g` permissions errors, ensure ~/.npmrc is configured:
-#
-#     npm config set prefix '~/.npm-global'
-#
-prepend_paths "$HOME"/.npm-global
+    # On `npm install -g` permissions errors, ensure ~/.npmrc is configured:
+    #
+    #     npm config set prefix '~/.npm-global'
+    #
+    prepend_paths "$HOME"/.npm-global
+
+    cat > "$BASHRC_CACHE" <<EOF
+export PATH="$PATH"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
+export MANPATH="$MANPATH"
+EOF
+fi
 
 walk_root_to_curdir nvm_use
 
