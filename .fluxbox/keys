@@ -125,7 +125,7 @@ Mod4 g :ExecCommand gimp
 Mod4 k :ExecCommand xkill
 Mod4 l :ExecCommand xscreensaver-command -lock
 Mod4 Mod1 l :MacroCmd {ExecCommand xscreensaver-command -activate}
-# Mod4 m
+Mod4 m :ExecCommand 1password
 # Mod4 n is next workspace
 # Mod4 o
 # Mod4 p is prev workspace
