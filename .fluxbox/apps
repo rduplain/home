@@ -1,3 +1,7 @@
+[app] (name=1password) (class=1Password) (role=browser-window)
+  [Dimensions]  {800 594}
+  [Position]    (UPPERRIGHT)    {0 0}
+[end]
 [app] (role=browser) (google-chrome.*)
   [Deco]        {NORMAL}
   [Position]    (UPPERLEFT)     {0 0}
