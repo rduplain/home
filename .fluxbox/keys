@@ -165,7 +165,7 @@ Control Mod4 m         :MoveTo    0    0 LowerLeft
 Control Mod4 comma     :MoveTo    *    0 LowerRight
 Control Mod4 period    :MoveTo    0    0 LowerRight
 Control Mod4 j         :MoveTo    0    * Left
-Control Mod4 k         :MoveTo  200  200 UpperLeft
+Control Mod4 k         :MoveTo  363    * UpperLeft
 Control Mod4 l         :MoveTo    0    * Right
 Control Mod4 u         :MoveTo    0    0 UpperLeft
 Control Mod4 i         :MoveTo    *    0 Upper
